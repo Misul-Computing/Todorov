@@ -1,6 +1,6 @@
 # project_plan
 
-status: current (as of 2026-04-23).
+status: current (as of 2026-04-24).
 
 this file is the canonical, persistent project state. any agent picking up the project starts here. updating this file is a hard rule with prosecutor enforcement (see `CLAUDE.md` and the rule section at the bottom of this file).
 
@@ -135,7 +135,7 @@ we have two testing environments in this project:
 
 the experimental method for the neural-model backlog has a pre-intervention preparation stage:
 
-0. **prepare research and test material before implementation.** use `wiki/synthesis/neural_model_research_test_material_plan.md` and the nine mechanism dossiers as the required front door. no test is accepted until its dossier states the claim, test material, control set, telemetry, and kill condition. the first executable target after dossiers is a tiny trainable neural-model mirror on the same latent worlds as the symbolic battery.
+0. **prepare research and test material before implementation.** use `wiki/synthesis/neural_model_research_test_material_plan.md` and the nine mechanism dossiers as the required front door. no test is accepted until its dossier states the claim, test material, control set, telemetry, and kill condition. the hard symbolic test-material package now provides the completed symbolic-verification layer; the next executable target is a tiny trainable neural-model mirror on the same latent worlds.
 
 after that preparation stage, when the architecture backlog is explicitly reactivated:
 
@@ -275,6 +275,7 @@ every entry below is an append-only record of a change to this file. format: `da
 - **2026-04-23** — deyan todorov — research recovery and recent spiking-source check promoted `wiki/synthesis/indexed_reconstruction_compression.md` as the compact-memory proof surface after the correction-field null result. the new external sources are recorded narrowly: complemented-neuron ternary snns and neuronspark-0.9b support preserving membrane or subthreshold state around discrete events, but they do not prove retrieval capacity for the current model. the immediate-next-action field now records chapter 1 as review-ready after the math correction pass and chapter 2 as outline-only.
 - **2026-04-23** — deyan todorov — approved neural-model research/test-material preparation plan added. the old todorov architecture is now treated as historical evidence; the neural model is the active scientific object. new synthesis article and nine mechanism dossiers define the pre-test research contract for local neuron state, memory formation, addressing, interference, compression, reconstruction, replay/rewrite, iterative rollout, and trainability. no paid compute or intervention selection is authorised by this update.
 - **2026-04-24** — deyan todorov — first hard symbolic neural-model test-material package implemented. `neuroloc/data/nm_worlds.py` now exposes hard symbolic contracts and deterministic policies; `neuroloc/simulations/memory/nm_hard_symbolic_test_material.py` records the metrics artifact; `hard_symbolic_nm` is a new suite with smoke and hard profiles. the package covers all ten v1 gates, including reasoning, imagination/recombination, and compression. validation passed for 23 focused tests, both suite profiles, and repository collection now reports 290 tests. no paid compute, full-model integration, or intervention selection is authorised by this update.
+- **2026-04-24** — deyan todorov — hard symbolic neural-model test-material package documented at `wiki/tests/hard_symbolic_nm_test_material.md`. the page records what the tests prove, what they do not prove, the validation record, and the next executable target: a tiny trainable neural-model mirror on the same latent worlds.
 
 ## the rule
 
@@ -295,6 +296,7 @@ the update history at the bottom of this file is append-only. every change to th
 
 - [[OPERATING_DIRECTIVE]]
 - [[neural_model_research_test_material_plan]]
+- [[tests/hard_symbolic_nm_test_material]]
 - [[substrate_requires_architectural_change]]
 - [[phase1_evaluation_surface_for_neural_models]]
 - [[synthetic_shared_world_bridge]]

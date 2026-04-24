@@ -1,6 +1,6 @@
 # synthetic shared-world bridge
 
-status: current (as of 2026-04-23).
+status: current (as of 2026-04-24).
 
 ## the claim
 
@@ -193,6 +193,8 @@ forcing a separate reasoning benchmark later.
 - [[training_objective_vs_architectural_goal]]
 - [[substrate_requires_architectural_change]]
 - [[slot_memory_design]]
+- [[tests/index]]
+- [[PROJECT_PLAN]]
 - [[tests/run3_cognition_phase1_results]]
 
 ## references

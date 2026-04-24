@@ -1,6 +1,6 @@
 # phase 1 evaluation surface for neural models
 
-status: current (as of 2026-04-23).
+status: current (as of 2026-04-24).
 
 ## why this article exists
 
@@ -315,6 +315,8 @@ surface. the two should not be conflated.
 - [[visuals_to_phase1_nm_tests]]
 - [[indexed_reconstruction_compression]]
 - [[neural_model_research_test_material_plan]]
+- [[tests/index]]
+- [[PROJECT_PLAN]]
 - [[tests/run3_cognition_phase1_results]]
 
 ## references

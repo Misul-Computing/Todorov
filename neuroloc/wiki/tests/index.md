@@ -1,6 +1,6 @@
 # tests
 
-status: current (as of 2026-04-23).
+status: current (as of 2026-04-24).
 
 this folder records concrete simulations and experiments that were actually
 run, plus a small number of frozen supporting prototype notes that were
@@ -9,11 +9,11 @@ directly attached to those runs or artifacts.
 the design and gating method for the architecture backlog now lives in
 `wiki/synthesis/phase1_evaluation_surface_for_neural_models.md` and
 `wiki/synthesis/synthetic_shared_world_bridge.md`. this index remains a
-catalog of executed evidence records, not a planning page. the newly
-implemented `biology_phase1` symbolic battery is therefore reflected in
-the synthesis/wiki state first; individual dated test records should be
-added here only after each simulation family is run and archived as its
-own evidence page.
+catalog of executed evidence records and committed test-material artifacts,
+not a planning page. individual dated test records should be added here
+only after each simulation family is run and archived as its own evidence
+page; package-level entries are allowed when they document a committed
+symbolic validation surface.
 
 each test page should include:
 - date run
@@ -53,6 +53,7 @@ each test page should include:
 
 ### later simulation results and analyses
 
+- [[tests/hard_symbolic_nm_test_material|hard symbolic neural-model test material]] -- current symbolic contract package for the neural-model hard tasks; documents what the tests prove, what they do not prove, and why the next executable target is the tiny trainable mirror
 - [[tests/correction_field_trained_prediction_results|correction-field trained-prediction results]] -- trained-predictor correction-field sim; memory_capacity_delta=0 at every quality
 - [[tests/multi_resolution_head_split_results|multi-resolution head split results]] -- fast/medium/slow heads with surprise gates; rare-class recall improves
 - [[tests/thinking_loop_prototype_results|thinking-loop prototype results]] -- recurrent hidden-state refinement pilot on modular arithmetic
@@ -68,5 +69,6 @@ each test page should include:
 ## see also
 
 - [[PROJECT_PLAN]]
+- [[tests/hard_symbolic_nm_test_material]]
 - [[synthesis/phase1_evaluation_surface_for_neural_models]]
 - [[synthesis/synthetic_shared_world_bridge]]

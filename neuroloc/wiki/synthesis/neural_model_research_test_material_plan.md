@@ -1,6 +1,6 @@
 # neural model research and test-material plan
 
-status: current (as of 2026-04-23).
+status: current (as of 2026-04-24).
 
 ## purpose
 
@@ -111,6 +111,7 @@ a mechanism fails if it only improves loss, only works with oracle components, l
 
 ## see also
 
+- [[tests/hard_symbolic_nm_test_material]]
 - [[neural_model_dossier_local_neuron_state]]
 - [[neural_model_dossier_memory_formation]]
 - [[neural_model_dossier_addressing]]
