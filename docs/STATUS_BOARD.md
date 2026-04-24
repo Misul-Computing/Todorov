@@ -2,15 +2,15 @@
 
 canonical persistent project state lives in `neuroloc/wiki/PROJECT_PLAN.md`. that file is updated whenever the project state changes (a run starts, a run completes, a hypothesis is added or falsified, the experimental method changes, a new project term enters the glossary, a prior research question is answered). this status board is a per-run summary; PROJECT_PLAN.md is the structural plan and the entry point for any new agent picking up the project.
 
-## current phase: neural model research/test-material preparation (2026-04-23)
+## current phase: neural model research/test-material preparation (2026-04-24)
 
 **the active scientific object is the neural model.** the old todorov architecture and prior paid runs are historical evidence about failed substrates and trainability, not the live design identity. the approved no-paid-compute preparation lane is the mechanism-dossier and test-material plan at `neuroloc/wiki/synthesis/neural_model_research_test_material_plan.md`.
 
-every proposed local-neuron, memory, addressing, interference, compression, reconstruction, replay, rollout, and trainability mechanism must have a concise dossier before any metric code, model code, or intervention preset is accepted. the next executable target after the dossiers and test-material definitions is a tiny trainable neural-model mirror on the same latent worlds as the symbolic battery, not the full paid model path.
+every proposed local-neuron, memory, addressing, interference, compression, reconstruction, replay, rollout, and trainability mechanism must have a concise dossier before any model code or intervention preset is accepted. the first hard symbolic test-material package is now implemented as the `hard_symbolic_nm` suite. it covers belief-state formation, associative recall, correlated-key interference, delayed use, episodic reuse, context-gated routing, compression under bit budget, replay/rewrite, iterative rollout, and imagination/recombination. the next executable target is a tiny trainable neural-model mirror on the same latent worlds, not the full paid model path.
 
 paid compute remains paused. it can return only after the neural-model test material exists, a candidate clears cpu controls, telemetry is complete, and canonical state is prosecutor-clean.
 
-current curriculum status (2026-04-23): chapter 1 is review-ready at `pdf_curriculum/chapters/ch_01_what_a_number_means/` after the math correction pass, and chapter 2 is outline-only awaiting approval at `pdf_curriculum/chapters/ch_02_how_things_change/ch_02_outline.md`. chapter 2 research has not started.
+current curriculum status (2026-04-24): chapter 1 is review-ready at `pdf_curriculum/chapters/ch_01_what_a_number_means/` after the math correction pass, and chapter 2 is outline-only awaiting approval at `pdf_curriculum/chapters/ch_02_how_things_change/ch_02_outline.md`. chapter 2 research has not started.
 
 the six-paid-run history is preserved below as evidence. older phase summaries should be read as historical snapshots, not as the active program surface; some older phase-3 conclusions were later qualified as confounded or vacuous in the bug history and canonical state files.
 

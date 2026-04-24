@@ -1,14 +1,14 @@
 project: todorov
 canonical_plan: neuroloc/wiki/PROJECT_PLAN.md
 current_phase: neural_model_research_test_material_preparation
-current_step: chapter_1_review_ready_chapter_2_outline_awaiting_approval_nm_research_test_material_dossiers_approved_no_paid_compute
-status: "2026_04_23_chapter_1_review_ready_after_math_correction_chapter_2_outline_only_neural_model_research_test_material_phase_approved_as_no_paid_compute_preparation_before_any_metric_code_or_intervention"
-last_updated: "2026-04-23"
-tests_passing: 28
-total_tests: 28
-test_collection_total: 276
-test_surface: targeted_nm_regression_battery
-test_status_note: "2026-04-21 targeted nm regression battery passed 28 tests; full repo collection currently counts 276 tests and still includes legacy environment-sensitive failures outside the current curriculum lane."
+current_step: hard_symbolic_nm_test_material_implemented_next_tiny_trainable_mirror_no_paid_compute
+status: "2026_04_24_hard_symbolic_nm_test_material_package_implemented_with_reasoning_imagination_recombination_and_compression_as_first_class_symbolic_gates"
+last_updated: "2026-04-24"
+tests_passing: 23
+total_tests: 23
+test_collection_total: 290
+test_surface: hard_symbolic_nm_regression_and_suite_profile_checks
+test_status_note: "2026-04-24 focused hard-symbolic validation passed 23 tests; hard_symbolic_nm smoke and hard suite profiles passed through suite_runner; pytest collection now reports 290 tests after constraining collection to tests/ so neuroloc/output artifacts are not collected as tests."
 critical_fix: "god_machine.py step logger hardcoded dict dropped 40+ probe metrics, fixed class-wide via merge loop and smoke-test disk round-trip guard; bcm train/eval path divergence fixed by aligning recurrent path to running_state_norm; running_state_norm now training-only mutation; 17 prosecutor findings F1-F17 all fixed"
 run_history:
   run_001: Phase 1, sequential, 2000 steps, BPB 2.235 (PASS)
@@ -92,4 +92,4 @@ latest_run_results:
   git_sha: f27b81c
   config_hash: 4e3f02be249cc069
   run_card: neuroloc/wiki/tests/run3_cognition_phase1_results.md
-next_action: "chapter 1 remains review-ready in pdf_curriculum/chapters/ch_01_what_a_number_means/ after the 2026-04-23 math correction pass; chapter 2 remains outline-only awaiting approval in pdf_curriculum/chapters/ch_02_how_things_change/ch_02_outline.md. the approved neural-model research/test-material preparation lane may proceed with mechanism dossier review, latent-world test-material definitions, symbolic verification, and then a tiny trainable neural-model mirror. no metric code or intervention is accepted before its dossier states claim, controls, telemetry, and kill condition. no paid run is authorised."
+next_action: "chapter 1 remains review-ready in pdf_curriculum/chapters/ch_01_what_a_number_means/ after the 2026-04-23 math correction pass; chapter 2 remains outline-only awaiting approval in pdf_curriculum/chapters/ch_02_how_things_change/ch_02_outline.md. the approved neural-model lane may proceed from the implemented hard symbolic test-material package to a tiny trainable neural-model mirror on the same latent worlds. no full model integration, intervention preset, kaggle, h200, pod, or paid run is authorised."

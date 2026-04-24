@@ -29,7 +29,7 @@ to read every subordinate file just to recover the project state.
 
 chapter 1 remains review-ready after the 2026-04-23 math correction pass, and chapter 2 remains outline-only awaiting approval. this does not authorize chapter 2 research, architecture execution, paid compute, h200, kaggle, or pod work.
 
-the next executable target after the research/test-material package is a tiny trainable neural-model mirror on the same latent worlds as the symbolic battery, not the full paid model path.
+the first hard symbolic test-material package is implemented as the `hard_symbolic_nm` suite. it covers belief-state formation, associative recall, correlated-key interference, delayed use, episodic reuse, context-gated routing, compression under bit budget, replay/rewrite, iterative rollout, and imagination/recombination. the next executable target is a tiny trainable neural-model mirror on the same latent worlds as the symbolic battery, not the full paid model path.
 
 # teaching curriculum package (2026-04-17; preserved after 2026-04-23)
 

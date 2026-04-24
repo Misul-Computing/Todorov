@@ -8,7 +8,6 @@ import os
 import shutil
 import subprocess
 import sys
-import tempfile
 import time
 from dataclasses import asdict, dataclass
 from pathlib import Path
@@ -115,21 +114,28 @@ def normalize_env_overrides(overrides: dict[str, str] | None) -> dict[str, str]:
     return normalized
 
 
-def build_effective_env(profile: str, smoke_env: dict[str, str], env_overrides: dict[str, str] | None) -> dict[str, str]:
+def build_effective_env(
+    profile: str,
+    smoke_env: dict[str, str],
+    env_overrides: dict[str, str] | None,
+    hard_env: dict[str, str] | None = None,
+) -> dict[str, str]:
     if os.name == "nt":
         env = {canonical_env_key(key): value for key, value in os.environ.copy().items()}
     else:
         env = os.environ.copy()
     normalized_smoke_env = normalize_env_overrides(smoke_env)
+    normalized_hard_env = normalize_env_overrides(hard_env or smoke_env)
     normalized_env_overrides = normalize_env_overrides(env_overrides)
-    if profile == "smoke" and os.name != "nt" and normalized_env_overrides:
-        smoke_keys_by_upper = {key.upper(): key for key in normalized_smoke_env}
+    profile_env = normalized_hard_env if profile == "hard" else normalized_smoke_env
+    if profile in {"smoke", "hard"} and os.name != "nt" and normalized_env_overrides:
+        smoke_keys_by_upper = {key.upper(): key for key in profile_env}
         for key in normalized_env_overrides:
             existing_key = smoke_keys_by_upper.get(key.upper())
             if existing_key is not None and existing_key != key:
                 raise ValueError(f"environment override key collides by case with smoke setting: {key}")
-    if profile == "smoke":
-        env.update(normalized_smoke_env)
+    if profile in {"smoke", "hard"}:
+        env.update(profile_env)
     if normalized_env_overrides:
         env.update(normalized_env_overrides)
     return env
@@ -321,7 +327,7 @@ def run_simulation(
     output_root.mkdir(parents=True, exist_ok=True)
     simulation_output = output_root / spec.simulation_id
     interpreter = python_executable or sys.executable
-    effective_env = build_effective_env(profile, spec.smoke_env, normalized_env_overrides)
+    effective_env = build_effective_env(profile, spec.smoke_env, normalized_env_overrides, spec.hard_env)
 
     missing_modules, probe_error = missing_modules_for_interpreter(
         interpreter,
@@ -347,7 +353,8 @@ def run_simulation(
             validation_error=message,
         )
 
-    staging_output = Path(tempfile.mkdtemp(prefix=f"{spec.simulation_id}__", dir=output_root))
+    staging_output = output_root / f"{spec.simulation_id}__staging_{os.getpid()}_{time.time_ns()}"
+    staging_output.mkdir(parents=False, exist_ok=False)
 
     env = effective_env
     env["SIM_OUTPUT_DIR"] = str(staging_output)
@@ -512,7 +519,7 @@ def build_arg_parser() -> argparse.ArgumentParser:
     selection_group = parser.add_mutually_exclusive_group()
     selection_group.add_argument("--suite", choices=sorted(SUITES), help="named simulation suite")
     selection_group.add_argument("--simulation", choices=sorted(SIMULATION_SPECS), nargs="+", help="specific simulations")
-    parser.add_argument("--profile", choices=("smoke", "full"), default="smoke")
+    parser.add_argument("--profile", choices=("smoke", "hard", "full"), default="smoke")
     parser.add_argument("--output-root", default="neuroloc/output/simulation_suites")
     parser.add_argument("--timeout-sec", type=int, default=300)
     parser.add_argument("--python", default=sys.executable)
@@ -539,7 +546,7 @@ def main() -> int:
     specs = resolve_specs(args)
     try:
         for spec in specs:
-            build_effective_env(args.profile, spec.smoke_env, env_overrides)
+            build_effective_env(args.profile, spec.smoke_env, env_overrides, spec.hard_env)
     except ValueError as exc:
         parser.error(str(exc))
     project_root = project_root_from_here()

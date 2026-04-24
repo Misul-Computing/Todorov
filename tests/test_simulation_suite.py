@@ -47,6 +47,9 @@ def test_suite_registry_contract() -> None:
         assert spec.smoke_env
         assert spec.required_summary_keys
         assert all(key.upper() == key for key in spec.smoke_env)
+        if spec.hard_env is not None:
+            assert spec.hard_env
+            assert all(key.upper() == key for key in spec.hard_env)
 
 
 def test_run_simulation_probes_required_modules_with_selected_interpreter(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
@@ -155,6 +158,17 @@ def test_build_effective_env_applies_smoke_then_overrides() -> None:
     env = build_effective_env("smoke", {"CAPACITY_TRIALS": "2", "CAPACITY_MAX_ITERS": "12"}, {"CAPACITY_TRIALS": "9"})
     assert env["CAPACITY_TRIALS"] == "9"
     assert env["CAPACITY_MAX_ITERS"] == "12"
+
+
+def test_build_effective_env_applies_hard_profile_env() -> None:
+    env = build_effective_env(
+        "hard",
+        {"NM_HARD_SYMBOLIC_PROFILE": "smoke", "NM_HARD_SYMBOLIC_EPISODES": "4"},
+        None,
+        {"NM_HARD_SYMBOLIC_PROFILE": "hard", "NM_HARD_SYMBOLIC_EPISODES": "32"},
+    )
+    assert env["NM_HARD_SYMBOLIC_PROFILE"] == "hard"
+    assert env["NM_HARD_SYMBOLIC_EPISODES"] == "32"
 
 
 def test_build_effective_env_rejects_reserved_override_map() -> None:

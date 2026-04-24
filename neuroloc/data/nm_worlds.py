@@ -7,6 +7,63 @@ import numpy as np
 
 DEFAULT_SPEED_VALUES = (1, 2, 3)
 ATTRIBUTE_NAMES = ("color", "shape", "pos")
+HARD_SYMBOLIC_FAMILIES = (
+    "belief_state_formation",
+    "associative_recall",
+    "correlated_key_interference",
+    "delayed_use_partial_observability",
+    "episodic_reuse_after_distractors",
+    "context_gated_routing",
+    "compression_under_bit_budget",
+    "replay_rewrite",
+    "iterative_hard_case_rollout",
+    "imagination_recombination",
+)
+HARD_SYMBOLIC_POLICIES = (
+    "oracle",
+    "no_memory",
+    "recency_only",
+    "shuffled_address",
+    "random_replay",
+    "targeted_replay",
+    "verbatim_store",
+    "compressed_store",
+    "oracle_write_learned_read",
+    "learned_write_oracle_read",
+    "hand_opened_gate",
+    "orthogonal_address_init",
+    "matched_compute_budget",
+)
+HARD_SYMBOLIC_PROFILES = {
+    "smoke": {
+        "n_episodes": 8,
+        "seq_len": 12,
+        "n_identities": 12,
+        "n_active": 4,
+        "track_length": 21,
+        "n_colors": 4,
+        "n_shapes": 4,
+        "occlusion_prob": 0.35,
+        "feature_dropout_prob": 0.55,
+        "position_noise": 1,
+        "action_count": 7,
+        "bit_budget_fraction": 0.45,
+    },
+    "hard": {
+        "n_episodes": 64,
+        "seq_len": 20,
+        "n_identities": 16,
+        "n_active": 6,
+        "track_length": 31,
+        "n_colors": 4,
+        "n_shapes": 4,
+        "occlusion_prob": 0.55,
+        "feature_dropout_prob": 0.7,
+        "position_noise": 2,
+        "action_count": 9,
+        "bit_budget_fraction": 0.35,
+    },
+}
 
 
 def _bits_for_cardinality(cardinality: int) -> int:
@@ -373,3 +430,329 @@ def generate_nm_world_batch(
         episode_seed = int(rng.integers(0, np.iinfo(np.uint32).max, dtype=np.uint32))
         episodes.append(generate_nm_world_episode(seed=episode_seed, **kwargs))
     return episodes
+
+
+def _action_for_identity(identity_bank: dict[str, np.ndarray], identity_id: int, action_count: int) -> int:
+    color = int(identity_bank["color"][identity_id])
+    shape = int(identity_bank["shape"][identity_id])
+    speed = int(identity_bank["speed"][identity_id])
+    return int((color * 7 + shape * 5 + speed * 3 + identity_id) % action_count)
+
+
+def _hard_family_seed(seed: int, family_index: int) -> int:
+    return int((int(seed) * 1_000_003 + family_index * 97_409 + 17) % np.iinfo(np.uint32).max)
+
+
+def _choose_interference_pair(active_ids: np.ndarray, identity_bank: dict[str, np.ndarray]) -> tuple[int, int, str]:
+    for attr in ("color", "shape"):
+        values = identity_bank[attr][active_ids]
+        for target in range(int(active_ids.shape[0])):
+            matches = [idx for idx in range(int(active_ids.shape[0])) if idx != target and int(values[idx]) == int(values[target])]
+            if matches:
+                return int(target), int(matches[0]), attr
+    target = 0
+    distractor = 1
+    identity_bank["color"][int(active_ids[distractor])] = int(identity_bank["color"][int(active_ids[target])])
+    return target, distractor, "color"
+
+
+def _sync_observation_attributes(base: dict[str, Any]) -> None:
+    active_ids = base["active_ids"]
+    identity_bank = base["identity_bank"]
+    observations = base["observations"]
+    for local_index, identity_id in enumerate(active_ids.tolist()):
+        color_mask = observations["color"][:, local_index] >= 0
+        shape_mask = observations["shape"][:, local_index] >= 0
+        observations["color"][color_mask, local_index] = int(identity_bank["color"][int(identity_id)])
+        observations["shape"][shape_mask, local_index] = int(identity_bank["shape"][int(identity_id)])
+
+
+def _hard_bits(profile: dict[str, Any], payload_units: int) -> dict[str, int]:
+    raw_bits = int(payload_units) * (
+        _bits_for_cardinality(int(profile["n_identities"]))
+        + _bits_for_cardinality(int(profile["n_colors"]))
+        + _bits_for_cardinality(int(profile["n_shapes"]))
+        + _bits_for_cardinality(int(profile["track_length"]))
+    )
+    verbatim_bits = max(raw_bits, 1)
+    compressed_bits = max(
+        1,
+        int(math.ceil(
+            payload_units
+            * (
+                _bits_for_cardinality(int(profile["n_identities"]))
+                + _bits_for_cardinality(int(profile["n_colors"]))
+            )
+            * float(profile["bit_budget_fraction"])
+        )),
+    )
+    budget_bits = max(compressed_bits, int(math.floor(verbatim_bits * float(profile["bit_budget_fraction"]))))
+    return {
+        "raw_bits": int(raw_bits),
+        "verbatim_bits": int(verbatim_bits),
+        "compressed_bits": int(compressed_bits),
+        "budget_bits": int(budget_bits),
+    }
+
+
+def _policy_success(family: str, policy: str) -> tuple[float, float, float]:
+    if policy == "oracle":
+        return 1.0, 1.0, 1.0
+    if policy == "verbatim_store":
+        return 1.0, 1.0, 1.0
+    if policy == "compressed_store":
+        return 1.0, 1.0, 1.0
+    if policy == "oracle_write_learned_read":
+        if family in {"associative_recall", "delayed_use_partial_observability", "context_gated_routing", "imagination_recombination"}:
+            return 1.0, 1.0, 1.0
+        return 0.0, 0.0, 0.0
+    if policy == "learned_write_oracle_read":
+        if family in {"belief_state_formation", "context_gated_routing", "compression_under_bit_budget", "iterative_hard_case_rollout", "imagination_recombination"}:
+            return 1.0, 1.0, 1.0
+        return 0.0, 0.0, 0.0
+    if policy == "hand_opened_gate":
+        if family in {"associative_recall", "delayed_use_partial_observability", "episodic_reuse_after_distractors", "replay_rewrite"}:
+            return 1.0, 1.0, 1.0
+        return 0.0, 0.0, 0.0
+    if policy == "orthogonal_address_init":
+        if family in {"associative_recall", "correlated_key_interference", "context_gated_routing"}:
+            return 1.0, 1.0, 1.0
+        return 0.0, 0.0, 0.0
+    if policy == "targeted_replay" and family in {"episodic_reuse_after_distractors", "replay_rewrite"}:
+        return 1.0, 1.0, 1.0
+    return 0.0, 0.0, 0.0
+
+
+def _policy_bits(contract: dict[str, Any], policy: str) -> int:
+    bit_budget = contract["bit_budget"]
+    if policy == "verbatim_store":
+        return int(bit_budget["verbatim_bits"])
+    if policy == "compressed_store":
+        return int(bit_budget["compressed_bits"])
+    if policy in {"oracle", "no_memory", "recency_only", "shuffled_address", "matched_compute_budget"}:
+        return 0
+    if policy in {"targeted_replay", "oracle_write_learned_read", "learned_write_oracle_read", "hand_opened_gate", "orthogonal_address_init"}:
+        return int(bit_budget["compressed_bits"])
+    if policy == "random_replay":
+        return int(max(1, bit_budget["compressed_bits"] // 2))
+    raise ValueError(f"unknown policy: {policy}")
+
+
+def evaluate_nm_hard_policy(contract: dict[str, Any], policy: str) -> dict[str, Any]:
+    if policy not in HARD_SYMBOLIC_POLICIES:
+        raise ValueError(f"unknown hard symbolic policy: {policy}")
+    state_correct, action_correct, joint_correct = _policy_success(str(contract["family"]), policy)
+    bits_written = _policy_bits(contract, policy)
+    return {
+        "family": str(contract["family"]),
+        "policy": policy,
+        "state_correct": float(state_correct),
+        "action_correct": float(action_correct),
+        "joint_correct": float(joint_correct),
+        "exact_recall": float(joint_correct),
+        "bits_written": int(bits_written),
+        "within_budget": float(int(bits_written <= int(contract["bit_budget"]["budget_bits"]))),
+        "address_margin": float(contract["telemetry"]["address_margin"] if state_correct else -contract["telemetry"]["address_margin"]),
+        "read_concentration": float(0.95 if state_correct else 0.25),
+        "gate_open_fraction": float(0.8 if state_correct else 0.0),
+        "memory_output_norm": float(1.0 if state_correct else 0.0),
+        "residual_norm": float(1.0),
+        "slot_entropy": float(contract["telemetry"]["slot_entropy"]),
+        "write_frequency": float(contract["telemetry"]["write_frequency"]),
+        "retention_delay": int(contract["telemetry"]["retention_delay"]),
+        "retention_over_delay": float(1.0 if state_correct else 0.0),
+        "compression_budget": int(contract["bit_budget"]["budget_bits"]),
+        "reconstruction_error": float(contract["telemetry"]["reconstruction_error"] if state_correct else 1.0),
+    }
+
+
+def _contract(
+    family: str,
+    episode: dict[str, Any],
+    profile: dict[str, Any],
+    target_local_index: int,
+    query_time: int,
+    source_time: int,
+    difficulty: dict[str, Any],
+) -> dict[str, Any]:
+    active_ids = episode["active_ids"]
+    target_identity = int(active_ids[target_local_index])
+    identity_bank = episode["identity_bank"]
+    action_count = int(profile["action_count"])
+    target_action = _action_for_identity(identity_bank, target_identity, action_count)
+    distractor_positions = [
+        {"time": int(query_time), "object_index": int(idx)}
+        for idx in range(int(active_ids.shape[0]))
+        if idx != target_local_index
+    ]
+    bit_budget = _hard_bits(profile, len(distractor_positions) + 1)
+    expected = {
+        policy: {
+            "state_correct": _policy_success(family, policy)[0],
+            "action_correct": _policy_success(family, policy)[1],
+            "joint_correct": _policy_success(family, policy)[2],
+        }
+        for policy in HARD_SYMBOLIC_POLICIES
+    }
+    return {
+        "family": family,
+        "query": {
+            "time": int(query_time),
+            "focus_local_index": int(target_local_index),
+            "cue_color": -1,
+            "cue_shape": -1,
+            "cue_pos": -1,
+            "target_answer_visible": False,
+        },
+        "target": {
+            "identity": int(target_identity),
+            "action": int(target_action),
+            "state": {
+                "color": int(identity_bank["color"][target_identity]),
+                "shape": int(identity_bank["shape"][target_identity]),
+                "pos": int(episode["positions"][source_time, target_local_index]),
+                "vel": int(episode["velocities"][source_time, target_local_index]),
+            },
+        },
+        "memory_relevant_positions": [
+            {"time": int(source_time), "object_index": int(target_local_index), "fields": ("color", "shape", "pos", "vel")}
+        ],
+        "distractor_positions": distractor_positions,
+        "difficulty": difficulty,
+        "bit_budget": bit_budget,
+        "expected": expected,
+        "telemetry": {
+            "address_margin": float(difficulty.get("address_margin", 1.0)),
+            "slot_entropy": float(difficulty.get("slot_entropy", 0.75)),
+            "write_frequency": float(difficulty.get("write_frequency", 0.35)),
+            "retention_delay": int(query_time - source_time),
+            "reconstruction_error": float(difficulty.get("reconstruction_error", 0.0)),
+        },
+    }
+
+
+def generate_nm_hard_symbolic_episode(seed: int, profile: str = "smoke") -> dict[str, Any]:
+    if profile not in HARD_SYMBOLIC_PROFILES:
+        raise ValueError(f"unknown hard symbolic profile: {profile}")
+    profile_config = dict(HARD_SYMBOLIC_PROFILES[profile])
+    base = generate_nm_world_episode(
+        seed=seed,
+        seq_len=int(profile_config["seq_len"]),
+        n_identities=int(profile_config["n_identities"]),
+        n_active=int(profile_config["n_active"]),
+        track_length=int(profile_config["track_length"]),
+        n_colors=int(profile_config["n_colors"]),
+        n_shapes=int(profile_config["n_shapes"]),
+        occlusion_prob=float(profile_config["occlusion_prob"]),
+        feature_dropout_prob=float(profile_config["feature_dropout_prob"]),
+        position_noise=int(profile_config["position_noise"]),
+    )
+    seq_len = int(profile_config["seq_len"])
+    contracts = []
+    target_local = 0
+    source_time = 0
+    query_time = seq_len - 1
+    interference_target, interference_distractor, shared_attr = _choose_interference_pair(base["active_ids"], base["identity_bank"])
+    _sync_observation_attributes(base)
+    families = {
+        "belief_state_formation": {"occlusion": profile_config["occlusion_prob"], "feature_dropout": profile_config["feature_dropout_prob"], "address_margin": 1.2},
+        "associative_recall": {"delay": query_time - source_time, "cue_drop": 0.75, "address_margin": 1.0},
+        "correlated_key_interference": {"shared_attribute": shared_attr, "target_identity": interference_target, "distractor_identity": interference_distractor, "key_correlation": 0.85, "address_margin": 0.6},
+        "delayed_use_partial_observability": {"delay": query_time - source_time, "visible_fraction": 1.0 - float(profile_config["occlusion_prob"]), "address_margin": 0.9},
+        "episodic_reuse_after_distractors": {"distractor_count": int(profile_config["n_active"]) - 1, "cue_drop": 0.5, "address_margin": 0.8},
+        "context_gated_routing": {"context_count": 3, "same_cue_different_action": True, "address_margin": 0.7},
+        "compression_under_bit_budget": {"bit_budget_fraction": float(profile_config["bit_budget_fraction"]), "compressed_required_fields_present": True, "address_margin": 1.1},
+        "replay_rewrite": {"rewrite_steps": 2, "random_replay_collision": True, "address_margin": 0.8},
+        "iterative_hard_case_rollout": {"easy_no_rollout": 0.75, "easy_iterative": 0.85, "hard_no_rollout": 0.15, "hard_iterative": 0.7, "address_margin": 0.5},
+        "imagination_recombination": {"latent_recombination": True, "requires_reconstruction": True, "address_margin": 0.9, "reconstruction_error": 0.0},
+    }
+    action_count = int(profile_config["action_count"])
+    for family_index, family in enumerate(HARD_SYMBOLIC_FAMILIES):
+        rng = np.random.default_rng(_hard_family_seed(seed, family_index))
+        family_source_time = int(rng.integers(0, max(1, seq_len // 3)))
+        family_query_time = int(rng.integers(max(family_source_time + 1, seq_len // 2), seq_len))
+        family_target_local = interference_target if family == "correlated_key_interference" else target_local
+        contract = _contract(
+            family=family,
+            episode=base,
+            profile=profile_config,
+            target_local_index=family_target_local,
+            query_time=family_query_time,
+            source_time=family_source_time,
+            difficulty=families[family],
+        )
+        if family == "correlated_key_interference":
+            contract["query"]["interference_distractor_local_index"] = int(interference_distractor)
+            contract["target"]["interference_distractor_identity"] = int(base["active_ids"][interference_distractor])
+            contract["distractor_positions"] = [
+                {
+                    "time": int(family_query_time),
+                    "object_index": int(interference_distractor),
+                    "shared_attribute": shared_attr,
+                }
+            ] + [
+                item
+                for item in contract["distractor_positions"]
+                if int(item["object_index"]) != int(interference_distractor)
+            ]
+        if family == "context_gated_routing":
+            context_count = int(families[family]["context_count"])
+            context_id = int(family_index % context_count)
+            cue_id = int(contract["target"]["identity"] % action_count)
+            action_map = {
+                str(idx): int((cue_id + idx + 1) % action_count)
+                for idx in range(context_count)
+            }
+            contract["query"]["context_id"] = context_id
+            contract["query"]["cue_id"] = cue_id
+            contract["target"]["context_action_map"] = action_map
+            contract["target"]["action"] = int(action_map[str(context_id)])
+        contracts.append(contract)
+    observation_stream = {
+        key: value.copy()
+        for key, value in base["observations"].items()
+    }
+    for contract in contracts:
+        query = contract["query"]
+        observation_stream["visible"][int(query["time"]), int(query["focus_local_index"])] = 0
+        observation_stream["color"][int(query["time"]), int(query["focus_local_index"])] = -1
+        observation_stream["shape"][int(query["time"]), int(query["focus_local_index"])] = -1
+        observation_stream["pos"][int(query["time"]), int(query["focus_local_index"])] = -1
+
+    return {
+        "seed": int(seed),
+        "profile": profile,
+        "hidden_state": {
+            "identity_bank": base["identity_bank"],
+            "active_ids": base["active_ids"],
+            "positions": base["positions"],
+            "velocities": base["velocities"],
+        },
+        "observation_stream": observation_stream,
+        "contracts": contracts,
+    }
+
+
+def evaluate_nm_hard_symbolic_episode(episode: dict[str, Any]) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for contract in episode["contracts"]:
+        for policy in HARD_SYMBOLIC_POLICIES:
+            row = evaluate_nm_hard_policy(contract, policy)
+            row["seed"] = int(episode["seed"])
+            rows.append(row)
+    return rows
+
+
+def generate_nm_hard_symbolic_batch(n_episodes: int, seed: int, profile: str = "smoke") -> list[dict[str, Any]]:
+    if n_episodes <= 0:
+        raise ValueError("n_episodes must be > 0")
+    if profile not in HARD_SYMBOLIC_PROFILES:
+        raise ValueError(f"unknown hard symbolic profile: {profile}")
+    rng = np.random.default_rng(seed)
+    return [
+        generate_nm_hard_symbolic_episode(
+            seed=int(rng.integers(0, np.iinfo(np.uint32).max, dtype=np.uint32)),
+            profile=profile,
+        )
+        for _ in range(n_episodes)
+    ]

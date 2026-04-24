@@ -13,6 +13,7 @@ class SimulationSpec:
     metrics_filename: str
     artifact_filenames: tuple[str, ...]
     smoke_env: dict[str, str]
+    hard_env: dict[str, str] | None = None
     required_summary_keys: tuple[str, ...] = ()
     minimum_summary_values: tuple[tuple[str, float], ...] = ()
     required_modules: tuple[str, ...] = ()
@@ -449,6 +450,75 @@ SIMULATION_SPECS: dict[str, SimulationSpec] = {
             "policy_metrics",
         ),
     ),
+    "nm_hard_symbolic_test_material": SimulationSpec(
+        simulation_id="nm_hard_symbolic_test_material",
+        category="hard_symbolic_nm",
+        script_relative_path="neuroloc/simulations/memory/nm_hard_symbolic_test_material.py",
+        metrics_filename="nm_hard_symbolic_test_material_metrics.json",
+        artifact_filenames=("nm_hard_symbolic_test_material_metrics.json",),
+        smoke_env={
+            "NM_HARD_SYMBOLIC_PROFILE": "smoke",
+            "NM_HARD_SYMBOLIC_EPISODES": "4",
+            "NM_HARD_SYMBOLIC_SEED": "42",
+        },
+        hard_env={
+            "NM_HARD_SYMBOLIC_PROFILE": "hard",
+            "NM_HARD_SYMBOLIC_EPISODES": "32",
+            "NM_HARD_SYMBOLIC_SEED": "42",
+        },
+        required_summary_keys=(
+            "family_count",
+            "policy_count",
+            "state_probe_accuracy",
+            "action_success",
+            "joint_success",
+            "exact_recall",
+            "degraded_cue_recall",
+            "oracle_joint_success",
+            "no_memory_joint_success",
+            "recency_only_joint_success",
+            "shuffled_address_joint_success",
+            "targeted_replay_gain",
+            "interference_slope",
+            "reuse_advantage",
+            "hard_case_rollout_gain",
+            "hard_case_pre_rollout_gap",
+            "hard_minus_easy_rollout_gain",
+            "compression_bit_saving_fraction",
+            "bits_written_per_successful_episode",
+            "verbatim_within_budget",
+            "compressed_within_budget",
+            "gate_open_fraction",
+            "memory_output_vs_residual_norm",
+            "slot_address_entropy",
+            "address_margin",
+            "write_frequency",
+            "read_concentration",
+            "retention_over_delay",
+            "compression_budget",
+            "reconstruction_error",
+            "leakage_violation_count",
+            "contract_field_violation_count",
+        ),
+        minimum_summary_values=(
+            ("oracle_joint_success", 0.98),
+            ("targeted_replay_gain", 0.1),
+            ("interference_slope", 0.1),
+            ("reuse_advantage", 0.1),
+            ("hard_case_rollout_gain", 0.1),
+            ("hard_case_pre_rollout_gap", 0.1),
+            ("hard_minus_easy_rollout_gain", 0.1),
+            ("compression_bit_saving_fraction", 0.1),
+            ("compressed_within_budget", 0.98),
+            ("gate_open_fraction", 0.1),
+            ("memory_output_vs_residual_norm", 0.1),
+            ("slot_address_entropy", 0.1),
+            ("address_margin", 0.1),
+            ("write_frequency", 0.1),
+            ("read_concentration", 0.1),
+            ("retention_over_delay", 0.98),
+        ),
+    ),
 }
 
 
@@ -485,6 +555,9 @@ SUITES: dict[str, tuple[str, ...]] = {
         "episodic_replay_reuse",
         "contextual_gate_routing",
     ),
+    "hard_symbolic_nm": (
+        "nm_hard_symbolic_test_material",
+    ),
     "precompute": (
         "capacity_scaling",
         "rate_coded_spike",
@@ -505,6 +578,7 @@ SUITES: dict[str, tuple[str, ...]] = {
         "episodic_separation_completion",
         "episodic_replay_reuse",
         "contextual_gate_routing",
+        "nm_hard_symbolic_test_material",
     ),
 }
 
