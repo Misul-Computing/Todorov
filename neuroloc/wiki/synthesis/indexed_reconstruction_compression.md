@@ -1,6 +1,6 @@
 # indexed reconstruction compression
 
-status: current (as of 2026-04-23).
+status: current (as of 2026-04-25).
 
 ## thesis
 
@@ -101,6 +101,8 @@ before architecture resumes, the project needs model-native probes rather than a
 - [[compression_beyond_quantization]]
 - [[generative_memory_research]]
 - [[memory_compression_to_tiered_architecture]]
+- [[neural_model_compression_stack]]
+- [[neural_model_dossier_compression]]
 - [[neural_model_research_test_material_plan]]
 - [[phase1_evaluation_surface_for_neural_models]]
 - [[research_implications_for_neural_model_direction]]

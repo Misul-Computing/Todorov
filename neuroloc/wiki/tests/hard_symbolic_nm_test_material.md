@@ -1,6 +1,6 @@
 # hard symbolic neural-model test material
 
-status: current (as of 2026-04-24).
+status: current (as of 2026-04-25).
 
 ## purpose
 
@@ -96,7 +96,7 @@ they do not prove biological plausibility. the biology-grounded claims remain in
 
 they do not authorize full-model integration or paid compute.
 
-the correct interpretation is narrower: the symbolic tasks are now strict enough to serve as the first executable target for a tiny trainable neural-model mirror.
+the correct interpretation is narrower: the symbolic tasks are now strict enough to support oracle compression analysis and then a tiny trainable neural-model mirror.
 
 ## validation record
 
@@ -114,7 +114,9 @@ the warning is the known numpy-on-windows experimental-build warning.
 
 ## next step
 
-the next executable target is a tiny trainable neural-model mirror on the same latent worlds.
+the next executable target is oracle compression analysis on the same latent worlds. that analysis must compare verbatim trace bits, latent-state bits, schema/residual bits, and imagined-branch program bits before any trained mirror is asked to learn compression.
+
+after that, the next trained target is a tiny trainable neural-model mirror on the same latent worlds.
 
 that mirror must use the exact same episode contracts and expose the same metrics:
 
@@ -150,4 +152,5 @@ no mechanism should enter the full model path from this package alone. a mechani
 
 - [[tests/index]]
 - [[synthesis/neural_model_research_test_material_plan]]
+- [[synthesis/neural_model_compression_stack]]
 - [[PROJECT_PLAN]]

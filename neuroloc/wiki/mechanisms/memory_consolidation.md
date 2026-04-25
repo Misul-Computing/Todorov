@@ -1,6 +1,6 @@
 # memory consolidation
 
-status: definitional. last fact-checked 2026-04-16.
+status: definitional. last fact-checked 2026-04-25.
 
 **why this matters**: memory consolidation is the biological mechanism for transferring fast-learned episodic memories to slow-learned semantic representations -- the process that experience replay in reinforcement learning was designed to approximate.
 
@@ -132,3 +132,4 @@ the original CLS theory implied that consolidation preserves the hippocampal rep
 - [[hebbian_learning]]
 - [[short_term_plasticity]]
 - [[memory_systems_to_matrix_memory_and_compressed_attention]]
+- [[compression_beyond_quantization]]

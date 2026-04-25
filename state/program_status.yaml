@@ -1,9 +1,9 @@
 project: todorov
 canonical_plan: neuroloc/wiki/PROJECT_PLAN.md
 current_phase: neural_model_research_test_material_preparation
-current_step: hard_symbolic_nm_test_material_implemented_next_tiny_trainable_mirror_no_paid_compute
-status: "2026_04_24_hard_symbolic_nm_test_material_package_implemented_with_reasoning_imagination_recombination_and_compression_as_first_class_symbolic_gates"
-last_updated: "2026-04-24"
+current_step: neural_model_compression_stack_documented_next_oracle_compression_analysis_no_paid_compute
+status: "2026_04_25_operation_preserving_neural_model_compression_stack_documented_for_cache_address_payload_episode_imagination_replay_and_world_state_memory"
+last_updated: "2026-04-25"
 tests_passing: 23
 total_tests: 23
 test_collection_total: 290
@@ -92,4 +92,4 @@ latest_run_results:
   git_sha: f27b81c
   config_hash: 4e3f02be249cc069
   run_card: neuroloc/wiki/tests/run3_cognition_phase1_results.md
-next_action: "chapter 1 remains review-ready in pdf_curriculum/chapters/ch_01_what_a_number_means/ after the 2026-04-23 math correction pass; chapter 2 remains outline-only awaiting approval in pdf_curriculum/chapters/ch_02_how_things_change/ch_02_outline.md. the approved neural-model lane may proceed from the implemented hard symbolic test-material package to a tiny trainable neural-model mirror on the same latent worlds. no full model integration, intervention preset, kaggle, h200, pod, or paid run is authorised."
+next_action: "chapter 1 remains review-ready in pdf_curriculum/chapters/ch_01_what_a_number_means/ after the 2026-04-23 math correction pass; chapter 2 remains outline-only awaiting approval in pdf_curriculum/chapters/ch_02_how_things_change/ch_02_outline.md. the approved neural-model lane should next run oracle compression analysis on the hard symbolic worlds, then proceed to a tiny trainable neural-model mirror on the same latent worlds. no full model integration, intervention preset, kaggle, h200, pod, or paid run is authorised."

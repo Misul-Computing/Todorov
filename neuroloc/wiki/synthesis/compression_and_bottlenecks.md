@@ -1,6 +1,6 @@
 # compression and bottlenecks
 
-status: current (as of 2026-04-16).
+status: current (as of 2026-04-25).
 
 ## the biological principle
 
@@ -152,3 +152,4 @@ three experiments could sharpen this assessment. first, sweep the spike threshol
 - [[memory_systems_to_matrix_memory_and_compressed_attention]]
 - [[sparse_coding_to_ternary_spikes]]
 - [[plasticity_to_matrix_memory_delta_rule]]
+- [[compression_beyond_quantization]]

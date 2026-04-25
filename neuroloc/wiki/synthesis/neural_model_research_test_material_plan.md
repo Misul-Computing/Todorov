@@ -1,6 +1,6 @@
 # neural model research and test-material plan
 
-status: current (as of 2026-04-24).
+status: current (as of 2026-04-25).
 
 ## purpose
 
@@ -15,12 +15,13 @@ every candidate mechanism must pass through this sequence:
 1. mechanism dossier
 2. test-material definition
 3. symbolic verification
-4. tiny trainable neural-model mirror
-5. one-mechanism cpu gate
-6. full model integration only if the small mirror localizes the effect
-7. paid compute only after cpu evidence, telemetry, and prosecutor-clean state updates
+4. oracle compression analysis where the mechanism claims compression or memory rewriting
+5. tiny trainable neural-model mirror
+6. one-mechanism cpu gate
+7. full model integration only if the small mirror localizes the effect
+8. paid compute only after cpu evidence, telemetry, and prosecutor-clean state updates
 
-the first executable target after the dossiers is a tiny trainable neural-model mirror on the same latent worlds as the symbolic battery. the full model path is not the first target.
+after the hard symbolic package, the first executable target is oracle compression analysis on the same latent worlds. the tiny trainable neural-model mirror follows that analysis. the full model path is not the first target.
 
 ## dossier contract
 
@@ -112,6 +113,7 @@ a mechanism fails if it only improves loss, only works with oracle components, l
 ## see also
 
 - [[tests/hard_symbolic_nm_test_material]]
+- [[neural_model_compression_stack]]
 - [[neural_model_dossier_local_neuron_state]]
 - [[neural_model_dossier_memory_formation]]
 - [[neural_model_dossier_addressing]]

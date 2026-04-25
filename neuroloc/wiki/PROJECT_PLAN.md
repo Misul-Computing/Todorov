@@ -1,10 +1,10 @@
 # project_plan
 
-status: current (as of 2026-04-24).
+status: current (as of 2026-04-25).
 
 this file is the canonical, persistent project state. any agent picking up the project starts here. updating this file is a hard rule with prosecutor enforcement (see `CLAUDE.md` and the rule section at the bottom of this file).
 
-last updated: 2026-04-24 (curriculum pivot remains preserved: chapter 1 is review-ready after the math correction pass, chapter 2 is outline-only, and no paid compute is authorised. the active approved research preparation is the neural model research/test-material phase: the old todorov architecture is historical evidence, while the neural model is the scientific object. the first hard symbolic test-material package is now implemented in code. it covers belief-state formation, associative recall, correlated-key interference, delayed use, episodic reuse, context-gated routing, compression under bit budget, replay/rewrite, iterative rollout, and imagination/recombination with oracle, no-memory, recency-only, shuffled-address, replay, verbatim, and compressed-store controls. the required next executable target remains a tiny trainable neural-model mirror, not the full paid model path.)
+last updated: 2026-04-25 (curriculum pivot remains preserved: chapter 1 is review-ready after the math correction pass, chapter 2 is outline-only, and no paid compute is authorised. the active approved research preparation is the neural model research/test-material phase: the old todorov architecture is historical evidence, while the neural model is the scientific object. the first hard symbolic test-material package is implemented in code. the compression direction is now sharpened into an operation-preserving stack across cache, address, payload, episode, imagination, replay-rewrite, and world-state memory. the next no-paid proof is oracle compression analysis on the hard symbolic worlds, followed by the tiny trainable neural-model mirror, not the full paid model path.)
 
 ## teaching curriculum package (2026-04-17; preserved after 2026-04-23)
 
@@ -28,11 +28,11 @@ the curriculum specifies 36 chapters across 6 phases that teach a reader from ne
 
 **pivot decision** (2026-04-14): replace the matrix memory with slot-based memory using softmax addressing, surprise-gated writes, and an explicit output gate. design in `wiki/synthesis/slot_memory_design.md`. cpu validation pipeline (three simulations) gates any paid compute. **superseded 2026-04-17**: the slot pivot was executed through three paid runs (run2_slot_memory, run2_slot_memory_retention_fixed, run3_cognition_phase1) and still produced 0% passkey at 256. the next pivot is architectural intervention from the ranked list in `wiki/synthesis/substrate_requires_architectural_change.md`, not a further substrate design iteration without one of those interventions.
 
-**current question** (2026-04-24): can the neural model test material prove hard, non-leaky, measurable worlds before trainable code? the first answer is now implemented as `nm_hard_symbolic_test_material`: a hard symbolic contract over the existing latent world with exact hidden state, observation stream, task query, memory-relevant positions, distractors, difficulty parameters, oracle/no-memory/recency/shuffled expectations, compression accounting, replay controls, rollout controls, and imagination/recombination as latent recombination plus reconstruction. the older question of which A-E intervention to try remains paused until the tiny trainable mirror localises a mechanism.
+**current question** (2026-04-25): can compression become a replaceable operation-preserving stack across every neural-model memory surface, including imagined branches, rather than a kv-cache-only quantization trick? first answer: `wiki/synthesis/neural_model_compression_stack.md` defines the contract and says the next proof is oracle compression analysis over the hard symbolic worlds before any paid compute. the older question of which A-E intervention to try remains paused until the tiny trainable mirror localises a mechanism.
 
 **current obstacle** (2026-04-17): six paid runs at 0% passkey across two substrates, two retention regimes, and two corpora. cpu gates A and B verify the slot mechanism retrieves in isolation. sgd on the training pipeline never opens the output gate (mean gate at sigmoid(-4)≈0.018 through run2_slot_memory_retention_fixed, same regime suspected of run3 absent telemetry). the substrate does not fail for any reason that can be fixed by varying the corpus alone or the hyperparameters of the current initialisation alone.
 
-**immediate next action** (2026-04-24): no paid run is authorised. chapter 1 (`pdf_curriculum/chapters/ch_01_what_a_number_means/`) remains the current review-ready curriculum package after the math correction pass, and chapter 2 remains outline-only pending approval. the approved no-paid-compute neural-model preparation lane may proceed from the hard symbolic test-material package to the tiny trainable neural-model mirror. do not touch the full model path or paid presets.
+**immediate next action** (2026-04-25): no paid run is authorised. chapter 1 (`pdf_curriculum/chapters/ch_01_what_a_number_means/`) remains the current review-ready curriculum package after the math correction pass, and chapter 2 remains outline-only pending approval. the approved no-paid-compute neural-model preparation lane should next add oracle compression analysis over the hard symbolic worlds, then proceed to the tiny trainable neural-model mirror. do not touch the full model path or paid presets.
 
 ## hypothesis under test
 
@@ -135,7 +135,7 @@ we have two testing environments in this project:
 
 the experimental method for the neural-model backlog has a pre-intervention preparation stage:
 
-0. **prepare research and test material before implementation.** use `wiki/synthesis/neural_model_research_test_material_plan.md` and the nine mechanism dossiers as the required front door. no test is accepted until its dossier states the claim, test material, control set, telemetry, and kill condition. the hard symbolic test-material package now provides the completed symbolic-verification layer; the next executable target is a tiny trainable neural-model mirror on the same latent worlds.
+0. **prepare research and test material before implementation.** use `wiki/synthesis/neural_model_research_test_material_plan.md` and the nine mechanism dossiers as the required front door. no test is accepted until its dossier states the claim, test material, control set, telemetry, and kill condition. the hard symbolic test-material package now provides the completed symbolic-verification layer. after the 2026-04-25 compression-stack update, the next executable proof is oracle compression analysis over those hard symbolic worlds; the tiny trainable neural-model mirror follows only after the oracle compression ratios are known.
 
 after that preparation stage, when the architecture backlog is explicitly reactivated:
 
@@ -276,6 +276,7 @@ every entry below is an append-only record of a change to this file. format: `da
 - **2026-04-23** — deyan todorov — approved neural-model research/test-material preparation plan added. the old todorov architecture is now treated as historical evidence; the neural model is the active scientific object. new synthesis article and nine mechanism dossiers define the pre-test research contract for local neuron state, memory formation, addressing, interference, compression, reconstruction, replay/rewrite, iterative rollout, and trainability. no paid compute or intervention selection is authorised by this update.
 - **2026-04-24** — deyan todorov — first hard symbolic neural-model test-material package implemented. `neuroloc/data/nm_worlds.py` now exposes hard symbolic contracts and deterministic policies; `neuroloc/simulations/memory/nm_hard_symbolic_test_material.py` records the metrics artifact; `hard_symbolic_nm` is a new suite with smoke and hard profiles. the package covers all ten v1 gates, including reasoning, imagination/recombination, and compression. validation passed for 23 focused tests, both suite profiles, and repository collection now reports 290 tests. no paid compute, full-model integration, or intervention selection is authorised by this update.
 - **2026-04-24** — deyan todorov — hard symbolic neural-model test-material package documented at `wiki/tests/hard_symbolic_nm_test_material.md`. the page records what the tests prove, what they do not prove, the validation record, and the next executable target: a tiny trainable neural-model mirror on the same latent worlds.
+- **2026-04-25** — deyan todorov — neural-model compression-stack theory added at `wiki/synthesis/neural_model_compression_stack.md`. the compression target is now explicitly operation-preserving and stack-wide: cache, address, payload, episode, imagination, replay-rewrite, and world-state compression must be swappable codecs judged by task-relative rate-distortion. the next no-paid proof is oracle compression analysis on the hard symbolic worlds before the tiny trainable mirror.
 
 ## the rule
 
@@ -296,6 +297,7 @@ the update history at the bottom of this file is append-only. every change to th
 
 - [[OPERATING_DIRECTIVE]]
 - [[neural_model_research_test_material_plan]]
+- [[neural_model_compression_stack]]
 - [[tests/hard_symbolic_nm_test_material]]
 - [[substrate_requires_architectural_change]]
 - [[phase1_evaluation_surface_for_neural_models]]

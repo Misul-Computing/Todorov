@@ -1,6 +1,6 @@
 # memory systems research library
 
-status: current (as of 2026-04-16).
+status: current (as of 2026-04-25).
 
 curated research on how biological memory works at the cognitive and systems level. organized by domain. this library complements [[neuroscience_research_2026]], which covers cellular and circuit-level mechanisms. the present article covers the higher-level architecture of memory: how memories are formed, stored, retrieved, transformed, and lost.
 
@@ -307,3 +307,4 @@ the memory systems literature provides several key validations and challenges fo
 - [[memory_systems_to_matrix_memory_and_compressed_attention]]
 - [[place_cells]]
 - [[grid_cells]]
+- [[compression_beyond_quantization]]

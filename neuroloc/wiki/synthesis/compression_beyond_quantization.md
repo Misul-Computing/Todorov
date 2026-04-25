@@ -1,6 +1,6 @@
 # compression beyond quantization
 
-status: current (as of 2026-04-23).
+status: current (as of 2026-04-25).
 
 ## the mistake worth naming
 
@@ -174,3 +174,4 @@ this synthesis does not address how to evaluate memory compression. current benc
 - [[memory_consolidation]] -- biological consolidation background
 - [[memory_compression_to_tiered_architecture]] -- current five-tier architecture translation
 - [[indexed_reconstruction_compression]] -- current compact-handle plus reconstruction direction
+- [[neural_model_compression_stack]] -- current operation-preserving compression-stack direction for every neural-model memory surface

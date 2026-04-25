@@ -1,6 +1,6 @@
 # neural model dossier: compression
 
-status: current (as of 2026-04-23).
+status: current (as of 2026-04-25).
 
 ## claim
 
@@ -61,4 +61,6 @@ kill the mechanism if it reduces stored bits but loses action-relevant state, if
 
 ## see also
 
+- [[neural_model_compression_stack]]
+- [[indexed_reconstruction_compression]]
 - [[neural_model_research_test_material_plan]]
