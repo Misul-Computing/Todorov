@@ -151,6 +151,8 @@ no mechanism should enter the full model path from this package alone. a mechani
 ## see also
 
 - [[tests/index]]
+- [[synthesis/neural_model_paper_spine]]
+- [[synthesis/oracle_compression_analysis_plan]]
 - [[synthesis/neural_model_research_test_material_plan]]
 - [[synthesis/neural_model_compression_stack]]
 - [[PROJECT_PLAN]]

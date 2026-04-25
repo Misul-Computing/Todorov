@@ -100,7 +100,7 @@ success metric:
 - value reconstruction error
 - downstream state/action success under fixed cache budget
 
-novelty level: low by itself. useful as an engineering layer, not the main research claim.
+paper value if proved: low by itself. useful as an engineering layer, not the main research claim.
 
 ### level 2: address compression
 
@@ -116,7 +116,7 @@ success metric:
 - target-to-nontarget read ratio
 - interference slope
 
-novelty level: moderate if integrated with trainability controls and learned writes. not enough alone.
+paper value if proved: moderate if integrated with trainability controls and learned writes. not enough alone.
 
 ### level 3: payload compression
 
@@ -131,7 +131,7 @@ success metric:
 - semantic and action-relevant retention
 - success at fixed bit budget
 
-novelty level: high if trained end to end inside the neural model rather than supplied by oracle labels.
+paper value if proved: high if trained end to end inside the neural model rather than supplied by oracle labels.
 
 ### level 4: episodic compression
 
@@ -146,7 +146,7 @@ success metric:
 - degraded-cue recall
 - provenance-correct reconstruction
 
-novelty level: high if it remains fixed-size and does not grow an external unbounded database.
+paper value if proved: high if it remains fixed-size and does not grow an external unbounded database.
 
 ### level 5: imagination compression
 
@@ -177,7 +177,7 @@ success metric:
 - branch uncertainty calibrated to failure
 - replay/rewrite can compress the branch further without losing task state
 
-novelty level: very high if learned. this is where compression, reasoning, and imagination become the same mechanism.
+paper value if proved: very high if learned. this is where compression, reasoning, and imagination become the same mechanism.
 
 ### level 6: replay-rewrite compression
 
@@ -192,7 +192,7 @@ success metric:
 - old memories become cheaper without becoming hallucinated
 - provenance remains auditable
 
-novelty level: high if the rewrite is differentiable or locally trainable and has a kill condition.
+paper value if proved: high if the rewrite is differentiable or locally trainable and has a kill condition.
 
 ### level 7: world-state compression
 
@@ -208,7 +208,7 @@ success metric:
 - transfer to new views of the same latent world
 - failure under adversarial relevance shifts is detected by uncertainty
 
-novelty level: highest. this is the only level where extreme compression ratios, including 100x or higher on structured worlds, are plausible.
+paper value if proved: highest. this is the only level where extreme compression ratios, including 100x or higher on structured worlds, are plausible.
 
 ## is it novel?
 
@@ -307,6 +307,8 @@ do not use paid compute to search for this. use paid compute only after:
 
 ## see also
 
+- [[neural_model_paper_spine]]
+- [[oracle_compression_analysis_plan]]
 - [[compression_beyond_quantization]]
 - [[indexed_reconstruction_compression]]
 - [[neural_model_dossier_compression]]

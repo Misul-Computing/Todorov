@@ -1,6 +1,6 @@
 # phase 1 evaluation surface for neural models
 
-status: current (as of 2026-04-24).
+status: current (as of 2026-04-25).
 
 ## why this article exists
 
@@ -305,6 +305,8 @@ surface. the two should not be conflated.
 
 ## see also
 
+- [[neural_model_paper_spine]]
+- [[oracle_compression_analysis_plan]]
 - [[training_objective_vs_architectural_goal]]
 - [[substrate_requires_architectural_change]]
 - [[slot_memory_design]]

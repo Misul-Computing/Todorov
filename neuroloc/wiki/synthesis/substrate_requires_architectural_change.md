@@ -1,6 +1,6 @@
 # substrate requires architectural change: six paid runs, zero retrieval, one discriminating corpus
 
-status: current (as of 2026-04-23).
+status: current (as of 2026-04-25).
 
 ## the observation
 
@@ -116,9 +116,9 @@ missing telemetry.
    150, not slowly descending. but it cannot be ruled out without a
    longer run.
 
-## what might actually work
+## paused intervention candidates
 
-reasonable next interventions, ordered by cost and risk:
+these intervention candidates remain useful historical backlog structure, ordered by cost and risk. they are not authorised for code changes or paid execution in the current paper-spine phase. the next active work is oracle compression analysis over the hard symbolic worlds, followed by a tiny trainable mirror only if the oracle ratios justify it.
 
 ### A. open the output gate at init
 
@@ -127,9 +127,9 @@ set `slot_gate_init=0.0` (sigmoid(0)=0.5) rather than `-4` (sigmoid(-4)≈
 instead of 2%. the hypothesis is that the initial gradient depends on
 the slot having some voice in the residual stream. the v2b iteration
 of the cpu gate C sim tried this at tiny scale and saw no effect — but
-tiny scale was underspecified for retrieval anyway. worth retrying at
-paid scale on the cognition corpus since the cognition task rewards
-retrieval directly.
+tiny scale was underspecified for retrieval anyway. this remains a
+candidate mechanism to localise under the future tiny mirror and cpu
+controls, not a launch plan.
 
 ### B. auxiliary retrieval loss on marker-following positions
 
@@ -139,8 +139,8 @@ marker bytes that identify these positions; the weighting is a
 mechanical change in the loss function. this directly attacks the
 3%-of-tokens-that-matter dilution (cause 3 / 4 above). the v2 tiny-
 scale iteration used the same weighting (10×) and val_bpb did not
-improve meaningfully, but at paid scale and with the retention fix
-the interaction is different. worth one more run.
+improve meaningfully. the interaction with retention remains a
+future controlled hypothesis, not a launch reason.
 
 ### C. orthogonal prototype key init
 
@@ -169,38 +169,37 @@ mechanism. candidates:
 - an explicit differentiable key-value table with hard attention at
   training time
 
-each is a substantial architectural commitment. rank them by CPU
-simulation cost before paid compute, per the pattern that established
-the slot memory design in the first place.
+each is a substantial architectural commitment. rank them by cpu
+simulation cost only after the oracle-compression and tiny-mirror
+preparation lane has produced a selected hypothesis.
 
-## rule for the next paid run
+## paid-run status under the current paper-spine phase
 
-another paid run on the current slot substrate with only hyperparameter
-changes (gate init, loss weighting, orthogonal init) is predicted with
-low confidence to produce nonzero passkey. if the user chooses to
-attempt any of A, B, C as a single paid run they should treat 0%
-passkey as the expected outcome and 1%+ as the discriminator.
+no paid run is authorised from this article. A-E are paused backlog
+candidates, not the current work queue. another paid run on the current
+slot substrate with only hyperparameter changes remains predicted to
+be scientifically weak because it would not answer the paper-spine
+question: what operation-preserving compression bounds exist before
+training?
 
-another paid run with no substrate changes and no training-task
-changes is strictly predicted to produce 0% passkey and should not be
-authorised.
+paid compute can return only after the current canonical gate is met:
+oracle compression analysis, a tiny trainable mirror, cpu controls,
+telemetry, prosecutor-clean docs, and one selected hypothesis.
 
-a paid run with substrate replacement (D, E) requires the cpu
-simulation gate A+B+C pattern to be repeated on the new substrate,
-same as slot memory was built through. minimum ~4 days of focused
-work before the next paid launch.
-
-note (2026-04-21 / 2026-04-22): the project's backlog method widened
-after this article. when the architecture track resumes after the
-curriculum, A-E candidates are no longer judged by passkey alone.
+note (2026-04-21 / 2026-04-25): the project's backlog method widened
+after this article. when the architecture track resumes, A-E
+candidates are no longer judged by passkey alone.
 they must first clear the broader cpu battery in
 `wiki/synthesis/phase1_evaluation_surface_for_neural_models.md`,
 including explicit trainability controls and state/action metrics.
 passkey at 256 remains necessary, but now as a smoke test inside that
-larger battery.
+larger battery. after the paper-spine refactor, they also inherit the
+oracle-compression and tiny-mirror gates before any paid path.
 
 ## see also
 
+- [[neural_model_paper_spine]] — paper-spine layer that treats this article as negative empirical motivation
+- [[oracle_compression_analysis_plan]] — next no-paid proof step before trained compression or architecture work
 - `wiki/tests/run3_cognition_phase1_results.md` — the run card for this observation
 - `wiki/synthesis/training_objective_vs_architectural_goal.md` — the prior analysis whose predicted discriminant this run executed
 - `wiki/synthesis/slot_memory_design.md` — the substrate design itself

@@ -112,6 +112,8 @@ a mechanism fails if it only improves loss, only works with oracle components, l
 
 ## see also
 
+- [[neural_model_paper_spine]]
+- [[oracle_compression_analysis_plan]]
 - [[tests/hard_symbolic_nm_test_material]]
 - [[neural_model_compression_stack]]
 - [[neural_model_dossier_local_neuron_state]]

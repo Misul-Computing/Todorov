@@ -61,4 +61,6 @@ kill the mechanism if reconstruction improves while action success does not, or 
 
 ## see also
 
+- [[neural_model_paper_spine]]
+- [[oracle_compression_analysis_plan]]
 - [[neural_model_research_test_material_plan]]

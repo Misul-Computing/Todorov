@@ -61,4 +61,6 @@ kill the mechanism if learned replay does not beat random replay, if rewrite red
 
 ## see also
 
+- [[neural_model_paper_spine]]
+- [[oracle_compression_analysis_plan]]
 - [[neural_model_research_test_material_plan]]

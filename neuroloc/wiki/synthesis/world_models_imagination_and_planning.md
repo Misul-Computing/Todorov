@@ -40,6 +40,8 @@ future backlog theory should treat imagination as a state-space operation. that 
 
 ## see also
 
+- [[neural_model_paper_spine]]
+- [[oracle_compression_analysis_plan]]
 - [[cognitive_architecture_research]]
 - [[visual_sources_cognitive_architecture]]
 - [[architectures_beyond_next_token_research]]

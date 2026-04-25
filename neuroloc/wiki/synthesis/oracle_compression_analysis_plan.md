@@ -1,0 +1,178 @@
+# oracle compression analysis plan
+
+status: current (as of 2026-04-25).
+
+## purpose
+
+this page defines the next no-paid proof step for the neural-model paper spine. before a tiny model is trained to compress memory, the project must compute the oracle compression bounds on the hard symbolic worlds.
+
+the analysis asks one question:
+
+```text
+what is the smallest task-sufficient code when the evaluator already knows the hidden latent structure?
+```
+
+if the oracle cannot compress a family strongly while preserving the required operations, training a model on that family will not produce the desired compression result.
+
+## bit accounts
+
+### verbatim trace bits
+
+the verbatim baseline stores the observed trace directly. for each episode, count every visible field that would need to be retained to answer later queries without a shared world model:
+
+- observation identity fields
+- observed attributes
+- context tags
+- locations or relation fields
+- temporal positions
+- query-relevant actions
+- distractor facts
+- payload bytes or symbols
+
+this is the upper-rate baseline. it is not automatically a good memory policy, because it may exceed the budget and increase interference.
+
+### latent-state bits
+
+the latent oracle stores only the ground-truth variables needed to preserve the task operations:
+
+- active entity ids
+- task-relevant attributes
+- hidden location or state variables
+- context route
+- relation or binding variables
+- delay-relevant state
+- dynamics parameters when needed for rollout
+
+this is the cleanest lower bound for structured worlds. it is available only because the symbolic generator exposes exact hidden state.
+
+### schema/residual bits
+
+the schema/residual oracle stores a reusable schema id plus only the fields not reconstructable from that schema:
+
+- schema id
+- address or entity handle
+- residual attributes
+- provenance id
+- uncertainty flag when ambiguity remains
+- rewrite marker when replay can promote repeated traces into a cheaper schema
+
+this account is the most relevant one for learned memory. it does not require the model to store every observed field, but it does require the decoder or prior to carry reusable structure.
+
+### imagined-branch program bits
+
+for imagination and recombination, the oracle should not store a generated trace. it should store a compact branch program:
+
+- source memory ids
+- start-state code
+- intervention code
+- transition handle
+- predicted outcome code
+- residual surprises
+- uncertainty
+- branch provenance
+
+this account tests whether imagined branches can be memory objects rather than unbounded rollouts.
+
+## expected ratio targets by family
+
+these are planning targets, not results.
+
+| family | expected oracle ratio | reason | kill signal |
+|---|---:|---|---|
+| belief-state formation | 5x-50x | hidden state is smaller than repeated masked observations | latent code needs most of the trace |
+| associative recall | 1x-20x | arbitrary payloads compress weakly unless schemas repeat | payload is high entropy and no schema helps |
+| correlated-key interference | 1x-10x | this is mainly an address-separation test | compression hides the address failure |
+| delayed use | 10x-100x | compact state can replace repeated observations across delay | no-memory or recency-only approaches oracle |
+| episodic reuse | 20x-200x | repeated episode structure can be stored as schema plus residual | reuse disappears when trace detail is dropped |
+| context-gated routing | 10x-100x | context/action maps can be compact handles | route requires full history |
+| compression under bit budget | 10x-300x | constructed to expose schema/residual advantage | verbatim and compressed policies tie |
+| replay/rewrite | 20x-300x | repeated traces can be promoted into smaller invariants | targeted replay fails to reduce bits |
+| iterative hard-case rollout | 1x-30x | compression is mostly compute/program compression | extra compute helps easy cases only |
+| imagination/recombination | 50x-600x | branch program can replace full imagined trace on structured worlds | branch outcome cannot be reconstructed from program plus residual |
+
+no ratio is accepted without preserved task operations. a smaller code that loses the answer is not compression.
+
+## operation checks
+
+each family must state which operations the oracle code preserves:
+
+- route to the right address
+- reconstruct the answer or action-relevant state
+- resist distractors
+- preserve target/non-target separation
+- support replay rewrite
+- support imagined-branch reconstruction
+- support rollout improvement on hard cases
+
+the analysis should report ratios only beside the operations that remain correct.
+
+## controls
+
+the oracle analysis must preserve the existing hard symbolic controls:
+
+- no-memory
+- recency-only
+- shuffled-address
+- random replay
+- targeted replay
+- verbatim store
+- compressed store
+
+compression claims are compared against verbatim storage and against task controls, not only against no-memory.
+
+## kill conditions
+
+stop the compression path for a family if any of these occur:
+
+- the oracle ratio is weak for the claim being made.
+- the oracle win depends on labels or schema ids that no trainable model could infer from observations.
+- the compressed code preserves reconstruction but loses action success.
+- bits drop only because task-relevant state was discarded.
+- imagined-branch compression cannot reconstruct outcome or uncertainty.
+- replay rewrite reduces bits but corrupts provenance.
+- shuffled-address succeeds on an address-dependent claim.
+
+for the main paper direction, compression/imagination/replay families should show at least one strong oracle target before a trained mirror is attempted. if the strongest constructed worlds cannot support around 10x useful compression under oracle access, the project should revise the worlds or abandon the extreme-compression claim for that family.
+
+## expected output
+
+the eventual analysis should produce a machine-readable artifact with one record per task family:
+
+```text
+family
+seed
+difficulty
+verbatim_trace_bits
+latent_state_bits
+schema_residual_bits
+imagined_branch_program_bits
+oracle_ratio_latent
+oracle_ratio_schema_residual
+oracle_ratio_branch_program
+operations_preserved
+control_results
+kill_condition
+```
+
+the result should also produce a wiki test page after execution. until then, this page is only the plan.
+
+## sequencing
+
+1. define deterministic bit counters over the existing hard symbolic episode contracts.
+2. run the counters over smoke and hard seed sets.
+3. verify that oracle policies still solve the tasks after replacing traces with oracle codes.
+4. report per-family ratio ranges and failure cases.
+5. update the paper spine with the resulting proof state.
+6. only then scope the tiny trainable neural-model mirror.
+
+## see also
+
+- [[neural_model_paper_spine]]
+- [[neural_model_compression_stack]]
+- [[indexed_reconstruction_compression]]
+- [[neural_model_research_test_material_plan]]
+- [[tests/hard_symbolic_nm_test_material]]
+- [[phase1_evaluation_surface_for_neural_models]]
+- [[synthetic_shared_world_bridge]]
+- [[PROJECT_PLAN]]
+- [[INDEX]]

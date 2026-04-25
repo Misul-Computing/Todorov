@@ -1,8 +1,8 @@
 # neuroloc index
 
-status: current (as of 2026-04-23).
+status: current (as of 2026-04-25).
 
-update note: curriculum pivot retained, phase-1 backlog battery recorded, research-swarm synthesis and visual program added, compression-cluster role cleanup applied, naming/history cleanup applied, indexed reconstruction compression added, and the approved neural-model research/test-material plan plus mechanism dossiers added.
+update note: curriculum pivot retained, neural-model research/test-material preparation recorded, paper spine added, and oracle compression analysis promoted as the next no-paid proof step before the tiny trainable mirror.
 
 this is the flat reference catalog of every article in the wiki, grouped
 by topic within each top-level directory. for guided navigation, start
@@ -15,6 +15,8 @@ at [[start_here]]. for the rules that govern every article below, see
 - [[Home]] — landing page and current-workstream orientation
 - [[concepts/start_here]] — guided onboarding path for new readers
 - [[PROJECT_PLAN]] — canonical project state (current run, decision rules, prior runs)
+- [[synthesis/neural_model_paper_spine]] — future paper spine and current research argument
+- [[synthesis/oracle_compression_analysis_plan]] — next no-paid proof step for compression bounds
 - [[synthesis/research_implications_for_neural_model_direction]] — ranked summary of the 2026-04-23 research cluster
 - [[synthesis/neural_model_research_test_material_plan]] — approved no-paid-compute mechanism-dossier and test-material preparation plan
 - [[synthesis/indexed_reconstruction_compression]] — current compact-handle plus reconstruction compression direction
@@ -28,9 +30,15 @@ at [[start_here]]. for the rules that govern every article below, see
 
 ## current project-state analyses (synthesis/)
 
-all 35 articles in `synthesis/` are the load-bearing project-level
-reasoning documents. one is superseded, thirty-four are current.
+all 38 articles in `synthesis/` are the load-bearing project-level
+reasoning documents. one is superseded, thirty-seven are current.
 
+- [[synthesis/neural_model_paper_spine]] — the current paper-spine layer:
+  conditional thesis, proof obligations, section map, not-proved-yet list,
+  and load-bearing links for the neural-model paper direction.
+- [[synthesis/oracle_compression_analysis_plan]] — the next no-paid proof
+  plan: verbatim trace bits, latent-state bits, schema/residual bits, and
+  imagined-branch program bits over the hard symbolic worlds.
 - [[synthesis/substrate_requires_architectural_change]] — the
   post-run-3 analysis after the cognition corpus returned 0% passkey.
   the canonical reference for why any future paid-resume path needs an
@@ -152,7 +160,7 @@ frozen evidence records, one per paid run:
 - [[mistakes/run2_slot_memory_decay_copy_paste]] — inherited retention bug
 - [[mistakes/run2_slot_memory_fla_silent_fall_through]] — FLA not installed silent slowdown
 
-## flat catalog — articles by topic (sums to 252 content articles; add 6 navigation/meta files plus tests/index.md for 259 total wiki markdown files on disk)
+## flat catalog — articles by topic (sums to 256 content articles; add 6 navigation/meta files plus tests/index.md for 263 total wiki markdown files on disk)
 
 ## mechanisms (61 articles)
 
@@ -296,12 +304,15 @@ frozen evidence records, one per paid run:
 ### legacy-title redirect
 - comparisons/memory_kda_vs_hippocampus.md -- superseded redirect to `comparisons/matrix_memory_vs_hippocampus.md`
 
-## synthesis (35 articles)
+## synthesis (38 articles)
+- synthesis/neural_model_paper_spine.md -- future paper spine for the neural-model paper: conditional thesis, proof obligations, section map, novelty side-track rule, and load-bearing links
+- synthesis/oracle_compression_analysis_plan.md -- next no-paid proof plan for oracle compression bounds across the hard symbolic worlds
 - synthesis/substrate_requires_architectural_change.md -- post-run-3 analysis: six paid runs at 0% passkey across two substrates and two corpora trigger the architecture-cannot-be-trained branch; ranks five candidate interventions (output gate init, auxiliary retrieval loss, orthogonal key init, warm-start, substrate replacement)
 - synthesis/training_objective_vs_architectural_goal.md -- root-cause analysis after five paid runs: LM loss on fineweb-edu does not exercise the memory substrate. the proposed discriminant (cognition corpus) ran as run3 and returned 0%, which triggered the article above
 - synthesis/phase1_evaluation_surface_for_neural_models.md -- backlog evaluation method for neural models: recognition / belief state, associative recollection, interference resistance, delayed use, episodic reuse, iterative reasoning, with the currently implemented `biology_phase1` symbolic battery and trainability controls
 - synthesis/synthetic_shared_world_bridge.md -- phase-2 bridge method: one latent world, many renderers; extend phase 1 through symbolic + image + toy-audio views of the same exact state rather than a bolt-on modality stack
 - synthesis/research_implications_for_neural_model_direction.md -- ranked implication summary from the 2026-04-23 research pass: actionable now, simulation next, preserve for later, and too weak
+- synthesis/neural_model_compression_stack.md -- operation-preserving compression stack theory across cache, address, payload, episode, imagination, replay-rewrite, and world-state memory
 - synthesis/indexed_reconstruction_compression.md -- current compact-handle plus reconstruction compression direction; stores addresses, schema/residual codes, and replay-rewrite proof obligations instead of pursuing more raw bits per neuron
 - synthesis/neural_model_research_test_material_plan.md -- approved no-paid-compute research/test-material plan requiring mechanism dossiers before metric code, model code, or intervention presets
 - synthesis/neural_model_dossier_local_neuron_state.md -- local neuron state as polarity-separated, membrane/subthreshold, and trace state
@@ -365,7 +376,7 @@ frozen evidence records, one per paid run:
 - bridge/memory_systems_to_kda_mla.md -- superseded redirect to `bridge/memory_systems_to_matrix_memory_and_compressed_attention.md`
 - bridge/biological_attention_to_mla.md -- superseded redirect to `bridge/biological_attention_to_compressed_attention.md`
 
-## tests (22 articles: 20 evidence records + 1 supporting prototype note + 1 series landing page)
+## tests (24 markdown files: 6 paid-run cards + 5 pilots + 1 series landing page + 9 simulation results and analyses + 1 hard symbolic test-material note + 1 supporting prototype note + 1 tests index)
 
 ### paid-run cards (6)
 - tests/god_run_results.md -- first paid neural-machine run, 2026-04-11, 283M params, val_bpb 1.3950, passkey 0/20
@@ -391,10 +402,13 @@ frozen evidence records, one per paid run:
 - tests/multi_resolution_head_split_results.md -- fast/medium/slow heads with surprise gates; rare-class recall improves
 - tests/thinking_loop_prototype_results.md -- recurrent hidden-state refinement pilot on modular arithmetic
 
+### symbolic test-material notes (1)
+- tests/hard_symbolic_nm_test_material.md -- hard symbolic neural-model test-material package, covering the v1 symbolic gates and documenting what the tests prove before oracle compression analysis
+
 ### supporting prototype note (1)
 - tests/aesthetic_logger_prototype.md -- frozen prototype note for the phase 6a logging module; not counted as an evidence record
 
-## simulations (45 scripts total: 42 across 17 script-containing directories plus 3 root-level utilities)
+## simulations (46 scripts total: 43 across 17 script-containing directories plus 3 root-level utilities)
 - simulations/single_neuron/ (3 scripts: lif_fi_curve leak-validation, adex_patterns, izhikevich_gallery)
 - simulations/plasticity/ (3 scripts: stdp_weight_evolution, homeostatic_scaling, bcm_alpha_pilot)
 - simulations/sparse_coding/ (2 scripts: sparse_coding_demo, hierarchical_ternary)
@@ -403,7 +417,7 @@ frozen evidence records, one per paid run:
 - simulations/neuromodulation/ (1 script: dopamine_rpe)
 - simulations/lateral_inhibition/ (1 script: wta_dynamics)
 - simulations/oscillations/ (1 script: gamma_ping)
-- simulations/memory/ (17 scripts: pattern_completion, capacity_scaling, imagination_recombination, asymmetric_outer_product_recall, correction_field_capacity, correction_field_trained_prediction, multi_resolution_head_split, slot_buffer_capacity, slot_surprise_writes, slot_integration, contextual_recall_world, slot_key_interference_sweep, multi_association_recall, delayed_cue_world, episodic_separation_completion, episodic_replay_reuse, contextual_gate_routing)
+- simulations/memory/ (18 scripts: pattern_completion, capacity_scaling, imagination_recombination, asymmetric_outer_product_recall, correction_field_capacity, correction_field_trained_prediction, multi_resolution_head_split, slot_buffer_capacity, slot_surprise_writes, slot_integration, contextual_recall_world, slot_key_interference_sweep, multi_association_recall, delayed_cue_world, episodic_separation_completion, episodic_replay_reuse, contextual_gate_routing, nm_hard_symbolic_test_material)
 - simulations/attention/ (1 script: biased_competition)
 - simulations/dendritic/ (1 script: multicompartment_neuron)
 - simulations/energy/ (1 script: energy_comparison)
@@ -459,17 +473,17 @@ frozen evidence records, one per paid run:
 - knowledge/sparse_connectivity_research.md -- curated research library on sparse network connectivity, 8 sources across lottery tickets in transformers, sparsegpt at 175b, deepseek moe, small-world acceleration, rigl dynamic sparse training, biological wiring cost optimization, connectome robustness, and adaptive rewiring emergence
 - knowledge/gpu_spike_implementation_research.md -- curated research library on gpu spiking implementations, covering spikingjelly cupy fusion (11x speedup), sparseprop O(log N) binary heap, parallel scan solutions for lif reset (psn, prf, spikingssms, bullet trains), eventprop exact spike-timing gradients, ttfs 0.3 spikes/neuron, matmul-free lm ternary weights, temporal fusion 5-40x speedup, and dense-beats-sparse crossover at 40% firing rate
 - knowledge/gpu_architecture_building_research.md -- curated research library on gpu architecture engineering, covering triton vs cuda tradeoffs, torch.autograd.Function + ste for spike backprop, flash attention tiling for outer-product accumulation, fla chunkwise parallel scan, gradient checkpointing, bf16/fp8 precision, gradcheck verification, and nsight compute profiling
-- knowledge/phase_coding_research.md -- curated research library on phase-based neural coding, covering lisman theta-gamma model, liebe et al. 2025 falsification of phase-order-encodes-sequence-order, trained rnns developing limit cycles (pals et al. 2024), linoss forced harmonic oscillators (rusch & rus iclr 2025 oral), akorn kuramoto synchronization, rope as structural phase code (novel observation), complex-valued position embeddings (wang et al. iclr 2020), and spike timing vs rate coding
+- knowledge/phase_coding_research.md -- curated research library on phase-based neural coding, covering lisman theta-gamma model, liebe et al. 2025 falsification of phase-order-encodes-sequence-order, trained rnns developing limit cycles (pals et al. 2024), linoss forced harmonic oscillators (rusch & rus iclr 2025 oral), akorn kuramoto synchronization, rope as structural phase code (project observation), complex-valued position embeddings (wang et al. iclr 2020), and spike timing vs rate coding
 - knowledge/unified_learning_hypothesis.md -- the forward pass is the learning step: outer products, adaptive retention, error correction, competition, and prediction error as one compute-and-training operation. testable hypothesis with specific experiment design.
-- knowledge/compression_novelty.md -- novelty analysis of hierarchical top-k selection plus three-value compression. confirmed novel: no prior work on runtime activations with cka quality validation. closest: compeft (emnlp 2024) on weight deltas. architecture-agnostic, applies to any activation tensor.
+- knowledge/compression_novelty.md -- prior novelty analysis of hierarchical top-k selection plus three-value compression; retained as a research shelf, not as an active paper claim under the neural-model spine
 - knowledge/biological_vision_research.md -- curated research library on biological vision, retinal processing, center-surround receptive fields, ventral/dorsal streams, and visual cortex hierarchies
 - knowledge/generative_memory_research.md -- curated literature shelf on generative memory and structural compression: quantization ceilings, Dreamer V3, INRs, hypernetworks, Larimar, Memorizing Transformers, Titans, DeltaKV
 
 ## statistics
 - total mechanism articles: 61
 - total bridge notes: 28 (25 current + 3 legacy-title redirects)
-- total synthesis articles: 25 (24 current + 1 superseded)
-- total test records: 20 (6 paid-run cards + 5 pilots + 9 later simulation results; excludes the supporting prototype note and the series landing page)
+- total synthesis articles: 38 (37 current + 1 superseded)
+- total test markdown files: 24 (6 paid-run cards + 5 pilots + 1 series landing page + 9 later simulation results + 1 hard symbolic test-material note + 1 supporting prototype note + tests/index.md)
 - total entity notes: 33
 - total comparison articles: 15 (14 current + 1 legacy-title redirect)
 - total concept articles: 7
@@ -477,8 +491,8 @@ frozen evidence records, one per paid run:
 - total mistake docs: 2
 - total supporting prototype notes: 1 (`tests/aesthetic_logger_prototype.md`)
 - total navigation / meta: 7 (INDEX.md, OPERATING_DIRECTIVE.md, PROJECT_PLAN.md, _audit_2026-04-16.md, Home.md, log.md, tests/index.md)
-- total simulations: 45 scripts across 17 script-containing directories plus 3 root-level utilities (shared.py, suite_registry.py, suite_runner.py)
-- last updated: 2026-04-23
+- total simulations: 46 scripts across 17 script-containing directories plus 3 root-level utilities (shared.py, suite_registry.py, suite_runner.py)
+- last updated: 2026-04-25
 
 ## historical meta
 
@@ -489,5 +503,7 @@ frozen evidence records, one per paid run:
 - [[Home]]
 - [[PROJECT_PLAN]]
 - [[OPERATING_DIRECTIVE]]
+- [[synthesis/neural_model_paper_spine]]
+- [[synthesis/oracle_compression_analysis_plan]]
 - [[log]]
 - [[tests/index|tests]]

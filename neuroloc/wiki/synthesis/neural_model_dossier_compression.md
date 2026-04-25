@@ -61,6 +61,8 @@ kill the mechanism if it reduces stored bits but loses action-relevant state, if
 
 ## see also
 
+- [[neural_model_paper_spine]]
+- [[oracle_compression_analysis_plan]]
 - [[neural_model_compression_stack]]
 - [[indexed_reconstruction_compression]]
 - [[neural_model_research_test_material_plan]]

@@ -96,6 +96,8 @@ before architecture resumes, the project needs model-native probes rather than a
 
 ## see also
 
+- [[neural_model_paper_spine]]
+- [[oracle_compression_analysis_plan]]
 - [[cellular_molecular_computational_primitives]]
 - [[correction_field_memory]]
 - [[compression_beyond_quantization]]

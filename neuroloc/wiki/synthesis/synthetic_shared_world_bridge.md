@@ -1,6 +1,6 @@
 # synthetic shared-world bridge
 
-status: current (as of 2026-04-24).
+status: current (as of 2026-04-25).
 
 ## the claim
 
@@ -184,6 +184,8 @@ forcing a separate reasoning benchmark later.
 
 ## see also
 
+- [[neural_model_paper_spine]]
+- [[oracle_compression_analysis_plan]]
 - [[phase1_evaluation_surface_for_neural_models]]
 - [[world_models_imagination_and_planning]]
 - [[beyond_next_token_for_neural_models]]
