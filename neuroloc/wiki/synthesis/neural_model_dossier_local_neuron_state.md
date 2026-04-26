@@ -1,6 +1,6 @@
 # neural model dossier: local neuron state
 
-status: current (as of 2026-04-23).
+status: current (as of 2026-04-26).
 
 ## claim
 
@@ -60,4 +60,5 @@ kill the mechanism if it improves local probe accuracy but not delayed action su
 
 ## see also
 
+- [[neural_model_lane_cellular_state_storage]]
 - [[neural_model_research_test_material_plan]]

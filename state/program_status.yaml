@@ -1,9 +1,9 @@
 project: todorov
 canonical_plan: neuroloc/wiki/PROJECT_PLAN.md
-current_phase: neural_model_research_test_material_preparation
-current_step: paper_spine_and_oracle_compression_plan_documented_next_oracle_analysis_no_paid_compute
-status: "2026_04_25_neural_model_paper_spine_and_oracle_compression_analysis_plan_documented"
-last_updated: "2026-04-25"
+current_phase: neural_model_master_plan_research_phase
+current_step: biology_led_master_plan_documented_next_six_lane_gap_map_no_paid_compute
+status: "2026_04_26_biology_led_neural_world_memory_master_plan_documented"
+last_updated: "2026-04-26"
 tests_passing: 23
 total_tests: 23
 test_collection_total: 290
@@ -92,4 +92,4 @@ latest_run_results:
   git_sha: f27b81c
   config_hash: 4e3f02be249cc069
   run_card: neuroloc/wiki/tests/run3_cognition_phase1_results.md
-next_action: "chapter 1 remains review-ready in pdf_curriculum/chapters/ch_01_what_a_number_means/ after the 2026-04-23 math correction pass; chapter 2 remains outline-only awaiting approval in pdf_curriculum/chapters/ch_02_how_things_change/ch_02_outline.md. the approved neural-model lane should next run oracle compression analysis on the hard symbolic worlds using the paper spine and oracle-compression plan, then scope a tiny trainable neural-model mirror only after the oracle ratios are known. no full model integration, intervention preset, kaggle, h200, pod, or paid run is authorised."
+next_action: "chapter 1 remains review-ready in pdf_curriculum/chapters/ch_01_what_a_number_means/ after the 2026-04-23 math correction pass; chapter 2 remains outline-only awaiting approval in pdf_curriculum/chapters/ch_02_how_things_change/ch_02_outline.md. the approved neural-model work should next build a ranked gap map across the six master-plan lanes, beginning with cellular/local state storage and then oracle compression bounds. simulator selection is a research gate, not a decision already made. no full model integration, intervention preset, kaggle, h200, pod, or paid run is authorised."

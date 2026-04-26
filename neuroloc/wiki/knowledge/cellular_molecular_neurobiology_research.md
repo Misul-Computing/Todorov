@@ -1,6 +1,6 @@
 # cellular molecular neurobiology research
 
-status: current (as of 2026-04-23).
+status: current (as of 2026-04-26).
 
 curated research shelf for cellular and molecular neurobiology as computational substrate. the focus is not generic cell biology. the focus is which molecular and compartmental mechanisms imply reusable compute, memory, timing, or control abstractions for neural models.
 
@@ -55,6 +55,7 @@ curated research shelf for cellular and molecular neurobiology as computational 
 
 ## see also
 
+- [[neural_model_lane_cellular_state_storage]]
 - [[systems_neuroscience_research]]
 - [[cross_scale_building_blocks_research]]
 - [[cellular_molecular_computational_primitives]]

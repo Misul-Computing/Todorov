@@ -1,6 +1,6 @@
 # neural model dossier: memory formation
 
-status: current (as of 2026-04-23).
+status: current (as of 2026-04-26).
 
 ## claim
 
@@ -62,4 +62,5 @@ kill the mechanism if writes do not align with relevant events, if oracle writes
 
 ## see also
 
+- [[neural_model_lane_memory_replay_imagination]]
 - [[neural_model_research_test_material_plan]]

@@ -1,6 +1,6 @@
 # neural model compression stack
 
-status: current (as of 2026-04-25).
+status: current (as of 2026-04-26).
 
 ## claim
 
@@ -283,7 +283,7 @@ the right near-term target is not to promise 600x. it is to construct worlds whe
 
 ## required next proof
 
-before paid compute, build an oracle compression analysis over the existing hard symbolic worlds:
+before paid compute, complete the master-plan gap map and then build an oracle compression analysis over the existing hard symbolic worlds:
 
 1. compute verbatim trace bits
 2. compute ground-truth latent state bits
@@ -309,6 +309,7 @@ do not use paid compute to search for this. use paid compute only after:
 
 - [[neural_model_paper_spine]]
 - [[oracle_compression_analysis_plan]]
+- [[neural_model_lane_operation_preserving_compression]]
 - [[compression_beyond_quantization]]
 - [[indexed_reconstruction_compression]]
 - [[neural_model_dossier_compression]]

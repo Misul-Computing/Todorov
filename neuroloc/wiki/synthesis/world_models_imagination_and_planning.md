@@ -1,6 +1,6 @@
 # world models imagination and planning
 
-status: current (as of 2026-04-23).
+status: current (as of 2026-04-26).
 
 ## thesis
 
@@ -42,6 +42,8 @@ future backlog theory should treat imagination as a state-space operation. that 
 
 - [[neural_model_paper_spine]]
 - [[oracle_compression_analysis_plan]]
+- [[neural_model_lane_memory_replay_imagination]]
+- [[neural_model_lane_3d_world_physics]]
 - [[cognitive_architecture_research]]
 - [[visual_sources_cognitive_architecture]]
 - [[architectures_beyond_next_token_research]]

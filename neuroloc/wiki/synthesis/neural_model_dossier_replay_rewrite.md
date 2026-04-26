@@ -1,6 +1,6 @@
 # neural model dossier: replay and rewrite
 
-status: current (as of 2026-04-23).
+status: current (as of 2026-04-26).
 
 ## claim
 
@@ -61,6 +61,7 @@ kill the mechanism if learned replay does not beat random replay, if rewrite red
 
 ## see also
 
+- [[neural_model_lane_memory_replay_imagination]]
 - [[neural_model_paper_spine]]
 - [[oracle_compression_analysis_plan]]
 - [[neural_model_research_test_material_plan]]

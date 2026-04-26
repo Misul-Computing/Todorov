@@ -1,6 +1,6 @@
 # neural model research and test-material plan
 
-status: current (as of 2026-04-25).
+status: current (as of 2026-04-26).
 
 ## purpose
 
@@ -21,7 +21,7 @@ every candidate mechanism must pass through this sequence:
 7. full model integration only if the small mirror localizes the effect
 8. paid compute only after cpu evidence, telemetry, and prosecutor-clean state updates
 
-after the hard symbolic package, the first executable target is oracle compression analysis on the same latent worlds. the tiny trainable neural-model mirror follows that analysis. the full model path is not the first target.
+after the hard symbolic package, the next research target is the six-lane gap map from [[PROJECT_PLAN]], beginning with cellular/local state storage and then oracle compression analysis on the same latent worlds. the tiny trainable neural-model mirror follows those gates. the full model path is not the first target.
 
 ## dossier contract
 
@@ -114,6 +114,12 @@ a mechanism fails if it only improves loss, only works with oracle components, l
 
 - [[neural_model_paper_spine]]
 - [[oracle_compression_analysis_plan]]
+- [[neural_model_lane_cellular_state_storage]]
+- [[neural_model_lane_operation_preserving_compression]]
+- [[neural_model_lane_memory_replay_imagination]]
+- [[neural_model_lane_3d_world_physics]]
+- [[neural_model_lane_trainability_evaluation]]
+- [[neural_model_lane_project_operations]]
 - [[tests/hard_symbolic_nm_test_material]]
 - [[neural_model_compression_stack]]
 - [[neural_model_dossier_local_neuron_state]]

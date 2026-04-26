@@ -1,6 +1,6 @@
 # phase 1 evaluation surface for neural models
 
-status: current (as of 2026-04-25).
+status: current (as of 2026-04-26).
 
 ## why this article exists
 
@@ -313,6 +313,8 @@ surface. the two should not be conflated.
 - [[synthetic_shared_world_bridge]]
 - [[working_memory_as_controlled_access]]
 - [[attention_as_precision_and_routing]]
+- [[neural_model_lane_3d_world_physics]]
+- [[neural_model_lane_trainability_evaluation]]
 - [[state_action_memory_architecture_direction]]
 - [[visuals_to_phase1_nm_tests]]
 - [[indexed_reconstruction_compression]]

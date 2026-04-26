@@ -1,8 +1,8 @@
 # neuroloc index
 
-status: current (as of 2026-04-25).
+status: current (as of 2026-04-26).
 
-update note: curriculum pivot retained, neural-model research/test-material preparation recorded, paper spine added, and oracle compression analysis promoted as the next no-paid proof step before the tiny trainable mirror.
+update note: single master plan recorded, six neural-model research lanes added, and the next no-paid step reframed as broad lane gap mapping beginning with cellular/local state storage and then oracle compression analysis.
 
 this is the flat reference catalog of every article in the wiki, grouped
 by topic within each top-level directory. for guided navigation, start
@@ -14,9 +14,15 @@ at [[start_here]]. for the rules that govern every article below, see
 
 - [[Home]] — landing page and current-workstream orientation
 - [[concepts/start_here]] — guided onboarding path for new readers
-- [[PROJECT_PLAN]] — canonical project state (current run, decision rules, prior runs)
+- [[PROJECT_PLAN]] — single canonical master plan and session-start state
 - [[synthesis/neural_model_paper_spine]] — future paper spine and current research argument
-- [[synthesis/oracle_compression_analysis_plan]] — next no-paid proof step for compression bounds
+- [[synthesis/oracle_compression_analysis_plan]] — compression-lane proof step for oracle bounds
+- [[synthesis/neural_model_lane_cellular_state_storage]] — biology-led local-state research lane
+- [[synthesis/neural_model_lane_operation_preserving_compression]] — operation-preserving compression research lane
+- [[synthesis/neural_model_lane_memory_replay_imagination]] — memory, replay, and imagination research lane
+- [[synthesis/neural_model_lane_3d_world_physics]] — 3d world model and physics research lane
+- [[synthesis/neural_model_lane_trainability_evaluation]] — trainability and evaluation research lane
+- [[synthesis/neural_model_lane_project_operations]] — project operations and paper-governance lane
 - [[synthesis/research_implications_for_neural_model_direction]] — ranked summary of the 2026-04-23 research cluster
 - [[synthesis/neural_model_research_test_material_plan]] — approved no-paid-compute mechanism-dossier and test-material preparation plan
 - [[synthesis/indexed_reconstruction_compression]] — current compact-handle plus reconstruction compression direction
@@ -30,13 +36,31 @@ at [[start_here]]. for the rules that govern every article below, see
 
 ## current project-state analyses (synthesis/)
 
-all 38 articles in `synthesis/` are the load-bearing project-level
-reasoning documents. one is superseded, thirty-seven are current.
+all 44 articles in `synthesis/` are the load-bearing project-level
+reasoning documents. one is superseded, forty-three are current.
 
+- [[synthesis/neural_model_lane_cellular_state_storage]] — the biology-led
+  lane for cellular, molecular, membrane, subthreshold, compartment,
+  eligibility, and gating operations as candidate local state.
+- [[synthesis/neural_model_lane_operation_preserving_compression]] — the
+  lane for oracle compression bounds, schema/residual codes,
+  imagined-branch program bits, and task-relative rate-distortion.
+- [[synthesis/neural_model_lane_memory_replay_imagination]] — the lane for
+  write/read routing, interference, replay rewrite, and imagination as
+  latent rollout and recombination.
+- [[synthesis/neural_model_lane_3d_world_physics]] — the lane for exact-state
+  embodied 3d worlds, physics variables, world-grounded language,
+  discrete actions, and simulator selection.
+- [[synthesis/neural_model_lane_trainability_evaluation]] — the lane for
+  hard symbolic gates, oracle controls, tiny trainable mirror, telemetry,
+  confidence intervals, and failure localization.
+- [[synthesis/neural_model_lane_project_operations]] — the lane for
+  single-plan governance, private-until-proved policy, prosecutor
+  requirements, curriculum support, archive policy, and paper registry.
 - [[synthesis/neural_model_paper_spine]] — the current paper-spine layer:
   conditional thesis, proof obligations, section map, not-proved-yet list,
   and load-bearing links for the neural-model paper direction.
-- [[synthesis/oracle_compression_analysis_plan]] — the next no-paid proof
+- [[synthesis/oracle_compression_analysis_plan]] — the compression-lane proof
   plan: verbatim trace bits, latent-state bits, schema/residual bits, and
   imagined-branch program bits over the hard symbolic worlds.
 - [[synthesis/substrate_requires_architectural_change]] — the
@@ -160,7 +184,7 @@ frozen evidence records, one per paid run:
 - [[mistakes/run2_slot_memory_decay_copy_paste]] — inherited retention bug
 - [[mistakes/run2_slot_memory_fla_silent_fall_through]] — FLA not installed silent slowdown
 
-## flat catalog — articles by topic (sums to 256 content articles; add 6 navigation/meta files plus tests/index.md for 263 total wiki markdown files on disk)
+## flat catalog — articles by topic (sums to 262 content articles; add 6 navigation/meta files plus tests/index.md for 269 total wiki markdown files on disk)
 
 ## mechanisms (61 articles)
 
@@ -304,9 +328,15 @@ frozen evidence records, one per paid run:
 ### legacy-title redirect
 - comparisons/memory_kda_vs_hippocampus.md -- superseded redirect to `comparisons/matrix_memory_vs_hippocampus.md`
 
-## synthesis (38 articles)
+## synthesis (44 articles)
+- synthesis/neural_model_lane_cellular_state_storage.md -- biology-led lane for cellular, molecular, membrane, subthreshold, compartment, eligibility, and gating operations as candidate local state
+- synthesis/neural_model_lane_operation_preserving_compression.md -- operation-preserving compression lane for oracle bounds, schema/residual codes, imagined-branch program bits, and task-relative rate-distortion
+- synthesis/neural_model_lane_memory_replay_imagination.md -- lane for write/read routing, interference, replay rewrite, and imagination as latent rollout and recombination
+- synthesis/neural_model_lane_3d_world_physics.md -- exact-state embodied 3d world and physics lane, including simulator-selection criteria and world-grounded language
+- synthesis/neural_model_lane_trainability_evaluation.md -- trainability and evaluation lane for hard symbolic gates, oracle controls, tiny mirror, telemetry, confidence intervals, and failure localization
+- synthesis/neural_model_lane_project_operations.md -- project operations lane for single-plan governance, side-paper gates, archive policy, prosecutor requirements, and curriculum support
 - synthesis/neural_model_paper_spine.md -- future paper spine for the neural-model paper: conditional thesis, proof obligations, section map, novelty side-track rule, and load-bearing links
-- synthesis/oracle_compression_analysis_plan.md -- next no-paid proof plan for oracle compression bounds across the hard symbolic worlds
+- synthesis/oracle_compression_analysis_plan.md -- compression-lane proof plan for oracle compression bounds across the hard symbolic worlds
 - synthesis/substrate_requires_architectural_change.md -- post-run-3 analysis: six paid runs at 0% passkey across two substrates and two corpora trigger the architecture-cannot-be-trained branch; ranks five candidate interventions (output gate init, auxiliary retrieval loss, orthogonal key init, warm-start, substrate replacement)
 - synthesis/training_objective_vs_architectural_goal.md -- root-cause analysis after five paid runs: LM loss on fineweb-edu does not exercise the memory substrate. the proposed discriminant (cognition corpus) ran as run3 and returned 0%, which triggered the article above
 - synthesis/phase1_evaluation_surface_for_neural_models.md -- backlog evaluation method for neural models: recognition / belief state, associative recollection, interference resistance, delayed use, episodic reuse, iterative reasoning, with the currently implemented `biology_phase1` symbolic battery and trainability controls
@@ -482,7 +512,7 @@ frozen evidence records, one per paid run:
 ## statistics
 - total mechanism articles: 61
 - total bridge notes: 28 (25 current + 3 legacy-title redirects)
-- total synthesis articles: 38 (37 current + 1 superseded)
+- total synthesis articles: 44 (43 current + 1 superseded)
 - total test markdown files: 24 (6 paid-run cards + 5 pilots + 1 series landing page + 9 later simulation results + 1 hard symbolic test-material note + 1 supporting prototype note + tests/index.md)
 - total entity notes: 33
 - total comparison articles: 15 (14 current + 1 legacy-title redirect)
@@ -492,7 +522,7 @@ frozen evidence records, one per paid run:
 - total supporting prototype notes: 1 (`tests/aesthetic_logger_prototype.md`)
 - total navigation / meta: 7 (INDEX.md, OPERATING_DIRECTIVE.md, PROJECT_PLAN.md, _audit_2026-04-16.md, Home.md, log.md, tests/index.md)
 - total simulations: 46 scripts across 17 script-containing directories plus 3 root-level utilities (shared.py, suite_registry.py, suite_runner.py)
-- last updated: 2026-04-25
+- last updated: 2026-04-26
 
 ## historical meta
 
@@ -505,5 +535,11 @@ frozen evidence records, one per paid run:
 - [[OPERATING_DIRECTIVE]]
 - [[synthesis/neural_model_paper_spine]]
 - [[synthesis/oracle_compression_analysis_plan]]
+- [[synthesis/neural_model_lane_cellular_state_storage]]
+- [[synthesis/neural_model_lane_operation_preserving_compression]]
+- [[synthesis/neural_model_lane_memory_replay_imagination]]
+- [[synthesis/neural_model_lane_3d_world_physics]]
+- [[synthesis/neural_model_lane_trainability_evaluation]]
+- [[synthesis/neural_model_lane_project_operations]]
 - [[log]]
 - [[tests/index|tests]]

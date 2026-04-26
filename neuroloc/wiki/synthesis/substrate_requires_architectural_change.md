@@ -1,6 +1,6 @@
 # substrate requires architectural change: six paid runs, zero retrieval, one discriminating corpus
 
-status: current (as of 2026-04-25).
+status: current (as of 2026-04-26).
 
 ## the observation
 
@@ -118,7 +118,7 @@ missing telemetry.
 
 ## paused intervention candidates
 
-these intervention candidates remain useful historical backlog structure, ordered by cost and risk. they are not authorised for code changes or paid execution in the current paper-spine phase. the next active work is oracle compression analysis over the hard symbolic worlds, followed by a tiny trainable mirror only if the oracle ratios justify it.
+these intervention candidates remain useful historical backlog structure, ordered by cost and risk. they are not authorised for code changes or paid execution in the current master-plan phase. the next active work is the six-lane research gap map, followed by oracle compression analysis over the hard symbolic worlds and then a tiny trainable mirror only if the oracle ratios justify it.
 
 ### A. open the output gate at init
 
@@ -173,7 +173,7 @@ each is a substantial architectural commitment. rank them by cpu
 simulation cost only after the oracle-compression and tiny-mirror
 preparation lane has produced a selected hypothesis.
 
-## paid-run status under the current paper-spine phase
+## paid-run status under the current master-plan phase
 
 no paid run is authorised from this article. A-E are paused backlog
 candidates, not the current work queue. another paid run on the current
@@ -183,7 +183,7 @@ question: what operation-preserving compression bounds exist before
 training?
 
 paid compute can return only after the current canonical gate is met:
-oracle compression analysis, a tiny trainable mirror, cpu controls,
+the six-lane research gap map, oracle compression analysis, a tiny trainable mirror, cpu controls,
 telemetry, prosecutor-clean docs, and one selected hypothesis.
 
 note (2026-04-21 / 2026-04-25): the project's backlog method widened
@@ -193,13 +193,14 @@ they must first clear the broader cpu battery in
 `wiki/synthesis/phase1_evaluation_surface_for_neural_models.md`,
 including explicit trainability controls and state/action metrics.
 passkey at 256 remains necessary, but now as a smoke test inside that
-larger battery. after the paper-spine refactor, they also inherit the
-oracle-compression and tiny-mirror gates before any paid path.
+larger battery. after the master-plan refactor, they also inherit the
+six-lane research, oracle-compression, and tiny-mirror gates before any paid path.
 
 ## see also
 
 - [[neural_model_paper_spine]] — paper-spine layer that treats this article as negative empirical motivation
 - [[oracle_compression_analysis_plan]] — next no-paid proof step before trained compression or architecture work
+- [[neural_model_lane_trainability_evaluation]] — lane that localizes learned-write, learned-read, gate, address, and decoder failure before paid work
 - `wiki/tests/run3_cognition_phase1_results.md` — the run card for this observation
 - `wiki/synthesis/training_objective_vs_architectural_goal.md` — the prior analysis whose predicted discriminant this run executed
 - `wiki/synthesis/slot_memory_design.md` — the substrate design itself

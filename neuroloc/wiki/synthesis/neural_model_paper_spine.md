@@ -1,6 +1,10 @@
 # neural model paper spine
 
-status: current (as of 2026-04-25).
+status: current (as of 2026-04-26).
+
+## master-plan role
+
+this page is the flagship-paper spine inside the broader six-lane master plan in [[PROJECT_PLAN]]. it is not the whole project plan. the paper spine depends on the lane pages for proof obligations, especially cellular state storage, operation-preserving compression, memory/replay/imagination, 3d world physics, trainability/evaluation, and project operations.
 
 ## abstract-level thesis
 
@@ -32,11 +36,11 @@ the compression target is not tensor reconstruction. for each memory surface, de
 
 proof state: theory proposal. not yet validated by oracle bounds or learned compression.
 
-### claim 4: oracle compression bounds must come before training
+### claim 4: broad lane research and oracle compression bounds must come before training
 
-if the hard symbolic worlds do not admit strong oracle compression ratios, a trained model should not be expected to discover extreme compression there. source and next plan: [[oracle_compression_analysis_plan]] and [[tests/hard_symbolic_nm_test_material]].
+if the six research lanes cannot state their proof obligations, the project should not train a mirror. if the hard symbolic worlds do not admit strong oracle compression ratios, a trained model should not be expected to discover extreme compression there. source and next plan: [[neural_model_lane_cellular_state_storage]], [[oracle_compression_analysis_plan]], and [[tests/hard_symbolic_nm_test_material]].
 
-proof state: open. this is the next no-paid research action.
+proof state: open. this is the compression-lane proof action after the six-lane gap map.
 
 ### claim 5: learned compression must beat controls
 
@@ -95,7 +99,7 @@ load-bearing pages: [[oracle_compression_analysis_plan]], [[tests/hard_symbolic_
 
 ### experiments
 
-the first experiment is not a full model run. it is oracle compression analysis. the second experiment is a tiny trainable mirror on the same worlds. full integration and paid compute remain blocked.
+the first executable model experiment is not a full model run. broad lane research and oracle compression analysis come first. the next model experiment after those gates is a tiny trainable mirror on the same worlds. full integration and paid compute remain blocked.
 
 load-bearing pages: [[oracle_compression_analysis_plan]], [[phase1_evaluation_surface_for_neural_models]], [[synthetic_shared_world_bridge]].
 
@@ -125,7 +129,7 @@ load-bearing pages: [[oracle_compression_analysis_plan]], [[synthetic_shared_wor
 
 ## next research action
 
-write and run the oracle compression analysis over the existing hard symbolic worlds. the output must show, per task family:
+first produce the ranked gap map across the six master-plan lanes, beginning with cellular/local state storage. then write and run the oracle compression analysis over the existing hard symbolic worlds. the compression output must show, per task family:
 
 - verbatim trace bits
 - latent-state bits
@@ -141,6 +145,12 @@ if the oracle ratios are weak, the project should not train a compression mirror
 ## see also
 
 - [[oracle_compression_analysis_plan]]
+- [[neural_model_lane_cellular_state_storage]]
+- [[neural_model_lane_operation_preserving_compression]]
+- [[neural_model_lane_memory_replay_imagination]]
+- [[neural_model_lane_3d_world_physics]]
+- [[neural_model_lane_trainability_evaluation]]
+- [[neural_model_lane_project_operations]]
 - [[neural_model_compression_stack]]
 - [[indexed_reconstruction_compression]]
 - [[neural_model_research_test_material_plan]]

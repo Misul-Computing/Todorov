@@ -1,6 +1,6 @@
 # neural model dossier: compression
 
-status: current (as of 2026-04-25).
+status: current (as of 2026-04-26).
 
 ## claim
 
@@ -61,6 +61,7 @@ kill the mechanism if it reduces stored bits but loses action-relevant state, if
 
 ## see also
 
+- [[neural_model_lane_operation_preserving_compression]]
 - [[neural_model_paper_spine]]
 - [[oracle_compression_analysis_plan]]
 - [[neural_model_compression_stack]]

@@ -1,10 +1,75 @@
 # project_plan
 
-status: current (as of 2026-04-25).
+status: current (as of 2026-04-26).
 
 this file is the canonical, persistent project state. any agent picking up the project starts here. updating this file is a hard rule with prosecutor enforcement (see `CLAUDE.md` and the rule section at the bottom of this file).
 
-last updated: 2026-04-25 (curriculum pivot remains preserved: chapter 1 is review-ready after the math correction pass, chapter 2 is outline-only, and no paid compute is authorised. the active approved research preparation is the neural model research/test-material phase: the old todorov architecture is historical evidence, while the neural model is the scientific object. the first hard symbolic test-material package is implemented in code. the compression direction is now organized as a paper spine plus oracle-compression proof plan. the next no-paid proof is oracle compression analysis on the hard symbolic worlds, followed by the tiny trainable neural-model mirror only if the oracle ratios justify it, not the full paid model path.)
+last updated: 2026-04-26 (this file is now the single canonical master plan for the neural model project. the active object is a biology-led, proof-gated neural world-memory model program, not old architecture execution. the flagship paper spine remains conditional, side-paper candidates are gated proof packages, and the near-term work is a broad research-first pass across six lanes: cellular state storage; operation-preserving compression; memory, addressing, replay, and imagination; 3d world model and physics; trainability and evaluation; and project infrastructure, curriculum, and paper operations. no paid compute, full-model integration, simulator choice, or architecture preset change is authorised.)
+
+## master plan: neural model program (2026-04-26)
+
+this is the single canonical session-start plan. all other status files are subordinate summaries or specialized protocols. when another plan file disagrees with this one, fix this file first, then sync the subordinate file only if the current task touches that surface.
+
+### project identity
+
+the active scientific object is the **neural model**. the old todorov architecture, prior names, and paid runs are historical evidence about failed substrates and trainability. they are not the live design identity.
+
+the target is a **3d latent world-memory model**: a neural model that learns local state, memory, compression, replay, imagination, physics reasoning, language answers, and discrete actions in embodied worlds. language is a co-primary training and output surface, but not the sole objective. early observations should include exact world and physics state plus world-grounded language. early outputs are language plus actions. drawing and image-generation output are not early targets.
+
+the first embodied task family is object permanence, occlusion, delayed use, simple dynamics, and counterfactual physics queries. the simulator is not chosen yet.
+
+### flagship paper thesis
+
+the flagship paper argues, conditionally, that a neural world-memory model can become scientifically coherent only if memory, imagination, replay, and world state are treated as operation-preserving memory objects with proof-gated compression, trainability controls, and exact-state evaluation.
+
+this is not proved. every novelty claim remains conditional until the required oracle, symbolic, trainable, and related-work gates pass.
+
+### six-lane portfolio
+
+1. [[neural_model_lane_cellular_state_storage]] — biology-led local state storage: cellular, molecular, membrane, subthreshold, compartment, eligibility, and gating operations translated into candidate mathematical state.
+2. [[neural_model_lane_operation_preserving_compression]] — oracle compression bounds, schema/residual codes, imagined-branch program bits, and task-relative rate-distortion.
+3. [[neural_model_lane_memory_replay_imagination]] — write/read routing, interference, replay rewrite, and imagination as latent rollout and recombination.
+4. [[neural_model_lane_3d_world_physics]] — exact-state embodied 3d worlds, physics variables, world-grounded language, discrete actions, and simulator selection.
+5. [[neural_model_lane_trainability_evaluation]] — hard symbolic gates, oracle controls, tiny trainable mirror, telemetry, confidence intervals, and failure localization.
+6. [[neural_model_lane_project_operations]] — single-plan governance, private-until-proved policy, prosecutor requirements, curriculum support, archive policy, and paper registry.
+
+### ranked unknowns
+
+1. how biological local state stores useful information over time.
+2. what oracle compression ratios are possible on hard symbolic worlds.
+3. what compression operations preserve memory, replay, imagination, and world-state operations rather than tensors.
+4. what simulator can provide exact-state embodied 3d physics without unnecessary from-scratch work.
+5. what trainability controls localize learned-write, learned-read, gate, address, and decoder failure.
+6. which side mechanisms are paper-worthy and which are only engineering choices.
+
+### side-paper policy
+
+side projects become active only as gated proof packages. each candidate must define:
+
+- mathematical operation
+- prior-art boundary
+- preserved or improved operation
+- source or proof basis
+- symbolic or oracle bound
+- trainable test
+- controls
+- telemetry
+- kill condition
+- paper claim if proved
+
+initial side-paper seeds are operation-preserving compression stack, hard symbolic neural-model test material, cellular/local state storage, replay and imagination compression, and trainability failure/control methodology. none is a claim of novelty until proved.
+
+### archive policy
+
+do not move old files in this update. old architecture material remains historical evidence until a focused migration pass creates `neuroloc/wiki/archive/` subfolders and updates `OPERATING_DIRECTIVE.md` to govern archive lifecycle. run cards and mistake docs stay preserved as evidence. old architecture execution is historical context, not active identity.
+
+### simulator-selection gate
+
+do not choose a simulator yet. candidate simulators must be evaluated for customizable embodied 3d worlds, deterministic runs, exact hidden state, physics variables, object permanence and occlusion tasks, discrete actions, world-grounded language generation, cheap local or cpu validation where possible, and exportable episode contracts compatible with the hard symbolic tests.
+
+### paid-compute gate
+
+paid compute remains blocked until broad lane research, oracle compression bounds, a tiny trainable mirror, cpu controls, telemetry, prosecutor-clean docs, and one explicitly selected hypothesis exist. paid compute is validation after proof gates, not exploration.
 
 ## teaching curriculum package (2026-04-17; preserved after 2026-04-23)
 
@@ -12,7 +77,7 @@ last updated: 2026-04-25 (curriculum pivot remains preserved: chapter 1 is revie
 
 the curriculum specifies 36 chapters across 6 phases that teach a reader from near-zero math and biology prerequisites up through machine-learning math, advanced neuroscience, and paper-implementation competence. each chapter is a 20-25 page PDF compiled from LaTeX, produced in strict sequence with per-chapter outline approval, parallel research agents, prosecutor validation on both research and draft, and user review-revision cycle before finalization. chapter details at `## curriculum track` below.
 
-**while working on curriculum material, no paid compute run is authorised.** the 2026-04-23 neural-model plan is also no-paid-compute. paid work returns only after the research/test-material package, tiny trainable mirror, cpu controls, telemetry, prosecutor-clean docs, and a single explicit hypothesis exist.
+**while working on curriculum material, no paid compute run is authorised.** the 2026-04-26 neural-model master plan is also no-paid-compute. paid work returns only after broad lane research, oracle compression analysis, the research/test-material package, a tiny trainable mirror, cpu controls, telemetry, prosecutor-clean docs, and a single explicit hypothesis exist.
 
 ## status
 
@@ -28,11 +93,11 @@ the curriculum specifies 36 chapters across 6 phases that teach a reader from ne
 
 **pivot decision** (2026-04-14): replace the matrix memory with slot-based memory using softmax addressing, surprise-gated writes, and an explicit output gate. design in `wiki/synthesis/slot_memory_design.md`. cpu validation pipeline (three simulations) gates any paid compute. **superseded 2026-04-17**: the slot pivot was executed through three paid runs (run2_slot_memory, run2_slot_memory_retention_fixed, run3_cognition_phase1) and still produced 0% passkey at 256. the next pivot is architectural intervention from the ranked list in `wiki/synthesis/substrate_requires_architectural_change.md`, not a further substrate design iteration without one of those interventions.
 
-**current question** (2026-04-25): what oracle compression bounds are possible on the hard symbolic worlds, and are they strong enough to justify training a compression mirror? the paper-spine layer is `wiki/synthesis/neural_model_paper_spine.md`; the proof plan is `wiki/synthesis/oracle_compression_analysis_plan.md`. novelty claims remain conditional: candidate novelties become side-track proof obligations only when they can be stated as preserved operations, metrics, controls, telemetry, kill conditions, and related-work separation. the older question of which A-E intervention to try remains paused until the oracle analysis and tiny trainable mirror localise a mechanism.
+**current question** (2026-04-26): what research structure makes the neural model scientifically coherent before any architecture work resumes? the answer is now the six-lane master plan above. the first lane is biology-led cellular state storage; oracle compression analysis remains mandatory, but it is one lane in the broader program rather than the whole next step. novelty claims remain conditional: candidate novelties become side-track proof obligations only when they can be stated as preserved operations, metrics, controls, telemetry, kill conditions, and related-work separation. the older question of which A-E intervention to try remains paused until lane research, oracle analysis, and a tiny trainable mirror localise a mechanism.
 
 **current obstacle** (2026-04-17): six paid runs at 0% passkey across two substrates, two retention regimes, and two corpora. cpu gates A and B verify the slot mechanism retrieves in isolation. sgd on the training pipeline never opens the output gate (mean gate at sigmoid(-4)≈0.018 through run2_slot_memory_retention_fixed, same regime suspected of run3 absent telemetry). the substrate does not fail for any reason that can be fixed by varying the corpus alone or the hyperparameters of the current initialisation alone.
 
-**immediate next action** (2026-04-25): no paid run is authorised. chapter 1 (`pdf_curriculum/chapters/ch_01_what_a_number_means/`) remains the current review-ready curriculum package after the math correction pass, and chapter 2 remains outline-only pending approval. the approved no-paid-compute neural-model preparation lane should next run oracle compression analysis over the hard symbolic worlds from `wiki/synthesis/oracle_compression_analysis_plan.md`, then scope the tiny trainable neural-model mirror only after the oracle ratios are known. do not touch the full model path or paid presets.
+**immediate next action** (2026-04-26): no paid run is authorised. chapter 1 (`pdf_curriculum/chapters/ch_01_what_a_number_means/`) remains review-ready after the math correction pass, and chapter 2 remains outline-only pending approval. the approved no-paid-compute neural-model work should next build the ranked gap map across the six research lanes, starting with cellular/local state storage and then oracle compression bounds. do not touch the full model path, paid presets, h200, kaggle, pod, or simulator implementation.
 
 ## hypothesis under test
 
@@ -124,7 +189,7 @@ published-technique names ("MLA", "KDA", "Hopfield", "Hebbian", "STDP", "BCM", "
 
 ### decision gate for the curriculum
 
-the curriculum's success criterion is defined in the plan file: at the end of phase 6 (after ch. 36 finalizes), the reader can read a raw research paper, extract the mathematical operation, translate it to working code, and evaluate it. if at that point the reader cannot complete the three paper-implementation chapters independently (ch. 34, 35, 36), the curriculum has failed and must be revised before declaring completion. paid compute remains paused through the entire curriculum and the neural-model research/test-material phase; it can return only after oracle compression analysis, a tiny trainable mirror, cpu controls, telemetry, prosecutor-clean docs, and one explicitly selected hypothesis exist.
+the curriculum's success criterion is defined in the plan file: at the end of phase 6 (after ch. 36 finalizes), the reader can read a raw research paper, extract the mathematical operation, translate it to working code, and evaluate it. if at that point the reader cannot complete the three paper-implementation chapters independently (ch. 34, 35, 36), the curriculum has failed and must be revised before declaring completion. paid compute remains paused through the curriculum support lane and the neural-model research phase; it can return only after broad lane research, oracle compression analysis, a tiny trainable mirror, cpu controls, telemetry, prosecutor-clean docs, and one explicitly selected hypothesis exist.
 
 ## experimental method
 
@@ -135,7 +200,7 @@ we have two testing environments in this project:
 
 the experimental method for the neural-model backlog has a pre-intervention preparation stage:
 
-0. **prepare research and test material before implementation.** use `wiki/synthesis/neural_model_paper_spine.md`, `wiki/synthesis/oracle_compression_analysis_plan.md`, `wiki/synthesis/neural_model_research_test_material_plan.md`, and the nine mechanism dossiers as the required front door. no test is accepted until its dossier states the claim, test material, control set, telemetry, and kill condition. the hard symbolic test-material package now provides the completed symbolic-verification layer. after the 2026-04-25 paper-spine update, the next executable proof is oracle compression analysis over those hard symbolic worlds; the tiny trainable neural-model mirror follows only after the oracle compression ratios are known.
+0. **prepare broad research and test material before implementation.** use the six-lane master plan, `wiki/synthesis/neural_model_paper_spine.md`, `wiki/synthesis/oracle_compression_analysis_plan.md`, `wiki/synthesis/neural_model_research_test_material_plan.md`, and the mechanism dossiers as the required front door. no test is accepted until its dossier states the claim, test material, control set, telemetry, and kill condition. the hard symbolic test-material package provides the completed symbolic-verification layer. after the 2026-04-26 master-plan update, the next research output is a ranked gap map across the six lanes, beginning with cellular/local state storage and then oracle compression analysis. the tiny trainable neural-model mirror follows only after the broad research gates and oracle compression ratios are known.
 
 0a. **novelty side-tracks require proof packaging.** building the neural model may expose multiple potentially paper-worthy mechanisms. a candidate novelty is not adopted as project-native until it has a compact proof package: mathematical operation, why prior art does not already cover the claim, oracle or symbolic bound, trainable test plan, controls, telemetry, kill condition, and a statement of what would make it useful. side-track papers are allowed, but they inherit the same no-paid-compute gate unless explicitly reauthorised after cpu evidence.
 
@@ -167,7 +232,7 @@ current compression-track state:
 3. **what remains useful from that line**: predictive filtering, surprise-gated writing, and residual reconstruction remain meaningful ideas, but they need either a different substrate or a different success criterion than "more patterns stored in the same matrix."
 4. **current compact-memory proof surface**: `wiki/synthesis/indexed_reconstruction_compression.md` is the current math target after the correction-field null result. the candidate object stores compact addresses, schema or latent ids, residual codes, and provenance, then reconstructs through a shared decoder and replay rewrite under an explicit rate-distortion objective. this is a proof obligation, not a validated architecture.
 5. **recent spiking-source implication**: the 2026 complemented-neuron ternary-snn paper and neuronspark-0.9b both point toward preserving membrane or subthreshold state around discrete events. they support polarity/history-preserving local state and membrane-summary channels as future cpu-probe ideas, but they do not prove a retrieval-capacity gain for the current model.
-6. **backlog stance while the curriculum is active**: keep compression work cpu-first and subordinate to the broader phase-1 neural-model battery. the current architecture-translation surface for the long-range tiered direction is `wiki/bridge/memory_compression_to_tiered_architecture.md`, but it is a phase-6+ sketch, not an immediate execution item.
+6. **backlog stance during the master-plan phase**: keep compression work cpu-first and subordinate to the broader six-lane neural-model plan. the current architecture-translation surface for the long-range tiered direction is `wiki/bridge/memory_compression_to_tiered_architecture.md`, but it is a phase-6+ sketch, not an immediate execution item.
 
 ## decision rules
 
@@ -176,7 +241,7 @@ current compression-track state:
 - **closed 2026-04-17: god_machine.py startup warns and fails when any layer's `use_fla=False` after a preset asks for FLA.** the FLA-silent-fall-through episode at the second `run2_slot_memory_retention_fixed` launch lost 17 minutes of paid h200 because the runtime had no `flash-linear-attention` package installed and every SlotMemory layer fell through to the python recurrent loop with no warning anywhere in the launch logs. fix in commit `edcfe5d` pinned the package in `requirements.txt`. the structural startup-time guard `_assert_fla_available_if_requested` in `god_machine.py` (committed 2026-04-17 as part of the run3_cognition_phase1 launch prep, see the update-history entry for that date) raises at preset resolution whenever a preset sets `use_fla_if_available=True` but the runtime cannot import `flash_linear_attention`. `NM_FORCE_NO_FLA=1` is the escape hatch for CPU smoke tests and intentional non-FLA runs. this bug class is now structurally closed, not process-enforced. mistake doc: `wiki/mistakes/run2_slot_memory_fla_silent_fall_through.md`.
 - **every prosecutor pass on a new preset must explicitly verify each init value against `linear_attention_retrieval_wall.md`.** the prosecutor prompt must ask: "what init values does this preset rely on by default? are any of them documented as failure modes in `mistakes/` or `synthesis/`?" this is a hard rule.
 - **the "four stacked failure modes" theory from `linear_attention_retrieval_wall.md` is now superseded.** the first four paid runs (god_run, god_run_v2, run1_baseline_noerasure, run2_slot_memory) all had `alpha_log_mean=-0.5` active via inherited Config defaults, so state evaporation was present in every prior failure and the role of the other three theorised modes (O(d) capacity, correlated keys, noise contamination) could not be isolated. the fifth paid run (`run2_slot_memory_retention_fixed`, 2026-04-15) explicitly fixed retention to `alpha_log_mean=5.0` (alpha_eff=0.9933, retention 0.18 at 256) and trained cleanly to val_bpb 1.4777. partial eval still produced passkey 0/100 at 256 and 1024. that result rules out state evaporation as the sole cause of the prior failures and reframes the diagnosis: the language-modelling training objective on fineweb-edu does not exercise the memory substrate at all (mean output gate stayed at 0.018 throughout the run, never opened). see `wiki/synthesis/training_objective_vs_architectural_goal.md` for the full analysis.
-- **run 2 conclusion (updated after the fifth paid run, 2026-04-15)**: the slot substrate has now been tested under non-evaporating retention and still produced 0/100 passkey on natural-text training. the substrate is not the obstacle (cpu gates A and B verified it retrieves in isolation). the training objective is. before the next paid compute, build a corpus that requires memory routing — synthetic cognition, mixed pretraining, or two-phase pretraining as laid out in the analysis article — and a corresponding training pipeline. another paid run on fineweb-edu with any architectural variation is predicted to also be 0/100 and should not be authorised until the corpus changes.
+- **run 2 conclusion (updated after the fifth paid run, 2026-04-15; superseded by run3 below)**: the slot substrate had then been tested under non-evaporating retention and still produced 0/100 passkey on natural-text training. cpu gates A and B verified it retrieved in isolation, so the next discriminant was a corpus that required memory routing. that discriminant was later executed as run3 and returned 0%, so corpus change alone is no longer an active launch path.
 - **updated after run3, 2026-04-17**: the corpus-change hypothesis was executed as `run3_cognition_phase1` on a synthetic cognition corpus where retrieval is 50% of training blocks. the substrate still produced 0/100 passkey at 256 and 1024, and val_bpb plateaued at the alphabet prior from step 150. the corpus is not the obstacle either. current guidance supersedes the prior rule: do not authorise a paid run on the current slot substrate with only corpus or retention or other hyperparameter changes. any future paid-resume path must carry one of the ranked architectural interventions from `wiki/synthesis/substrate_requires_architectural_change.md` (A: open output gate init; B: auxiliary retrieval loss; C: orthogonal key init; D: warm-start curriculum; E: substrate replacement). A-C were identified as low-edit candidates, but the 2026-04-23 plan now requires dossier-driven test material and one-mechanism cpu gates before any paid work.
 - **updated 2026-04-21**: passkey @ 256 is now a smoke test inside a broader phase-1 neural-model battery, not the sole backlog gate. when the architecture track resumes after the curriculum, interventions must first clear the cpu battery defined in `wiki/synthesis/phase1_evaluation_surface_for_neural_models.md` with trainability controls, and the phase-2 extension path is the synthetic shared world in `wiki/synthesis/synthetic_shared_world_bridge.md`. a paid run is not acceptable if the model still only knows how to report LM loss plus passkey.
 - **if a paid run returns 0% passkey, the first question is always**: did this run reproduce a known failure mode from `mistakes/`? if yes, the learning is zero; the mistake cost pod time. do NOT launch a follow-up run that repeats any same inherited-default failure.
@@ -280,6 +345,7 @@ every entry below is an append-only record of a change to this file. format: `da
 - **2026-04-24** — deyan todorov — hard symbolic neural-model test-material package documented at `wiki/tests/hard_symbolic_nm_test_material.md`. the page records what the tests prove, what they do not prove, the validation record, and the next executable target: a tiny trainable neural-model mirror on the same latent worlds.
 - **2026-04-25** — deyan todorov — neural-model compression-stack theory added at `wiki/synthesis/neural_model_compression_stack.md`. the compression target is now explicitly operation-preserving and stack-wide: cache, address, payload, episode, imagination, replay-rewrite, and world-state compression must be swappable codecs judged by task-relative rate-distortion. the next no-paid proof is oracle compression analysis on the hard symbolic worlds before the tiny trainable mirror.
 - **2026-04-25** — deyan todorov — paper-spine refactor added `wiki/synthesis/neural_model_paper_spine.md` and `wiki/synthesis/oracle_compression_analysis_plan.md`. the current question is now oracle compression bounds on hard symbolic worlds, with novelty side-tracks treated as conditional proof packages rather than assumed claims. paid compute remains blocked.
+- **2026-04-26** — deyan todorov — master plan refactor. this file is now the single canonical master plan for the neural model project: a biology-led, proof-gated neural world-memory model program organized as a flagship paper plus gated side-paper candidates and six compact research lanes. the next action is broad lane gap mapping beginning with cellular/local state storage and then oracle compression bounds. no paid compute, simulator choice, full-model integration, or architecture preset change is authorised.
 
 ## the rule
 
@@ -301,6 +367,12 @@ the update history at the bottom of this file is append-only. every change to th
 - [[OPERATING_DIRECTIVE]]
 - [[neural_model_paper_spine]]
 - [[oracle_compression_analysis_plan]]
+- [[neural_model_lane_cellular_state_storage]]
+- [[neural_model_lane_operation_preserving_compression]]
+- [[neural_model_lane_memory_replay_imagination]]
+- [[neural_model_lane_3d_world_physics]]
+- [[neural_model_lane_trainability_evaluation]]
+- [[neural_model_lane_project_operations]]
 - [[neural_model_research_test_material_plan]]
 - [[neural_model_compression_stack]]
 - [[tests/hard_symbolic_nm_test_material]]

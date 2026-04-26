@@ -60,8 +60,8 @@ in a transformer, the residual stream is the sole channel for inter-layer commun
 
 **power.** 20 watts for 86 billion neurons versus 200+ watts per GPU for 300 million parameters. the gap is real but narrowing: ternary operations on modern silicon approach biological efficiency per operation. the bottleneck is data movement, not compute. see [[biological_vs_silicon_energy]].
 
-## where to go next
+## see also
 
 - [[neuroscience_for_ml_engineers]] -- deeper treatment of each concept introduced here
 - [[glossary]] -- definitions of every technical term in this wiki
-- [[index]] -- full catalog of all mechanism, bridge, and comparison articles
+- [[INDEX]] -- full catalog of all mechanism, bridge, and comparison articles

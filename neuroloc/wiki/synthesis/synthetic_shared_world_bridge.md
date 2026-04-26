@@ -1,6 +1,6 @@
 # synthetic shared-world bridge
 
-status: current (as of 2026-04-25).
+status: current (as of 2026-04-26).
 
 ## the claim
 
@@ -189,6 +189,8 @@ forcing a separate reasoning benchmark later.
 - [[phase1_evaluation_surface_for_neural_models]]
 - [[world_models_imagination_and_planning]]
 - [[beyond_next_token_for_neural_models]]
+- [[neural_model_lane_memory_replay_imagination]]
+- [[neural_model_lane_3d_world_physics]]
 - [[dreamer_muzero_jepa_titans]]
 - [[canonical_visual_narratives_world_models]]
 - [[visuals_to_curriculum_chapters]]

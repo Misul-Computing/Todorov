@@ -1,6 +1,6 @@
 # hard symbolic neural-model test material
 
-status: current (as of 2026-04-25).
+status: current (as of 2026-04-26).
 
 ## purpose
 
@@ -114,7 +114,7 @@ the warning is the known numpy-on-windows experimental-build warning.
 
 ## next step
 
-the next executable target is oracle compression analysis on the same latent worlds. that analysis must compare verbatim trace bits, latent-state bits, schema/residual bits, and imagined-branch program bits before any trained mirror is asked to learn compression.
+the next research target is the six-lane master-plan gap map, followed by oracle compression analysis on the same latent worlds. that analysis must compare verbatim trace bits, latent-state bits, schema/residual bits, and imagined-branch program bits before any trained mirror is asked to learn compression.
 
 after that, the next trained target is a tiny trainable neural-model mirror on the same latent worlds.
 
@@ -153,6 +153,8 @@ no mechanism should enter the full model path from this package alone. a mechani
 - [[tests/index]]
 - [[synthesis/neural_model_paper_spine]]
 - [[synthesis/oracle_compression_analysis_plan]]
+- [[synthesis/neural_model_lane_operation_preserving_compression]]
+- [[synthesis/neural_model_lane_trainability_evaluation]]
 - [[synthesis/neural_model_research_test_material_plan]]
 - [[synthesis/neural_model_compression_stack]]
 - [[PROJECT_PLAN]]

@@ -1,6 +1,6 @@
 # neural model dossier: trainability
 
-status: current (as of 2026-04-23).
+status: current (as of 2026-04-26).
 
 ## claim
 
@@ -64,4 +64,5 @@ kill the mechanism if oracle variants pass but no trainable path closes the gap,
 
 ## see also
 
+- [[neural_model_lane_trainability_evaluation]]
 - [[neural_model_research_test_material_plan]]

@@ -1,10 +1,10 @@
 # oracle compression analysis plan
 
-status: current (as of 2026-04-25).
+status: current (as of 2026-04-26).
 
 ## purpose
 
-this page defines the next no-paid proof step for the neural-model paper spine. before a tiny model is trained to compress memory, the project must compute the oracle compression bounds on the hard symbolic worlds.
+this page defines the compression-lane oracle proof step for the neural-model paper spine. under the 2026-04-26 master plan, it follows the broad six-lane gap map and is the required gate before a tiny model is trained to compress memory.
 
 the analysis asks one question:
 
@@ -158,16 +158,22 @@ the result should also produce a wiki test page after execution. until then, thi
 
 ## sequencing
 
-1. define deterministic bit counters over the existing hard symbolic episode contracts.
-2. run the counters over smoke and hard seed sets.
-3. verify that oracle policies still solve the tasks after replacing traces with oracle codes.
-4. report per-family ratio ranges and failure cases.
-5. update the paper spine with the resulting proof state.
-6. only then scope the tiny trainable neural-model mirror.
+1. confirm the relevant compression questions from the six-lane gap map, especially cellular state storage and memory/replay/imagination.
+2. define deterministic bit counters over the existing hard symbolic episode contracts.
+3. run the counters over smoke and hard seed sets.
+4. verify that oracle policies still solve the tasks after replacing traces with oracle codes.
+5. report per-family ratio ranges and failure cases.
+6. update the paper spine with the resulting proof state.
+7. only then scope the tiny trainable neural-model mirror.
 
 ## see also
 
 - [[neural_model_paper_spine]]
+- [[neural_model_lane_operation_preserving_compression]]
+- [[neural_model_lane_cellular_state_storage]]
+- [[neural_model_lane_memory_replay_imagination]]
+- [[neural_model_lane_trainability_evaluation]]
+- [[neural_model_lane_project_operations]]
 - [[neural_model_compression_stack]]
 - [[indexed_reconstruction_compression]]
 - [[neural_model_research_test_material_plan]]
