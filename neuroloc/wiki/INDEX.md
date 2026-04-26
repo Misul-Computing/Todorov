@@ -149,7 +149,7 @@ reasoning documents. one is superseded, forty-three are current.
 
 ## teaching curriculum (2026-04-17, preserved package)
 
-**the teaching PDF curriculum remains preserved and reviewable** in the plan file at `~/.claude/plans/compressed-dancing-haven.md`. after the 2026-04-23 decision, the current scientific planning lane is the neural model research/test-material phase, not immediate curriculum production and not architecture execution. paid compute is paused indefinitely. the curriculum specifies 36 chapters across 6 phases at 20-25 pages per chapter in English LaTeX:
+**the teaching PDF curriculum remains preserved and reviewable** in the plan file at `~/.claude/plans/compressed-dancing-haven.md`. after the 2026-04-26 master-plan decision, the current scientific planning lane is the neural-model master-plan research phase, not immediate curriculum production and not architecture execution. paid compute is paused indefinitely. the curriculum specifies 36 chapters across 6 phases at 20-25 pages per chapter in English LaTeX:
 
 - phase 1 (ch. 1-8): foundations of math — numbers, change, accumulation, vectors, matrices, multi-dimensional change, probability, information
 - phase 2 (ch. 9-14): foundations of biology — cells, electricity, action potentials, synapses, compartmental neurons, circuits
@@ -162,11 +162,13 @@ per-chapter production protocol: outline -> user approval -> parallel research a
 
 backlog note: when the architecture track resumes, it no longer starts
 from a blank "define the battery" state. the starting point is the
-approved neural-model research/test-material plan, the mechanism
-dossiers, the implemented symbolic `biology_phase1` battery summarized
-in `synthesis/phase1_evaluation_surface_for_neural_models.md`, the
-remaining model-side parity harness, and then the synthetic shared-world
-extension in `synthesis/synthetic_shared_world_bridge.md`.
+six-lane master-plan gap map beginning with cellular/local state storage,
+then oracle compression bounds where relevant, then the approved
+neural-model research/test-material plan, mechanism dossiers, the
+implemented symbolic `biology_phase1` battery summarized in
+`synthesis/phase1_evaluation_surface_for_neural_models.md`, and only
+after those gates any model-side parity harness or synthetic
+shared-world extension in `synthesis/synthetic_shared_world_bridge.md`.
 
 ## paid-run cards (tests/, historical context only)
 
