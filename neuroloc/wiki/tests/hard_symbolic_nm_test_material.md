@@ -114,9 +114,9 @@ the warning is the known numpy-on-windows experimental-build warning.
 
 ## next step
 
-the next research target is the six-lane master-plan gap map, followed by oracle compression analysis on the same latent worlds. that analysis must compare verbatim trace bits, latent-state bits, schema/residual bits, and imagined-branch program bits before any trained mirror is asked to learn compression.
+the first lane artifact from the six-lane master plan is now [[synthesis/cellular_state_storage_gap_map]]. the next research targets are the first cellular mechanism dossier and oracle compression analysis on the same latent worlds. that analysis must compare verbatim trace bits, latent-state bits, schema/residual bits, and imagined-branch program bits before any trained mirror is asked to learn compression.
 
-after that, the next trained target is a tiny trainable neural-model mirror on the same latent worlds.
+after the mechanism dossier and oracle analysis, the next trained target is a tiny trainable neural-model mirror on the same latent worlds.
 
 that mirror must use the exact same episode contracts and expose the same metrics:
 
@@ -151,6 +151,7 @@ no mechanism should enter the full model path from this package alone. a mechani
 ## see also
 
 - [[tests/index]]
+- [[synthesis/cellular_state_storage_gap_map]]
 - [[synthesis/neural_model_paper_spine]]
 - [[synthesis/oracle_compression_analysis_plan]]
 - [[synthesis/neural_model_lane_operation_preserving_compression]]

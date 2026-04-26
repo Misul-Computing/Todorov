@@ -30,6 +30,8 @@ the project should treat local write events as gated commitments instead of unif
 
 this does not mean importing molecular detail literally. it means refusing to collapse fast activity, memory eligibility, and stability control into one state variable without a reason.
 
+the current ranked project translation is [[cellular_state_storage_gap_map]].
+
 ## what remains speculative
 
 - direct glia-like controller modules
@@ -41,6 +43,7 @@ these ideas are worth preserving, but they are not yet action-ready.
 ## see also
 
 - [[neural_model_lane_cellular_state_storage]]
+- [[cellular_state_storage_gap_map]]
 - [[cellular_molecular_neurobiology_research]]
 - [[visual_sources_systems_neuroscience]]
 - [[cross_scale_building_blocks_for_biological_computation]]

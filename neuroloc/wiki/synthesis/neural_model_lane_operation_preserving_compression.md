@@ -18,6 +18,7 @@ the useful claim is conditional: an operation-preserving compression stack may b
 
 ## evidence base
 
+- [[cellular_state_storage_gap_map]] proposes ranked local-state candidates that may affect write frequency, active forgetting, and useful bits per episode.
 - [[neural_model_compression_stack]] defines the current stack-wide compression contract.
 - [[oracle_compression_analysis_plan]] defines the next oracle-bound analysis.
 - [[indexed_reconstruction_compression]] defines compact handles, schema or residual codes, provenance, and reconstruction.
@@ -48,11 +49,12 @@ the useful claim is conditional: an operation-preserving compression stack may b
 
 ## next action
 
-run the oracle compression analysis after the cellular-state gap map establishes which local-state candidates may affect memory formation and compression.
+run the oracle compression analysis now that the cellular-state gap map has proposed the first local-state candidates that may affect memory formation and compression.
 
 ## see also
 
 - [[PROJECT_PLAN]]
+- [[cellular_state_storage_gap_map]]
 - [[neural_model_paper_spine]]
 - [[oracle_compression_analysis_plan]]
 - [[neural_model_research_test_material_plan]]

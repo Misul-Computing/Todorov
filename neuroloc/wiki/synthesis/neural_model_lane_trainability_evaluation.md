@@ -18,6 +18,7 @@ the first executable model target remains a tiny trainable neural-model mirror, 
 
 ## evidence base
 
+- [[cellular_state_storage_gap_map]] identifies the first local-state mechanisms that need oracle/write/read/gate controls before implementation.
 - [[neural_model_research_test_material_plan]] defines dossier, control, and metric requirements.
 - [[phase1_evaluation_surface_for_neural_models]] defines the broader state/action evaluation frame.
 - [[tests/hard_symbolic_nm_test_material]] documents the implemented hard symbolic package.
@@ -49,11 +50,12 @@ the first executable model target remains a tiny trainable neural-model mirror, 
 
 ## next action
 
-define the broad research gap map first, then scope the tiny trainable mirror against the mechanism claims that survive oracle and symbolic gates.
+scope the first mechanism dossier and tiny-mirror target against the cellular-state gap map, while keeping oracle compression bounds ahead of any full-model path.
 
 ## see also
 
 - [[PROJECT_PLAN]]
+- [[cellular_state_storage_gap_map]]
 - [[neural_model_paper_spine]]
 - [[oracle_compression_analysis_plan]]
 - [[neural_model_research_test_material_plan]]

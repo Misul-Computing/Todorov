@@ -36,11 +36,11 @@ the compression target is not tensor reconstruction. for each memory surface, de
 
 proof state: theory proposal. not yet validated by oracle bounds or learned compression.
 
-### claim 4: broad lane research and oracle compression bounds must come before training
+### claim 4: lane research and oracle compression bounds must come before training
 
-if the six research lanes cannot state their proof obligations, the project should not train a mirror. if the hard symbolic worlds do not admit strong oracle compression ratios, a trained model should not be expected to discover extreme compression there. source and next plan: [[neural_model_lane_cellular_state_storage]], [[oracle_compression_analysis_plan]], and [[tests/hard_symbolic_nm_test_material]].
+if the research lanes cannot state their proof obligations, the project should not train a mirror. the first biology-led lane gap map is [[cellular_state_storage_gap_map]]. if the hard symbolic worlds do not admit strong oracle compression ratios, a trained model should not be expected to discover extreme compression there. source and next plan: [[neural_model_lane_cellular_state_storage]], [[oracle_compression_analysis_plan]], and [[tests/hard_symbolic_nm_test_material]].
 
-proof state: open. this is the compression-lane proof action after the six-lane gap map.
+proof state: open. the next proof actions are the first cellular mechanism dossier and oracle compression analysis.
 
 ### claim 5: learned compression must beat controls
 
@@ -99,7 +99,7 @@ load-bearing pages: [[oracle_compression_analysis_plan]], [[tests/hard_symbolic_
 
 ### experiments
 
-the first executable model experiment is not a full model run. broad lane research and oracle compression analysis come first. the next model experiment after those gates is a tiny trainable mirror on the same worlds. full integration and paid compute remain blocked.
+the first executable model experiment is not a full model run. the cellular/local-state gap map and oracle compression analysis come first. the next model experiment after those gates is a tiny trainable mirror on the same worlds. full integration and paid compute remain blocked.
 
 load-bearing pages: [[oracle_compression_analysis_plan]], [[phase1_evaluation_surface_for_neural_models]], [[synthetic_shared_world_bridge]].
 
@@ -129,7 +129,7 @@ load-bearing pages: [[oracle_compression_analysis_plan]], [[synthetic_shared_wor
 
 ## next research action
 
-first produce the ranked gap map across the six master-plan lanes, beginning with cellular/local state storage. then write and run the oracle compression analysis over the existing hard symbolic worlds. the compression output must show, per task family:
+the first biology-led lane gap map is now [[cellular_state_storage_gap_map]]. next, write the first cellular mechanism dossier and run the oracle compression analysis over the existing hard symbolic worlds. the compression output must show, per task family:
 
 - verbatim trace bits
 - latent-state bits
@@ -145,6 +145,7 @@ if the oracle ratios are weak, the project should not train a compression mirror
 ## see also
 
 - [[oracle_compression_analysis_plan]]
+- [[cellular_state_storage_gap_map]]
 - [[neural_model_lane_cellular_state_storage]]
 - [[neural_model_lane_operation_preserving_compression]]
 - [[neural_model_lane_memory_replay_imagination]]

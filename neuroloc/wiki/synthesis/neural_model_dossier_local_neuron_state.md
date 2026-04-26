@@ -21,7 +21,7 @@ where `u_t` is a local carry state, `p_t` separates positive and negative eviden
 
 ## evidence basis
 
-the complemented-neuron ternary-snn paper and neuronspark-0.9b both point away from hard event purity. the useful translation is preserving membrane or leakage state around discrete events. dendritic-computation evidence also supports branch-local state and nonlinear local coincidence before final output.
+[[cellular_state_storage_gap_map]] sharpens this dossier's evidence basis. the complemented-neuron ternary-snn paper and neuronspark-0.9b both point away from hard event purity. the useful translation is preserving membrane or leakage state around discrete events. dendritic-computation evidence also supports branch-local state and nonlinear local coincidence before final output.
 
 ## failure mode targeted
 
@@ -61,4 +61,5 @@ kill the mechanism if it improves local probe accuracy but not delayed action su
 ## see also
 
 - [[neural_model_lane_cellular_state_storage]]
+- [[cellular_state_storage_gap_map]]
 - [[neural_model_research_test_material_plan]]

@@ -4,7 +4,7 @@ status: current (as of 2026-04-26).
 
 ## purpose
 
-this page defines the compression-lane oracle proof step for the neural-model paper spine. under the 2026-04-26 master plan, it follows the broad six-lane gap map and is the required gate before a tiny model is trained to compress memory.
+this page defines the compression-lane oracle proof step for the neural-model paper spine. under the 2026-04-26 master plan and the first cellular/local-state gap map, it runs alongside the first cellular mechanism dossier and remains a required gate before a tiny model is trained to compress memory.
 
 the analysis asks one question:
 
@@ -158,7 +158,7 @@ the result should also produce a wiki test page after execution. until then, thi
 
 ## sequencing
 
-1. confirm the relevant compression questions from the six-lane gap map, especially cellular state storage and memory/replay/imagination.
+1. confirm the relevant compression questions from [[cellular_state_storage_gap_map]], especially write frequency, active forgetting, useful bits per episode, and memory/replay/imagination.
 2. define deterministic bit counters over the existing hard symbolic episode contracts.
 3. run the counters over smoke and hard seed sets.
 4. verify that oracle policies still solve the tasks after replacing traces with oracle codes.
@@ -169,6 +169,7 @@ the result should also produce a wiki test page after execution. until then, thi
 ## see also
 
 - [[neural_model_paper_spine]]
+- [[cellular_state_storage_gap_map]]
 - [[neural_model_lane_operation_preserving_compression]]
 - [[neural_model_lane_cellular_state_storage]]
 - [[neural_model_lane_memory_replay_imagination]]

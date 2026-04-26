@@ -18,6 +18,7 @@ the claim is not that biology should be copied. the claim is conditional: a cell
 
 ## evidence base
 
+- [[cellular_state_storage_gap_map]] records the first ranked no-paid-compute synthesis for this lane.
 - [[cellular_molecular_computational_primitives]] maps candidate biological primitives into computation-filtered operations.
 - [[cellular_molecular_neurobiology_research]] records the source shelf for dendrites, receptors, glia, and biochemical control motifs.
 - [[indexed_reconstruction_compression]] records the recent source check: complemented-neuron ternary spiking models and neuronspark-style membrane state support preserving subthreshold state around discrete events, but do not prove retrieval capacity for this project.
@@ -47,11 +48,12 @@ the claim is not that biology should be copied. the claim is conditional: a cell
 
 ## next action
 
-produce a ranked cellular-state gap map: candidate biological operation, mathematical translation, expected preserved operation, available evidence, missing proof, and first symbolic or oracle test.
+turn the ranked gap map into the first mechanism dossier: eligibility-gated local commit plus bounded output-capacity state. the dossier must define the symbolic episode contract, controls, telemetry, and kill conditions before any code changes.
 
 ## see also
 
 - [[PROJECT_PLAN]]
+- [[cellular_state_storage_gap_map]]
 - [[neural_model_paper_spine]]
 - [[oracle_compression_analysis_plan]]
 - [[neural_model_research_test_material_plan]]

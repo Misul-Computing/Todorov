@@ -53,9 +53,12 @@ curated research shelf for cellular and molecular neurobiology as computational 
 - supporting future curriculum chapters on cells, synapses, and compartmental neurons
 - preventing vague “biological inspiration” by tying claims to local mechanisms and timescales
 
+the current computation-filtered synthesis from this shelf is [[cellular_state_storage_gap_map]].
+
 ## see also
 
 - [[neural_model_lane_cellular_state_storage]]
+- [[cellular_state_storage_gap_map]]
 - [[systems_neuroscience_research]]
 - [[cross_scale_building_blocks_research]]
 - [[cellular_molecular_computational_primitives]]

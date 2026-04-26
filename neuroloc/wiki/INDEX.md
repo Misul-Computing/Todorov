@@ -2,7 +2,7 @@
 
 status: current (as of 2026-04-26).
 
-update note: single master plan recorded, six neural-model research lanes added, and the next no-paid step reframed as broad lane gap mapping beginning with cellular/local state storage and then oracle compression analysis.
+update note: single master plan recorded, six neural-model research lanes added, and the first no-paid cellular/local-state gap map documented. the next research step is the first cellular mechanism dossier plus oracle compression analysis.
 
 this is the flat reference catalog of every article in the wiki, grouped
 by topic within each top-level directory. for guided navigation, start
@@ -17,6 +17,7 @@ at [[start_here]]. for the rules that govern every article below, see
 - [[PROJECT_PLAN]] — single canonical master plan and session-start state
 - [[synthesis/neural_model_paper_spine]] — future paper spine and current research argument
 - [[synthesis/oracle_compression_analysis_plan]] — compression-lane proof step for oracle bounds
+- [[synthesis/cellular_state_storage_gap_map]] — first biology-led lane gap map for local-state storage mechanisms
 - [[synthesis/neural_model_lane_cellular_state_storage]] — biology-led local-state research lane
 - [[synthesis/neural_model_lane_operation_preserving_compression]] — operation-preserving compression research lane
 - [[synthesis/neural_model_lane_memory_replay_imagination]] — memory, replay, and imagination research lane
@@ -36,9 +37,14 @@ at [[start_here]]. for the rules that govern every article below, see
 
 ## current project-state analyses (synthesis/)
 
-all 44 articles in `synthesis/` are the load-bearing project-level
-reasoning documents. one is superseded, forty-three are current.
+all 45 articles in `synthesis/` are the load-bearing project-level
+reasoning documents. one is superseded, forty-four are current.
 
+- [[synthesis/cellular_state_storage_gap_map]] — the first biology-led lane
+  gap map. ranks local-state candidate operations as fast carry,
+  eligibility or write-permission trace, bounded output exposure, slow
+  stability or control, active forgetting, resource budget, and slow route
+  consolidation; defines proof gates and kill conditions before code.
 - [[synthesis/neural_model_lane_cellular_state_storage]] — the biology-led
   lane for cellular, molecular, membrane, subthreshold, compartment,
   eligibility, and gating operations as candidate local state.
@@ -162,12 +168,11 @@ per-chapter production protocol: outline -> user approval -> parallel research a
 
 backlog note: when the architecture track resumes, it no longer starts
 from a blank "define the battery" state. the starting point is the
-six-lane master-plan gap map beginning with cellular/local state storage,
-then oracle compression bounds where relevant, then the approved
-neural-model research/test-material plan, mechanism dossiers, the
-implemented symbolic `biology_phase1` battery summarized in
-`synthesis/phase1_evaluation_surface_for_neural_models.md`, and only
-after those gates any model-side parity harness or synthetic
+cellular/local-state gap map, then oracle compression bounds where
+relevant, then the approved neural-model research/test-material plan,
+mechanism dossiers, the implemented symbolic `biology_phase1` battery
+summarized in `synthesis/phase1_evaluation_surface_for_neural_models.md`,
+and only after those gates any model-side parity harness or synthetic
 shared-world extension in `synthesis/synthetic_shared_world_bridge.md`.
 
 ## paid-run cards (tests/, historical context only)
@@ -186,7 +191,7 @@ frozen evidence records, one per paid run:
 - [[mistakes/run2_slot_memory_decay_copy_paste]] — inherited retention bug
 - [[mistakes/run2_slot_memory_fla_silent_fall_through]] — FLA not installed silent slowdown
 
-## flat catalog — articles by topic (sums to 262 content articles; add 6 navigation/meta files plus tests/index.md for 269 total wiki markdown files on disk)
+## flat catalog — articles by topic (sums to 263 content articles; add 6 navigation/meta files plus tests/index.md for 270 total wiki markdown files on disk)
 
 ## mechanisms (61 articles)
 
@@ -330,7 +335,8 @@ frozen evidence records, one per paid run:
 ### legacy-title redirect
 - comparisons/memory_kda_vs_hippocampus.md -- superseded redirect to `comparisons/matrix_memory_vs_hippocampus.md`
 
-## synthesis (44 articles)
+## synthesis (45 articles)
+- synthesis/cellular_state_storage_gap_map.md -- first biology-led lane gap map for local-state storage mechanisms, proof gates, telemetry, and kill conditions
 - synthesis/neural_model_lane_cellular_state_storage.md -- biology-led lane for cellular, molecular, membrane, subthreshold, compartment, eligibility, and gating operations as candidate local state
 - synthesis/neural_model_lane_operation_preserving_compression.md -- operation-preserving compression lane for oracle bounds, schema/residual codes, imagined-branch program bits, and task-relative rate-distortion
 - synthesis/neural_model_lane_memory_replay_imagination.md -- lane for write/read routing, interference, replay rewrite, and imagination as latent rollout and recombination
@@ -514,7 +520,7 @@ frozen evidence records, one per paid run:
 ## statistics
 - total mechanism articles: 61
 - total bridge notes: 28 (25 current + 3 legacy-title redirects)
-- total synthesis articles: 44 (43 current + 1 superseded)
+- total synthesis articles: 45 (44 current + 1 superseded)
 - total test markdown files: 24 (6 paid-run cards + 5 pilots + 1 series landing page + 9 later simulation results + 1 hard symbolic test-material note + 1 supporting prototype note + tests/index.md)
 - total entity notes: 33
 - total comparison articles: 15 (14 current + 1 legacy-title redirect)
@@ -537,6 +543,7 @@ frozen evidence records, one per paid run:
 - [[OPERATING_DIRECTIVE]]
 - [[synthesis/neural_model_paper_spine]]
 - [[synthesis/oracle_compression_analysis_plan]]
+- [[synthesis/cellular_state_storage_gap_map]]
 - [[synthesis/neural_model_lane_cellular_state_storage]]
 - [[synthesis/neural_model_lane_operation_preserving_compression]]
 - [[synthesis/neural_model_lane_memory_replay_imagination]]
