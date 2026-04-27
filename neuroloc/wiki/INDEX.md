@@ -2,7 +2,7 @@
 
 status: current (as of 2026-04-27).
 
-update note: single master plan recorded, six neural-model research lanes added, the first no-paid cellular/local-state gap map documented, the first cellular mechanism dossier added, and the first mechanism-specific symbolic contract added. the next research step is implementing the eligibility-gated local-commit generator/evaluators plus oracle compression analysis.
+update note: single master plan recorded, six neural-model research lanes added, the first no-paid cellular/local-state gap map documented, the first cellular mechanism dossier added, and the first mechanism-specific symbolic contract plus implemented symbolic/oracle test-material package added. the next research step is oracle compression analysis.
 
 this is the flat reference catalog of every article in the wiki, grouped
 by topic within each top-level directory. for guided navigation, start
@@ -20,6 +20,7 @@ at [[start_here]]. for the rules that govern every article below, see
 - [[synthesis/cellular_state_storage_gap_map]] — first biology-led lane gap map for local-state storage mechanisms
 - [[synthesis/neural_model_dossier_eligibility_gated_local_commit]] — first cellular mechanism dossier
 - [[synthesis/neural_model_symbolic_contract_eligibility_gated_local_commit]] — first mechanism-specific symbolic contract
+- [[tests/eligibility_gated_local_commit_test_material]] — implemented symbolic/oracle gate for eligibility-gated local commit
 - [[synthesis/neural_model_lane_cellular_state_storage]] — biology-led local-state research lane
 - [[synthesis/neural_model_lane_operation_preserving_compression]] — operation-preserving compression research lane
 - [[synthesis/neural_model_lane_memory_replay_imagination]] — memory, replay, and imagination research lane
@@ -45,7 +46,7 @@ reasoning documents. one is superseded, forty-six are current.
 - [[synthesis/neural_model_symbolic_contract_eligibility_gated_local_commit]]
   — the first mechanism-specific symbolic/oracle contract. defines
   candidate, relevance, commit, read, and exposure phase fields plus
-  controls, leakage checks, metrics, and implementation handoff.
+  controls, leakage checks, metrics, and implementation status.
 - [[synthesis/neural_model_dossier_eligibility_gated_local_commit]] — the
   first cellular mechanism dossier. defines delayed write permission plus
   bounded output exposure, with required symbolic families, controls,
@@ -202,7 +203,7 @@ frozen evidence records, one per paid run:
 - [[mistakes/run2_slot_memory_decay_copy_paste]] — inherited retention bug
 - [[mistakes/run2_slot_memory_fla_silent_fall_through]] — FLA not installed silent slowdown
 
-## flat catalog — articles by topic (sums to 265 content articles; add 6 navigation/meta files plus tests/index.md for 272 total wiki markdown files on disk)
+## flat catalog — articles by topic (sums to 266 content articles; add 6 navigation/meta files plus tests/index.md for 273 total wiki markdown files on disk)
 
 ## mechanisms (61 articles)
 
@@ -365,7 +366,7 @@ frozen evidence records, one per paid run:
 - synthesis/indexed_reconstruction_compression.md -- current compact-handle plus reconstruction compression direction; stores addresses, schema/residual codes, and replay-rewrite proof obligations instead of pursuing more raw bits per neuron
 - synthesis/neural_model_research_test_material_plan.md -- approved no-paid-compute research/test-material plan requiring mechanism dossiers before metric code, model code, or intervention presets
 - synthesis/neural_model_dossier_eligibility_gated_local_commit.md -- first cellular mechanism dossier for delayed write permission plus bounded output exposure
-- synthesis/neural_model_symbolic_contract_eligibility_gated_local_commit.md -- symbolic/oracle contract for eligibility-gated local commit, with phase fields, controls, leakage checks, metrics, and implementation handoff
+- synthesis/neural_model_symbolic_contract_eligibility_gated_local_commit.md -- symbolic/oracle contract for eligibility-gated local commit, with phase fields, controls, leakage checks, metrics, and implementation status
 - synthesis/neural_model_dossier_local_neuron_state.md -- local neuron state as polarity-separated, membrane/subthreshold, and trace state
 - synthesis/neural_model_dossier_memory_formation.md -- write decisions, output-gate fixed points, and learned versus oracle writes
 - synthesis/neural_model_dossier_addressing.md -- address margin, slot entropy, key correlation, and shuffled-address controls
@@ -427,7 +428,7 @@ frozen evidence records, one per paid run:
 - bridge/memory_systems_to_kda_mla.md -- superseded redirect to `bridge/memory_systems_to_matrix_memory_and_compressed_attention.md`
 - bridge/biological_attention_to_mla.md -- superseded redirect to `bridge/biological_attention_to_compressed_attention.md`
 
-## tests (24 markdown files: 6 paid-run cards + 5 pilots + 1 series landing page + 9 simulation results and analyses + 1 hard symbolic test-material note + 1 supporting prototype note + 1 tests index)
+## tests (25 markdown files: 6 paid-run cards + 5 pilots + 1 series landing page + 9 simulation results and analyses + 2 symbolic test-material notes + 1 supporting prototype note + 1 tests index)
 
 ### paid-run cards (6)
 - tests/god_run_results.md -- first paid neural-machine run, 2026-04-11, 283M params, val_bpb 1.3950, passkey 0/20
@@ -453,13 +454,14 @@ frozen evidence records, one per paid run:
 - tests/multi_resolution_head_split_results.md -- fast/medium/slow heads with surprise gates; rare-class recall improves
 - tests/thinking_loop_prototype_results.md -- recurrent hidden-state refinement pilot on modular arithmetic
 
-### symbolic test-material notes (1)
+### symbolic test-material notes (2)
 - tests/hard_symbolic_nm_test_material.md -- hard symbolic neural-model test-material package, covering the v1 symbolic gates and documenting what the tests prove before oracle compression analysis
+- tests/eligibility_gated_local_commit_test_material.md -- first mechanism-specific symbolic/oracle package for eligibility-gated local commit, covering deterministic controls, leakage checks, committed-distractor exposure, and validation
 
 ### supporting prototype note (1)
 - tests/aesthetic_logger_prototype.md -- frozen prototype note for the phase 6a logging module; not counted as an evidence record
 
-## simulations (46 scripts total: 43 across 17 script-containing directories plus 3 root-level utilities)
+## simulations (47 scripts total: 44 across 17 script-containing directories plus 3 root-level utilities)
 - simulations/single_neuron/ (3 scripts: lif_fi_curve leak-validation, adex_patterns, izhikevich_gallery)
 - simulations/plasticity/ (3 scripts: stdp_weight_evolution, homeostatic_scaling, bcm_alpha_pilot)
 - simulations/sparse_coding/ (2 scripts: sparse_coding_demo, hierarchical_ternary)
@@ -468,7 +470,7 @@ frozen evidence records, one per paid run:
 - simulations/neuromodulation/ (1 script: dopamine_rpe)
 - simulations/lateral_inhibition/ (1 script: wta_dynamics)
 - simulations/oscillations/ (1 script: gamma_ping)
-- simulations/memory/ (18 scripts: pattern_completion, capacity_scaling, imagination_recombination, asymmetric_outer_product_recall, correction_field_capacity, correction_field_trained_prediction, multi_resolution_head_split, slot_buffer_capacity, slot_surprise_writes, slot_integration, contextual_recall_world, slot_key_interference_sweep, multi_association_recall, delayed_cue_world, episodic_separation_completion, episodic_replay_reuse, contextual_gate_routing, nm_hard_symbolic_test_material)
+- simulations/memory/ (19 scripts: pattern_completion, capacity_scaling, imagination_recombination, asymmetric_outer_product_recall, correction_field_capacity, correction_field_trained_prediction, multi_resolution_head_split, slot_buffer_capacity, slot_surprise_writes, slot_integration, contextual_recall_world, slot_key_interference_sweep, multi_association_recall, delayed_cue_world, episodic_separation_completion, episodic_replay_reuse, contextual_gate_routing, nm_hard_symbolic_test_material, eligibility_gated_local_commit)
 - simulations/attention/ (1 script: biased_competition)
 - simulations/dendritic/ (1 script: multicompartment_neuron)
 - simulations/energy/ (1 script: energy_comparison)
@@ -534,7 +536,7 @@ frozen evidence records, one per paid run:
 - total mechanism articles: 61
 - total bridge notes: 28 (25 current + 3 legacy-title redirects)
 - total synthesis articles: 47 (46 current + 1 superseded)
-- total test markdown files: 24 (6 paid-run cards + 5 pilots + 1 series landing page + 9 later simulation results + 1 hard symbolic test-material note + 1 supporting prototype note + tests/index.md)
+- total test markdown files: 25 (6 paid-run cards + 5 pilots + 1 series landing page + 9 later simulation results + 2 symbolic test-material notes + 1 supporting prototype note + tests/index.md)
 - total entity notes: 33
 - total comparison articles: 15 (14 current + 1 legacy-title redirect)
 - total concept articles: 7
@@ -542,7 +544,7 @@ frozen evidence records, one per paid run:
 - total mistake docs: 2
 - total supporting prototype notes: 1 (`tests/aesthetic_logger_prototype.md`)
 - total navigation / meta: 7 (INDEX.md, OPERATING_DIRECTIVE.md, PROJECT_PLAN.md, _audit_2026-04-16.md, Home.md, log.md, tests/index.md)
-- total simulations: 46 scripts across 17 script-containing directories plus 3 root-level utilities (shared.py, suite_registry.py, suite_runner.py)
+- total simulations: 47 scripts across 17 script-containing directories plus 3 root-level utilities (shared.py, suite_registry.py, suite_runner.py)
 - last updated: 2026-04-27
 
 ## historical meta
@@ -559,6 +561,7 @@ frozen evidence records, one per paid run:
 - [[synthesis/cellular_state_storage_gap_map]]
 - [[synthesis/neural_model_dossier_eligibility_gated_local_commit]]
 - [[synthesis/neural_model_symbolic_contract_eligibility_gated_local_commit]]
+- [[tests/eligibility_gated_local_commit_test_material]]
 - [[synthesis/neural_model_lane_cellular_state_storage]]
 - [[synthesis/neural_model_lane_operation_preserving_compression]]
 - [[synthesis/neural_model_lane_memory_replay_imagination]]

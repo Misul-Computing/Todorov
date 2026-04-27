@@ -212,7 +212,7 @@ kill the mechanism if any of these occur:
 
 ## next action
 
-the symbolic episode contract is now [[neural_model_symbolic_contract_eligibility_gated_local_commit]]. next, implement the symbolic generator and deterministic evaluators for that contract. do not implement model code. do not add a paid preset. the next executable work is still symbolic/oracle test material plus oracle compression analysis on the existing hard symbolic worlds.
+the symbolic episode contract is now [[neural_model_symbolic_contract_eligibility_gated_local_commit]], and the implemented symbolic/oracle package is [[tests/eligibility_gated_local_commit_test_material]]. do not implement model code. do not add a paid preset. the next executable work is oracle compression analysis on this mechanism-specific surface and the existing hard symbolic worlds.
 
 ## see also
 
@@ -221,6 +221,7 @@ the symbolic episode contract is now [[neural_model_symbolic_contract_eligibilit
 - [[neural_model_lane_cellular_state_storage]]
 - [[neural_model_research_test_material_plan]]
 - [[neural_model_symbolic_contract_eligibility_gated_local_commit]]
+- [[tests/eligibility_gated_local_commit_test_material]]
 - [[cellular_molecular_computational_primitives]]
 - [[neural_model_dossier_local_neuron_state]]
 - [[neural_model_dossier_memory_formation]]

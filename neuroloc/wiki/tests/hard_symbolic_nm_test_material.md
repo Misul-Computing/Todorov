@@ -114,9 +114,9 @@ the warning is the known numpy-on-windows experimental-build warning.
 
 ## next step
 
-the first lane artifact from the six-lane master plan is [[synthesis/cellular_state_storage_gap_map]], the first cellular mechanism dossier is [[synthesis/neural_model_dossier_eligibility_gated_local_commit]], and the first mechanism-specific symbolic contract is [[synthesis/neural_model_symbolic_contract_eligibility_gated_local_commit]]. the next research target is implementing that contract as a generator and deterministic evaluator surface, plus oracle compression analysis on the same latent worlds. that analysis must compare verbatim trace bits, latent-state bits, schema/residual bits, and imagined-branch program bits before any trained mirror is asked to learn compression.
+the first lane artifact from the six-lane master plan is [[synthesis/cellular_state_storage_gap_map]], the first cellular mechanism dossier is [[synthesis/neural_model_dossier_eligibility_gated_local_commit]], the first mechanism-specific symbolic contract is [[synthesis/neural_model_symbolic_contract_eligibility_gated_local_commit]], and the implemented mechanism-specific symbolic/oracle package is [[tests/eligibility_gated_local_commit_test_material]]. the next research target is oracle compression analysis on the same latent worlds. that analysis must compare verbatim trace bits, latent-state bits, schema/residual bits, and imagined-branch program bits before any trained mirror is asked to learn compression.
 
-after the delayed-commit symbolic/oracle contract, oracle compression analysis, and canonical cpu/control gates are defined, the next trained target is a tiny trainable neural-model mirror on the same latent worlds.
+after the delayed-commit symbolic/oracle package, oracle compression analysis, and canonical cpu/control gates are defined, the next trained target may be a tiny trainable neural-model mirror on the same latent worlds if the oracle ratios justify it.
 
 that mirror must use the exact same episode contracts and expose the same metrics:
 
@@ -154,6 +154,7 @@ no mechanism should enter the full model path from this package alone. a mechani
 - [[synthesis/cellular_state_storage_gap_map]]
 - [[synthesis/neural_model_dossier_eligibility_gated_local_commit]]
 - [[synthesis/neural_model_symbolic_contract_eligibility_gated_local_commit]]
+- [[tests/eligibility_gated_local_commit_test_material]]
 - [[synthesis/neural_model_paper_spine]]
 - [[synthesis/oracle_compression_analysis_plan]]
 - [[synthesis/neural_model_lane_operation_preserving_compression]]

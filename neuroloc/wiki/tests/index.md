@@ -1,6 +1,6 @@
 # tests
 
-status: current (as of 2026-04-24).
+status: current (as of 2026-04-27).
 
 this folder records concrete simulations and experiments that were actually
 run, plus a small number of frozen supporting prototype notes that were
@@ -53,7 +53,8 @@ each test page should include:
 
 ### later simulation results and analyses
 
-- [[tests/hard_symbolic_nm_test_material|hard symbolic neural-model test material]] -- current symbolic contract package for the neural-model hard tasks; documents what the tests prove, what they do not prove, and why the next executable target is the tiny trainable mirror
+- [[tests/hard_symbolic_nm_test_material|hard symbolic neural-model test material]] -- current symbolic contract package for the neural-model hard tasks; documents what the tests prove, what they do not prove, and why oracle compression analysis must precede any tiny trainable mirror
+- [[tests/eligibility_gated_local_commit_test_material|eligibility-gated local commit test material]] -- first mechanism-specific symbolic/oracle package for cellular local-state storage; documents the generator, deterministic controls, leakage checks, committed-distractor exposure gate, validation record, and the next oracle-compression step
 - [[tests/correction_field_trained_prediction_results|correction-field trained-prediction results]] -- trained-predictor correction-field sim; memory_capacity_delta=0 at every quality
 - [[tests/multi_resolution_head_split_results|multi-resolution head split results]] -- fast/medium/slow heads with surprise gates; rare-class recall improves
 - [[tests/thinking_loop_prototype_results|thinking-loop prototype results]] -- recurrent hidden-state refinement pilot on modular arithmetic
@@ -70,5 +71,6 @@ each test page should include:
 
 - [[PROJECT_PLAN]]
 - [[tests/hard_symbolic_nm_test_material]]
+- [[tests/eligibility_gated_local_commit_test_material]]
 - [[synthesis/phase1_evaluation_surface_for_neural_models]]
 - [[synthesis/synthetic_shared_world_bridge]]

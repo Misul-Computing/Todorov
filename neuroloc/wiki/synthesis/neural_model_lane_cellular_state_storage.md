@@ -50,7 +50,7 @@ the claim is not that biology should be copied. the claim is conditional: a cell
 
 ## next action
 
-implement [[neural_model_symbolic_contract_eligibility_gated_local_commit]] as symbolic/oracle test material before any model code changes.
+[[neural_model_symbolic_contract_eligibility_gated_local_commit]] is now implemented as [[tests/eligibility_gated_local_commit_test_material]]. next, run oracle compression analysis before any model code changes.
 
 ## see also
 
@@ -58,6 +58,7 @@ implement [[neural_model_symbolic_contract_eligibility_gated_local_commit]] as s
 - [[cellular_state_storage_gap_map]]
 - [[neural_model_dossier_eligibility_gated_local_commit]]
 - [[neural_model_symbolic_contract_eligibility_gated_local_commit]]
+- [[tests/eligibility_gated_local_commit_test_material]]
 - [[neural_model_paper_spine]]
 - [[oracle_compression_analysis_plan]]
 - [[neural_model_research_test_material_plan]]

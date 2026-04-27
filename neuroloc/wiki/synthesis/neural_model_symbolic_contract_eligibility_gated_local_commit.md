@@ -4,9 +4,9 @@ status: current (as of 2026-04-27).
 
 ## purpose
 
-this page defines the symbolic/oracle test-material contract for [[neural_model_dossier_eligibility_gated_local_commit]]. it is the bridge between the mechanism dossier and implementation.
+this page defines the symbolic/oracle test-material contract for [[neural_model_dossier_eligibility_gated_local_commit]]. it is the bridge between the mechanism dossier and the implemented test-material package in [[tests/eligibility_gated_local_commit_test_material]].
 
-the contract is not model code and not a trained result. it states what a later generator, evaluator, and test suite must expose before a tiny trainable mirror is allowed to learn this mechanism.
+the contract is not model code and not a trained result. it states what the generator, evaluator, and test suite must expose before oracle compression analysis can decide whether a tiny trainable mirror is justified for this mechanism.
 
 ## claim under test
 
@@ -228,29 +228,30 @@ the generator must fail loudly if any of these are true:
 
 target and distractor observation completeness must be matched. source time, relevance time, query time, object index, and candidate order must be balanced across seeds so the correct answer cannot be recovered from position or ordering.
 
-## implementation handoff
+## implementation status
 
-the first code pass should wrap or extend `neuroloc/data/nm_worlds.py` rather than replacing the existing `hard_symbolic_nm` surface.
+the first code pass is implemented without replacing the existing `hard_symbolic_nm` surface.
 
-minimum implementation targets:
+implemented targets:
 
-1. add an eligibility-gated local-commit contract generator.
-2. add deterministic policy evaluators for the required controls.
-3. add smoke and hard profiles.
-4. add field-completeness, determinism, leakage, and control-separation tests.
-5. add summary metrics for mark, commit, read, exposure, compression, and localization.
-6. wire the suite only after the focused tests pass.
+1. eligibility-gated local-commit contract generator in `neuroloc/data/nm_worlds.py`.
+2. deterministic policy evaluators for the required controls.
+3. smoke and hard profiles.
+4. field-completeness, determinism, leakage, committed-distractor, and control-separation tests.
+5. summary metrics for mark, commit, read, exposure, compression, localization, writes per successful episode, and memory-output norm versus residual norm.
+6. `eligibility_commit` suite registration after focused tests passed.
 
 no model code, full-model integration, paid preset, h200, kaggle, pod, or simulator work is authorized by this contract.
 
 ## next action
 
-implement the symbolic generator and deterministic evaluators for this contract, then run focused tests and suite validation. only after symbolic verification passes should oracle compression counters be run on this mechanism-specific surface.
+run oracle compression counters on this mechanism-specific surface and the broader hard symbolic worlds. only if oracle ratios are strong enough should the tiny trainable mirror be scoped for this mechanism.
 
 ## see also
 
 - [[PROJECT_PLAN]]
 - [[neural_model_dossier_eligibility_gated_local_commit]]
+- [[tests/eligibility_gated_local_commit_test_material]]
 - [[neural_model_research_test_material_plan]]
 - [[tests/hard_symbolic_nm_test_material]]
 - [[oracle_compression_analysis_plan]]

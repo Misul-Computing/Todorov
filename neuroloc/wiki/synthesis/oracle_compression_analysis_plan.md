@@ -172,6 +172,7 @@ the result should also produce a wiki test page after execution. until then, thi
 - [[cellular_state_storage_gap_map]]
 - [[neural_model_dossier_eligibility_gated_local_commit]]
 - [[neural_model_symbolic_contract_eligibility_gated_local_commit]]
+- [[tests/eligibility_gated_local_commit_test_material]]
 - [[neural_model_lane_operation_preserving_compression]]
 - [[neural_model_lane_cellular_state_storage]]
 - [[neural_model_lane_memory_replay_imagination]]

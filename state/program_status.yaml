@@ -1,14 +1,14 @@
 project: todorov
 canonical_plan: neuroloc/wiki/PROJECT_PLAN.md
 current_phase: neural_model_master_plan_research_phase
-current_step: eligibility_gated_local_commit_symbolic_contract_documented_next_generator_evaluators_and_oracle_compression_no_paid_compute
-status: "2026_04_27_eligibility_gated_local_commit_symbolic_contract_documented"
+current_step: eligibility_gated_local_commit_symbolic_gate_implemented_next_oracle_compression_analysis_no_paid_compute
+status: "2026_04_27_eligibility_gated_local_commit_symbolic_gate_implemented"
 last_updated: "2026-04-27"
-tests_passing: 23
-total_tests: 23
-test_collection_total: 290
-test_surface: hard_symbolic_nm_regression_and_suite_profile_checks
-test_status_note: "2026-04-24 focused hard-symbolic validation passed 23 tests; hard_symbolic_nm smoke and hard suite profiles passed through suite_runner; pytest collection now reports 290 tests after constraining collection to tests/ so neuroloc/output artifacts are not collected as tests."
+tests_passing: 27
+total_tests: 27
+test_collection_total: 303
+test_surface: eligibility_commit_and_hard_symbolic_nm_regression_checks
+test_status_note: "2026-04-27 focused validation passed 13 eligibility-gated local-commit tests plus 14 hard-symbolic/registry regression tests; eligibility_commit smoke suite passed through suite_runner; pytest collection now reports 303 tests under tests/."
 critical_fix: "god_machine.py step logger hardcoded dict dropped 40+ probe metrics, fixed class-wide via merge loop and smoke-test disk round-trip guard; bcm train/eval path divergence fixed by aligning recurrent path to running_state_norm; running_state_norm now training-only mutation; 17 prosecutor findings F1-F17 all fixed"
 run_history:
   run_001: Phase 1, sequential, 2000 steps, BPB 2.235 (PASS)
@@ -92,4 +92,4 @@ latest_run_results:
   git_sha: f27b81c
   config_hash: 4e3f02be249cc069
   run_card: neuroloc/wiki/tests/run3_cognition_phase1_results.md
-next_action: "chapter 1 remains review-ready in pdf_curriculum/chapters/ch_01_what_a_number_means/ after the 2026-04-23 math correction pass; chapter 2 remains outline-only awaiting approval in pdf_curriculum/chapters/ch_02_how_things_change/ch_02_outline.md. the first cellular symbolic contract is now documented at neuroloc/wiki/synthesis/neural_model_symbolic_contract_eligibility_gated_local_commit.md. the approved neural-model work should next implement the symbolic generator and deterministic evaluators for eligibility-gated local commit, then run focused tests and oracle compression counters. simulator selection is a research gate, not a decision already made. no full model integration, intervention preset, kaggle, h200, pod, or paid run is authorised."
+next_action: "chapter 1 remains review-ready in pdf_curriculum/chapters/ch_01_what_a_number_means/ after the 2026-04-23 math correction pass; chapter 2 remains outline-only awaiting approval in pdf_curriculum/chapters/ch_02_how_things_change/ch_02_outline.md. the first cellular symbolic/oracle package is now implemented and documented at neuroloc/wiki/tests/eligibility_gated_local_commit_test_material.md. the approved neural-model work should next run oracle compression analysis over eligibility_commit and the broader hard symbolic worlds. simulator selection is a research gate, not a decision already made. no full model integration, intervention preset, kaggle, h200, pod, or paid run is authorised."
