@@ -25,6 +25,7 @@ the first executable model target remains a tiny trainable neural-model mirror, 
 - [[tests/oracle_compression_analysis_results]] documents the first oracle compression bound and blocks a global tiny-mirror target while six families remain weak.
 - [[oracle_compression_frontier_split]] ranks the accepted families and makes `compression_under_bit_budget` the first learned-codec proof-package candidate.
 - [[neural_model_dossier_compression_under_bit_budget_codec]] defines the exact non-oracle input rule, controls, metrics, telemetry, and kill conditions for the first narrow learned-codec mirror.
+- [[neural_model_tiny_mirror_contract_compression_under_bit_budget]] defines the dataset split, baselines, trainability splits, losses, telemetry schema, acceptance thresholds, and forbidden-input guards for the first local mirror.
 - [[neural_model_research_test_material_plan]] defines dossier, control, and metric requirements.
 - [[phase1_evaluation_surface_for_neural_models]] defines the broader state/action evaluation frame.
 - [[tests/hard_symbolic_nm_test_material]] documents the implemented hard symbolic package.
@@ -56,7 +57,7 @@ the first executable model target remains a tiny trainable neural-model mirror, 
 
 ## next action
 
-write the tiny local mirror contract for the first narrow learned-codec target, while keeping oracle compression bounds and family-specific controls ahead of any full-model path.
+implement the local tiny mirror for the first narrow learned-codec target, while keeping oracle compression bounds and family-specific controls ahead of any full-model path.
 
 ## see also
 
@@ -69,6 +70,7 @@ write the tiny local mirror contract for the first narrow learned-codec target, 
 - [[tests/oracle_compression_analysis_results]]
 - [[oracle_compression_frontier_split]]
 - [[neural_model_dossier_compression_under_bit_budget_codec]]
+- [[neural_model_tiny_mirror_contract_compression_under_bit_budget]]
 - [[neural_model_research_test_material_plan]]
 - [[phase1_evaluation_surface_for_neural_models]]
 - [[tests/hard_symbolic_nm_test_material]]

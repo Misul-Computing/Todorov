@@ -27,6 +27,7 @@ the useful claim is conditional: an operation-preserving compression stack may b
 - [[tests/oracle_compression_analysis_results]] documents the first oracle-bound result: clean controls, no leakage, eight strong families, and six weak families below 10x.
 - [[oracle_compression_frontier_split]] separates accepted frontier families from weak frontier families and ranks the next narrow learned-codec proof-package candidates.
 - [[neural_model_dossier_compression_under_bit_budget_codec]] defines the first narrow learned-codec proof package before implementation.
+- [[neural_model_tiny_mirror_contract_compression_under_bit_budget]] defines the local implementation contract for the first tiny learned-codec mirror.
 - [[indexed_reconstruction_compression]] defines compact handles, schema or residual codes, provenance, and reconstruction.
 - [[neural_model_dossier_compression]] defines the mechanism dossier for compression claims.
 - [[tests/hard_symbolic_nm_test_material]] provides the symbolic worlds that expose hidden state, controls, and bit-budget tasks.
@@ -59,7 +60,7 @@ the first oracle compression analysis and frontier split are implemented. useful
 
 ## next action
 
-write the tiny local mirror contract for `compression_under_bit_budget`, then implement only that local mirror if the contract remains prosecutor-clean. do not train a global mirror from this result.
+implement only the local tiny mirror for `compression_under_bit_budget` under [[neural_model_tiny_mirror_contract_compression_under_bit_budget]]. do not train a global mirror from this result.
 
 ## see also
 
@@ -71,6 +72,7 @@ write the tiny local mirror contract for `compression_under_bit_budget`, then im
 - [[tests/oracle_compression_analysis_results]]
 - [[oracle_compression_frontier_split]]
 - [[neural_model_dossier_compression_under_bit_budget_codec]]
+- [[neural_model_tiny_mirror_contract_compression_under_bit_budget]]
 - [[neural_model_paper_spine]]
 - [[oracle_compression_analysis_plan]]
 - [[neural_model_research_test_material_plan]]

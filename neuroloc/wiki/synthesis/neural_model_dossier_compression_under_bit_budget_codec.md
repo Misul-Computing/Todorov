@@ -185,7 +185,7 @@ this would still not prove general compression, biological novelty, full-model u
 
 ## next implementation boundary
 
-the next executable work is not the full model. it is a tiny local mirror for this one family, but only after a separate mirror contract defines the dataset split, baselines, losses, telemetry schema, confidence intervals, failure-localization splits, and exact acceptance thresholds.
+the next executable work is not the full model. it is the tiny local mirror defined in [[neural_model_tiny_mirror_contract_compression_under_bit_budget]], which restricts implementation to this one family and requires deterministic splits, forbidden-input guards, baselines, losses, telemetry schema, confidence intervals, failure-localization splits, and exact acceptance thresholds.
 
 the tiny mirror must not touch:
 
@@ -199,6 +199,7 @@ the tiny mirror must not touch:
 
 - [[PROJECT_PLAN]]
 - [[neural_model_paper_spine]]
+- [[neural_model_tiny_mirror_contract_compression_under_bit_budget]]
 - [[oracle_compression_frontier_split]]
 - [[tests/oracle_compression_analysis_results]]
 - [[oracle_compression_analysis_plan]]

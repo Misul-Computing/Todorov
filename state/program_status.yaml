@@ -1,8 +1,8 @@
 project: todorov
 canonical_plan: neuroloc/wiki/PROJECT_PLAN.md
 current_phase: neural_model_master_plan_research_phase
-current_step: compression_under_bit_budget_proof_package_implemented_next_tiny_mirror_contract_no_paid_compute
-status: "2026_04_27_compression_under_bit_budget_proof_package_implemented"
+current_step: compression_under_bit_budget_tiny_mirror_contract_implemented_next_local_mirror_code_no_paid_compute
+status: "2026_04_27_compression_under_bit_budget_tiny_mirror_contract_implemented"
 last_updated: "2026-04-27"
 tests_passing: 6
 total_tests: 6
@@ -86,6 +86,24 @@ compression_under_bit_budget_proof_package:
   proof_package_doc: neuroloc/wiki/synthesis/neural_model_dossier_compression_under_bit_budget_codec.md
   next_contract: tiny_local_mirror_contract_for_compression_under_bit_budget
   paid_compute_authorized: false
+compression_under_bit_budget_tiny_mirror_contract:
+  phase: neural_model_master_plan_research_phase
+  description: "implementation contract for the first tiny local learned-codec mirror. defines authorized scope, deterministic train/validation/test splits, forbidden inputs, trainability splits, losses, telemetry schema, acceptance thresholds, and kill conditions for compression_under_bit_budget only."
+  family: compression_under_bit_budget
+  source_generator: generate_nm_hard_symbolic_batch
+  source_family: compression_under_bit_budget
+  smoke_train_episodes: 64
+  smoke_validation_episodes: 16
+  smoke_test_episodes: 16
+  hard_train_episodes: 1024
+  hard_validation_episodes: 256
+  hard_test_episodes: 512
+  engineering_pass_ratio_vs_verbatim: 4.0
+  paper_track_pass_ratio_vs_verbatim: 6.5
+  hard_joint_success_threshold: 0.95
+  contract_doc: neuroloc/wiki/synthesis/neural_model_tiny_mirror_contract_compression_under_bit_budget.md
+  next_code_target: local_tiny_mirror_for_compression_under_bit_budget
+  paid_compute_authorized: false
 god_run_v2_results:
   phase: neural_machine
   description: "god_machine.py re-run with all 17 F + 14 G prosecutor fixes; F1 math corrected (torch.exp instead of torch.sigmoid of logsigmoid); all probe metrics now in jsonl"
@@ -150,4 +168,4 @@ latest_run_results:
   git_sha: f27b81c
   config_hash: 4e3f02be249cc069
   run_card: neuroloc/wiki/tests/run3_cognition_phase1_results.md
-next_action: "chapter 1 remains review-ready in pdf_curriculum/chapters/ch_01_what_a_number_means/ after the 2026-04-23 math correction pass; chapter 2 remains outline-only awaiting approval in pdf_curriculum/chapters/ch_02_how_things_change/ch_02_outline.md. the oracle compression frontier split is implemented at neuroloc/wiki/synthesis/oracle_compression_frontier_split.md, and the first family-specific learned-codec proof package is implemented at neuroloc/wiki/synthesis/neural_model_dossier_compression_under_bit_budget_codec.md. the approved neural-model work should next write the tiny local mirror contract for compression_under_bit_budget: dataset split, baselines, loss surfaces, telemetry schema, confidence intervals, failure-localization splits, and exact acceptance thresholds. simulator selection is a research gate, not a decision already made. no full model integration, intervention preset, kaggle, h200, pod, or paid run is authorised."
+next_action: "chapter 1 remains review-ready in pdf_curriculum/chapters/ch_01_what_a_number_means/ after the 2026-04-23 math correction pass; chapter 2 remains outline-only awaiting approval in pdf_curriculum/chapters/ch_02_how_things_change/ch_02_outline.md. the oracle compression frontier split, first family-specific learned-codec proof package, and tiny local mirror contract are implemented. the approved neural-model work should next implement local code for compression_under_bit_budget only: dataset builder, forbidden-input guards, deterministic baselines, trainability splits, explicit bit accounting, telemetry artifacts, and focused tests. simulator selection is a research gate, not a decision already made. no full model integration, intervention preset, kaggle, h200, pod, or paid run is authorised."

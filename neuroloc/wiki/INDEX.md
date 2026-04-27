@@ -2,7 +2,7 @@
 
 status: current (as of 2026-04-27).
 
-update note: single master plan recorded, six neural-model research lanes added, the first no-paid cellular/local-state gap map documented, the first cellular mechanism dossier added, the first mechanism-specific symbolic contract plus implemented symbolic/oracle test-material package added, the first oracle compression analysis package implemented, the oracle-compression frontier split added, and the first narrow learned-codec proof package documented. the next research step is the tiny local mirror contract for `compression_under_bit_budget`.
+update note: single master plan recorded, six neural-model research lanes added, the first no-paid cellular/local-state gap map documented, the first cellular mechanism dossier added, the first mechanism-specific symbolic contract plus implemented symbolic/oracle test-material package added, the first oracle compression analysis package implemented, the oracle-compression frontier split added, the first narrow learned-codec proof package documented, and the tiny local mirror contract added. the next research step is local mirror code for `compression_under_bit_budget`.
 
 this is the flat reference catalog of every article in the wiki, grouped
 by topic within each top-level directory. for guided navigation, start
@@ -24,6 +24,7 @@ at [[start_here]]. for the rules that govern every article below, see
 - [[tests/oracle_compression_analysis_results]] — first oracle compression-bound result over hard symbolic and eligibility-commit worlds
 - [[synthesis/oracle_compression_frontier_split]] — family-level split into accepted and weak compression frontiers
 - [[synthesis/neural_model_dossier_compression_under_bit_budget_codec]] — first family-specific learned-codec proof package
+- [[synthesis/neural_model_tiny_mirror_contract_compression_under_bit_budget]] — implementation contract for the first tiny local learned-codec mirror
 - [[synthesis/neural_model_lane_cellular_state_storage]] — biology-led local-state research lane
 - [[synthesis/neural_model_lane_operation_preserving_compression]] — operation-preserving compression research lane
 - [[synthesis/neural_model_lane_memory_replay_imagination]] — memory, replay, and imagination research lane
@@ -43,8 +44,8 @@ at [[start_here]]. for the rules that govern every article below, see
 
 ## current project-state analyses (synthesis/)
 
-all 49 articles in `synthesis/` are the load-bearing project-level
-reasoning documents. one is superseded, forty-eight are current.
+all 50 articles in `synthesis/` are the load-bearing project-level
+reasoning documents. one is superseded, forty-nine are current.
 
 - [[synthesis/neural_model_symbolic_contract_eligibility_gated_local_commit]]
   — the first mechanism-specific symbolic/oracle contract. defines
@@ -91,6 +92,10 @@ reasoning documents. one is superseded, forty-eight are current.
   the first family-specific learned-codec proof package. defines
   non-oracle inputs, controls, metrics, telemetry, pass criteria, and
   kill conditions for the accepted `compression_under_bit_budget` family.
+- [[synthesis/neural_model_tiny_mirror_contract_compression_under_bit_budget]]
+  — the implementation contract for the first tiny local learned-codec
+  mirror. defines splits, forbidden inputs, baselines, losses, telemetry,
+  acceptance thresholds, and local-code boundaries.
 - [[synthesis/substrate_requires_architectural_change]] — the
   post-run-3 analysis after the cognition corpus returned 0% passkey.
   the canonical reference for why any future paid-resume path needs an
@@ -214,7 +219,7 @@ frozen evidence records, one per paid run:
 - [[mistakes/run2_slot_memory_decay_copy_paste]] — inherited retention bug
 - [[mistakes/run2_slot_memory_fla_silent_fall_through]] — FLA not installed silent slowdown
 
-## flat catalog — articles by topic (sums to 269 content articles; add 6 navigation/meta files plus tests/index.md for 276 total wiki markdown files on disk)
+## flat catalog — articles by topic (sums to 270 content articles; add 6 navigation/meta files plus tests/index.md for 277 total wiki markdown files on disk)
 
 ## mechanisms (61 articles)
 
@@ -358,7 +363,7 @@ frozen evidence records, one per paid run:
 ### legacy-title redirect
 - comparisons/memory_kda_vs_hippocampus.md -- superseded redirect to `comparisons/matrix_memory_vs_hippocampus.md`
 
-## synthesis (49 articles)
+## synthesis (50 articles)
 - synthesis/cellular_state_storage_gap_map.md -- first biology-led lane gap map for local-state storage mechanisms, proof gates, telemetry, and kill conditions
 - synthesis/neural_model_lane_cellular_state_storage.md -- biology-led lane for cellular, molecular, membrane, subthreshold, compartment, eligibility, and gating operations as candidate local state
 - synthesis/neural_model_lane_operation_preserving_compression.md -- operation-preserving compression lane for oracle bounds, schema/residual codes, imagined-branch program bits, and task-relative rate-distortion
@@ -370,6 +375,7 @@ frozen evidence records, one per paid run:
 - synthesis/oracle_compression_analysis_plan.md -- compression-lane proof plan for oracle compression bounds across the hard symbolic worlds
 - synthesis/oracle_compression_frontier_split.md -- family-level split from the first oracle compression result; ranks accepted and weak frontier families and the first narrow learned-codec proof-package candidate
 - synthesis/neural_model_dossier_compression_under_bit_budget_codec.md -- first family-specific learned-codec proof package for the accepted compression_under_bit_budget frontier family
+- synthesis/neural_model_tiny_mirror_contract_compression_under_bit_budget.md -- implementation contract for the first tiny local learned-codec mirror on the accepted compression_under_bit_budget family
 - synthesis/substrate_requires_architectural_change.md -- post-run-3 analysis: six paid runs at 0% passkey across two substrates and two corpora trigger the architecture-cannot-be-trained branch; ranks five candidate interventions (output gate init, auxiliary retrieval loss, orthogonal key init, warm-start, substrate replacement)
 - synthesis/training_objective_vs_architectural_goal.md -- root-cause analysis after five paid runs: LM loss on fineweb-edu does not exercise the memory substrate. the proposed discriminant (cognition corpus) ran as run3 and returned 0%, which triggered the article above
 - synthesis/phase1_evaluation_surface_for_neural_models.md -- backlog evaluation method for neural models: recognition / belief state, associative recollection, interference resistance, delayed use, episodic reuse, iterative reasoning, with the currently implemented `biology_phase1` symbolic battery and trainability controls
@@ -551,7 +557,7 @@ frozen evidence records, one per paid run:
 ## statistics
 - total mechanism articles: 61
 - total bridge notes: 28 (25 current + 3 legacy-title redirects)
-- total synthesis articles: 49 (48 current + 1 superseded)
+- total synthesis articles: 50 (49 current + 1 superseded)
 - total test markdown files: 26 (6 paid-run cards + 5 pilots + 1 series landing page + 9 later simulation results + 1 oracle-bound result + 2 symbolic test-material notes + 1 supporting prototype note + tests/index.md)
 - total entity notes: 33
 - total comparison articles: 15 (14 current + 1 legacy-title redirect)
@@ -581,6 +587,7 @@ frozen evidence records, one per paid run:
 - [[tests/oracle_compression_analysis_results]]
 - [[synthesis/oracle_compression_frontier_split]]
 - [[synthesis/neural_model_dossier_compression_under_bit_budget_codec]]
+- [[synthesis/neural_model_tiny_mirror_contract_compression_under_bit_budget]]
 - [[synthesis/neural_model_lane_cellular_state_storage]]
 - [[synthesis/neural_model_lane_operation_preserving_compression]]
 - [[synthesis/neural_model_lane_memory_replay_imagination]]

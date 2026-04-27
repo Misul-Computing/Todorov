@@ -114,7 +114,7 @@ the warning is the known numpy-on-windows experimental-build warning.
 
 ## next step
 
-the first lane artifact from the six-lane master plan is [[synthesis/cellular_state_storage_gap_map]], the first cellular mechanism dossier is [[synthesis/neural_model_dossier_eligibility_gated_local_commit]], the first mechanism-specific symbolic contract is [[synthesis/neural_model_symbolic_contract_eligibility_gated_local_commit]], and the implemented mechanism-specific symbolic/oracle package is [[tests/eligibility_gated_local_commit_test_material]]. the first oracle compression analysis is now [[tests/oracle_compression_analysis_results]], with the family split documented in [[synthesis/oracle_compression_frontier_split]] and the first accepted-family proof package documented in [[synthesis/neural_model_dossier_compression_under_bit_budget_codec]]. it compares verbatim trace bits, latent-state bits, schema/residual bits, and imagined-branch program bits before any trained mirror is asked to learn compression.
+the first lane artifact from the six-lane master plan is [[synthesis/cellular_state_storage_gap_map]], the first cellular mechanism dossier is [[synthesis/neural_model_dossier_eligibility_gated_local_commit]], the first mechanism-specific symbolic contract is [[synthesis/neural_model_symbolic_contract_eligibility_gated_local_commit]], and the implemented mechanism-specific symbolic/oracle package is [[tests/eligibility_gated_local_commit_test_material]]. the first oracle compression analysis is now [[tests/oracle_compression_analysis_results]], with the family split documented in [[synthesis/oracle_compression_frontier_split]], the first accepted-family proof package documented in [[synthesis/neural_model_dossier_compression_under_bit_budget_codec]], and the tiny mirror contract documented in [[synthesis/neural_model_tiny_mirror_contract_compression_under_bit_budget]]. it compares verbatim trace bits, latent-state bits, schema/residual bits, and imagined-branch program bits before any trained mirror is asked to learn compression.
 
 after the delayed-commit symbolic/oracle package, oracle compression analysis, and canonical cpu/control gates are defined, the next trained target may be a tiny trainable neural-model mirror only for a family whose oracle ratios justify it.
 
@@ -158,6 +158,7 @@ no mechanism should enter the full model path from this package alone. a mechani
 - [[tests/oracle_compression_analysis_results]]
 - [[synthesis/oracle_compression_frontier_split]]
 - [[synthesis/neural_model_dossier_compression_under_bit_budget_codec]]
+- [[synthesis/neural_model_tiny_mirror_contract_compression_under_bit_budget]]
 - [[synthesis/neural_model_paper_spine]]
 - [[synthesis/oracle_compression_analysis_plan]]
 - [[synthesis/neural_model_lane_operation_preserving_compression]]

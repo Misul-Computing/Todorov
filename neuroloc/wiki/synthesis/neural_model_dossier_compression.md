@@ -17,7 +17,7 @@ h_hat_i = P(q, a_i, s_i, context_t) + G(q, a_i, s_i, Q(r_i))
 
 where the stored record contains an address, a schema or latent id, a compact residual code, and provenance. reconstruction happens through a shared decoder or model prior.
 
-the first narrow addendum is [[neural_model_dossier_compression_under_bit_budget_codec]], which restricts this general compression dossier to the accepted `compression_under_bit_budget` symbolic family.
+the first narrow addendum is [[neural_model_dossier_compression_under_bit_budget_codec]], which restricts this general compression dossier to the accepted `compression_under_bit_budget` symbolic family. its implementation contract is [[neural_model_tiny_mirror_contract_compression_under_bit_budget]].
 
 ## evidence basis
 
@@ -68,6 +68,7 @@ kill the mechanism if it reduces stored bits but loses action-relevant state, if
 - [[oracle_compression_analysis_plan]]
 - [[oracle_compression_frontier_split]]
 - [[neural_model_dossier_compression_under_bit_budget_codec]]
+- [[neural_model_tiny_mirror_contract_compression_under_bit_budget]]
 - [[neural_model_compression_stack]]
 - [[indexed_reconstruction_compression]]
 - [[neural_model_research_test_material_plan]]
