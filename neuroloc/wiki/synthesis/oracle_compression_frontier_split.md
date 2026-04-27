@@ -154,7 +154,7 @@ the next package is not code in the full model. it is a narrow learned-codec pla
 
 ranked candidate:
 
-1. compression under bit budget, because the task directly tests the compression claim.
+1. compression under bit budget, because the task directly tests the compression claim. proof package: [[neural_model_dossier_compression_under_bit_budget_codec]].
 2. imagination/recombination, because the oracle branch-program ratio is strongest but the learned-codec risk is high.
 3. replay/rewrite, because provenance and rewrite corruption are concrete falsifiers.
 4. belief-state or delayed-use coding, because these are safer state-compression tests but less paper-sharp.
@@ -181,6 +181,7 @@ no global mirror, full model integration, paid compute, pod, h200, kaggle, or in
 - [[neural_model_paper_spine]]
 - [[oracle_compression_analysis_plan]]
 - [[tests/oracle_compression_analysis_results]]
+- [[neural_model_dossier_compression_under_bit_budget_codec]]
 - [[neural_model_lane_operation_preserving_compression]]
 - [[neural_model_lane_trainability_evaluation]]
 - [[neural_model_compression_stack]]

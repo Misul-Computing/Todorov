@@ -74,7 +74,7 @@ the next research question was whether oracle compression counters over this and
 
 ## verdict
 
-accepted as a current symbolic/oracle test-material gate for the first cellular/local-state mechanism. the oracle compression follow-up is documented in [[tests/oracle_compression_analysis_results]], and the family split is documented in [[synthesis/oracle_compression_frontier_split]]. the next no-paid action is the narrow learned-codec proof package for the accepted compression-under-bit-budget family rather than global mirror training.
+accepted as a current symbolic/oracle test-material gate for the first cellular/local-state mechanism. the oracle compression follow-up is documented in [[tests/oracle_compression_analysis_results]], the family split is documented in [[synthesis/oracle_compression_frontier_split]], and the first accepted-family proof package is [[synthesis/neural_model_dossier_compression_under_bit_budget_codec]]. the next no-paid action is the tiny local mirror contract for the accepted compression-under-bit-budget family rather than global mirror training.
 
 ## see also
 
@@ -89,4 +89,5 @@ accepted as a current symbolic/oracle test-material gate for the first cellular/
 - [[synthesis/oracle_compression_analysis_plan]]
 - [[tests/oracle_compression_analysis_results]]
 - [[synthesis/oracle_compression_frontier_split]]
+- [[synthesis/neural_model_dossier_compression_under_bit_budget_codec]]
 - [[tests/hard_symbolic_nm_test_material]]

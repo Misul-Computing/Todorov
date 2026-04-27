@@ -180,7 +180,8 @@ the split is now documented in [[oracle_compression_frontier_split]].
 5. completed: report per-family ratio ranges and failure cases in [[tests/oracle_compression_analysis_results]].
 6. completed: update the paper spine with the resulting proof state.
 7. completed: write the accepted-frontier and weak-frontier split before scoping any tiny trainable neural-model mirror.
-8. next: write the narrow learned-codec proof package for one accepted frontier family.
+8. completed: write the narrow learned-codec proof package for `compression_under_bit_budget`: [[neural_model_dossier_compression_under_bit_budget_codec]].
+9. next: write the tiny local mirror contract for that family before any code.
 
 ## see also
 
@@ -191,6 +192,7 @@ the split is now documented in [[oracle_compression_frontier_split]].
 - [[tests/eligibility_gated_local_commit_test_material]]
 - [[tests/oracle_compression_analysis_results]]
 - [[oracle_compression_frontier_split]]
+- [[neural_model_dossier_compression_under_bit_budget_codec]]
 - [[neural_model_lane_operation_preserving_compression]]
 - [[neural_model_lane_cellular_state_storage]]
 - [[neural_model_lane_memory_replay_imagination]]

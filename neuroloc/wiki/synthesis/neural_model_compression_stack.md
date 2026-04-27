@@ -311,6 +311,7 @@ do not use paid compute to search for this. use paid compute only after:
 - [[oracle_compression_analysis_plan]]
 - [[tests/oracle_compression_analysis_results]]
 - [[oracle_compression_frontier_split]]
+- [[neural_model_dossier_compression_under_bit_budget_codec]]
 - [[neural_model_lane_operation_preserving_compression]]
 - [[compression_beyond_quantization]]
 - [[indexed_reconstruction_compression]]

@@ -1,8 +1,8 @@
 project: todorov
 canonical_plan: neuroloc/wiki/PROJECT_PLAN.md
 current_phase: neural_model_master_plan_research_phase
-current_step: oracle_compression_frontier_split_implemented_next_narrow_learned_codec_package_no_paid_compute
-status: "2026_04_27_oracle_compression_frontier_split_implemented"
+current_step: compression_under_bit_budget_proof_package_implemented_next_tiny_mirror_contract_no_paid_compute
+status: "2026_04_27_compression_under_bit_budget_proof_package_implemented"
 last_updated: "2026-04-27"
 tests_passing: 6
 total_tests: 6
@@ -77,6 +77,15 @@ oracle_compression_frontier_split:
     - commit_compression_frontier
   first_narrow_learned_codec_candidate: compression_under_bit_budget
   frontier_doc: neuroloc/wiki/synthesis/oracle_compression_frontier_split.md
+compression_under_bit_budget_proof_package:
+  phase: neural_model_master_plan_research_phase
+  description: "first family-specific learned-codec proof package after the oracle compression frontier split. defines the conditional claim, non-oracle input rule, preserved operation, controls, metrics, telemetry, pass criteria, and kill conditions for the accepted compression_under_bit_budget symbolic family. this authorizes only a future tiny local mirror contract, not code, full-model integration, simulator work, h200, kaggle, pod, or paid compute."
+  family: compression_under_bit_budget
+  oracle_best_ratio: 13.0
+  source_frontier_doc: neuroloc/wiki/synthesis/oracle_compression_frontier_split.md
+  proof_package_doc: neuroloc/wiki/synthesis/neural_model_dossier_compression_under_bit_budget_codec.md
+  next_contract: tiny_local_mirror_contract_for_compression_under_bit_budget
+  paid_compute_authorized: false
 god_run_v2_results:
   phase: neural_machine
   description: "god_machine.py re-run with all 17 F + 14 G prosecutor fixes; F1 math corrected (torch.exp instead of torch.sigmoid of logsigmoid); all probe metrics now in jsonl"
@@ -141,4 +150,4 @@ latest_run_results:
   git_sha: f27b81c
   config_hash: 4e3f02be249cc069
   run_card: neuroloc/wiki/tests/run3_cognition_phase1_results.md
-next_action: "chapter 1 remains review-ready in pdf_curriculum/chapters/ch_01_what_a_number_means/ after the 2026-04-23 math correction pass; chapter 2 remains outline-only awaiting approval in pdf_curriculum/chapters/ch_02_how_things_change/ch_02_outline.md. the oracle compression frontier split is now implemented and documented at neuroloc/wiki/synthesis/oracle_compression_frontier_split.md. the approved neural-model work should next write the narrow learned-codec proof package for compression_under_bit_budget. simulator selection is a research gate, not a decision already made. no full model integration, intervention preset, kaggle, h200, pod, or paid run is authorised."
+next_action: "chapter 1 remains review-ready in pdf_curriculum/chapters/ch_01_what_a_number_means/ after the 2026-04-23 math correction pass; chapter 2 remains outline-only awaiting approval in pdf_curriculum/chapters/ch_02_how_things_change/ch_02_outline.md. the oracle compression frontier split is implemented at neuroloc/wiki/synthesis/oracle_compression_frontier_split.md, and the first family-specific learned-codec proof package is implemented at neuroloc/wiki/synthesis/neural_model_dossier_compression_under_bit_budget_codec.md. the approved neural-model work should next write the tiny local mirror contract for compression_under_bit_budget: dataset split, baselines, loss surfaces, telemetry schema, confidence intervals, failure-localization splits, and exact acceptance thresholds. simulator selection is a research gate, not a decision already made. no full model integration, intervention preset, kaggle, h200, pod, or paid run is authorised."

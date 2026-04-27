@@ -46,13 +46,13 @@ proof state: partially bounded. the first cellular mechanism dossier is [[neural
 
 after oracle bounds exist, a tiny trainable neural-model mirror must learn at least one non-oracle codec above no-memory, recency-only, shuffled-address, and verbatim-storage controls before any full model integration. source: [[neural_model_research_test_material_plan]].
 
-proof state: open. no trained mirror result exists yet.
+proof state: scoped but not trained. the first family-specific proof package is [[neural_model_dossier_compression_under_bit_budget_codec]]. no trained mirror result exists yet.
 
 ## missing proof obligations
 
 1. oracle compression bounds on each hard symbolic family.
 2. a clear separation between verbatim trace bits, latent-state bits, schema/residual bits, and imagined-branch program bits.
-3. at least one learned codec that approaches the oracle direction without oracle schema labels.
+3. at least one learned codec that approaches the oracle direction without oracle schema labels; the first scoped candidate is [[neural_model_dossier_compression_under_bit_budget_codec]].
 4. evidence that compressed storage preserves operations, not only reconstructions.
 5. evidence that replay can rewrite memories into smaller forms without losing task-relevant state.
 6. evidence that imagined branches can be stored as latent programs and reused for action.
@@ -99,7 +99,7 @@ load-bearing pages: [[oracle_compression_analysis_plan]], [[tests/hard_symbolic_
 
 ### experiments
 
-the first executable model experiment is not a full model run. the cellular/local-state gap map, first cellular mechanism dossier, symbolic/oracle contract implementation, first oracle compression analysis, and frontier split come first. because the first analysis has weak families, the next model experiment is not global; a tiny trainable mirror may be scoped only after a narrow learned-codec proof package names one accepted family. full integration and paid compute remain blocked.
+the first executable model experiment is not a full model run. the cellular/local-state gap map, first cellular mechanism dossier, symbolic/oracle contract implementation, first oracle compression analysis, frontier split, and `compression_under_bit_budget` proof package come first. because the first analysis has weak families, the next model experiment is not global; a tiny trainable mirror may be scoped only by a family-specific contract for the accepted `compression_under_bit_budget` family. full integration and paid compute remain blocked.
 
 load-bearing pages: [[oracle_compression_analysis_plan]], [[phase1_evaluation_surface_for_neural_models]], [[synthetic_shared_world_bridge]].
 
@@ -124,14 +124,14 @@ load-bearing pages: [[oracle_compression_analysis_plan]], [[synthetic_shared_wor
 - imagined-branch program bits have an oracle bound on the current symbolic worlds, but no learned model has inferred or used that code.
 - no evidence yet shows a swappable codec interface working across memory levels.
 - no related-work section has fully separated prior art from the conditional new claim.
-- no candidate novelty has yet been promoted into a separate proof package under this spine.
+- the first candidate proof package exists for `compression_under_bit_budget`, but it has not produced a learned result.
 - no paid compute is authorised by this paper spine.
 
 ## next research action
 
-the first biology-led lane gap map is [[cellular_state_storage_gap_map]], the first cellular mechanism dossier is [[neural_model_dossier_eligibility_gated_local_commit]], the first mechanism-specific symbolic contract is [[neural_model_symbolic_contract_eligibility_gated_local_commit]], the first oracle compression result is [[tests/oracle_compression_analysis_results]], and the frontier split is [[oracle_compression_frontier_split]].
+the first biology-led lane gap map is [[cellular_state_storage_gap_map]], the first cellular mechanism dossier is [[neural_model_dossier_eligibility_gated_local_commit]], the first mechanism-specific symbolic contract is [[neural_model_symbolic_contract_eligibility_gated_local_commit]], the first oracle compression result is [[tests/oracle_compression_analysis_results]], the frontier split is [[oracle_compression_frontier_split]], and the first narrow learned-codec proof package is [[neural_model_dossier_compression_under_bit_budget_codec]].
 
-next, write the narrow learned-codec proof package for `compression_under_bit_budget`. if the oracle ratios are weak, the project should not train a compression mirror for that family.
+next, write the tiny local mirror contract for `compression_under_bit_budget`. if that contract cannot keep non-oracle inputs, controls, telemetry, confidence intervals, and acceptance thresholds clean, the project should not implement the mirror.
 
 ## see also
 
@@ -141,6 +141,7 @@ next, write the narrow learned-codec proof package for `compression_under_bit_bu
 - [[neural_model_symbolic_contract_eligibility_gated_local_commit]]
 - [[tests/oracle_compression_analysis_results]]
 - [[oracle_compression_frontier_split]]
+- [[neural_model_dossier_compression_under_bit_budget_codec]]
 - [[neural_model_lane_cellular_state_storage]]
 - [[neural_model_lane_operation_preserving_compression]]
 - [[neural_model_lane_memory_replay_imagination]]

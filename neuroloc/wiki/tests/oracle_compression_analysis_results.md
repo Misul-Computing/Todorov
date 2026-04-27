@@ -78,7 +78,7 @@ the implemented symbolic worlds now have a first oracle compression frontier.
 
 the analysis proves that the controls remain clean while bit accounting is applied: oracle succeeds, no-memory fails, recency-only fails, shuffled-address fails, and leakage checks stay clear.
 
-it also proves that useful compression is not uniform across the project. belief-state, delayed-use, episodic-reuse, context-routing, explicit bit-budget compression, replay/rewrite, iterative rollout, and imagination/recombination clear the current strong-oracle threshold on the hard profile. direct associative recall, correlated-key interference, and the first eligibility-commit families do not clear it yet.
+it also shows, under this oracle-bound symbolic surface, that useful compression is not uniform across the project. belief-state, delayed-use, episodic-reuse, context-routing, explicit bit-budget compression, replay/rewrite, iterative rollout, and imagination/recombination clear the current strong-oracle threshold on the hard profile. direct associative recall, correlated-key interference, and the first eligibility-commit families do not clear it yet.
 
 ## what this does not prove
 
@@ -94,7 +94,7 @@ it does not justify a global tiny trainable mirror yet, because six families rem
 
 ## verdict
 
-accepted as the first oracle compression-bound package. the frontier split is now documented in [[synthesis/oracle_compression_frontier_split]]. the next research action is a narrow learned-codec proof package for one accepted family, not a global mirror.
+accepted as the first oracle compression-bound package. the frontier split is documented in [[synthesis/oracle_compression_frontier_split]], and the first family-specific proof package is [[synthesis/neural_model_dossier_compression_under_bit_budget_codec]]. the next research action is a tiny local mirror contract for that accepted family, not a global mirror.
 
 ## see also
 
@@ -103,6 +103,7 @@ accepted as the first oracle compression-bound package. the frontier split is no
 - [[synthesis/neural_model_paper_spine]]
 - [[synthesis/oracle_compression_analysis_plan]]
 - [[synthesis/oracle_compression_frontier_split]]
+- [[synthesis/neural_model_dossier_compression_under_bit_budget_codec]]
 - [[synthesis/neural_model_lane_operation_preserving_compression]]
 - [[synthesis/neural_model_lane_trainability_evaluation]]
 - [[synthesis/neural_model_compression_stack]]
