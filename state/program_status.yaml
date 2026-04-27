@@ -1,14 +1,14 @@
 project: todorov
 canonical_plan: neuroloc/wiki/PROJECT_PLAN.md
 current_phase: neural_model_master_plan_research_phase
-current_step: eligibility_gated_local_commit_symbolic_gate_implemented_next_oracle_compression_analysis_no_paid_compute
-status: "2026_04_27_eligibility_gated_local_commit_symbolic_gate_implemented"
+current_step: oracle_compression_analysis_implemented_next_frontier_split_no_paid_compute
+status: "2026_04_27_oracle_compression_analysis_implemented"
 last_updated: "2026-04-27"
-tests_passing: 27
-total_tests: 27
-test_collection_total: 303
-test_surface: eligibility_commit_and_hard_symbolic_nm_regression_checks
-test_status_note: "2026-04-27 focused validation passed 13 eligibility-gated local-commit tests plus 14 hard-symbolic/registry regression tests; eligibility_commit smoke suite passed through suite_runner; pytest collection now reports 303 tests under tests/."
+tests_passing: 6
+total_tests: 6
+test_collection_total: 308
+test_surface: oracle_compression_analysis_and_registry_checks
+test_status_note: "2026-04-27 focused validation passed 6 oracle-compression and registry tests; oracle_compression smoke and hard profiles passed through suite_runner; pytest collection now reports 308 tests under tests/."
 critical_fix: "god_machine.py step logger hardcoded dict dropped 40+ probe metrics, fixed class-wide via merge loop and smoke-test disk round-trip guard; bcm train/eval path divergence fixed by aligning recurrent path to running_state_norm; running_state_norm now training-only mutation; 17 prosecutor findings F1-F17 all fixed"
 run_history:
   run_001: Phase 1, sequential, 2000 steps, BPB 2.235 (PASS)
@@ -28,6 +28,34 @@ run_history:
   run2_slot_memory_retention_fixed: "second slot-memory paid run, 2026-04-15, H200, 355M, fineweb-edu, 4000 steps in 72 min at 33000 tok/s, val_bpb 1.4777 (best), partial eval reported passkey 0/100 at 256 and 1024 before user halted pod. alpha_log_mean=5.0 explicit, FLA actually active (commit edcfe5d pinned flash-linear-attention after first launch attempt fell through to python recurrent loop). FIVE consecutive paid runs at 0% passkey across two substrates and two retention regimes. diagnosis reframed: the language-modelling training objective on fineweb-edu does not exercise the memory substrate, so gradient descent collapses it to inactive (mean gate 0.018 throughout). cpu gates A and B prove the substrate works in isolation. analysis at wiki/synthesis/training_objective_vs_architectural_goal.md, run card at neuroloc/wiki/tests/run2_slot_memory_retention_fixed_results.md."
   run3_cognition_phase1: "sixth paid run, 2026-04-17, H200, 355M, synthetic cognition corpus (50% passkey / 30% kv recall / 20% copy, hex ASCII alphabet, from neuroloc/data/cognition_corpus.py), 4000 steps in 72 min at 32800 tok/s, val_bpb 6.3519 (best, plateaued at alphabet prior from step 150 and never descended), passkey 0/100 at 256 and 1024 in partial eval before user halted pod. this was the predicted discriminant from training_objective_vs_architectural_goal.md: on a corpus where retrieval is explicit 50% of training, the substrate still did not learn retrieval within 4000 steps at 355M params. the architecture-cannot-be-trained-by-sgd branch fires. any future paid-resume path requires architectural intervention, not just a different corpus, and is now blocked behind the neural-model research/test-material plan. see wiki/synthesis/substrate_requires_architectural_change.md for the ranked candidate list (output gate init, auxiliary retrieval loss, orthogonal keys, hand-placed-address warm start, substrate replacement). run card at wiki/tests/run3_cognition_phase1_results.md."
 latest_run: run3_cognition_phase1
+oracle_compression_analysis_results:
+  phase: neural_model_master_plan_research_phase
+  description: "first oracle compression-bound package over hard_symbolic_nm and eligibility_commit symbolic surfaces. records verbatim trace bits, latent-state bits, schema/residual bits, imagined-branch program bits, operation flags, controls, leakage flags, acceptance, and kill conditions. this is an oracle counter, not learned compression."
+  profile: hard
+  contract_count: 448
+  surface_count: 2
+  family_count: 14
+  operation_preservation_rate: 1.0
+  controls_preservation_rate: 1.0
+  leakage_free_rate: 1.0
+  accepted_rate: 0.5714
+  strong_oracle_family_count: 8
+  weak_oracle_family_count: 6
+  kill_condition_count: 192
+  min_best_oracle_ratio: 7.09
+  max_best_oracle_ratio: 39.0
+  hard_symbolic_schema_ratio_mean: 11.23
+  eligibility_commit_ratio_vs_always_write: 3.61
+  imagination_branch_ratio_mean: 39.0
+  trainable_mirror_recommended: 0.0
+  weak_families:
+    - associative_recall
+    - correlated_key_interference
+    - delayed_relevance_local_commit
+    - bounded_output_exposure
+    - crossed_commit_exposure_split
+    - commit_compression_frontier
+  result_card: neuroloc/wiki/tests/oracle_compression_analysis_results.md
 god_run_v2_results:
   phase: neural_machine
   description: "god_machine.py re-run with all 17 F + 14 G prosecutor fixes; F1 math corrected (torch.exp instead of torch.sigmoid of logsigmoid); all probe metrics now in jsonl"
@@ -92,4 +120,4 @@ latest_run_results:
   git_sha: f27b81c
   config_hash: 4e3f02be249cc069
   run_card: neuroloc/wiki/tests/run3_cognition_phase1_results.md
-next_action: "chapter 1 remains review-ready in pdf_curriculum/chapters/ch_01_what_a_number_means/ after the 2026-04-23 math correction pass; chapter 2 remains outline-only awaiting approval in pdf_curriculum/chapters/ch_02_how_things_change/ch_02_outline.md. the first cellular symbolic/oracle package is now implemented and documented at neuroloc/wiki/tests/eligibility_gated_local_commit_test_material.md. the approved neural-model work should next run oracle compression analysis over eligibility_commit and the broader hard symbolic worlds. simulator selection is a research gate, not a decision already made. no full model integration, intervention preset, kaggle, h200, pod, or paid run is authorised."
+next_action: "chapter 1 remains review-ready in pdf_curriculum/chapters/ch_01_what_a_number_means/ after the 2026-04-23 math correction pass; chapter 2 remains outline-only awaiting approval in pdf_curriculum/chapters/ch_02_how_things_change/ch_02_outline.md. the first oracle compression analysis is now implemented and documented at neuroloc/wiki/tests/oracle_compression_analysis_results.md. the approved neural-model work should next write the oracle-compression frontier split: accepted families, weak families, weak-bound cause, and the next narrow proof package. simulator selection is a research gate, not a decision already made. no full model integration, intervention preset, kaggle, h200, pod, or paid run is authorised."

@@ -9,6 +9,7 @@ data/
 __pycache__/
 *.pyc
 .pytest_cache/
+.pytest_tmp*/
 output/
 notebooks/autoresearch/output/
 *.pt

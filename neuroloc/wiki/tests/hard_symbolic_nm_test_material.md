@@ -6,7 +6,7 @@ status: current (as of 2026-04-27).
 
 this page documents the first hard symbolic test-material package for the neural model. it explains what was written, what the tests prove, what they do not prove, and what must happen next.
 
-the package was implemented in commit `97a9fc6` and lives in:
+the package was implemented in commit `97a9fc6`. the first oracle compression analysis over this package is documented in [[tests/oracle_compression_analysis_results]]. the symbolic package lives in:
 
 - `neuroloc/data/nm_worlds.py`
 - `neuroloc/simulations/memory/nm_hard_symbolic_test_material.py`
@@ -114,9 +114,9 @@ the warning is the known numpy-on-windows experimental-build warning.
 
 ## next step
 
-the first lane artifact from the six-lane master plan is [[synthesis/cellular_state_storage_gap_map]], the first cellular mechanism dossier is [[synthesis/neural_model_dossier_eligibility_gated_local_commit]], the first mechanism-specific symbolic contract is [[synthesis/neural_model_symbolic_contract_eligibility_gated_local_commit]], and the implemented mechanism-specific symbolic/oracle package is [[tests/eligibility_gated_local_commit_test_material]]. the next research target is oracle compression analysis on the same latent worlds. that analysis must compare verbatim trace bits, latent-state bits, schema/residual bits, and imagined-branch program bits before any trained mirror is asked to learn compression.
+the first lane artifact from the six-lane master plan is [[synthesis/cellular_state_storage_gap_map]], the first cellular mechanism dossier is [[synthesis/neural_model_dossier_eligibility_gated_local_commit]], the first mechanism-specific symbolic contract is [[synthesis/neural_model_symbolic_contract_eligibility_gated_local_commit]], and the implemented mechanism-specific symbolic/oracle package is [[tests/eligibility_gated_local_commit_test_material]]. the first oracle compression analysis is now [[tests/oracle_compression_analysis_results]]. it compares verbatim trace bits, latent-state bits, schema/residual bits, and imagined-branch program bits before any trained mirror is asked to learn compression.
 
-after the delayed-commit symbolic/oracle package, oracle compression analysis, and canonical cpu/control gates are defined, the next trained target may be a tiny trainable neural-model mirror on the same latent worlds if the oracle ratios justify it.
+after the delayed-commit symbolic/oracle package, oracle compression analysis, and canonical cpu/control gates are defined, the next trained target may be a tiny trainable neural-model mirror only for a family whose oracle ratios justify it.
 
 that mirror must use the exact same episode contracts and expose the same metrics:
 
@@ -155,6 +155,7 @@ no mechanism should enter the full model path from this package alone. a mechani
 - [[synthesis/neural_model_dossier_eligibility_gated_local_commit]]
 - [[synthesis/neural_model_symbolic_contract_eligibility_gated_local_commit]]
 - [[tests/eligibility_gated_local_commit_test_material]]
+- [[tests/oracle_compression_analysis_results]]
 - [[synthesis/neural_model_paper_spine]]
 - [[synthesis/oracle_compression_analysis_plan]]
 - [[synthesis/neural_model_lane_operation_preserving_compression]]

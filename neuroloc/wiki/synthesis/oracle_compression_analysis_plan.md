@@ -154,17 +154,30 @@ control_results
 kill_condition
 ```
 
-the result should also produce a wiki test page after execution. until then, this page is only the plan.
+the implemented result is [[tests/oracle_compression_analysis_results]].
+
+hard-profile result summary:
+
+- 448 contracts across 14 families and two symbolic surfaces
+- operation preservation rate 1.0
+- controls preservation rate 1.0
+- leakage-free rate 1.0
+- accepted rate 0.5714
+- eight strong families
+- six weak families below the 10x useful-compression threshold
+- global tiny-mirror recommendation 0.0
+
+the first result therefore changes the next step from "run the counters" to "split the frontier." accepted families can be considered for narrow learned-codec scoping later. weak families need task revision, codec revision, or demotion of the compression claim before training.
 
 ## sequencing
 
-1. confirm the relevant compression questions from [[cellular_state_storage_gap_map]], [[neural_model_dossier_eligibility_gated_local_commit]], and [[neural_model_symbolic_contract_eligibility_gated_local_commit]], especially write frequency, bounded output exposure, active forgetting, useful bits per episode, and memory/replay/imagination.
-2. define deterministic bit counters over the existing hard symbolic episode contracts.
-3. run the counters over smoke and hard seed sets.
-4. verify that oracle policies still solve the tasks after replacing traces with oracle codes.
-5. report per-family ratio ranges and failure cases.
-6. update the paper spine with the resulting proof state.
-7. only then scope the tiny trainable neural-model mirror.
+1. completed: confirm the relevant compression questions from [[cellular_state_storage_gap_map]], [[neural_model_dossier_eligibility_gated_local_commit]], and [[neural_model_symbolic_contract_eligibility_gated_local_commit]], especially write frequency, bounded output exposure, active forgetting, useful bits per episode, and memory/replay/imagination.
+2. completed: define deterministic bit counters over the existing hard symbolic episode contracts.
+3. completed: run the counters over smoke and hard seed sets.
+4. completed: verify that oracle policies still solve the tasks after replacing traces with oracle codes.
+5. completed: report per-family ratio ranges and failure cases in [[tests/oracle_compression_analysis_results]].
+6. completed: update the paper spine with the resulting proof state.
+7. next: write the accepted-frontier and weak-frontier split before scoping any tiny trainable neural-model mirror.
 
 ## see also
 
@@ -173,6 +186,7 @@ the result should also produce a wiki test page after execution. until then, thi
 - [[neural_model_dossier_eligibility_gated_local_commit]]
 - [[neural_model_symbolic_contract_eligibility_gated_local_commit]]
 - [[tests/eligibility_gated_local_commit_test_material]]
+- [[tests/oracle_compression_analysis_results]]
 - [[neural_model_lane_operation_preserving_compression]]
 - [[neural_model_lane_cellular_state_storage]]
 - [[neural_model_lane_memory_replay_imagination]]

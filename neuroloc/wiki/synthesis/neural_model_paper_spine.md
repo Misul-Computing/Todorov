@@ -40,7 +40,7 @@ proof state: theory proposal. not yet validated by oracle bounds or learned comp
 
 if the research lanes cannot state their proof obligations, the project should not train a mirror. the first biology-led lane gap map is [[cellular_state_storage_gap_map]]. if the hard symbolic worlds do not admit strong oracle compression ratios, a trained model should not be expected to discover extreme compression there. source and next plan: [[neural_model_lane_cellular_state_storage]], [[oracle_compression_analysis_plan]], and [[tests/hard_symbolic_nm_test_material]].
 
-proof state: open. the first cellular mechanism dossier is [[neural_model_dossier_eligibility_gated_local_commit]], and the first mechanism-specific symbolic contract is [[neural_model_symbolic_contract_eligibility_gated_local_commit]]. the next proof actions are implementing that test material and oracle compression analysis.
+proof state: partially bounded. the first cellular mechanism dossier is [[neural_model_dossier_eligibility_gated_local_commit]], the first mechanism-specific symbolic contract is [[neural_model_symbolic_contract_eligibility_gated_local_commit]], and the first oracle compression result is [[tests/oracle_compression_analysis_results]]. the bound is mixed: controls and leakage are clean, eight families clear the current strong-oracle threshold, and six families remain below 10x.
 
 ### claim 5: learned compression must beat controls
 
@@ -99,7 +99,7 @@ load-bearing pages: [[oracle_compression_analysis_plan]], [[tests/hard_symbolic_
 
 ### experiments
 
-the first executable model experiment is not a full model run. the cellular/local-state gap map, first cellular mechanism dossier, symbolic/oracle contract implementation, and oracle compression analysis come first. the next model experiment after those gates is a tiny trainable mirror on the same worlds. full integration and paid compute remain blocked.
+the first executable model experiment is not a full model run. the cellular/local-state gap map, first cellular mechanism dossier, symbolic/oracle contract implementation, and first oracle compression analysis come first. because the first analysis has weak families, the next model experiment is not global; a tiny trainable mirror may be scoped only after the accepted and weak compression frontiers are split. full integration and paid compute remain blocked.
 
 load-bearing pages: [[oracle_compression_analysis_plan]], [[phase1_evaluation_surface_for_neural_models]], [[synthetic_shared_world_bridge]].
 
@@ -117,11 +117,11 @@ load-bearing pages: [[oracle_compression_analysis_plan]], [[synthetic_shared_wor
 
 ## not proved yet
 
-- no oracle compression ratio table exists yet for the hard symbolic worlds.
+- the first oracle compression ratio table exists, but it is mixed: eight strong families and six weak families on the hard profile.
 - no learned codec has beaten verbatim storage under a strict bit budget.
 - no tiny trainable mirror has learned the compression path.
 - no evidence yet shows replay rewrite reducing bits while preserving state/action/joint success.
-- no evidence yet shows imagined branches stored as compact latent programs.
+- imagined-branch program bits have an oracle bound on the current symbolic worlds, but no learned model has inferred or used that code.
 - no evidence yet shows a swappable codec interface working across memory levels.
 - no related-work section has fully separated prior art from the conditional new claim.
 - no candidate novelty has yet been promoted into a separate proof package under this spine.
@@ -129,16 +129,13 @@ load-bearing pages: [[oracle_compression_analysis_plan]], [[synthetic_shared_wor
 
 ## next research action
 
-the first biology-led lane gap map is [[cellular_state_storage_gap_map]], the first cellular mechanism dossier is [[neural_model_dossier_eligibility_gated_local_commit]], and the first mechanism-specific symbolic contract is [[neural_model_symbolic_contract_eligibility_gated_local_commit]]. next, implement the contract while running oracle compression analysis over the existing hard symbolic worlds. the compression output must show, per task family:
+the first biology-led lane gap map is [[cellular_state_storage_gap_map]], the first cellular mechanism dossier is [[neural_model_dossier_eligibility_gated_local_commit]], the first mechanism-specific symbolic contract is [[neural_model_symbolic_contract_eligibility_gated_local_commit]], and the first oracle compression result is [[tests/oracle_compression_analysis_results]].
 
-- verbatim trace bits
-- latent-state bits
-- schema/residual bits
-- imagined-branch program bits where applicable
-- oracle compression ratio
-- task operations preserved
-- control behavior
-- kill-condition result
+next, split the compression frontier:
+
+- accepted families: preserve operations and controls while clearing the current strong-oracle threshold.
+- weak families: preserve operations and controls but fail the ratio threshold.
+- revision path: decide whether each weak family needs a stronger task, a different codec definition, or a demoted compression claim.
 
 if the oracle ratios are weak, the project should not train a compression mirror for that family.
 
@@ -148,6 +145,7 @@ if the oracle ratios are weak, the project should not train a compression mirror
 - [[cellular_state_storage_gap_map]]
 - [[neural_model_dossier_eligibility_gated_local_commit]]
 - [[neural_model_symbolic_contract_eligibility_gated_local_commit]]
+- [[tests/oracle_compression_analysis_results]]
 - [[neural_model_lane_cellular_state_storage]]
 - [[neural_model_lane_operation_preserving_compression]]
 - [[neural_model_lane_memory_replay_imagination]]

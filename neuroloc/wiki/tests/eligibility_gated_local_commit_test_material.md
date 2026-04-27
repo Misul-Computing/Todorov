@@ -70,11 +70,11 @@ the compression counter is only a symbolic/oracle bound. it shows that selective
 
 this package is deterministic symbolic material. it does not train a neural model. it does not touch `god_machine.py`, paid presets, h200, kaggle, pod paths, simulator selection, or full-model integration.
 
-the next research question is whether oracle compression counters over this and the broader hard-symbolic worlds produce strong enough bounds to justify a tiny trainable mirror. if the oracle bound is weak, training a mirror for this mechanism is not justified.
+the next research question was whether oracle compression counters over this and the broader hard-symbolic worlds produced strong enough bounds to justify a tiny trainable mirror. [[tests/oracle_compression_analysis_results]] now records the first bound: the eligibility-specific families are control-clean but remain below the current 10x useful-compression threshold, so global mirror training is not justified from this package alone.
 
 ## verdict
 
-accepted as a current symbolic/oracle test-material gate for the first cellular/local-state mechanism. the next no-paid action is oracle compression analysis over the mechanism-specific surface and the hard symbolic worlds.
+accepted as a current symbolic/oracle test-material gate for the first cellular/local-state mechanism. the oracle compression follow-up is now documented in [[tests/oracle_compression_analysis_results]]; the next no-paid action is a frontier split rather than training.
 
 ## see also
 
@@ -87,4 +87,5 @@ accepted as a current symbolic/oracle test-material gate for the first cellular/
 - [[synthesis/neural_model_lane_trainability_evaluation]]
 - [[synthesis/neural_model_lane_operation_preserving_compression]]
 - [[synthesis/oracle_compression_analysis_plan]]
+- [[tests/oracle_compression_analysis_results]]
 - [[tests/hard_symbolic_nm_test_material]]

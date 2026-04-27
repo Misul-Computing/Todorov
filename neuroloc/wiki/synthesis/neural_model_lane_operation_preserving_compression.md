@@ -24,6 +24,7 @@ the useful claim is conditional: an operation-preserving compression stack may b
 - [[tests/eligibility_gated_local_commit_test_material]] documents the implemented mechanism-specific symbolic/oracle surface for those counters.
 - [[neural_model_compression_stack]] defines the current stack-wide compression contract.
 - [[oracle_compression_analysis_plan]] defines the next oracle-bound analysis.
+- [[tests/oracle_compression_analysis_results]] documents the first oracle-bound result: clean controls, no leakage, eight strong families, and six weak families below 10x.
 - [[indexed_reconstruction_compression]] defines compact handles, schema or residual codes, provenance, and reconstruction.
 - [[neural_model_dossier_compression]] defines the mechanism dossier for compression claims.
 - [[tests/hard_symbolic_nm_test_material]] provides the symbolic worlds that expose hidden state, controls, and bit-budget tasks.
@@ -50,9 +51,13 @@ the useful claim is conditional: an operation-preserving compression stack may b
 - compressed codes beat no-memory but fail against verbatim storage or shuffled-address controls.
 - learned codecs do not approach the oracle direction in the tiny mirror.
 
+## current result
+
+the first oracle compression analysis is implemented. it shows that useful compression is not uniform across the symbolic surfaces. hard-profile controls are clean and leakage-free, but direct associative recall, correlated-key interference, delayed relevance local commit, bounded output exposure, crossed commit/exposure split, and commit compression frontier remain weak under the current 10x threshold.
+
 ## next action
 
-run the oracle compression analysis with [[tests/eligibility_gated_local_commit_test_material]] as the first mechanism-specific input, especially for write frequency, bounded output exposure, and commit compression frontier.
+write the frontier split: accepted families, weak families, reason for each weak bound, and the next narrow proof package. do not train a global mirror from this result.
 
 ## see also
 
@@ -61,6 +66,7 @@ run the oracle compression analysis with [[tests/eligibility_gated_local_commit_
 - [[neural_model_dossier_eligibility_gated_local_commit]]
 - [[neural_model_symbolic_contract_eligibility_gated_local_commit]]
 - [[tests/eligibility_gated_local_commit_test_material]]
+- [[tests/oracle_compression_analysis_results]]
 - [[neural_model_paper_spine]]
 - [[oracle_compression_analysis_plan]]
 - [[neural_model_research_test_material_plan]]

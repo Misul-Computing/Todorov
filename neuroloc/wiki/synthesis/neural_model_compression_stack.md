@@ -1,6 +1,6 @@
 # neural model compression stack
 
-status: current (as of 2026-04-26).
+status: current (as of 2026-04-27).
 
 ## claim
 
@@ -283,7 +283,7 @@ the right near-term target is not to promise 600x. it is to construct worlds whe
 
 ## required next proof
 
-before paid compute, complete the master-plan gap map and then build an oracle compression analysis over the existing hard symbolic worlds:
+before paid compute, complete the master-plan gap map and use oracle compression analysis over the existing hard symbolic worlds:
 
 1. compute verbatim trace bits
 2. compute ground-truth latent state bits
@@ -291,9 +291,9 @@ before paid compute, complete the master-plan gap map and then build an oracle c
 4. compute imagined-branch program bits
 5. report oracle compression ratios per family
 6. identify which families can theoretically support 10x, 100x, or higher compression
-7. train the tiny mirror only after the oracle ratios are known
+7. train a tiny mirror only after a family clears the oracle frontier and the weak families are not averaged away
 
-if the oracle cannot produce large compression on a constructed world, a neural model will not discover it by paid training.
+the first implemented result is [[tests/oracle_compression_analysis_results]]. it is mixed: controls are clean, eight families are strong, and six families remain below the 10x threshold. if the oracle cannot produce large compression on a constructed world, a neural model will not discover it by paid training.
 
 ## decision rule
 
@@ -309,6 +309,7 @@ do not use paid compute to search for this. use paid compute only after:
 
 - [[neural_model_paper_spine]]
 - [[oracle_compression_analysis_plan]]
+- [[tests/oracle_compression_analysis_results]]
 - [[neural_model_lane_operation_preserving_compression]]
 - [[compression_beyond_quantization]]
 - [[indexed_reconstruction_compression]]
