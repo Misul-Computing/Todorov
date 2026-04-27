@@ -10,12 +10,16 @@ import pytest
 from neuroloc.simulations.memory.compression_under_bit_budget_mirror import (
     ALL_POLICIES,
     BASELINE_POLICIES,
+    DIAGNOSTIC_POLICIES,
     build_dataset,
     build_summary,
     collect_forbidden_keys,
     evaluate_dataset,
+    learned_bits_by_field,
+    oracle_code_fields,
     train_learned_codec,
     profile_caps,
+    source_event_for_record,
     vectorize_record,
 )
 from neuroloc.simulations.suite_registry import SIMULATION_SPECS, SUITES, get_suite_specs
@@ -57,6 +61,20 @@ def test_compression_mirror_vector_features_ignore_label_fields() -> None:
     dataset[0]["labels"]["compressed_bits"] += 1000
     mutated = vectorize_record(dataset[0], caps)
     assert np.array_equal(original, mutated)
+
+
+def test_compression_mirror_oracle_code_fields_match_contract_target() -> None:
+    dataset = build_dataset("smoke", seed=132, train_episodes=1, val_episodes=1, test_episodes=1)
+    caps = profile_caps("smoke")
+    fields = oracle_code_fields(dataset[0], caps)
+    target = dataset[0]["labels"]["state"]
+    source_time = dataset[0]["evaluation_contract"]["memory_relevant_positions"][0]["time"]
+    assert fields["address"] == target["color"] * caps["n_shapes"] + target["shape"]
+    assert fields["schema"] == target["vel"] + caps["max_speed"]
+    assert fields["residual"] == target["pos"]
+    assert fields["action"] == dataset[0]["labels"]["action"]
+    assert fields["provenance"] == source_time
+    assert fields["provenance"] != dataset[0]["model_input"]["query"]["time"]
 
 
 def test_compression_mirror_controls_and_bit_accounting() -> None:
@@ -120,7 +138,60 @@ def test_compression_mirror_learned_codec_emits_trainable_rows() -> None:
     assert all(row["within_budget"] == 1.0 for row in learned_rows)
     assert all("predicted_state" in row for row in learned_rows)
     assert all("compact_code_fields" in row for row in learned_rows)
+    assert all("oracle_code_fields" not in row for row in learned_rows)
+    assert all(row["committed_bits_by_field"] == learned_bits_by_field(profile_caps("smoke")) for row in learned_rows)
     assert all(row["model_parameter_count"] == learned["parameter_count"] for row in learned_rows)
+
+
+def test_compression_mirror_diagnostic_rows_localize_without_becoming_results() -> None:
+    dataset = build_dataset("smoke", seed=133, train_episodes=8, val_episodes=2, test_episodes=2)
+    learned = train_learned_codec(dataset, "smoke", seed=133, epochs=3)
+    rows = evaluate_dataset(dataset, "smoke", seed=133, learned=learned)
+    summary = build_summary(dataset, rows)
+    diagnostic_rows = [row for row in rows if row["policy"] in DIAGNOSTIC_POLICIES]
+    assert diagnostic_rows
+    assert {row["policy"] for row in diagnostic_rows} == set(DIAGNOSTIC_POLICIES)
+    assert all(row["policy_is_learned_result"] == 0.0 for row in diagnostic_rows)
+    assert all(row["policy_is_diagnostic_control"] == 1.0 for row in diagnostic_rows)
+    assert summary["diagnostic_result_count"] == len(dataset) * len(DIAGNOSTIC_POLICIES)
+    assert summary["learned_result_count"] == len(dataset)
+    assert summary["diagnostic_oracle_input_used"] == 1.0
+    assert "oracle_address_payload_rescue_delta" in summary
+    assert "provenance_exposure_rescue_delta" in summary
+    for row in diagnostic_rows:
+        assert "encoder_address_accuracy" in row
+        assert "encoder_payload_accuracy" in row
+        assert "encoder_provenance_accuracy" in row
+
+
+def test_compression_mirror_provenance_uses_memory_relevant_time_not_query_time() -> None:
+    dataset = build_dataset("smoke", seed=134, train_episodes=2, val_episodes=1, test_episodes=1)
+    caps = profile_caps("smoke")
+    for row in dataset:
+        event = source_event_for_record(row)
+        fields = oracle_code_fields(row, caps)
+        assert fields["provenance"] == row["evaluation_contract"]["memory_relevant_positions"][0]["time"]
+        assert fields["provenance"] == event["time"]
+        assert fields["provenance"] <= row["model_input"]["query"]["time"]
+
+
+def test_compression_mirror_diagnostic_controls_are_deterministic() -> None:
+    dataset = build_dataset("smoke", seed=135, train_episodes=8, val_episodes=2, test_episodes=2)
+    learned_a = train_learned_codec(dataset, "smoke", seed=135, epochs=3)
+    learned_b = train_learned_codec(dataset, "smoke", seed=135, epochs=3)
+    rows_a = evaluate_dataset(dataset, "smoke", seed=135, learned=learned_a)
+    rows_b = evaluate_dataset(dataset, "smoke", seed=135, learned=learned_b)
+    selected_a = [
+        (row["episode_id"], row["policy"], row["joint_success"], row.get("compact_code_fields"))
+        for row in rows_a
+        if row["policy"] in DIAGNOSTIC_POLICIES
+    ]
+    selected_b = [
+        (row["episode_id"], row["policy"], row["joint_success"], row.get("compact_code_fields"))
+        for row in rows_b
+        if row["policy"] in DIAGNOSTIC_POLICIES
+    ]
+    assert selected_a == selected_b
 
 
 def test_compression_mirror_registry_entries() -> None:
@@ -135,6 +206,7 @@ def test_compression_mirror_registry_entries() -> None:
     assert maximums["paid_compute_authorized"] == 0.0
     assert maximums["future_observation_violation_count"] == 0.0
     assert dict(spec.minimum_summary_values)["learned_result_count"] == 1.0
+    assert dict(spec.minimum_summary_values)["diagnostic_result_count"] == 1.0
 
 
 def test_compression_mirror_smoke_suite(tmp_path: Path) -> None:
@@ -154,7 +226,9 @@ def test_compression_mirror_smoke_suite(tmp_path: Path) -> None:
     assert payload["summary"]["local_mirror_code_authorized"] == 1.0
     assert payload["summary"]["paid_compute_authorized"] == 0.0
     assert payload["summary"]["learned_result_count"] > 0
+    assert payload["summary"]["diagnostic_result_count"] > 0
     assert "learned_codec_joint_success" in payload["summary"]
+    assert "oracle_address_payload_rescue_delta" in payload["summary"]
 
 
 def test_compression_mirror_invalid_profile_fails_loudly() -> None:

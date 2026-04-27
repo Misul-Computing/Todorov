@@ -2,7 +2,7 @@
 
 status: current (as of 2026-04-27).
 
-update note: single master plan recorded, six neural-model research lanes added, the first no-paid cellular/local-state gap map documented, the first cellular mechanism dossier added, the first mechanism-specific symbolic contract plus implemented symbolic/oracle test-material package added, the first oracle compression analysis package implemented, the oracle-compression frontier split added, the first narrow learned-codec proof package documented, the tiny local mirror contract added, the first local mirror baseline surface implemented, and the first learned-codec smoke result recorded as negative. the next research step is trainability-split and provenance-localization diagnostics on `compression_under_bit_budget`.
+update note: single master plan recorded, six neural-model research lanes added, the first no-paid cellular/local-state gap map documented, the first cellular mechanism dossier added, the first mechanism-specific symbolic contract plus implemented symbolic/oracle test-material package added, the first oracle compression analysis package implemented, the oracle-compression frontier split added, the first narrow learned-codec proof package documented, the tiny local mirror contract added, the first local mirror baseline surface implemented, the first learned-codec smoke result recorded as negative, and the diagnostic-localization pass recorded. the next research step is local mirror revision around payload/action/source-state inference and learned decoder generalization on `compression_under_bit_budget`.
 
 this is the flat reference catalog of every article in the wiki, grouped
 by topic within each top-level directory. for guided navigation, start
@@ -25,7 +25,7 @@ at [[start_here]]. for the rules that govern every article below, see
 - [[synthesis/oracle_compression_frontier_split]] — family-level split into accepted and weak compression frontiers
 - [[synthesis/neural_model_dossier_compression_under_bit_budget_codec]] — first family-specific learned-codec proof package
 - [[synthesis/neural_model_tiny_mirror_contract_compression_under_bit_budget]] — implementation contract for the first tiny local learned-codec mirror
-- [[tests/compression_under_bit_budget_mirror]] — local dataset, guard, baseline, learned-codec, and telemetry surface for the first compression mirror
+- [[tests/compression_under_bit_budget_mirror]] — local dataset, guard, baseline, learned-codec, diagnostic, and telemetry surface for the first compression mirror
 - [[synthesis/neural_model_lane_cellular_state_storage]] — biology-led local-state research lane
 - [[synthesis/neural_model_lane_operation_preserving_compression]] — operation-preserving compression research lane
 - [[synthesis/neural_model_lane_memory_replay_imagination]] — memory, replay, and imagination research lane
@@ -448,7 +448,7 @@ frozen evidence records, one per paid run:
 - bridge/memory_systems_to_kda_mla.md -- superseded redirect to `bridge/memory_systems_to_matrix_memory_and_compressed_attention.md`
 - bridge/biological_attention_to_mla.md -- superseded redirect to `bridge/biological_attention_to_compressed_attention.md`
 
-## tests (27 markdown files: 6 paid-run cards + 5 pilots + 1 series landing page + 10 simulation results and analyses + 1 oracle-bound result + 2 symbolic test-material notes + 1 supporting prototype note + 1 tests index)
+## tests (27 markdown files: 6 paid-run cards + 5 pilots + 1 series landing page + 9 simulation results and analyses + 2 symbolic test-material notes + 1 oracle-bound result + 1 local mirror surface + 1 supporting prototype note + 1 tests index)
 
 ### paid-run cards (6)
 - tests/god_run_results.md -- first paid neural-machine run, 2026-04-11, 283M params, val_bpb 1.3950, passkey 0/20
@@ -470,6 +470,11 @@ frozen evidence records, one per paid run:
 
 ### simulation results and analyses (9)
 - tests/god_run_findings.md -- original long-form synthesis of god_run's results
+- tests/encoding_simulation_round_a.md -- sign-only, ternary, and continuous encoding comparison on symmetric memory recall
+- tests/encoding_simulation_round_b.md -- asymmetric matrix-memory encoding comparison at the project operation surface
+- tests/head_dim_sweep_results.md -- head-dimension sweep for asymmetric matrix-memory capacity
+- tests/decay_sweep_results.md -- retention sweep showing where exact-query recall reopens under slower decay
+- tests/overwrite_sweep_results.md -- overwrite and erasure sweep for the matrix-memory evidence line
 - tests/correction_field_trained_prediction_results.md -- trained-predictor correction-field sim; memory_capacity_delta=0 at every quality
 - tests/multi_resolution_head_split_results.md -- fast/medium/slow heads with surprise gates; rare-class recall improves
 - tests/thinking_loop_prototype_results.md -- recurrent hidden-state refinement pilot on modular arithmetic
@@ -482,7 +487,7 @@ frozen evidence records, one per paid run:
 - tests/oracle_compression_analysis_results.md -- first oracle compression-bound package over hard symbolic and eligibility-commit worlds; controls and leakage pass, eight families clear the current strong threshold, six remain below 10x
 
 ### local mirror surfaces (1)
-- tests/compression_under_bit_budget_mirror.md -- first local dataset, forbidden-input guard, baseline-control, learned-codec, bit-accounting, and telemetry surface for the accepted compression_under_bit_budget family
+- tests/compression_under_bit_budget_mirror.md -- first local dataset, forbidden-input guard, baseline-control, learned-codec, diagnostic-localization, bit-accounting, and telemetry surface for the accepted compression_under_bit_budget family
 
 ### supporting prototype note (1)
 - tests/aesthetic_logger_prototype.md -- frozen prototype note for the phase 6a logging module; not counted as an evidence record

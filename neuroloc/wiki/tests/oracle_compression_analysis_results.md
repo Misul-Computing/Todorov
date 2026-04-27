@@ -94,7 +94,7 @@ it does not justify a global tiny trainable mirror yet, because six families rem
 
 ## verdict
 
-accepted as the first oracle compression-bound package. the frontier split is documented in [[synthesis/oracle_compression_frontier_split]], the first family-specific proof package is [[synthesis/neural_model_dossier_compression_under_bit_budget_codec]], the tiny mirror contract is [[synthesis/neural_model_tiny_mirror_contract_compression_under_bit_budget]], and the local learned-codec surface is [[tests/compression_under_bit_budget_mirror]]. the first learned-codec smoke result is negative, so the next research action is trainability-split and provenance-localization diagnostics on that local surface, not a global mirror.
+accepted as the first oracle compression-bound package. the frontier split is documented in [[synthesis/oracle_compression_frontier_split]], the first family-specific proof package is [[synthesis/neural_model_dossier_compression_under_bit_budget_codec]], the tiny mirror contract is [[synthesis/neural_model_tiny_mirror_contract_compression_under_bit_budget]], and the local learned-codec/diagnostic surface is [[tests/compression_under_bit_budget_mirror]]. the first learned-codec smoke result and diagnostic-localization pass are negative, so the next research action is local mirror revision around payload/action/source-state inference and learned decoder generalization, not a global mirror.
 
 ## see also
 

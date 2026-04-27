@@ -4,7 +4,7 @@ status: current (as of 2026-04-27).
 
 ## purpose
 
-this page defines the compression-lane oracle proof step for the neural-model paper spine. under the 2026-04-26 master plan, the first cellular/local-state gap map, [[neural_model_dossier_eligibility_gated_local_commit]], and [[neural_model_symbolic_contract_eligibility_gated_local_commit]], it runs alongside symbolic/oracle test material for the first mechanism and remains a required gate before a tiny model is trained to compress memory.
+this page defines the compression-lane oracle proof step for the neural-model paper spine. under the 2026-04-26 master plan, the first cellular/local-state gap map, [[neural_model_dossier_eligibility_gated_local_commit]], and [[neural_model_symbolic_contract_eligibility_gated_local_commit]], it ran alongside symbolic/oracle test material for the first mechanism. for future compression families, the same oracle gate remains required before a tiny model is trained to compress memory; for `compression_under_bit_budget`, the first narrow mirror and diagnostic pass have already been run and failed held-out operation preservation.
 
 the analysis asks one question:
 
@@ -184,7 +184,8 @@ the split is now documented in [[oracle_compression_frontier_split]].
 9. completed: write the tiny local mirror contract for that family before any code: [[neural_model_tiny_mirror_contract_compression_under_bit_budget]].
 10. completed: implement the local baseline mirror surface for that family only: [[tests/compression_under_bit_budget_mirror]].
 11. completed: add the first learned codec to that local surface; smoke result is negative, with train joint success 1.0 and held-out joint success 0.0.
-12. next: add trainability-split and provenance-localization diagnostics without changing the full model or using paid compute.
+12. completed: add diagnostic-only trainability split and provenance/source controls without changing the full model or using paid compute. the result localizes first toward payload/action/source-state inference and learned decoder generalization, not a proved learned-compression claim.
+13. next: revise the local mirror around payload/action/source-state inference before any broader mirror, full-model path, or paid compute.
 
 ## see also
 

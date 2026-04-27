@@ -28,7 +28,7 @@ the useful claim is conditional: an operation-preserving compression stack may b
 - [[oracle_compression_frontier_split]] separates accepted frontier families from weak frontier families and ranks the next narrow learned-codec proof-package candidates.
 - [[neural_model_dossier_compression_under_bit_budget_codec]] defines the first narrow learned-codec proof package before implementation.
 - [[neural_model_tiny_mirror_contract_compression_under_bit_budget]] defines the local implementation contract for the first tiny learned-codec mirror.
-- [[tests/compression_under_bit_budget_mirror]] documents the first local dataset, guard, baseline, learned-codec, bit-accounting, and telemetry surface for that mirror. the first learned-codec smoke result is negative on held-out splits.
+- [[tests/compression_under_bit_budget_mirror]] documents the first local dataset, guard, baseline, learned-codec, diagnostic-localization, bit-accounting, and telemetry surface for that mirror. the first learned-codec smoke result is negative on held-out splits, and the first diagnostic pass localizes failure toward payload/action/source-state inference and learned decoder generalization.
 - [[indexed_reconstruction_compression]] defines compact handles, schema or residual codes, provenance, and reconstruction.
 - [[neural_model_dossier_compression]] defines the mechanism dossier for compression claims.
 - [[tests/hard_symbolic_nm_test_material]] provides the symbolic worlds that expose hidden state, controls, and bit-budget tasks.
@@ -57,11 +57,11 @@ the useful claim is conditional: an operation-preserving compression stack may b
 
 ## current result
 
-the first oracle compression analysis and frontier split are implemented. useful compression is not uniform across the symbolic surfaces. hard-profile controls are clean and leakage-free, but direct associative recall, correlated-key interference, delayed relevance local commit, bounded output exposure, crossed commit/exposure split, and commit compression frontier remain weak under the current 10x threshold.
+the first oracle compression analysis and frontier split are implemented. useful compression is not uniform across the symbolic surfaces. hard-profile controls are clean and leakage-free, but direct associative recall, correlated-key interference, delayed relevance local commit, bounded output exposure, crossed commit/exposure split, and commit compression frontier remain weak under the current 10x threshold. the first learned-codec mirror for `compression_under_bit_budget` fails held-out operation preservation. diagnostics show partial address signal but no learned payload/action/source-state or learned-decoder success.
 
 ## next action
 
-add trainability-split and provenance-localization diagnostics to the local `compression_under_bit_budget` mirror surface documented in [[tests/compression_under_bit_budget_mirror]]. do not train a global mirror from this result.
+revise the local `compression_under_bit_budget` mirror surface documented in [[tests/compression_under_bit_budget_mirror]] around payload/action/source-state inference and learned decoder generalization. do not train a global mirror from this result.
 
 ## see also
 
