@@ -282,9 +282,12 @@ after this contract is prosecutor-clean, the next code slice may implement:
 
 the first code slice should not optimize for architectural beauty. it should optimize for falsifiability, clear artifacts, and failure localization.
 
+the first local dataset and baseline-control surface is now documented in [[tests/compression_under_bit_budget_mirror]].
+
 ## see also
 
 - [[PROJECT_PLAN]]
+- [[tests/compression_under_bit_budget_mirror]]
 - [[neural_model_dossier_compression_under_bit_budget_codec]]
 - [[oracle_compression_frontier_split]]
 - [[tests/oracle_compression_analysis_results]]

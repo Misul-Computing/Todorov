@@ -2,7 +2,7 @@
 
 status: current (as of 2026-04-27).
 
-update note: single master plan recorded, six neural-model research lanes added, the first no-paid cellular/local-state gap map documented, the first cellular mechanism dossier added, the first mechanism-specific symbolic contract plus implemented symbolic/oracle test-material package added, the first oracle compression analysis package implemented, the oracle-compression frontier split added, the first narrow learned-codec proof package documented, and the tiny local mirror contract added. the next research step is local mirror code for `compression_under_bit_budget`.
+update note: single master plan recorded, six neural-model research lanes added, the first no-paid cellular/local-state gap map documented, the first cellular mechanism dossier added, the first mechanism-specific symbolic contract plus implemented symbolic/oracle test-material package added, the first oracle compression analysis package implemented, the oracle-compression frontier split added, the first narrow learned-codec proof package documented, the tiny local mirror contract added, and the first local mirror baseline surface implemented. the next research step is the learned codec on `compression_under_bit_budget`.
 
 this is the flat reference catalog of every article in the wiki, grouped
 by topic within each top-level directory. for guided navigation, start
@@ -25,6 +25,7 @@ at [[start_here]]. for the rules that govern every article below, see
 - [[synthesis/oracle_compression_frontier_split]] — family-level split into accepted and weak compression frontiers
 - [[synthesis/neural_model_dossier_compression_under_bit_budget_codec]] — first family-specific learned-codec proof package
 - [[synthesis/neural_model_tiny_mirror_contract_compression_under_bit_budget]] — implementation contract for the first tiny local learned-codec mirror
+- [[tests/compression_under_bit_budget_mirror]] — local dataset, guard, baseline, and telemetry surface for the first compression mirror
 - [[synthesis/neural_model_lane_cellular_state_storage]] — biology-led local-state research lane
 - [[synthesis/neural_model_lane_operation_preserving_compression]] — operation-preserving compression research lane
 - [[synthesis/neural_model_lane_memory_replay_imagination]] — memory, replay, and imagination research lane
@@ -219,7 +220,7 @@ frozen evidence records, one per paid run:
 - [[mistakes/run2_slot_memory_decay_copy_paste]] — inherited retention bug
 - [[mistakes/run2_slot_memory_fla_silent_fall_through]] — FLA not installed silent slowdown
 
-## flat catalog — articles by topic (sums to 270 content articles; add 6 navigation/meta files plus tests/index.md for 277 total wiki markdown files on disk)
+## flat catalog — articles by topic (sums to 271 content articles; add 6 navigation/meta files plus tests/index.md for 278 total wiki markdown files on disk)
 
 ## mechanisms (61 articles)
 
@@ -447,7 +448,7 @@ frozen evidence records, one per paid run:
 - bridge/memory_systems_to_kda_mla.md -- superseded redirect to `bridge/memory_systems_to_matrix_memory_and_compressed_attention.md`
 - bridge/biological_attention_to_mla.md -- superseded redirect to `bridge/biological_attention_to_compressed_attention.md`
 
-## tests (26 markdown files: 6 paid-run cards + 5 pilots + 1 series landing page + 9 simulation results and analyses + 1 oracle-bound result + 2 symbolic test-material notes + 1 supporting prototype note + 1 tests index)
+## tests (27 markdown files: 6 paid-run cards + 5 pilots + 1 series landing page + 10 simulation results and analyses + 1 oracle-bound result + 2 symbolic test-material notes + 1 supporting prototype note + 1 tests index)
 
 ### paid-run cards (6)
 - tests/god_run_results.md -- first paid neural-machine run, 2026-04-11, 283M params, val_bpb 1.3950, passkey 0/20
@@ -480,10 +481,13 @@ frozen evidence records, one per paid run:
 ### oracle-bound results (1)
 - tests/oracle_compression_analysis_results.md -- first oracle compression-bound package over hard symbolic and eligibility-commit worlds; controls and leakage pass, eight families clear the current strong threshold, six remain below 10x
 
+### local mirror surfaces (1)
+- tests/compression_under_bit_budget_mirror.md -- first local dataset, forbidden-input guard, baseline-control, bit-accounting, and telemetry surface for the accepted compression_under_bit_budget family
+
 ### supporting prototype note (1)
 - tests/aesthetic_logger_prototype.md -- frozen prototype note for the phase 6a logging module; not counted as an evidence record
 
-## simulations (48 scripts total: 45 across 17 script-containing directories plus 3 root-level utilities)
+## simulations (49 scripts total: 46 across 17 script-containing directories plus 3 root-level utilities)
 - simulations/single_neuron/ (3 scripts: lif_fi_curve leak-validation, adex_patterns, izhikevich_gallery)
 - simulations/plasticity/ (3 scripts: stdp_weight_evolution, homeostatic_scaling, bcm_alpha_pilot)
 - simulations/sparse_coding/ (2 scripts: sparse_coding_demo, hierarchical_ternary)
@@ -492,7 +496,7 @@ frozen evidence records, one per paid run:
 - simulations/neuromodulation/ (1 script: dopamine_rpe)
 - simulations/lateral_inhibition/ (1 script: wta_dynamics)
 - simulations/oscillations/ (1 script: gamma_ping)
-- simulations/memory/ (20 scripts: pattern_completion, capacity_scaling, imagination_recombination, asymmetric_outer_product_recall, correction_field_capacity, correction_field_trained_prediction, multi_resolution_head_split, slot_buffer_capacity, slot_surprise_writes, slot_integration, contextual_recall_world, slot_key_interference_sweep, multi_association_recall, delayed_cue_world, episodic_separation_completion, episodic_replay_reuse, contextual_gate_routing, nm_hard_symbolic_test_material, eligibility_gated_local_commit, oracle_compression_analysis)
+- simulations/memory/ (21 scripts: pattern_completion, capacity_scaling, imagination_recombination, asymmetric_outer_product_recall, correction_field_capacity, correction_field_trained_prediction, multi_resolution_head_split, slot_buffer_capacity, slot_surprise_writes, slot_integration, contextual_recall_world, slot_key_interference_sweep, multi_association_recall, delayed_cue_world, episodic_separation_completion, episodic_replay_reuse, contextual_gate_routing, nm_hard_symbolic_test_material, eligibility_gated_local_commit, oracle_compression_analysis, compression_under_bit_budget_mirror)
 - simulations/attention/ (1 script: biased_competition)
 - simulations/dendritic/ (1 script: multicompartment_neuron)
 - simulations/energy/ (1 script: energy_comparison)
@@ -558,7 +562,7 @@ frozen evidence records, one per paid run:
 - total mechanism articles: 61
 - total bridge notes: 28 (25 current + 3 legacy-title redirects)
 - total synthesis articles: 50 (49 current + 1 superseded)
-- total test markdown files: 26 (6 paid-run cards + 5 pilots + 1 series landing page + 9 later simulation results + 1 oracle-bound result + 2 symbolic test-material notes + 1 supporting prototype note + tests/index.md)
+- total test markdown files: 27 (6 paid-run cards + 5 pilots + 1 series landing page + 10 later simulation results + 1 oracle-bound result + 2 symbolic test-material notes + 1 supporting prototype note + tests/index.md)
 - total entity notes: 33
 - total comparison articles: 15 (14 current + 1 legacy-title redirect)
 - total concept articles: 7
@@ -566,7 +570,7 @@ frozen evidence records, one per paid run:
 - total mistake docs: 2
 - total supporting prototype notes: 1 (`tests/aesthetic_logger_prototype.md`)
 - total navigation / meta: 7 (INDEX.md, OPERATING_DIRECTIVE.md, PROJECT_PLAN.md, _audit_2026-04-16.md, Home.md, log.md, tests/index.md)
-- total simulations: 48 scripts across 17 script-containing directories plus 3 root-level utilities (shared.py, suite_registry.py, suite_runner.py)
+- total simulations: 49 scripts across 17 script-containing directories plus 3 root-level utilities (shared.py, suite_registry.py, suite_runner.py)
 - last updated: 2026-04-27
 
 ## historical meta
@@ -588,6 +592,7 @@ frozen evidence records, one per paid run:
 - [[synthesis/oracle_compression_frontier_split]]
 - [[synthesis/neural_model_dossier_compression_under_bit_budget_codec]]
 - [[synthesis/neural_model_tiny_mirror_contract_compression_under_bit_budget]]
+- [[tests/compression_under_bit_budget_mirror]]
 - [[synthesis/neural_model_lane_cellular_state_storage]]
 - [[synthesis/neural_model_lane_operation_preserving_compression]]
 - [[synthesis/neural_model_lane_memory_replay_imagination]]

@@ -21,7 +21,7 @@ every candidate mechanism must pass through this sequence:
 7. full model integration only if the small mirror localizes the effect
 8. paid compute only after broad lane research, mechanism dossiers, dossier-driven test material, oracle compression analysis where relevant, a tiny trainable mirror, cpu controls, telemetry, prosecutor-clean state updates, and one explicitly selected hypothesis
 
-after the hard symbolic package, the first biology-led lane gap map is [[cellular_state_storage_gap_map]], the first cellular mechanism dossier is [[neural_model_dossier_eligibility_gated_local_commit]], and the first mechanism-specific symbolic contract is [[neural_model_symbolic_contract_eligibility_gated_local_commit]]. the first mechanism-specific symbolic package, oracle compression analysis, frontier split, `compression_under_bit_budget` proof package, and tiny mirror contract are now documented. the next target is local mirror code for that one accepted family. the full model path is not the first target.
+after the hard symbolic package, the first biology-led lane gap map is [[cellular_state_storage_gap_map]], the first cellular mechanism dossier is [[neural_model_dossier_eligibility_gated_local_commit]], and the first mechanism-specific symbolic contract is [[neural_model_symbolic_contract_eligibility_gated_local_commit]]. the first mechanism-specific symbolic package, oracle compression analysis, frontier split, `compression_under_bit_budget` proof package, tiny mirror contract, and local mirror baseline surface are now documented. the next target is learned-codec code for that one accepted family. the full model path is not the first target.
 
 ## dossier contract
 
@@ -120,6 +120,7 @@ a mechanism fails if it only improves loss, only works with oracle components, l
 - [[oracle_compression_frontier_split]]
 - [[neural_model_dossier_compression_under_bit_budget_codec]]
 - [[neural_model_tiny_mirror_contract_compression_under_bit_budget]]
+- [[tests/compression_under_bit_budget_mirror]]
 - [[neural_model_lane_cellular_state_storage]]
 - [[neural_model_lane_operation_preserving_compression]]
 - [[neural_model_lane_memory_replay_imagination]]

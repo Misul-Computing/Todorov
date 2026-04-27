@@ -183,6 +183,7 @@ no global mirror, full model integration, paid compute, pod, h200, kaggle, or in
 - [[tests/oracle_compression_analysis_results]]
 - [[neural_model_dossier_compression_under_bit_budget_codec]]
 - [[neural_model_tiny_mirror_contract_compression_under_bit_budget]]
+- [[tests/compression_under_bit_budget_mirror]]
 - [[neural_model_lane_operation_preserving_compression]]
 - [[neural_model_lane_trainability_evaluation]]
 - [[neural_model_compression_stack]]

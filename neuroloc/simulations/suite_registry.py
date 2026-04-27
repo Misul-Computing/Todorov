@@ -16,6 +16,7 @@ class SimulationSpec:
     hard_env: dict[str, str] | None = None
     required_summary_keys: tuple[str, ...] = ()
     minimum_summary_values: tuple[tuple[str, float], ...] = ()
+    maximum_summary_values: tuple[tuple[str, float], ...] = ()
     required_modules: tuple[str, ...] = ()
 
     def script_path(self, project_root: Path) -> Path:
@@ -769,6 +770,100 @@ SIMULATION_SPECS: dict[str, SimulationSpec] = {
             ("imagination_recombination_mean_best_ratio", 10.0),
         ),
     ),
+    "compression_under_bit_budget_mirror": SimulationSpec(
+        simulation_id="compression_under_bit_budget_mirror",
+        category="compression_mirror",
+        script_relative_path="neuroloc/simulations/memory/compression_under_bit_budget_mirror.py",
+        metrics_filename="compression_under_bit_budget_mirror_metrics.json",
+        artifact_filenames=("compression_under_bit_budget_mirror_metrics.json",),
+        smoke_env={
+            "CUBB_MIRROR_PROFILE": "smoke",
+            "CUBB_MIRROR_TRAIN_EPISODES": "16",
+            "CUBB_MIRROR_VAL_EPISODES": "4",
+            "CUBB_MIRROR_TEST_EPISODES": "4",
+            "CUBB_MIRROR_SEED": "42",
+        },
+        hard_env={
+            "CUBB_MIRROR_PROFILE": "hard",
+            "CUBB_MIRROR_TRAIN_EPISODES": "1024",
+            "CUBB_MIRROR_VAL_EPISODES": "256",
+            "CUBB_MIRROR_TEST_EPISODES": "512",
+            "CUBB_MIRROR_SEED": "42",
+        },
+        required_summary_keys=(
+            "family_count",
+            "policy_count",
+            "dataset_record_count",
+            "train_record_count",
+            "validation_record_count",
+            "test_record_count",
+            "forbidden_input_violation_count",
+            "future_observation_violation_count",
+            "oracle_joint_success",
+            "compressed_oracle_joint_success",
+            "verbatim_joint_success",
+            "no_memory_joint_success",
+            "recency_only_joint_success",
+            "shuffled_address_joint_success",
+            "random_codebook_joint_success",
+            "matched_bit_random_code_joint_success",
+            "matched_compute_no_code_joint_success",
+            "learned_result_count",
+            "state_probe_accuracy",
+            "action_success",
+            "joint_success",
+            "bits_committed_per_successful_episode",
+            "compression_ratio_vs_verbatim",
+            "rate_distortion_frontier_ready",
+            "verbatim_within_budget",
+            "compressed_oracle_within_budget",
+            "no_memory_gap",
+            "recency_gap",
+            "shuffled_address_gap",
+            "random_codebook_gap",
+            "address_margin",
+            "address_entropy",
+            "read_concentration",
+            "write_frequency",
+            "memory_output_vs_residual_norm",
+            "reconstruction_error",
+            "local_mirror_code_authorized",
+            "full_model_authorized",
+            "paid_compute_authorized",
+            "blocked_authorization_violation_count",
+        ),
+        minimum_summary_values=(
+            ("family_count", 1.0),
+            ("policy_count", 15.0),
+            ("train_record_count", 1.0),
+            ("validation_record_count", 1.0),
+            ("test_record_count", 1.0),
+            ("oracle_joint_success", 0.98),
+            ("compressed_oracle_joint_success", 0.98),
+            ("verbatim_joint_success", 0.98),
+            ("state_probe_accuracy", 0.98),
+            ("action_success", 0.98),
+            ("joint_success", 0.98),
+            ("compression_ratio_vs_verbatim", 1.01),
+            ("rate_distortion_frontier_ready", 1.0),
+            ("compressed_oracle_within_budget", 0.98),
+            ("no_memory_gap", 0.98),
+            ("recency_gap", 0.98),
+            ("shuffled_address_gap", 0.98),
+            ("random_codebook_gap", 0.98),
+            ("read_concentration", 0.1),
+            ("memory_output_vs_residual_norm", 0.1),
+            ("local_mirror_code_authorized", 1.0),
+        ),
+        maximum_summary_values=(
+            ("forbidden_input_violation_count", 0.0),
+            ("future_observation_violation_count", 0.0),
+            ("learned_result_count", 0.0),
+            ("full_model_authorized", 0.0),
+            ("paid_compute_authorized", 0.0),
+            ("blocked_authorization_violation_count", 0.0),
+        ),
+    ),
 }
 
 
@@ -815,6 +910,9 @@ SUITES: dict[str, tuple[str, ...]] = {
     "oracle_compression": (
         "oracle_compression_analysis",
     ),
+    "compression_mirror": (
+        "compression_under_bit_budget_mirror",
+    ),
     "precompute": (
         "capacity_scaling",
         "rate_coded_spike",
@@ -838,6 +936,7 @@ SUITES: dict[str, tuple[str, ...]] = {
         "nm_hard_symbolic_test_material",
         "eligibility_gated_local_commit",
         "oracle_compression_analysis",
+        "compression_under_bit_budget_mirror",
     ),
 }
 
@@ -864,6 +963,10 @@ def to_jsonable(spec: SimulationSpec) -> dict[str, Any]:
         "minimum_summary_values": [
             {"key": dotted_key, "minimum": minimum}
             for dotted_key, minimum in spec.minimum_summary_values
+        ],
+        "maximum_summary_values": [
+            {"key": dotted_key, "maximum": maximum}
+            for dotted_key, maximum in spec.maximum_summary_values
         ],
         "required_modules": list(spec.required_modules),
     }

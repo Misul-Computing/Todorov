@@ -159,6 +159,7 @@ no mechanism should enter the full model path from this package alone. a mechani
 - [[synthesis/oracle_compression_frontier_split]]
 - [[synthesis/neural_model_dossier_compression_under_bit_budget_codec]]
 - [[synthesis/neural_model_tiny_mirror_contract_compression_under_bit_budget]]
+- [[tests/compression_under_bit_budget_mirror]]
 - [[synthesis/neural_model_paper_spine]]
 - [[synthesis/oracle_compression_analysis_plan]]
 - [[synthesis/neural_model_lane_operation_preserving_compression]]

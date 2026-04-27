@@ -290,6 +290,12 @@ def validate_simulation_output(spec: SimulationSpec, simulation_output: Path, me
             raise ValueError(f"summary value is not numeric: {dotted_key}")
         if float(summary_value) < float(minimum):
             raise ValueError(f"summary value below minimum: {dotted_key} < {minimum}")
+    for dotted_key, maximum in spec.maximum_summary_values:
+        summary_value = nested_value(payload["summary"], dotted_key)
+        if not isinstance(summary_value, (int, float)) or not math.isfinite(float(summary_value)):
+            raise ValueError(f"summary value is not numeric: {dotted_key}")
+        if float(summary_value) > float(maximum):
+            raise ValueError(f"summary value above maximum: {dotted_key} > {maximum}")
     for artifact_name in spec.artifact_filenames:
         expected_path = simulation_output / artifact_name
         if not expected_path.exists():

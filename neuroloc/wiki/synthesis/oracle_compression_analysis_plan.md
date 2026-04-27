@@ -182,7 +182,8 @@ the split is now documented in [[oracle_compression_frontier_split]].
 7. completed: write the accepted-frontier and weak-frontier split before scoping any tiny trainable neural-model mirror.
 8. completed: write the narrow learned-codec proof package for `compression_under_bit_budget`: [[neural_model_dossier_compression_under_bit_budget_codec]].
 9. completed: write the tiny local mirror contract for that family before any code: [[neural_model_tiny_mirror_contract_compression_under_bit_budget]].
-10. next: implement the local mirror code for that family only.
+10. completed: implement the local baseline mirror surface for that family only: [[tests/compression_under_bit_budget_mirror]].
+11. next: add the learned codec to that local surface without changing the full model or using paid compute.
 
 ## see also
 
@@ -195,6 +196,7 @@ the split is now documented in [[oracle_compression_frontier_split]].
 - [[oracle_compression_frontier_split]]
 - [[neural_model_dossier_compression_under_bit_budget_codec]]
 - [[neural_model_tiny_mirror_contract_compression_under_bit_budget]]
+- [[tests/compression_under_bit_budget_mirror]]
 - [[neural_model_lane_operation_preserving_compression]]
 - [[neural_model_lane_cellular_state_storage]]
 - [[neural_model_lane_memory_replay_imagination]]

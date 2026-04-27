@@ -612,6 +612,23 @@ def test_validate_simulation_output_rejects_lif_spike_probe_regression(tmp_path:
         validate_simulation_output(SIMULATION_SPECS["lif_fi_curve"], metrics_path.parent, metrics_path)
 
 
+def test_validate_simulation_output_rejects_summary_above_maximum(tmp_path: Path) -> None:
+    results = run_specs(
+        specs=[SIMULATION_SPECS["compression_under_bit_budget_mirror"]],
+        profile="smoke",
+        output_root=tmp_path / "negative_maximum",
+        python_executable=sys.executable,
+        timeout_sec=300,
+    )
+    assert results[0].ok
+    metrics_path = require_metrics_path(results[0])
+    payload = json.loads(metrics_path.read_text(encoding="utf-8"))
+    payload["summary"]["paid_compute_authorized"] = 1.0
+    metrics_path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    with pytest.raises(ValueError, match="summary value above maximum"):
+        validate_simulation_output(SIMULATION_SPECS["compression_under_bit_budget_mirror"], metrics_path.parent, metrics_path)
+
+
 def test_validate_simulation_output_rejects_nonfinite_metrics_file(tmp_path: Path) -> None:
     results = run_specs(
         specs=[SIMULATION_SPECS["capacity_scaling"]],

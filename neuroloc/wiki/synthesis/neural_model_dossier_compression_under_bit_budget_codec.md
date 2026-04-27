@@ -198,6 +198,7 @@ the tiny mirror must not touch:
 ## see also
 
 - [[PROJECT_PLAN]]
+- [[tests/compression_under_bit_budget_mirror]]
 - [[neural_model_paper_spine]]
 - [[neural_model_tiny_mirror_contract_compression_under_bit_budget]]
 - [[oracle_compression_frontier_split]]
