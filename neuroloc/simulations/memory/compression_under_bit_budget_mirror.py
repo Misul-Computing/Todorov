@@ -78,6 +78,11 @@ DIAGNOSTIC_POLICIES = (
     "learned_address_oracle_payload",
     "oracle_address_learned_payload",
     "provenance_exposed_learned_codec",
+    "visible_source_state_oracle_action_oracle_decoder",
+    "source_observation_learned_action",
+    "provenance_exposed_oracle_decoder",
+    "learned_state_oracle_action_oracle_decoder",
+    "oracle_state_learned_action_oracle_decoder",
 )
 ALL_POLICIES = (*BASELINE_POLICIES, *DIAGNOSTIC_POLICIES, *LEARNED_POLICIES)
 
@@ -332,6 +337,135 @@ def source_event_for_record(record: dict[str, Any]) -> dict[str, int]:
             "observed": 0,
         }
     return dict(matches[0])
+
+
+def source_event_present(record: dict[str, Any]) -> float:
+    relevant = record["evaluation_contract"]["memory_relevant_positions"][0]
+    source_time = int(relevant["time"])
+    source_object = int(relevant["object_index"])
+    return float(
+        int(
+            any(
+                int(event["time"]) == source_time and int(event["object_index"]) == source_object
+                for event in record["model_input"]["observations"]
+            )
+        )
+    )
+
+
+def focus_events_for_record(record: dict[str, Any]) -> list[dict[str, int]]:
+    focus = int(record["model_input"]["query"]["focus_local_index"])
+    return [
+        event
+        for event in record["model_input"]["observations"]
+        if int(event["object_index"]) == focus
+    ]
+
+
+def source_event_observed(record: dict[str, Any]) -> float:
+    return float(int(int(source_event_for_record(record)["observed"]) == 1))
+
+
+def source_event_complete(record: dict[str, Any]) -> float:
+    event = source_event_for_record(record)
+    return float(
+        int(
+            int(event["observed"]) == 1
+            and int(event["color"]) >= 0
+            and int(event["shape"]) >= 0
+            and int(event["pos"]) >= 0
+        )
+    )
+
+
+def source_observation_audit(record: dict[str, Any], caps: dict[str, int]) -> dict[str, float]:
+    event = source_event_for_record(record)
+    target_state = record["labels"]["state"]
+    focus_events = focus_events_for_record(record)
+    observed_focus_count = sum(1 for item in focus_events if int(item["observed"]) == 1 and int(item["pos"]) >= 0)
+    estimated_vel = estimate_velocity(focus_events, int(caps["max_speed"]))
+    color_visible = float(int(int(event["observed"]) == 1 and int(event["color"]) >= 0))
+    shape_visible = float(int(int(event["observed"]) == 1 and int(event["shape"]) >= 0))
+    pos_visible = float(int(int(event["observed"]) == 1 and int(event["pos"]) >= 0))
+    vel_reconstructable = float(int(observed_focus_count >= 2 and estimated_vel == int(target_state["vel"])))
+    source_query_gap = int(record["model_input"]["query"]["time"]) - int(event["time"])
+    source_state_reconstructable = float(
+        int(
+            color_visible == 1.0
+            and shape_visible == 1.0
+            and pos_visible == 1.0
+            and vel_reconstructable == 1.0
+            and int(event["color"]) == int(target_state["color"])
+            and int(event["shape"]) == int(target_state["shape"])
+            and int(event["pos"]) == int(target_state["pos"])
+        )
+    )
+    return {
+        "source_event_present": float(source_event_present(record)),
+        "source_event_observed": float(source_event_observed(record)),
+        "source_event_complete": float(source_event_complete(record)),
+        "source_color_visible": color_visible,
+        "source_shape_visible": shape_visible,
+        "source_pos_visible": pos_visible,
+        "source_vel_reconstructable": vel_reconstructable,
+        "source_state_reconstructable": source_state_reconstructable,
+        "source_required_fields_visible": float(int(color_visible == 1.0 and shape_visible == 1.0 and pos_visible == 1.0 and observed_focus_count >= 2)),
+        "source_query_gap": float(source_query_gap),
+    }
+
+
+def empty_source_observation_audit() -> dict[str, float]:
+    return {
+        "source_event_present": 0.0,
+        "source_event_observed": 0.0,
+        "source_event_complete": 0.0,
+        "source_color_visible": 0.0,
+        "source_shape_visible": 0.0,
+        "source_pos_visible": 0.0,
+        "source_vel_reconstructable": 0.0,
+        "source_state_reconstructable": 0.0,
+        "source_required_fields_visible": 0.0,
+        "source_query_gap": 0.0,
+    }
+
+
+def source_observation_code_fields(record: dict[str, Any], caps: dict[str, int], action_value: int) -> dict[str, int]:
+    event = source_event_for_record(record)
+    velocity = estimate_velocity(focus_events_for_record(record), int(caps["max_speed"]))
+    color = int(event["color"])
+    shape = int(event["shape"])
+    address = color * int(caps["n_shapes"]) + shape if color >= 0 and shape >= 0 else -1
+    return {
+        "address": int(address),
+        "schema": int(velocity + int(caps["max_speed"])),
+        "residual": int(event["pos"]) if int(event["pos"]) >= 0 else -1,
+        "action": int(action_value),
+        "provenance": int(event["time"]),
+    }
+
+
+def source_signature_for_action(record: dict[str, Any], caps: dict[str, int]) -> tuple[int, ...]:
+    event = source_event_for_record(record)
+    return (
+        int(event["color"]),
+        int(event["shape"]),
+        int(event["pos"]),
+        int(estimate_velocity(focus_events_for_record(record), int(caps["max_speed"]))),
+        int(event["observed"]),
+        int(source_event_complete(record)),
+    )
+
+
+def action_ambiguity_rate(dataset: list[dict[str, Any]], caps: dict[str, int], split: str) -> float:
+    selected = [row for row in dataset if row["split"] == split]
+    if not selected:
+        return 0.0
+    groups: dict[tuple[int, ...], set[int]] = {}
+    for row in selected:
+        signature = source_signature_for_action(row, caps)
+        groups.setdefault(signature, set()).add(int(row["labels"]["action"]))
+    ambiguous = sum(1 for row in selected if len(groups[source_signature_for_action(row, caps)]) > 1)
+    return float(ambiguous) / max(1.0, float(len(selected)))
 
 
 def vectorize_record_with_provenance(record: dict[str, Any], caps: dict[str, int]) -> np.ndarray:
@@ -686,7 +820,8 @@ def row_from_result(record: dict[str, Any], policy: str, result: dict[str, Any],
     bits = int(result["bits_committed"])
     fields = dict(result["compact_code_fields"])
     field_bits = learned_bits_by_field(learned["caps"])
-    return {
+    audit = source_observation_audit(record, learned["caps"]) if diagnostic_control == 1.0 else empty_source_observation_audit()
+    row = {
         "split": record["split"],
         "seed": int(record["seed"]),
         "episode_id": record["episode_id"],
@@ -735,6 +870,8 @@ def row_from_result(record: dict[str, Any], policy: str, result: dict[str, Any],
         "encoder_action_accuracy": float(result["encoder_action_accuracy"]),
         "encoder_provenance_accuracy": float(result["encoder_provenance_accuracy"]),
     }
+    row.update(audit)
+    return row
 
 
 def learned_rows(dataset: list[dict[str, Any]], learned: dict[str, Any]) -> list[dict[str, Any]]:
@@ -766,6 +903,21 @@ def diagnostic_result(record: dict[str, Any], learned: dict[str, Any], policy: s
     if policy == "provenance_exposed_learned_codec":
         fields, confidence = predict_fields_with_stack(learned, vectorize_record_with_provenance(record, caps), "provenance_model", "provenance_heads")
         return decode_fields_with_learned_decoder(record, learned, fields, confidence)
+    if policy == "visible_source_state_oracle_action_oracle_decoder":
+        return score_code_fields(source_observation_code_fields(record, caps, int(record["labels"]["action"])), record, caps, confidence=float(source_event_complete(record)))
+    if policy == "source_observation_learned_action":
+        return score_code_fields(source_observation_code_fields(record, caps, int(learned_fields["action"])), record, caps, confidence=float(source_event_complete(record)))
+    if policy == "provenance_exposed_oracle_decoder":
+        fields, confidence = predict_fields_with_stack(learned, vectorize_record_with_provenance(record, caps), "provenance_model", "provenance_heads")
+        return score_code_fields(fields, record, caps, confidence)
+    if policy == "learned_state_oracle_action_oracle_decoder":
+        fields = dict(learned_fields)
+        fields["action"] = int(oracle_fields["action"])
+        return score_code_fields(fields, record, caps, confidence=float(learned_result["address_margin"]))
+    if policy == "oracle_state_learned_action_oracle_decoder":
+        fields = dict(oracle_fields)
+        fields["action"] = int(learned_fields["action"])
+        return score_code_fields(fields, record, caps, confidence=float(learned_result["address_margin"]))
     raise ValueError(f"unknown diagnostic policy: {policy}")
 
 
@@ -773,7 +925,7 @@ def diagnostic_rows(dataset: list[dict[str, Any]], learned: dict[str, Any]) -> l
     rows = []
     for record in dataset:
         for policy in DIAGNOSTIC_POLICIES:
-            oracle_input_used = 1.0 if policy in {"oracle_code_learned_decoder", "learned_address_oracle_payload", "oracle_address_learned_payload", "provenance_exposed_learned_codec"} else 0.0
+            oracle_input_used = 1.0 if policy in {"learned_code_oracle_decoder", "oracle_code_learned_decoder", "learned_address_oracle_payload", "oracle_address_learned_payload", "provenance_exposed_learned_codec", "visible_source_state_oracle_action_oracle_decoder", "source_observation_learned_action", "provenance_exposed_oracle_decoder", "learned_state_oracle_action_oracle_decoder", "oracle_state_learned_action_oracle_decoder"} else 0.0
             rows.append(row_from_result(record, policy, diagnostic_result(record, learned, policy), learned, 0.0, 1.0, oracle_input_used))
     return rows
 
@@ -868,8 +1020,22 @@ def split_counts(dataset: list[dict[str, Any]]) -> dict[str, int]:
     return {split: int(sum(1 for row in dataset if row["split"] == split)) for split in ("train", "validation", "test")}
 
 
+def split_metric_summary(rows: list[dict[str, Any]], policy: str, prefix: str) -> dict[str, float]:
+    values: dict[str, float] = {}
+    for split in ("train", "validation", "test"):
+        for source_key, target_suffix in (
+            ("joint_success", "joint_success"),
+            ("state_probe_accuracy", "state_success"),
+            ("action_success", "action_success"),
+        ):
+            values[f"{prefix}_{split}_{target_suffix}"] = float(mean_for(rows, policy, source_key, split=split))
+    values[f"{prefix}_train_test_joint_gap"] = float(values[f"{prefix}_train_joint_success"] - values[f"{prefix}_test_joint_success"])
+    return values
+
+
 def build_summary(dataset: list[dict[str, Any]], rows: list[dict[str, Any]], profile: str = "smoke") -> dict[str, Any]:
     counts = split_counts(dataset)
+    caps = profile_caps(profile)
     compressed_bits = mean_for(rows, "compressed_oracle_store", "total_committed_bits", split="test")
     verbatim_bits = mean_for(rows, "verbatim_store", "total_committed_bits", split="test")
     oracle_joint = mean_for(rows, "oracle_codec", "joint_success", split="test")
@@ -885,6 +1051,17 @@ def build_summary(dataset: list[dict[str, Any]], rows: list[dict[str, Any]], pro
     learned_address_oracle_payload_joint = mean_for(rows, "learned_address_oracle_payload", "joint_success", split="test")
     oracle_address_learned_payload_joint = mean_for(rows, "oracle_address_learned_payload", "joint_success", split="test")
     provenance_exposed_joint = mean_for(rows, "provenance_exposed_learned_codec", "joint_success", split="test")
+    visible_source_joint = mean_for(rows, "visible_source_state_oracle_action_oracle_decoder", "joint_success", split="test")
+    visible_source_state = mean_for(rows, "visible_source_state_oracle_action_oracle_decoder", "state_probe_accuracy", split="test")
+    source_observation_learned_action_joint = mean_for(rows, "source_observation_learned_action", "joint_success", split="test")
+    provenance_exposed_oracle_decoder_joint = mean_for(rows, "provenance_exposed_oracle_decoder", "joint_success", split="test")
+    provenance_exposed_oracle_decoder_state = mean_for(rows, "provenance_exposed_oracle_decoder", "state_probe_accuracy", split="test")
+    provenance_exposed_oracle_decoder_action = mean_for(rows, "provenance_exposed_oracle_decoder", "action_success", split="test")
+    learned_state_oracle_action_joint = mean_for(rows, "learned_state_oracle_action_oracle_decoder", "joint_success", split="test")
+    learned_state_oracle_action_state = mean_for(rows, "learned_state_oracle_action_oracle_decoder", "state_probe_accuracy", split="test")
+    oracle_state_learned_action_joint = mean_for(rows, "oracle_state_learned_action_oracle_decoder", "joint_success", split="test")
+    oracle_state_learned_action_action = mean_for(rows, "oracle_state_learned_action_oracle_decoder", "action_success", split="test")
+    oracle_decoder_split = split_metric_summary(rows, "oracle_code_learned_decoder", "oracle_code_learned_decoder")
     learned_ratio = float(verbatim_bits / max(learned_bits, 1.0)) if learned_bits else 0.0
     learned_bits_per_success = None if learned_joint == 0.0 else float(learned_bits / learned_joint)
     learned_threshold = 0.95 if profile == "hard" else 0.85
@@ -947,6 +1124,11 @@ def build_summary(dataset: list[dict[str, Any]], rows: list[dict[str, Any]], pro
         "learned_codec_encoder_payload_vel_accuracy": float(mean_for(rows, "learned_codec", "encoder_payload_vel_accuracy", split="test")),
         "learned_codec_encoder_action_accuracy": float(mean_for(rows, "learned_codec", "encoder_action_accuracy", split="test")),
         "learned_codec_encoder_provenance_accuracy": float(mean_for(rows, "learned_codec", "encoder_provenance_accuracy", split="test")),
+        "source_event_observed_rate": float(np.mean([source_observation_audit(row, caps)["source_event_observed"] for row in dataset if row["split"] == "test"])),
+        "source_event_complete_rate": float(np.mean([source_observation_audit(row, caps)["source_event_complete"] for row in dataset if row["split"] == "test"])),
+        "source_required_fields_visible_rate": float(np.mean([source_observation_audit(row, caps)["source_required_fields_visible"] for row in dataset if row["split"] == "test"])),
+        "source_state_reconstructable_rate": float(np.mean([source_observation_audit(row, caps)["source_state_reconstructable"] for row in dataset if row["split"] == "test"])),
+        "source_signature_action_ambiguity_rate": float(action_ambiguity_rate(dataset, caps, "test")),
         "learned_codec_unique_code_count": int(len({
             (
                 int(row["compact_code_fields"]["address"]),
@@ -971,10 +1153,30 @@ def build_summary(dataset: list[dict[str, Any]], rows: list[dict[str, Any]], pro
         "learned_address_oracle_payload_joint_success": float(learned_address_oracle_payload_joint),
         "oracle_address_learned_payload_joint_success": float(oracle_address_learned_payload_joint),
         "provenance_exposed_learned_codec_joint_success": float(provenance_exposed_joint),
+        "visible_source_state_oracle_action_oracle_decoder_joint_success": float(visible_source_joint),
+        "visible_source_state_oracle_action_oracle_decoder_state_success": float(visible_source_state),
+        "source_observation_oracle_action_joint_success": float(visible_source_joint),
+        "source_observation_learned_action_joint_success": float(source_observation_learned_action_joint),
+        "provenance_exposed_oracle_decoder_joint_success": float(provenance_exposed_oracle_decoder_joint),
+        "provenance_exposed_oracle_decoder_state_success": float(provenance_exposed_oracle_decoder_state),
+        "provenance_exposed_oracle_decoder_action_success": float(provenance_exposed_oracle_decoder_action),
+        "learned_state_oracle_action_joint_success": float(learned_state_oracle_action_joint),
+        "learned_state_oracle_action_oracle_decoder_joint_success": float(learned_state_oracle_action_joint),
+        "learned_state_oracle_action_oracle_decoder_state_success": float(learned_state_oracle_action_state),
+        "oracle_state_learned_action_joint_success": float(oracle_state_learned_action_joint),
+        "oracle_state_learned_action_oracle_decoder_joint_success": float(oracle_state_learned_action_joint),
+        "oracle_state_learned_action_oracle_decoder_action_success": float(oracle_state_learned_action_action),
+        "learned_action_only_failure_rate": float(1.0 - oracle_state_learned_action_action),
         "oracle_decoder_rescue_delta": float(learned_code_oracle_decoder_joint - learned_joint),
         "oracle_encoder_rescue_delta": float(oracle_code_learned_decoder_joint - learned_joint),
         "oracle_address_payload_rescue_delta": float(max(learned_address_oracle_payload_joint, oracle_address_learned_payload_joint) - learned_joint),
         "provenance_exposure_rescue_delta": float(provenance_exposed_joint - learned_joint),
+        "provenance_exposed_oracle_decoder_rescue_delta": float(provenance_exposed_oracle_decoder_joint - learned_joint),
+        "source_observation_rescue_delta": float(source_observation_learned_action_joint - learned_joint),
+        "visible_source_state_rescue_delta": float(visible_source_joint - learned_joint),
+        "oracle_action_rescue_delta": float(learned_state_oracle_action_joint - learned_joint),
+        "oracle_state_rescue_delta": float(oracle_state_learned_action_joint - learned_joint),
+        **oracle_decoder_split,
         "diagnostic_oracle_input_used": float(max((float(row.get("diagnostic_oracle_input_used", 0.0)) for row in rows), default=0.0)),
         **learned_gaps,
         "state_probe_accuracy": float(mean_for(rows, "oracle_codec", "state_probe_accuracy", split="test")),

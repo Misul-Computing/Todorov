@@ -272,17 +272,9 @@ kill or redesign the mirror if:
 
 ## implementation handoff
 
-after this contract is prosecutor-clean, the next code slice may implement:
+the first local dataset, learned-codec, and source-diagnostic surface is now documented in [[tests/compression_under_bit_budget_mirror]]. it produced a negative smoke result and exposed a source-observability contract problem that must be repaired before another codec is trained.
 
-- a local dataset builder for this one family.
-- deterministic baselines and trainability splits.
-- a tiny trainable mirror with explicit bit accounting.
-- metrics artifacts that match the telemetry schema above.
-- focused pytest coverage for determinism, forbidden-input guards, controls, and acceptance-threshold calculation.
-
-the first code slice should not optimize for architectural beauty. it should optimize for falsifiability, clear artifacts, and failure localization.
-
-the first local dataset and baseline-control surface is now documented in [[tests/compression_under_bit_budget_mirror]].
+the next code slice should modify the family/mirror contract, not the full model. it should make the source state and action target legally inferable from the non-oracle input path, or explicitly recast the task as a commit-time memory problem with an earlier observed source event. it should preserve deterministic splits, forbidden-input guards, baselines, telemetry artifacts, and focused tests.
 
 ## see also
 

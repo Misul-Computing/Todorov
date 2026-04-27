@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import json
+import shutil
 import sys
+import uuid
 from pathlib import Path
 
 import numpy as np
@@ -19,7 +21,11 @@ from neuroloc.simulations.memory.compression_under_bit_budget_mirror import (
     oracle_code_fields,
     train_learned_codec,
     profile_caps,
+    action_ambiguity_rate,
+    source_observation_audit,
+    source_observation_code_fields,
     source_event_for_record,
+    source_signature_for_action,
     vectorize_record,
 )
 from neuroloc.simulations.suite_registry import SIMULATION_SPECS, SUITES, get_suite_specs
@@ -141,6 +147,8 @@ def test_compression_mirror_learned_codec_emits_trainable_rows() -> None:
     assert all("oracle_code_fields" not in row for row in learned_rows)
     assert all(row["committed_bits_by_field"] == learned_bits_by_field(profile_caps("smoke")) for row in learned_rows)
     assert all(row["model_parameter_count"] == learned["parameter_count"] for row in learned_rows)
+    assert all(row["source_required_fields_visible"] == 0.0 for row in learned_rows)
+    assert all(row["source_state_reconstructable"] == 0.0 for row in learned_rows)
 
 
 def test_compression_mirror_diagnostic_rows_localize_without_becoming_results() -> None:
@@ -158,10 +166,17 @@ def test_compression_mirror_diagnostic_rows_localize_without_becoming_results() 
     assert summary["diagnostic_oracle_input_used"] == 1.0
     assert "oracle_address_payload_rescue_delta" in summary
     assert "provenance_exposure_rescue_delta" in summary
+    assert "visible_source_state_oracle_action_oracle_decoder_joint_success" in summary
+    assert "provenance_exposed_oracle_decoder_joint_success" in summary
+    assert "learned_state_oracle_action_oracle_decoder_joint_success" in summary
+    assert "oracle_state_learned_action_oracle_decoder_joint_success" in summary
+    assert "source_signature_action_ambiguity_rate" in summary
     for row in diagnostic_rows:
         assert "encoder_address_accuracy" in row
         assert "encoder_payload_accuracy" in row
         assert "encoder_provenance_accuracy" in row
+        assert "source_required_fields_visible" in row
+        assert "source_state_reconstructable" in row
 
 
 def test_compression_mirror_provenance_uses_memory_relevant_time_not_query_time() -> None:
@@ -173,6 +188,71 @@ def test_compression_mirror_provenance_uses_memory_relevant_time_not_query_time(
         assert fields["provenance"] == row["evaluation_contract"]["memory_relevant_positions"][0]["time"]
         assert fields["provenance"] == event["time"]
         assert fields["provenance"] <= row["model_input"]["query"]["time"]
+
+
+def test_compression_mirror_source_observation_audit_separates_availability_from_labels() -> None:
+    dataset = build_dataset("smoke", seed=136, train_episodes=2, val_episodes=1, test_episodes=1)
+    caps = profile_caps("smoke")
+    row = dataset[0]
+    before = source_observation_audit(row, caps)
+    row["labels"]["state"]["color"] = (int(row["labels"]["state"]["color"]) + 1) % caps["n_colors"]
+    row["labels"]["state"]["shape"] = (int(row["labels"]["state"]["shape"]) + 1) % caps["n_shapes"]
+    row["labels"]["state"]["pos"] = (int(row["labels"]["state"]["pos"]) + 1) % caps["track_length"]
+    after = source_observation_audit(row, caps)
+    assert before["source_event_present"] == after["source_event_present"]
+    assert before["source_event_observed"] == after["source_event_observed"]
+    assert before["source_required_fields_visible"] == after["source_required_fields_visible"]
+    assert before["source_query_gap"] == after["source_query_gap"]
+
+
+def test_compression_mirror_visible_source_extractor_uses_model_input_and_contract_pointer() -> None:
+    dataset = build_dataset("smoke", seed=137, train_episodes=12, val_episodes=1, test_episodes=1)
+    caps = profile_caps("smoke")
+    row = next(item for item in dataset if source_observation_audit(item, caps)["source_event_complete"] == 1.0)
+    action = int(row["labels"]["action"])
+    fields = source_observation_code_fields(row, caps, action)
+    event = source_event_for_record(row)
+    assert fields["address"] == int(event["color"]) * caps["n_shapes"] + int(event["shape"])
+    assert fields["residual"] == int(event["pos"])
+    assert fields["action"] == action
+    row["labels"]["state"]["pos"] = (int(row["labels"]["state"]["pos"]) + 2) % caps["track_length"]
+    assert source_observation_code_fields(row, caps, action) == fields
+    for item in row["model_input"]["observations"]:
+        if int(item["time"]) == int(event["time"]) and int(item["object_index"]) == int(event["object_index"]):
+            item["pos"] = (int(item["pos"]) + 1) % caps["track_length"]
+            break
+    assert source_observation_code_fields(row, caps, action)["residual"] != fields["residual"]
+
+
+def test_compression_mirror_payload_action_split_diagnostics_are_registered() -> None:
+    assert "visible_source_state_oracle_action_oracle_decoder" in DIAGNOSTIC_POLICIES
+    assert "provenance_exposed_oracle_decoder" in DIAGNOSTIC_POLICIES
+    assert "learned_state_oracle_action_oracle_decoder" in DIAGNOSTIC_POLICIES
+    assert "oracle_state_learned_action_oracle_decoder" in DIAGNOSTIC_POLICIES
+    assert len(ALL_POLICIES) == len(BASELINE_POLICIES) + len(DIAGNOSTIC_POLICIES) + 1
+
+
+def test_compression_mirror_decoder_generalization_summary_reports_train_validation_test() -> None:
+    dataset = build_dataset("smoke", seed=138, train_episodes=8, val_episodes=2, test_episodes=2)
+    learned = train_learned_codec(dataset, "smoke", seed=138, epochs=3)
+    rows = evaluate_dataset(dataset, "smoke", seed=138, learned=learned)
+    summary = build_summary(dataset, rows)
+    for split in ("train", "validation", "test"):
+        assert f"oracle_code_learned_decoder_{split}_joint_success" in summary
+        assert f"oracle_code_learned_decoder_{split}_state_success" in summary
+        assert f"oracle_code_learned_decoder_{split}_action_success" in summary
+    assert "oracle_code_learned_decoder_train_test_joint_gap" in summary
+
+
+def test_compression_mirror_action_ambiguity_metric_is_deterministic() -> None:
+    dataset = build_dataset("smoke", seed=139, train_episodes=8, val_episodes=4, test_episodes=4)
+    caps = profile_caps("smoke")
+    first = action_ambiguity_rate(dataset, caps, "test")
+    second = action_ambiguity_rate(dataset, caps, "test")
+    signatures = [source_signature_for_action(row, caps) for row in dataset if row["split"] == "test"]
+    assert first == second
+    assert 0.0 <= first <= 1.0
+    assert signatures == [source_signature_for_action(row, caps) for row in dataset if row["split"] == "test"]
 
 
 def test_compression_mirror_diagnostic_controls_are_deterministic() -> None:
@@ -209,18 +289,22 @@ def test_compression_mirror_registry_entries() -> None:
     assert dict(spec.minimum_summary_values)["diagnostic_result_count"] == 1.0
 
 
-def test_compression_mirror_smoke_suite(tmp_path: Path) -> None:
-    results = run_specs(
-        specs=get_suite_specs("compression_mirror"),
-        profile="smoke",
-        output_root=tmp_path / "compression_mirror",
-        python_executable=sys.executable,
-        timeout_sec=300,
-    )
-    failures = [(result.simulation_id, result.validation_error, result.stderr_tail) for result in results if not result.ok]
-    assert not failures, failures
-    metrics_path = Path(results[0].metrics_path)
-    payload = json.loads(metrics_path.read_text(encoding="utf-8"))
+def test_compression_mirror_smoke_suite() -> None:
+    output_root = Path.cwd() / "reports" / "test_outputs" / f"compression_mirror_smoke_{uuid.uuid4().hex}"
+    try:
+        results = run_specs(
+            specs=get_suite_specs("compression_mirror"),
+            profile="smoke",
+            output_root=output_root,
+            python_executable=sys.executable,
+            timeout_sec=300,
+        )
+        failures = [(result.simulation_id, result.validation_error, result.stderr_tail) for result in results if not result.ok]
+        assert not failures, failures
+        metrics_path = Path(results[0].metrics_path)
+        payload = json.loads(metrics_path.read_text(encoding="utf-8"))
+    finally:
+        shutil.rmtree(output_root, ignore_errors=True)
     assert payload["summary"]["forbidden_input_violation_count"] == 0
     assert payload["summary"]["future_observation_violation_count"] == 0
     assert payload["summary"]["local_mirror_code_authorized"] == 1.0

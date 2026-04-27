@@ -1,14 +1,14 @@
 project: todorov
 canonical_plan: neuroloc/wiki/PROJECT_PLAN.md
 current_phase: neural_model_master_plan_research_phase
-current_step: compression_under_bit_budget_diagnostics_localized_payload_action_decoder_failure_no_paid_compute
-status: "2026_04_27_compression_under_bit_budget_diagnostic_localization_negative"
+current_step: compression_under_bit_budget_source_observability_contract_repair_no_paid_compute
+status: "2026_04_27_compression_under_bit_budget_source_diagnostic_negative"
 last_updated: "2026-04-27"
-tests_passing: 16
-total_tests: 16
-test_collection_total: 323
+tests_passing: 21
+total_tests: 21
+test_collection_total: 328
 test_surface: compression_under_bit_budget_mirror_and_registry_checks
-test_status_note: "2026-04-27 focused validation passed 16 compression-mirror, registry, and suite-runner gate tests; compression_mirror smoke profile passed through suite_runner after diagnostic-localization controls were added; py_compile, YAML parse, and git diff checks passed; pytest collection now reports 323 tests under tests/."
+test_status_note: "2026-04-27 focused validation passed 19 compression-mirror tests and 21 targeted compression/registry/suite-runner gate tests; compression_mirror smoke profile passed through suite_runner after source-availability diagnostics were added; py_compile and YAML parse passed; pytest collection now reports 328 tests under tests/."
 critical_fix: "god_machine.py step logger hardcoded dict dropped 40+ probe metrics, fixed class-wide via merge loop and smoke-test disk round-trip guard; bcm train/eval path divergence fixed by aligning recurrent path to running_state_norm; running_state_norm now training-only mutation; 17 prosecutor findings F1-F17 all fixed"
 run_history:
   run_001: Phase 1, sequential, 2000 steps, BPB 2.235 (PASS)
@@ -79,7 +79,7 @@ oracle_compression_frontier_split:
   frontier_doc: neuroloc/wiki/synthesis/oracle_compression_frontier_split.md
 compression_under_bit_budget_proof_package:
   phase: neural_model_master_plan_research_phase
-  description: "first family-specific learned-codec proof package after the oracle compression frontier split. defines the conditional claim, non-oracle input rule, preserved operation, controls, metrics, telemetry, pass criteria, and kill conditions for the accepted compression_under_bit_budget symbolic family. the downstream tiny mirror contract, local mirror surface, and diagnostic pass now exist; this block remains the proof-package record and does not authorize full-model integration, simulator work, h200, kaggle, pod, or paid compute."
+  description: "first family-specific learned-codec proof package after the oracle compression frontier split. defines the conditional claim, non-oracle input rule, preserved operation, controls, metrics, telemetry, pass criteria, and kill conditions for the accepted compression_under_bit_budget symbolic family. the downstream tiny mirror contract, local mirror surface, and source-diagnostic pass now exist; this block remains the proof-package record and does not authorize full-model integration, simulator work, h200, kaggle, pod, or paid compute."
   family: compression_under_bit_budget
   oracle_best_ratio: 13.0
   source_frontier_doc: neuroloc/wiki/synthesis/oracle_compression_frontier_split.md
@@ -102,21 +102,23 @@ compression_under_bit_budget_tiny_mirror_contract:
   paper_track_pass_ratio_vs_verbatim: 6.5
   hard_joint_success_threshold: 0.95
   contract_doc: neuroloc/wiki/synthesis/neural_model_tiny_mirror_contract_compression_under_bit_budget.md
-  downstream_code_surface: local_compression_under_bit_budget_mirror_with_diagnostics
+  downstream_code_surface: local_compression_under_bit_budget_mirror_with_source_diagnostics
   paid_compute_authorized: false
 compression_under_bit_budget_mirror_surface:
   phase: neural_model_master_plan_research_phase
-  description: "first local code surface, first learned-codec smoke result, and first diagnostic-localization result for the accepted compression_under_bit_budget family. implements deterministic split generation, forbidden-input guards, baseline controls, diagnostic-only hybrid controls, a trainable field codec, suite-registry wiring, explicit bit accounting, and telemetry artifacts. the learned result is negative on held-out splits and localizes first toward payload/action/source-state inference plus learned decoder generalization."
+  description: "first local code surface, first learned-codec smoke result, and source-diagnostic result for the accepted compression_under_bit_budget family. implements deterministic split generation, forbidden-input guards, baseline controls, diagnostic-only hybrid controls, source-availability and action-ambiguity probes, a trainable field codec, suite-registry wiring, explicit bit accounting, and telemetry artifacts. the learned result is negative on held-out splits and now localizes first to a source-observability contract problem plus payload/action and learned-decoder failures."
   family: compression_under_bit_budget
   script: neuroloc/simulations/memory/compression_under_bit_budget_mirror.py
   tests: tests/test_compression_under_bit_budget_mirror.py
   result_card: neuroloc/wiki/tests/compression_under_bit_budget_mirror.md
   suite: compression_mirror
-  focused_tests_passing: 14
+  focused_tests_passing: 19
   suite_smoke_passed: true
-  test_collection_total: 323
-  learned_result_count: 96
-  diagnostic_result_count: 480
+  test_collection_total: 328
+  policy_count: 22
+  dataset_record_count: 24
+  learned_result_count: 24
+  diagnostic_result_count: 240
   forbidden_input_violation_count: 0
   future_observation_violation_count: 0
   oracle_joint_success: 1.0
@@ -136,21 +138,36 @@ compression_under_bit_budget_mirror_surface:
   learned_codec_encoder_payload_vel_accuracy: 0.25
   learned_codec_encoder_action_accuracy: 0.0
   learned_codec_encoder_provenance_accuracy: 0.75
+  source_event_observed_rate: 0.25
+  source_required_fields_visible_rate: 0.0
+  source_state_reconstructable_rate: 0.0
+  source_signature_action_ambiguity_rate: 0.0
+  visible_source_state_oracle_action_oracle_decoder_joint_success: 0.0
+  visible_source_state_oracle_action_oracle_decoder_state_success: 0.0
   learned_codec_bits_per_success_defined: 0.0
   learned_codec_bits_committed_per_successful_episode: null
   learned_codec_compression_ratio_vs_verbatim: 2.74
   learned_code_oracle_decoder_joint_success: 0.0
   oracle_code_learned_decoder_joint_success: 0.0
+  oracle_code_learned_decoder_train_joint_success: 1.0
+  oracle_code_learned_decoder_validation_joint_success: 0.0
+  oracle_code_learned_decoder_test_joint_success: 0.0
+  oracle_code_learned_decoder_train_test_joint_gap: 1.0
   learned_address_oracle_payload_joint_success: 0.5
   oracle_address_learned_payload_joint_success: 0.0
   provenance_exposed_learned_codec_joint_success: 0.0
+  provenance_exposed_oracle_decoder_joint_success: 0.0
+  learned_state_oracle_action_oracle_decoder_joint_success: 0.0
+  oracle_state_learned_action_oracle_decoder_joint_success: 0.0
+  oracle_state_learned_action_oracle_decoder_action_success: 0.0
+  learned_action_only_failure_rate: 1.0
   oracle_address_payload_rescue_delta: 0.5
   diagnostic_oracle_input_used: true
   learned_codec_engineering_pass: 0.0
   learned_codec_paper_track_pass: 0.0
   learned_codec_kill_condition_count: 1
   blocked_authorization_violation_count: 0
-  next_code_target: local_payload_action_source_state_and_learned_decoder_revision_for_compression_under_bit_budget
+  next_code_target: repair_compression_under_bit_budget_source_observability_contract_before_another_codec
   local_mirror_code_authorized: true
   full_model_authorized: false
   paid_compute_authorized: false
@@ -218,4 +235,4 @@ latest_run_results:
   git_sha: f27b81c
   config_hash: 4e3f02be249cc069
   run_card: neuroloc/wiki/tests/run3_cognition_phase1_results.md
-next_action: "chapter 1 remains review-ready in pdf_curriculum/chapters/ch_01_what_a_number_means/ after the 2026-04-23 math correction pass; chapter 2 remains outline-only awaiting approval in pdf_curriculum/chapters/ch_02_how_things_change/ch_02_outline.md. the oracle compression frontier split, first family-specific learned-codec proof package, tiny local mirror contract, local baseline/guard surface, first negative learned-codec smoke result, and diagnostic-localization result are implemented. the approved neural-model work should next revise the local compression_under_bit_budget mirror around payload/action/source-state inference and learned decoder generalization while preserving forbidden-input guards, deterministic baselines, explicit bit accounting, telemetry artifacts, and focused tests. simulator selection is a research gate, not a decision already made. no full model integration, intervention preset, kaggle, h200, pod, or paid run is authorised."
+next_action: "chapter 1 remains review-ready in pdf_curriculum/chapters/ch_01_what_a_number_means/ after the 2026-04-23 math correction pass; chapter 2 remains outline-only awaiting approval in pdf_curriculum/chapters/ch_02_how_things_change/ch_02_outline.md. the oracle compression frontier split, first family-specific learned-codec proof package, tiny local mirror contract, local baseline/guard surface, first negative learned-codec smoke result, and source-diagnostic result are implemented. the approved neural-model work should next repair the compression_under_bit_budget family/mirror source-observability contract so source state and action are legally inferable from the non-oracle input path before another codec is trained, while preserving forbidden-input guards, deterministic baselines, explicit bit accounting, telemetry artifacts, and focused tests. simulator selection is a research gate, not a decision already made. no full model integration, intervention preset, kaggle, h200, pod, or paid run is authorised."

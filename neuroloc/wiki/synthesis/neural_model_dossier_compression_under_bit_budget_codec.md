@@ -185,7 +185,7 @@ this would still not prove general compression, biological novelty, full-model u
 
 ## next implementation boundary
 
-the next executable work is not the full model. it is the tiny local mirror defined in [[neural_model_tiny_mirror_contract_compression_under_bit_budget]], which restricts implementation to this one family and requires deterministic splits, forbidden-input guards, baselines, losses, telemetry schema, confidence intervals, failure-localization splits, and exact acceptance thresholds.
+the next executable work is not the full model. the tiny local mirror defined in [[neural_model_tiny_mirror_contract_compression_under_bit_budget]] now exists and is documented in [[tests/compression_under_bit_budget_mirror]]. its first learned-codec/source-diagnostic result is negative and exposes a source-observability contract problem. the next local work is to repair that contract before another codec is trained.
 
 the tiny mirror must not touch:
 
