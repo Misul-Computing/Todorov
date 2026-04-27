@@ -94,7 +94,7 @@ it does not justify a global tiny trainable mirror yet, because six families rem
 
 ## verdict
 
-accepted as the first oracle compression-bound package. the next research action is to split the compression lane into accepted frontier families and weak frontier families, then decide whether to revise the weak tasks, revise the codec definition, or demote the compression claim for those surfaces.
+accepted as the first oracle compression-bound package. the frontier split is now documented in [[synthesis/oracle_compression_frontier_split]]. the next research action is a narrow learned-codec proof package for one accepted family, not a global mirror.
 
 ## see also
 
@@ -102,6 +102,7 @@ accepted as the first oracle compression-bound package. the next research action
 - [[tests/index]]
 - [[synthesis/neural_model_paper_spine]]
 - [[synthesis/oracle_compression_analysis_plan]]
+- [[synthesis/oracle_compression_frontier_split]]
 - [[synthesis/neural_model_lane_operation_preserving_compression]]
 - [[synthesis/neural_model_lane_trainability_evaluation]]
 - [[synthesis/neural_model_compression_stack]]

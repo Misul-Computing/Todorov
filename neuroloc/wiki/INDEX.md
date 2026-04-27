@@ -2,7 +2,7 @@
 
 status: current (as of 2026-04-27).
 
-update note: single master plan recorded, six neural-model research lanes added, the first no-paid cellular/local-state gap map documented, the first cellular mechanism dossier added, the first mechanism-specific symbolic contract plus implemented symbolic/oracle test-material package added, and the first oracle compression analysis package implemented. the next research step is the oracle-compression frontier split.
+update note: single master plan recorded, six neural-model research lanes added, the first no-paid cellular/local-state gap map documented, the first cellular mechanism dossier added, the first mechanism-specific symbolic contract plus implemented symbolic/oracle test-material package added, the first oracle compression analysis package implemented, and the oracle-compression frontier split added. the next research step is the narrow learned-codec proof package.
 
 this is the flat reference catalog of every article in the wiki, grouped
 by topic within each top-level directory. for guided navigation, start
@@ -22,6 +22,7 @@ at [[start_here]]. for the rules that govern every article below, see
 - [[synthesis/neural_model_symbolic_contract_eligibility_gated_local_commit]] — first mechanism-specific symbolic contract
 - [[tests/eligibility_gated_local_commit_test_material]] — implemented symbolic/oracle gate for eligibility-gated local commit
 - [[tests/oracle_compression_analysis_results]] — first oracle compression-bound result over hard symbolic and eligibility-commit worlds
+- [[synthesis/oracle_compression_frontier_split]] — family-level split into accepted and weak compression frontiers
 - [[synthesis/neural_model_lane_cellular_state_storage]] — biology-led local-state research lane
 - [[synthesis/neural_model_lane_operation_preserving_compression]] — operation-preserving compression research lane
 - [[synthesis/neural_model_lane_memory_replay_imagination]] — memory, replay, and imagination research lane
@@ -41,8 +42,8 @@ at [[start_here]]. for the rules that govern every article below, see
 
 ## current project-state analyses (synthesis/)
 
-all 47 articles in `synthesis/` are the load-bearing project-level
-reasoning documents. one is superseded, forty-six are current.
+all 48 articles in `synthesis/` are the load-bearing project-level
+reasoning documents. one is superseded, forty-seven are current.
 
 - [[synthesis/neural_model_symbolic_contract_eligibility_gated_local_commit]]
   — the first mechanism-specific symbolic/oracle contract. defines
@@ -82,6 +83,9 @@ reasoning documents. one is superseded, forty-six are current.
   plan: verbatim trace bits, latent-state bits, schema/residual bits, and
   imagined-branch program bits over the hard symbolic worlds. first result:
   [[tests/oracle_compression_analysis_results]].
+- [[synthesis/oracle_compression_frontier_split]] — the family-level split
+  from the first oracle compression bound: eight accepted frontier families,
+  six weak frontier families, and the first narrow learned-codec target.
 - [[synthesis/substrate_requires_architectural_change]] — the
   post-run-3 analysis after the cognition corpus returned 0% passkey.
   the canonical reference for why any future paid-resume path needs an
@@ -205,7 +209,7 @@ frozen evidence records, one per paid run:
 - [[mistakes/run2_slot_memory_decay_copy_paste]] — inherited retention bug
 - [[mistakes/run2_slot_memory_fla_silent_fall_through]] — FLA not installed silent slowdown
 
-## flat catalog — articles by topic (sums to 267 content articles; add 6 navigation/meta files plus tests/index.md for 274 total wiki markdown files on disk)
+## flat catalog — articles by topic (sums to 268 content articles; add 6 navigation/meta files plus tests/index.md for 275 total wiki markdown files on disk)
 
 ## mechanisms (61 articles)
 
@@ -349,7 +353,7 @@ frozen evidence records, one per paid run:
 ### legacy-title redirect
 - comparisons/memory_kda_vs_hippocampus.md -- superseded redirect to `comparisons/matrix_memory_vs_hippocampus.md`
 
-## synthesis (47 articles)
+## synthesis (48 articles)
 - synthesis/cellular_state_storage_gap_map.md -- first biology-led lane gap map for local-state storage mechanisms, proof gates, telemetry, and kill conditions
 - synthesis/neural_model_lane_cellular_state_storage.md -- biology-led lane for cellular, molecular, membrane, subthreshold, compartment, eligibility, and gating operations as candidate local state
 - synthesis/neural_model_lane_operation_preserving_compression.md -- operation-preserving compression lane for oracle bounds, schema/residual codes, imagined-branch program bits, and task-relative rate-distortion
@@ -359,6 +363,7 @@ frozen evidence records, one per paid run:
 - synthesis/neural_model_lane_project_operations.md -- project operations lane for single-plan governance, side-paper gates, archive policy, prosecutor requirements, and curriculum support
 - synthesis/neural_model_paper_spine.md -- future paper spine for the neural-model paper: conditional thesis, proof obligations, section map, novelty side-track rule, and load-bearing links
 - synthesis/oracle_compression_analysis_plan.md -- compression-lane proof plan for oracle compression bounds across the hard symbolic worlds
+- synthesis/oracle_compression_frontier_split.md -- family-level split from the first oracle compression result; ranks accepted and weak frontier families and the first narrow learned-codec proof-package candidate
 - synthesis/substrate_requires_architectural_change.md -- post-run-3 analysis: six paid runs at 0% passkey across two substrates and two corpora trigger the architecture-cannot-be-trained branch; ranks five candidate interventions (output gate init, auxiliary retrieval loss, orthogonal key init, warm-start, substrate replacement)
 - synthesis/training_objective_vs_architectural_goal.md -- root-cause analysis after five paid runs: LM loss on fineweb-edu does not exercise the memory substrate. the proposed discriminant (cognition corpus) ran as run3 and returned 0%, which triggered the article above
 - synthesis/phase1_evaluation_surface_for_neural_models.md -- backlog evaluation method for neural models: recognition / belief state, associative recollection, interference resistance, delayed use, episodic reuse, iterative reasoning, with the currently implemented `biology_phase1` symbolic battery and trainability controls
@@ -540,7 +545,7 @@ frozen evidence records, one per paid run:
 ## statistics
 - total mechanism articles: 61
 - total bridge notes: 28 (25 current + 3 legacy-title redirects)
-- total synthesis articles: 47 (46 current + 1 superseded)
+- total synthesis articles: 48 (47 current + 1 superseded)
 - total test markdown files: 26 (6 paid-run cards + 5 pilots + 1 series landing page + 9 later simulation results + 1 oracle-bound result + 2 symbolic test-material notes + 1 supporting prototype note + tests/index.md)
 - total entity notes: 33
 - total comparison articles: 15 (14 current + 1 legacy-title redirect)
@@ -568,6 +573,7 @@ frozen evidence records, one per paid run:
 - [[synthesis/neural_model_symbolic_contract_eligibility_gated_local_commit]]
 - [[tests/eligibility_gated_local_commit_test_material]]
 - [[tests/oracle_compression_analysis_results]]
+- [[synthesis/oracle_compression_frontier_split]]
 - [[synthesis/neural_model_lane_cellular_state_storage]]
 - [[synthesis/neural_model_lane_operation_preserving_compression]]
 - [[synthesis/neural_model_lane_memory_replay_imagination]]

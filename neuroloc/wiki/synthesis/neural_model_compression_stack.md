@@ -293,7 +293,7 @@ before paid compute, complete the master-plan gap map and use oracle compression
 6. identify which families can theoretically support 10x, 100x, or higher compression
 7. train a tiny mirror only after a family clears the oracle frontier and the weak families are not averaged away
 
-the first implemented result is [[tests/oracle_compression_analysis_results]]. it is mixed: controls are clean, eight families are strong, and six families remain below the 10x threshold. if the oracle cannot produce large compression on a constructed world, a neural model will not discover it by paid training.
+the first implemented result is [[tests/oracle_compression_analysis_results]]. the family decision surface is [[oracle_compression_frontier_split]]. the result is mixed: controls are clean, eight families are strong, and six families remain below the 10x threshold. if the oracle cannot produce large compression on a constructed world, a neural model will not discover it by paid training.
 
 ## decision rule
 
@@ -310,6 +310,7 @@ do not use paid compute to search for this. use paid compute only after:
 - [[neural_model_paper_spine]]
 - [[oracle_compression_analysis_plan]]
 - [[tests/oracle_compression_analysis_results]]
+- [[oracle_compression_frontier_split]]
 - [[neural_model_lane_operation_preserving_compression]]
 - [[compression_beyond_quantization]]
 - [[indexed_reconstruction_compression]]

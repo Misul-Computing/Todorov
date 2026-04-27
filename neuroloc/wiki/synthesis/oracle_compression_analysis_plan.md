@@ -169,6 +169,8 @@ hard-profile result summary:
 
 the first result therefore changes the next step from "run the counters" to "split the frontier." accepted families can be considered for narrow learned-codec scoping later. weak families need task revision, codec revision, or demotion of the compression claim before training.
 
+the split is now documented in [[oracle_compression_frontier_split]].
+
 ## sequencing
 
 1. completed: confirm the relevant compression questions from [[cellular_state_storage_gap_map]], [[neural_model_dossier_eligibility_gated_local_commit]], and [[neural_model_symbolic_contract_eligibility_gated_local_commit]], especially write frequency, bounded output exposure, active forgetting, useful bits per episode, and memory/replay/imagination.
@@ -177,7 +179,8 @@ the first result therefore changes the next step from "run the counters" to "spl
 4. completed: verify that oracle policies still solve the tasks after replacing traces with oracle codes.
 5. completed: report per-family ratio ranges and failure cases in [[tests/oracle_compression_analysis_results]].
 6. completed: update the paper spine with the resulting proof state.
-7. next: write the accepted-frontier and weak-frontier split before scoping any tiny trainable neural-model mirror.
+7. completed: write the accepted-frontier and weak-frontier split before scoping any tiny trainable neural-model mirror.
+8. next: write the narrow learned-codec proof package for one accepted frontier family.
 
 ## see also
 
@@ -187,6 +190,7 @@ the first result therefore changes the next step from "run the counters" to "spl
 - [[neural_model_symbolic_contract_eligibility_gated_local_commit]]
 - [[tests/eligibility_gated_local_commit_test_material]]
 - [[tests/oracle_compression_analysis_results]]
+- [[oracle_compression_frontier_split]]
 - [[neural_model_lane_operation_preserving_compression]]
 - [[neural_model_lane_cellular_state_storage]]
 - [[neural_model_lane_memory_replay_imagination]]

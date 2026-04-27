@@ -1,8 +1,8 @@
 project: todorov
 canonical_plan: neuroloc/wiki/PROJECT_PLAN.md
 current_phase: neural_model_master_plan_research_phase
-current_step: oracle_compression_analysis_implemented_next_frontier_split_no_paid_compute
-status: "2026_04_27_oracle_compression_analysis_implemented"
+current_step: oracle_compression_frontier_split_implemented_next_narrow_learned_codec_package_no_paid_compute
+status: "2026_04_27_oracle_compression_frontier_split_implemented"
 last_updated: "2026-04-27"
 tests_passing: 6
 total_tests: 6
@@ -56,6 +56,27 @@ oracle_compression_analysis_results:
     - crossed_commit_exposure_split
     - commit_compression_frontier
   result_card: neuroloc/wiki/tests/oracle_compression_analysis_results.md
+oracle_compression_frontier_split:
+  phase: neural_model_master_plan_research_phase
+  description: "family-level split from the first oracle compression bound. eight families clear the current 10x useful-compression threshold under clean controls; six remain weak and must be revised or demoted before compression training."
+  accepted_families:
+    - belief_state_formation
+    - delayed_use_partial_observability
+    - episodic_reuse_after_distractors
+    - context_gated_routing
+    - compression_under_bit_budget
+    - replay_rewrite
+    - iterative_hard_case_rollout
+    - imagination_recombination
+  weak_families:
+    - associative_recall
+    - correlated_key_interference
+    - delayed_relevance_local_commit
+    - bounded_output_exposure
+    - crossed_commit_exposure_split
+    - commit_compression_frontier
+  first_narrow_learned_codec_candidate: compression_under_bit_budget
+  frontier_doc: neuroloc/wiki/synthesis/oracle_compression_frontier_split.md
 god_run_v2_results:
   phase: neural_machine
   description: "god_machine.py re-run with all 17 F + 14 G prosecutor fixes; F1 math corrected (torch.exp instead of torch.sigmoid of logsigmoid); all probe metrics now in jsonl"
@@ -120,4 +141,4 @@ latest_run_results:
   git_sha: f27b81c
   config_hash: 4e3f02be249cc069
   run_card: neuroloc/wiki/tests/run3_cognition_phase1_results.md
-next_action: "chapter 1 remains review-ready in pdf_curriculum/chapters/ch_01_what_a_number_means/ after the 2026-04-23 math correction pass; chapter 2 remains outline-only awaiting approval in pdf_curriculum/chapters/ch_02_how_things_change/ch_02_outline.md. the first oracle compression analysis is now implemented and documented at neuroloc/wiki/tests/oracle_compression_analysis_results.md. the approved neural-model work should next write the oracle-compression frontier split: accepted families, weak families, weak-bound cause, and the next narrow proof package. simulator selection is a research gate, not a decision already made. no full model integration, intervention preset, kaggle, h200, pod, or paid run is authorised."
+next_action: "chapter 1 remains review-ready in pdf_curriculum/chapters/ch_01_what_a_number_means/ after the 2026-04-23 math correction pass; chapter 2 remains outline-only awaiting approval in pdf_curriculum/chapters/ch_02_how_things_change/ch_02_outline.md. the oracle compression frontier split is now implemented and documented at neuroloc/wiki/synthesis/oracle_compression_frontier_split.md. the approved neural-model work should next write the narrow learned-codec proof package for compression_under_bit_budget. simulator selection is a research gate, not a decision already made. no full model integration, intervention preset, kaggle, h200, pod, or paid run is authorised."

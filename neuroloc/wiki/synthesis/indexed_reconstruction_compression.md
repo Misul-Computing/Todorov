@@ -99,6 +99,7 @@ before architecture resumes, the project needs model-native probes rather than a
 - [[neural_model_paper_spine]]
 - [[oracle_compression_analysis_plan]]
 - [[tests/oracle_compression_analysis_results]]
+- [[oracle_compression_frontier_split]]
 - [[neural_model_lane_cellular_state_storage]]
 - [[neural_model_lane_operation_preserving_compression]]
 - [[cellular_molecular_computational_primitives]]

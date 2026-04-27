@@ -6,7 +6,7 @@ status: current (as of 2026-04-27).
 
 no mechanism is accepted because it is plausible. it must be localized by controls. the project needs tests that identify whether failure lives in learned writes, learned reads, gates, addresses, decoder use, gradient flow, interference, or the task itself.
 
-the first executable model target remains a tiny trainable neural-model mirror, but only after the broad research gates, first-mechanism symbolic/oracle test material, and oracle compression bounds define a narrow family target. the first oracle compression result is mixed, so no global mirror is justified.
+the first executable model target remains a tiny trainable neural-model mirror, but only after the broad research gates, first-mechanism symbolic/oracle test material, oracle compression bounds, and the frontier split define a narrow family target. the first oracle compression result is mixed, so no global mirror is justified.
 
 ## ranked unknowns
 
@@ -23,6 +23,7 @@ the first executable model target remains a tiny trainable neural-model mirror, 
 - [[neural_model_symbolic_contract_eligibility_gated_local_commit]] defines the phase-localized symbolic contract.
 - [[tests/eligibility_gated_local_commit_test_material]] documents the implemented mechanism-specific symbolic/oracle gate.
 - [[tests/oracle_compression_analysis_results]] documents the first oracle compression bound and blocks a global tiny-mirror target while six families remain weak.
+- [[oracle_compression_frontier_split]] ranks the accepted families and makes `compression_under_bit_budget` the first learned-codec proof-package candidate.
 - [[neural_model_research_test_material_plan]] defines dossier, control, and metric requirements.
 - [[phase1_evaluation_surface_for_neural_models]] defines the broader state/action evaluation frame.
 - [[tests/hard_symbolic_nm_test_material]] documents the implemented hard symbolic package.
@@ -54,7 +55,7 @@ the first executable model target remains a tiny trainable neural-model mirror, 
 
 ## next action
 
-write the oracle-compression frontier split before the tiny-mirror target, while keeping oracle compression bounds ahead of any full-model path.
+write the narrow learned-codec proof package before the tiny-mirror target, while keeping oracle compression bounds ahead of any full-model path.
 
 ## see also
 
@@ -65,6 +66,7 @@ write the oracle-compression frontier split before the tiny-mirror target, while
 - [[neural_model_paper_spine]]
 - [[oracle_compression_analysis_plan]]
 - [[tests/oracle_compression_analysis_results]]
+- [[oracle_compression_frontier_split]]
 - [[neural_model_research_test_material_plan]]
 - [[phase1_evaluation_surface_for_neural_models]]
 - [[tests/hard_symbolic_nm_test_material]]

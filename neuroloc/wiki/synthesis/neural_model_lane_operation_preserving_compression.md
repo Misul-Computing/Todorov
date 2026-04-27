@@ -25,6 +25,7 @@ the useful claim is conditional: an operation-preserving compression stack may b
 - [[neural_model_compression_stack]] defines the current stack-wide compression contract.
 - [[oracle_compression_analysis_plan]] defines the next oracle-bound analysis.
 - [[tests/oracle_compression_analysis_results]] documents the first oracle-bound result: clean controls, no leakage, eight strong families, and six weak families below 10x.
+- [[oracle_compression_frontier_split]] separates accepted frontier families from weak frontier families and ranks the next narrow learned-codec proof-package candidates.
 - [[indexed_reconstruction_compression]] defines compact handles, schema or residual codes, provenance, and reconstruction.
 - [[neural_model_dossier_compression]] defines the mechanism dossier for compression claims.
 - [[tests/hard_symbolic_nm_test_material]] provides the symbolic worlds that expose hidden state, controls, and bit-budget tasks.
@@ -53,11 +54,11 @@ the useful claim is conditional: an operation-preserving compression stack may b
 
 ## current result
 
-the first oracle compression analysis is implemented. it shows that useful compression is not uniform across the symbolic surfaces. hard-profile controls are clean and leakage-free, but direct associative recall, correlated-key interference, delayed relevance local commit, bounded output exposure, crossed commit/exposure split, and commit compression frontier remain weak under the current 10x threshold.
+the first oracle compression analysis and frontier split are implemented. useful compression is not uniform across the symbolic surfaces. hard-profile controls are clean and leakage-free, but direct associative recall, correlated-key interference, delayed relevance local commit, bounded output exposure, crossed commit/exposure split, and commit compression frontier remain weak under the current 10x threshold.
 
 ## next action
 
-write the frontier split: accepted families, weak families, reason for each weak bound, and the next narrow proof package. do not train a global mirror from this result.
+write the narrow learned-codec proof package for `compression_under_bit_budget`. do not train a global mirror from this result.
 
 ## see also
 
@@ -67,6 +68,7 @@ write the frontier split: accepted families, weak families, reason for each weak
 - [[neural_model_symbolic_contract_eligibility_gated_local_commit]]
 - [[tests/eligibility_gated_local_commit_test_material]]
 - [[tests/oracle_compression_analysis_results]]
+- [[oracle_compression_frontier_split]]
 - [[neural_model_paper_spine]]
 - [[oracle_compression_analysis_plan]]
 - [[neural_model_research_test_material_plan]]
