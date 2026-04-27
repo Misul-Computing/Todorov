@@ -1,6 +1,6 @@
 # bridge: state action memory architecture direction
 
-status: current (as of 2026-04-23).
+status: current (as of 2026-04-27).
 
 ## translation
 
@@ -34,6 +34,7 @@ when the backlog resumes, the project should compare candidate designs against t
 ## see also
 
 - [[architectures_beyond_next_token_research]]
+- [[cellular_molecular_computational_primitives]]
 - [[world_models_imagination_and_planning]]
 - [[beyond_next_token_for_neural_models]]
 - [[research_implications_for_neural_model_direction]]

@@ -1,6 +1,6 @@
 # neural model dossier: memory formation
 
-status: current (as of 2026-04-26).
+status: current (as of 2026-04-27).
 
 ## claim
 
@@ -19,6 +19,8 @@ M_t = update(M_{t-1}, a_t, v_t, z_t)
 ```
 
 the write gate `z_t` must open for task-relevant events and stay closed for distractors.
+
+[[neural_model_dossier_eligibility_gated_local_commit]] specializes this write path into a delayed mark-then-commit operation with a separate output-exposure state.
 
 ## evidence basis
 
@@ -63,4 +65,5 @@ kill the mechanism if writes do not align with relevant events, if oracle writes
 ## see also
 
 - [[neural_model_lane_memory_replay_imagination]]
+- [[neural_model_dossier_eligibility_gated_local_commit]]
 - [[neural_model_research_test_material_plan]]

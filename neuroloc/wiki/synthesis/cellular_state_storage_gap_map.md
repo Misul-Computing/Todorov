@@ -1,6 +1,6 @@
 # cellular state storage gap map
 
-status: current (as of 2026-04-26).
+status: current (as of 2026-04-27).
 
 ## purpose
 
@@ -278,7 +278,7 @@ this lane becomes paper-worthy only if a candidate operation clears all of these
 
 ## next action
 
-write the first mechanism dossier from this gap map around eligibility-gated local commit plus bounded output-capacity state. that dossier should define the exact symbolic episode contract, controls, telemetry, and kill conditions. in parallel, start the oracle compression analysis on the hard symbolic worlds so the project can decide whether reduced writes produce a real rate-distortion advantage.
+the first mechanism dossier from this gap map is now [[neural_model_dossier_eligibility_gated_local_commit]]. the next work is to define the symbolic/oracle episode contract for delayed relevance local commit, bounded output exposure, crossed commit/exposure splits, and commit compression frontier. in parallel, start the oracle compression analysis on the hard symbolic worlds so the project can decide whether reduced writes produce a real rate-distortion advantage.
 
 ## see also
 
@@ -286,6 +286,7 @@ write the first mechanism dossier from this gap map around eligibility-gated loc
 - [[neural_model_paper_spine]]
 - [[oracle_compression_analysis_plan]]
 - [[neural_model_lane_cellular_state_storage]]
+- [[neural_model_dossier_eligibility_gated_local_commit]]
 - [[neural_model_dossier_local_neuron_state]]
 - [[cellular_molecular_computational_primitives]]
 - [[cellular_molecular_neurobiology_research]]

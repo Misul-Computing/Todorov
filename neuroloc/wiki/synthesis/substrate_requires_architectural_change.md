@@ -1,6 +1,6 @@
 # substrate requires architectural change: six paid runs, zero retrieval, one discriminating corpus
 
-status: current (as of 2026-04-26).
+status: current (as of 2026-04-27).
 
 ## the observation
 
@@ -118,7 +118,7 @@ missing telemetry.
 
 ## paused intervention candidates
 
-these intervention candidates remain useful historical backlog structure, ordered by cost and risk. they are not authorised for code changes or paid execution in the current master-plan phase. the next active work is the first cellular mechanism dossier, followed by oracle compression analysis over the hard symbolic worlds and then a tiny trainable mirror only if the oracle ratios justify it.
+these intervention candidates remain useful historical backlog structure, ordered by cost and risk. they are not authorised for code changes or paid execution in the current master-plan phase. the next active work is symbolic/oracle test material for [[neural_model_dossier_eligibility_gated_local_commit]], followed by oracle compression analysis over the hard symbolic worlds and then a tiny trainable mirror only if the oracle ratios justify it.
 
 ### A. open the output gate at init
 
@@ -199,7 +199,8 @@ they also inherit lane research, mechanism-dossier, oracle-compression, and tiny
 ## see also
 
 - [[neural_model_paper_spine]] — paper-spine layer that treats this article as negative empirical motivation
-- [[cellular_state_storage_gap_map]] — first biology-led lane gap map that precedes mechanism dossiers and code
+- [[cellular_state_storage_gap_map]] — first biology-led lane gap map that precedes code
+- [[neural_model_dossier_eligibility_gated_local_commit]] — first cellular mechanism dossier for delayed write permission plus bounded output exposure
 - [[oracle_compression_analysis_plan]] — next no-paid proof step before trained compression or architecture work
 - [[neural_model_lane_trainability_evaluation]] — lane that localizes learned-write, learned-read, gate, address, and decoder failure before paid work
 - `wiki/tests/run3_cognition_phase1_results.md` — the run card for this observation

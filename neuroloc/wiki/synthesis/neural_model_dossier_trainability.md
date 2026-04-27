@@ -1,6 +1,6 @@
 # neural model dossier: trainability
 
-status: current (as of 2026-04-26).
+status: current (as of 2026-04-27).
 
 ## claim
 
@@ -22,6 +22,8 @@ the test must localize which stage fails.
 ## evidence basis
 
 cpu gates showed that hand-placed slot memory can retrieve. paid runs showed that the learned loop still produced zero retrieval. the likely fixed points include closed output gates, low address entropy, weak target-position gradients, and memory outputs treated as noise.
+
+[[neural_model_dossier_eligibility_gated_local_commit]] is the first mechanism dossier that requires oracle/learned splits for trace, commit, and output exposure before model code.
 
 ## failure mode targeted
 
@@ -65,4 +67,5 @@ kill the mechanism if oracle variants pass but no trainable path closes the gap,
 ## see also
 
 - [[neural_model_lane_trainability_evaluation]]
+- [[neural_model_dossier_eligibility_gated_local_commit]]
 - [[neural_model_research_test_material_plan]]

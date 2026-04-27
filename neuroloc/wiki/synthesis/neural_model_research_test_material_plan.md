@@ -1,6 +1,6 @@
 # neural model research and test-material plan
 
-status: current (as of 2026-04-26).
+status: current (as of 2026-04-27).
 
 ## purpose
 
@@ -21,7 +21,7 @@ every candidate mechanism must pass through this sequence:
 7. full model integration only if the small mirror localizes the effect
 8. paid compute only after broad lane research, mechanism dossiers, dossier-driven test material, oracle compression analysis where relevant, a tiny trainable mirror, cpu controls, telemetry, prosecutor-clean state updates, and one explicitly selected hypothesis
 
-after the hard symbolic package, the first biology-led lane gap map is [[cellular_state_storage_gap_map]]. the next research targets are the first cellular mechanism dossier and oracle compression analysis on the same latent worlds. the tiny trainable neural-model mirror follows those gates. the full model path is not the first target.
+after the hard symbolic package, the first biology-led lane gap map is [[cellular_state_storage_gap_map]] and the first cellular mechanism dossier is [[neural_model_dossier_eligibility_gated_local_commit]]. the next research targets are symbolic/oracle test material for that mechanism and oracle compression analysis on the same latent worlds. the tiny trainable neural-model mirror follows those gates. the full model path is not the first target.
 
 ## dossier contract
 
@@ -40,7 +40,7 @@ if any answer is missing, the test is not ready. a weak result is not allowed to
 
 ## required mechanism dossiers
 
-- local neuron state: polarity-separated state, membrane or subthreshold state, eligibility and surprise traces
+- local neuron state: polarity-separated state, membrane or subthreshold state, eligibility and surprise traces; first detailed candidate: [[neural_model_dossier_eligibility_gated_local_commit]]
 - memory formation: write decisions, output-gate fixed points, learned versus oracle writes
 - addressing: softmax margin, slot entropy, key correlation, shuffled-address controls
 - interference: target-to-nontarget read ratio, overwrite slope, continual-write drift
@@ -113,6 +113,7 @@ a mechanism fails if it only improves loss, only works with oracle components, l
 ## see also
 
 - [[cellular_state_storage_gap_map]]
+- [[neural_model_dossier_eligibility_gated_local_commit]]
 - [[neural_model_paper_spine]]
 - [[oracle_compression_analysis_plan]]
 - [[neural_model_lane_cellular_state_storage]]

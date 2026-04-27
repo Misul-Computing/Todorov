@@ -1,6 +1,6 @@
 # cross scale building blocks for biological computation
 
-status: current (as of 2026-04-23).
+status: current (as of 2026-04-27).
 
 ## thesis
 
@@ -58,6 +58,7 @@ this primitive set is a better design vocabulary for neuroloc than a long list o
 ## see also
 
 - [[cross_scale_building_blocks_research]]
+- [[cellular_molecular_computational_primitives]]
 - [[systems_neuroscience_research]]
 - [[visual_sources_systems_neuroscience]]
 - [[attention_as_precision_and_routing]]

@@ -1,12 +1,12 @@
 # neural model lane: trainability and evaluation
 
-status: current (as of 2026-04-26).
+status: current (as of 2026-04-27).
 
 ## thesis
 
 no mechanism is accepted because it is plausible. it must be localized by controls. the project needs tests that identify whether failure lives in learned writes, learned reads, gates, addresses, decoder use, gradient flow, interference, or the task itself.
 
-the first executable model target remains a tiny trainable neural-model mirror, but only after the broad research gates and oracle compression bounds define what it must learn.
+the first executable model target remains a tiny trainable neural-model mirror, but only after the broad research gates, first-mechanism symbolic/oracle test material, and oracle compression bounds define what it must learn.
 
 ## ranked unknowns
 
@@ -19,6 +19,7 @@ the first executable model target remains a tiny trainable neural-model mirror, 
 ## evidence base
 
 - [[cellular_state_storage_gap_map]] identifies the first local-state mechanisms that need oracle/write/read/gate controls before implementation.
+- [[neural_model_dossier_eligibility_gated_local_commit]] defines the first specific trace, commit, and output-exposure localization problem.
 - [[neural_model_research_test_material_plan]] defines dossier, control, and metric requirements.
 - [[phase1_evaluation_surface_for_neural_models]] defines the broader state/action evaluation frame.
 - [[tests/hard_symbolic_nm_test_material]] documents the implemented hard symbolic package.
@@ -50,12 +51,13 @@ the first executable model target remains a tiny trainable neural-model mirror, 
 
 ## next action
 
-scope the first mechanism dossier and tiny-mirror target against the cellular-state gap map, while keeping oracle compression bounds ahead of any full-model path.
+scope symbolic/oracle tests for [[neural_model_dossier_eligibility_gated_local_commit]] before the tiny-mirror target, while keeping oracle compression bounds ahead of any full-model path.
 
 ## see also
 
 - [[PROJECT_PLAN]]
 - [[cellular_state_storage_gap_map]]
+- [[neural_model_dossier_eligibility_gated_local_commit]]
 - [[neural_model_paper_spine]]
 - [[oracle_compression_analysis_plan]]
 - [[neural_model_research_test_material_plan]]

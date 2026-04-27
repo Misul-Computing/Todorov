@@ -1,9 +1,9 @@
 project: todorov
 canonical_plan: neuroloc/wiki/PROJECT_PLAN.md
 current_phase: neural_model_master_plan_research_phase
-current_step: cellular_state_storage_gap_map_documented_next_mechanism_dossier_and_oracle_compression_no_paid_compute
-status: "2026_04_26_cellular_state_storage_gap_map_documented"
-last_updated: "2026-04-26"
+current_step: eligibility_gated_local_commit_dossier_documented_next_symbolic_contract_and_oracle_compression_no_paid_compute
+status: "2026_04_27_eligibility_gated_local_commit_dossier_documented"
+last_updated: "2026-04-27"
 tests_passing: 23
 total_tests: 23
 test_collection_total: 290
@@ -92,4 +92,4 @@ latest_run_results:
   git_sha: f27b81c
   config_hash: 4e3f02be249cc069
   run_card: neuroloc/wiki/tests/run3_cognition_phase1_results.md
-next_action: "chapter 1 remains review-ready in pdf_curriculum/chapters/ch_01_what_a_number_means/ after the 2026-04-23 math correction pass; chapter 2 remains outline-only awaiting approval in pdf_curriculum/chapters/ch_02_how_things_change/ch_02_outline.md. the first biology-led local-state gap map is now documented at neuroloc/wiki/synthesis/cellular_state_storage_gap_map.md. the approved neural-model work should next write the first cellular mechanism dossier around eligibility-gated local commit plus bounded output-capacity state, and start oracle compression bounds on the hard symbolic worlds. simulator selection is a research gate, not a decision already made. no full model integration, intervention preset, kaggle, h200, pod, or paid run is authorised."
+next_action: "chapter 1 remains review-ready in pdf_curriculum/chapters/ch_01_what_a_number_means/ after the 2026-04-23 math correction pass; chapter 2 remains outline-only awaiting approval in pdf_curriculum/chapters/ch_02_how_things_change/ch_02_outline.md. the first cellular mechanism dossier is now documented at neuroloc/wiki/synthesis/neural_model_dossier_eligibility_gated_local_commit.md. the approved neural-model work should next define symbolic/oracle test material for delayed relevance local commit, bounded output exposure, crossed commit/exposure splits, and commit compression frontier, while continuing oracle compression bounds on the hard symbolic worlds. simulator selection is a research gate, not a decision already made. no full model integration, intervention preset, kaggle, h200, pod, or paid run is authorised."

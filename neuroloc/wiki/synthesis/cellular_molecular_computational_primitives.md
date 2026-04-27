@@ -1,6 +1,6 @@
 # cellular molecular computational primitives
 
-status: current (as of 2026-04-26).
+status: current (as of 2026-04-27).
 
 ## thesis
 
@@ -44,6 +44,7 @@ these ideas are worth preserving, but they are not yet action-ready.
 
 - [[neural_model_lane_cellular_state_storage]]
 - [[cellular_state_storage_gap_map]]
+- [[neural_model_dossier_eligibility_gated_local_commit]]
 - [[cellular_molecular_neurobiology_research]]
 - [[visual_sources_systems_neuroscience]]
 - [[cross_scale_building_blocks_for_biological_computation]]
