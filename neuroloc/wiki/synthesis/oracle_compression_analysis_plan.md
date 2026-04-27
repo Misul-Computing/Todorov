@@ -183,7 +183,8 @@ the split is now documented in [[oracle_compression_frontier_split]].
 8. completed: write the narrow learned-codec proof package for `compression_under_bit_budget`: [[neural_model_dossier_compression_under_bit_budget_codec]].
 9. completed: write the tiny local mirror contract for that family before any code: [[neural_model_tiny_mirror_contract_compression_under_bit_budget]].
 10. completed: implement the local baseline mirror surface for that family only: [[tests/compression_under_bit_budget_mirror]].
-11. next: add the learned codec to that local surface without changing the full model or using paid compute.
+11. completed: add the first learned codec to that local surface; smoke result is negative, with train joint success 1.0 and held-out joint success 0.0.
+12. next: add trainability-split and provenance-localization diagnostics without changing the full model or using paid compute.
 
 ## see also
 

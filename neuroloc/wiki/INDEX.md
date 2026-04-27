@@ -2,7 +2,7 @@
 
 status: current (as of 2026-04-27).
 
-update note: single master plan recorded, six neural-model research lanes added, the first no-paid cellular/local-state gap map documented, the first cellular mechanism dossier added, the first mechanism-specific symbolic contract plus implemented symbolic/oracle test-material package added, the first oracle compression analysis package implemented, the oracle-compression frontier split added, the first narrow learned-codec proof package documented, the tiny local mirror contract added, and the first local mirror baseline surface implemented. the next research step is the learned codec on `compression_under_bit_budget`.
+update note: single master plan recorded, six neural-model research lanes added, the first no-paid cellular/local-state gap map documented, the first cellular mechanism dossier added, the first mechanism-specific symbolic contract plus implemented symbolic/oracle test-material package added, the first oracle compression analysis package implemented, the oracle-compression frontier split added, the first narrow learned-codec proof package documented, the tiny local mirror contract added, the first local mirror baseline surface implemented, and the first learned-codec smoke result recorded as negative. the next research step is trainability-split and provenance-localization diagnostics on `compression_under_bit_budget`.
 
 this is the flat reference catalog of every article in the wiki, grouped
 by topic within each top-level directory. for guided navigation, start
@@ -25,7 +25,7 @@ at [[start_here]]. for the rules that govern every article below, see
 - [[synthesis/oracle_compression_frontier_split]] — family-level split into accepted and weak compression frontiers
 - [[synthesis/neural_model_dossier_compression_under_bit_budget_codec]] — first family-specific learned-codec proof package
 - [[synthesis/neural_model_tiny_mirror_contract_compression_under_bit_budget]] — implementation contract for the first tiny local learned-codec mirror
-- [[tests/compression_under_bit_budget_mirror]] — local dataset, guard, baseline, and telemetry surface for the first compression mirror
+- [[tests/compression_under_bit_budget_mirror]] — local dataset, guard, baseline, learned-codec, and telemetry surface for the first compression mirror
 - [[synthesis/neural_model_lane_cellular_state_storage]] — biology-led local-state research lane
 - [[synthesis/neural_model_lane_operation_preserving_compression]] — operation-preserving compression research lane
 - [[synthesis/neural_model_lane_memory_replay_imagination]] — memory, replay, and imagination research lane
@@ -482,7 +482,7 @@ frozen evidence records, one per paid run:
 - tests/oracle_compression_analysis_results.md -- first oracle compression-bound package over hard symbolic and eligibility-commit worlds; controls and leakage pass, eight families clear the current strong threshold, six remain below 10x
 
 ### local mirror surfaces (1)
-- tests/compression_under_bit_budget_mirror.md -- first local dataset, forbidden-input guard, baseline-control, bit-accounting, and telemetry surface for the accepted compression_under_bit_budget family
+- tests/compression_under_bit_budget_mirror.md -- first local dataset, forbidden-input guard, baseline-control, learned-codec, bit-accounting, and telemetry surface for the accepted compression_under_bit_budget family
 
 ### supporting prototype note (1)
 - tests/aesthetic_logger_prototype.md -- frozen prototype note for the phase 6a logging module; not counted as an evidence record

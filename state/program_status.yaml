@@ -1,14 +1,14 @@
 project: todorov
 canonical_plan: neuroloc/wiki/PROJECT_PLAN.md
 current_phase: neural_model_master_plan_research_phase
-current_step: compression_under_bit_budget_local_mirror_baseline_surface_implemented_next_learned_codec_no_paid_compute
-status: "2026_04_27_compression_under_bit_budget_local_mirror_baseline_surface_implemented"
+current_step: compression_under_bit_budget_learned_codec_smoke_failed_next_trainability_split_diagnostics_no_paid_compute
+status: "2026_04_27_compression_under_bit_budget_learned_codec_smoke_failed"
 last_updated: "2026-04-27"
-tests_passing: 10
-total_tests: 10
-test_collection_total: 317
+tests_passing: 12
+total_tests: 12
+test_collection_total: 319
 test_surface: compression_under_bit_budget_mirror_and_registry_checks
-test_status_note: "2026-04-27 focused validation passed 10 compression-mirror, registry, and suite-runner gate tests; compression_mirror smoke profile passed through suite_runner; py_compile passed for the new script, registry, runner, and tests; pytest collection now reports 317 tests under tests/."
+test_status_note: "2026-04-27 focused validation passed 12 compression-mirror, registry, and suite-runner gate tests; compression_mirror smoke profile passed through suite_runner; py_compile passed for the learned-codec script, registry, and tests; pytest collection now reports 319 tests under tests/."
 critical_fix: "god_machine.py step logger hardcoded dict dropped 40+ probe metrics, fixed class-wide via merge loop and smoke-test disk round-trip guard; bcm train/eval path divergence fixed by aligning recurrent path to running_state_norm; running_state_norm now training-only mutation; 17 prosecutor findings F1-F17 all fixed"
 run_history:
   run_001: Phase 1, sequential, 2000 steps, BPB 2.235 (PASS)
@@ -106,16 +106,16 @@ compression_under_bit_budget_tiny_mirror_contract:
   paid_compute_authorized: false
 compression_under_bit_budget_mirror_surface:
   phase: neural_model_master_plan_research_phase
-  description: "first local code surface for the accepted compression_under_bit_budget family. implements deterministic split generation, forbidden-input guards, baseline controls, suite-registry wiring, explicit bit accounting, and telemetry artifacts. this is not a learned codec result yet."
+  description: "first local code surface and first learned-codec smoke result for the accepted compression_under_bit_budget family. implements deterministic split generation, forbidden-input guards, baseline controls, a trainable field codec, suite-registry wiring, explicit bit accounting, and telemetry artifacts. the learned result is negative on held-out splits."
   family: compression_under_bit_budget
   script: neuroloc/simulations/memory/compression_under_bit_budget_mirror.py
   tests: tests/test_compression_under_bit_budget_mirror.py
   result_card: neuroloc/wiki/tests/compression_under_bit_budget_mirror.md
   suite: compression_mirror
-  focused_tests_passing: 10
+  focused_tests_passing: 12
   suite_smoke_passed: true
-  test_collection_total: 317
-  learned_result_count: 0
+  test_collection_total: 319
+  learned_result_count: 96
   forbidden_input_violation_count: 0
   future_observation_violation_count: 0
   oracle_joint_success: 1.0
@@ -124,8 +124,19 @@ compression_under_bit_budget_mirror_surface:
   shuffled_address_joint_success: 0.0
   verbatim_within_budget: 0.0
   compressed_oracle_within_budget: 1.0
+  learned_codec_train_joint_success: 1.0
+  learned_codec_validation_joint_success: 0.0
+  learned_codec_test_joint_success: 0.0
+  learned_codec_test_state_probe_accuracy: 0.0
+  learned_codec_test_action_success: 0.0625
+  learned_codec_bits_per_success_defined: 0.0
+  learned_codec_bits_committed_per_successful_episode: null
+  learned_codec_compression_ratio_vs_verbatim: 3.25
+  learned_codec_engineering_pass: 0.0
+  learned_codec_paper_track_pass: 0.0
+  learned_codec_kill_condition_count: 1
   blocked_authorization_violation_count: 0
-  next_code_target: local_learned_codec_for_compression_under_bit_budget
+  next_code_target: local_trainability_split_and_provenance_diagnostics_for_compression_under_bit_budget
   local_mirror_code_authorized: true
   full_model_authorized: false
   paid_compute_authorized: false
@@ -193,4 +204,4 @@ latest_run_results:
   git_sha: f27b81c
   config_hash: 4e3f02be249cc069
   run_card: neuroloc/wiki/tests/run3_cognition_phase1_results.md
-next_action: "chapter 1 remains review-ready in pdf_curriculum/chapters/ch_01_what_a_number_means/ after the 2026-04-23 math correction pass; chapter 2 remains outline-only awaiting approval in pdf_curriculum/chapters/ch_02_how_things_change/ch_02_outline.md. the oracle compression frontier split, first family-specific learned-codec proof package, tiny local mirror contract, and local baseline/guard surface are implemented. the approved neural-model work should next add a learned codec to the local compression_under_bit_budget mirror while preserving forbidden-input guards, deterministic baselines, trainability splits, explicit bit accounting, telemetry artifacts, and focused tests. simulator selection is a research gate, not a decision already made. no full model integration, intervention preset, kaggle, h200, pod, or paid run is authorised."
+next_action: "chapter 1 remains review-ready in pdf_curriculum/chapters/ch_01_what_a_number_means/ after the 2026-04-23 math correction pass; chapter 2 remains outline-only awaiting approval in pdf_curriculum/chapters/ch_02_how_things_change/ch_02_outline.md. the oracle compression frontier split, first family-specific learned-codec proof package, tiny local mirror contract, local baseline/guard surface, and first negative learned-codec smoke result are implemented. the approved neural-model work should next add trainability-split and provenance-localization diagnostics to the local compression_under_bit_budget mirror while preserving forbidden-input guards, deterministic baselines, explicit bit accounting, telemetry artifacts, and focused tests. simulator selection is a research gate, not a decision already made. no full model integration, intervention preset, kaggle, h200, pod, or paid run is authorised."

@@ -4,14 +4,19 @@ import json
 import sys
 from pathlib import Path
 
+import numpy as np
 import pytest
 
 from neuroloc.simulations.memory.compression_under_bit_budget_mirror import (
+    ALL_POLICIES,
     BASELINE_POLICIES,
     build_dataset,
     build_summary,
     collect_forbidden_keys,
     evaluate_dataset,
+    train_learned_codec,
+    profile_caps,
+    vectorize_record,
 )
 from neuroloc.simulations.suite_registry import SIMULATION_SPECS, SUITES, get_suite_specs
 from neuroloc.simulations.suite_runner import run_specs
@@ -43,6 +48,17 @@ def test_compression_mirror_model_input_excludes_forbidden_fields() -> None:
         assert "hidden_state" not in row["model_input"]
 
 
+def test_compression_mirror_vector_features_ignore_label_fields() -> None:
+    dataset = build_dataset("smoke", seed=131, train_episodes=1, val_episodes=1, test_episodes=1)
+    caps = profile_caps("smoke")
+    original = vectorize_record(dataset[0], caps)
+    dataset[0]["labels"]["budget_bits"] += 1000
+    dataset[0]["labels"]["verbatim_bits"] += 1000
+    dataset[0]["labels"]["compressed_bits"] += 1000
+    mutated = vectorize_record(dataset[0], caps)
+    assert np.array_equal(original, mutated)
+
+
 def test_compression_mirror_controls_and_bit_accounting() -> None:
     dataset = build_dataset("smoke", seed=125, train_episodes=4, val_episodes=2, test_episodes=4)
     rows = evaluate_dataset(dataset, "smoke", seed=125)
@@ -64,6 +80,7 @@ def test_compression_mirror_controls_and_bit_accounting() -> None:
     assert summary["paid_compute_authorized"] == 0.0
     assert summary["full_model_authorized"] == 0.0
     assert summary["blocked_authorization_violation_count"] == 0.0
+    assert summary["learned_result_count"] == 0
 
 
 def test_compression_mirror_evaluation_uses_record_contract() -> None:
@@ -88,6 +105,24 @@ def test_compression_mirror_statistics_cover_every_policy() -> None:
     assert all("memory_output_vs_residual_norm" in row for row in rows)
 
 
+def test_compression_mirror_learned_codec_emits_trainable_rows() -> None:
+    dataset = build_dataset("smoke", seed=130, train_episodes=8, val_episodes=2, test_episodes=2)
+    learned = train_learned_codec(dataset, "smoke", seed=130, epochs=3)
+    rows = evaluate_dataset(dataset, "smoke", seed=130, learned=learned)
+    summary = build_summary(dataset, rows)
+    learned_rows = [row for row in rows if row["policy"] == "learned_codec"]
+    assert learned_rows
+    assert summary["policy_count"] == len(ALL_POLICIES)
+    assert summary["learned_result_count"] == len(dataset)
+    assert summary["learned_codec_compression_ratio_vs_verbatim"] > 1.0
+    assert summary["paid_compute_authorized"] == 0.0
+    assert all(row["policy_is_learned_result"] == 1.0 for row in learned_rows)
+    assert all(row["within_budget"] == 1.0 for row in learned_rows)
+    assert all("predicted_state" in row for row in learned_rows)
+    assert all("compact_code_fields" in row for row in learned_rows)
+    assert all(row["model_parameter_count"] == learned["parameter_count"] for row in learned_rows)
+
+
 def test_compression_mirror_registry_entries() -> None:
     assert "compression_under_bit_budget_mirror" in SIMULATION_SPECS
     assert "compression_mirror" in SUITES
@@ -99,6 +134,7 @@ def test_compression_mirror_registry_entries() -> None:
     assert maximums["full_model_authorized"] == 0.0
     assert maximums["paid_compute_authorized"] == 0.0
     assert maximums["future_observation_violation_count"] == 0.0
+    assert dict(spec.minimum_summary_values)["learned_result_count"] == 1.0
 
 
 def test_compression_mirror_smoke_suite(tmp_path: Path) -> None:
@@ -117,6 +153,8 @@ def test_compression_mirror_smoke_suite(tmp_path: Path) -> None:
     assert payload["summary"]["future_observation_violation_count"] == 0
     assert payload["summary"]["local_mirror_code_authorized"] == 1.0
     assert payload["summary"]["paid_compute_authorized"] == 0.0
+    assert payload["summary"]["learned_result_count"] > 0
+    assert "learned_codec_joint_success" in payload["summary"]
 
 
 def test_compression_mirror_invalid_profile_fails_loudly() -> None:

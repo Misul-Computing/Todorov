@@ -74,7 +74,7 @@ the next research question was whether oracle compression counters over this and
 
 ## verdict
 
-accepted as a current symbolic/oracle test-material gate for the first cellular/local-state mechanism. the oracle compression follow-up is documented in [[tests/oracle_compression_analysis_results]], the family split is documented in [[synthesis/oracle_compression_frontier_split]], the first accepted-family proof package is [[synthesis/neural_model_dossier_compression_under_bit_budget_codec]], the tiny mirror contract is [[synthesis/neural_model_tiny_mirror_contract_compression_under_bit_budget]], and the local baseline surface is [[tests/compression_under_bit_budget_mirror]]. the next no-paid action is the learned codec on that local surface rather than global mirror training.
+accepted as a current symbolic/oracle test-material gate for the first cellular/local-state mechanism. the oracle compression follow-up is documented in [[tests/oracle_compression_analysis_results]], the family split is documented in [[synthesis/oracle_compression_frontier_split]], the first accepted-family proof package is [[synthesis/neural_model_dossier_compression_under_bit_budget_codec]], the tiny mirror contract is [[synthesis/neural_model_tiny_mirror_contract_compression_under_bit_budget]], and the local learned-codec surface is [[tests/compression_under_bit_budget_mirror]]. the next no-paid action is trainability-split and provenance-localization diagnostics on that local surface rather than global mirror training.
 
 ## see also
 
