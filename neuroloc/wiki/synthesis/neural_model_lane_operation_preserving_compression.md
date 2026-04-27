@@ -20,6 +20,7 @@ the useful claim is conditional: an operation-preserving compression stack may b
 
 - [[cellular_state_storage_gap_map]] proposes ranked local-state candidates that may affect write frequency, active forgetting, and useful bits per episode.
 - [[neural_model_dossier_eligibility_gated_local_commit]] defines the first candidate whose compression claim depends on fewer committed bits at equal task success.
+- [[neural_model_symbolic_contract_eligibility_gated_local_commit]] defines the first mechanism-specific bit fields and storage policies for oracle compression.
 - [[neural_model_compression_stack]] defines the current stack-wide compression contract.
 - [[oracle_compression_analysis_plan]] defines the next oracle-bound analysis.
 - [[indexed_reconstruction_compression]] defines compact handles, schema or residual codes, provenance, and reconstruction.
@@ -50,13 +51,14 @@ the useful claim is conditional: an operation-preserving compression stack may b
 
 ## next action
 
-run the oracle compression analysis with [[neural_model_dossier_eligibility_gated_local_commit]] as the first mechanism-specific input, especially for write frequency, bounded output exposure, and commit compression frontier.
+run the oracle compression analysis with [[neural_model_symbolic_contract_eligibility_gated_local_commit]] as the first mechanism-specific input, especially for write frequency, bounded output exposure, and commit compression frontier.
 
 ## see also
 
 - [[PROJECT_PLAN]]
 - [[cellular_state_storage_gap_map]]
 - [[neural_model_dossier_eligibility_gated_local_commit]]
+- [[neural_model_symbolic_contract_eligibility_gated_local_commit]]
 - [[neural_model_paper_spine]]
 - [[oracle_compression_analysis_plan]]
 - [[neural_model_research_test_material_plan]]

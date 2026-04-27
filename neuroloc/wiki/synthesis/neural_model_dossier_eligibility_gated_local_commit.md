@@ -212,7 +212,7 @@ kill the mechanism if any of these occur:
 
 ## next action
 
-define the symbolic episode contract for delayed relevance local commit and bounded output exposure. do not implement model code. do not add a paid preset. the next executable work is still symbolic/oracle test material plus oracle compression analysis on the existing hard symbolic worlds.
+the symbolic episode contract is now [[neural_model_symbolic_contract_eligibility_gated_local_commit]]. next, implement the symbolic generator and deterministic evaluators for that contract. do not implement model code. do not add a paid preset. the next executable work is still symbolic/oracle test material plus oracle compression analysis on the existing hard symbolic worlds.
 
 ## see also
 
@@ -220,6 +220,7 @@ define the symbolic episode contract for delayed relevance local commit and boun
 - [[cellular_state_storage_gap_map]]
 - [[neural_model_lane_cellular_state_storage]]
 - [[neural_model_research_test_material_plan]]
+- [[neural_model_symbolic_contract_eligibility_gated_local_commit]]
 - [[cellular_molecular_computational_primitives]]
 - [[neural_model_dossier_local_neuron_state]]
 - [[neural_model_dossier_memory_formation]]

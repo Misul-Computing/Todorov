@@ -2,7 +2,7 @@
 
 status: current (as of 2026-04-27).
 
-update note: single master plan recorded, six neural-model research lanes added, the first no-paid cellular/local-state gap map documented, and the first cellular mechanism dossier added. the next research step is symbolic/oracle test material for eligibility-gated local commit plus oracle compression analysis.
+update note: single master plan recorded, six neural-model research lanes added, the first no-paid cellular/local-state gap map documented, the first cellular mechanism dossier added, and the first mechanism-specific symbolic contract added. the next research step is implementing the eligibility-gated local-commit generator/evaluators plus oracle compression analysis.
 
 this is the flat reference catalog of every article in the wiki, grouped
 by topic within each top-level directory. for guided navigation, start
@@ -19,6 +19,7 @@ at [[start_here]]. for the rules that govern every article below, see
 - [[synthesis/oracle_compression_analysis_plan]] — compression-lane proof step for oracle bounds
 - [[synthesis/cellular_state_storage_gap_map]] — first biology-led lane gap map for local-state storage mechanisms
 - [[synthesis/neural_model_dossier_eligibility_gated_local_commit]] — first cellular mechanism dossier
+- [[synthesis/neural_model_symbolic_contract_eligibility_gated_local_commit]] — first mechanism-specific symbolic contract
 - [[synthesis/neural_model_lane_cellular_state_storage]] — biology-led local-state research lane
 - [[synthesis/neural_model_lane_operation_preserving_compression]] — operation-preserving compression research lane
 - [[synthesis/neural_model_lane_memory_replay_imagination]] — memory, replay, and imagination research lane
@@ -38,9 +39,13 @@ at [[start_here]]. for the rules that govern every article below, see
 
 ## current project-state analyses (synthesis/)
 
-all 46 articles in `synthesis/` are the load-bearing project-level
-reasoning documents. one is superseded, forty-five are current.
+all 47 articles in `synthesis/` are the load-bearing project-level
+reasoning documents. one is superseded, forty-six are current.
 
+- [[synthesis/neural_model_symbolic_contract_eligibility_gated_local_commit]]
+  — the first mechanism-specific symbolic/oracle contract. defines
+  candidate, relevance, commit, read, and exposure phase fields plus
+  controls, leakage checks, metrics, and implementation handoff.
 - [[synthesis/neural_model_dossier_eligibility_gated_local_commit]] — the
   first cellular mechanism dossier. defines delayed write permission plus
   bounded output exposure, with required symbolic families, controls,
@@ -197,7 +202,7 @@ frozen evidence records, one per paid run:
 - [[mistakes/run2_slot_memory_decay_copy_paste]] — inherited retention bug
 - [[mistakes/run2_slot_memory_fla_silent_fall_through]] — FLA not installed silent slowdown
 
-## flat catalog — articles by topic (sums to 264 content articles; add 6 navigation/meta files plus tests/index.md for 271 total wiki markdown files on disk)
+## flat catalog — articles by topic (sums to 265 content articles; add 6 navigation/meta files plus tests/index.md for 272 total wiki markdown files on disk)
 
 ## mechanisms (61 articles)
 
@@ -341,7 +346,7 @@ frozen evidence records, one per paid run:
 ### legacy-title redirect
 - comparisons/memory_kda_vs_hippocampus.md -- superseded redirect to `comparisons/matrix_memory_vs_hippocampus.md`
 
-## synthesis (46 articles)
+## synthesis (47 articles)
 - synthesis/cellular_state_storage_gap_map.md -- first biology-led lane gap map for local-state storage mechanisms, proof gates, telemetry, and kill conditions
 - synthesis/neural_model_lane_cellular_state_storage.md -- biology-led lane for cellular, molecular, membrane, subthreshold, compartment, eligibility, and gating operations as candidate local state
 - synthesis/neural_model_lane_operation_preserving_compression.md -- operation-preserving compression lane for oracle bounds, schema/residual codes, imagined-branch program bits, and task-relative rate-distortion
@@ -360,6 +365,7 @@ frozen evidence records, one per paid run:
 - synthesis/indexed_reconstruction_compression.md -- current compact-handle plus reconstruction compression direction; stores addresses, schema/residual codes, and replay-rewrite proof obligations instead of pursuing more raw bits per neuron
 - synthesis/neural_model_research_test_material_plan.md -- approved no-paid-compute research/test-material plan requiring mechanism dossiers before metric code, model code, or intervention presets
 - synthesis/neural_model_dossier_eligibility_gated_local_commit.md -- first cellular mechanism dossier for delayed write permission plus bounded output exposure
+- synthesis/neural_model_symbolic_contract_eligibility_gated_local_commit.md -- symbolic/oracle contract for eligibility-gated local commit, with phase fields, controls, leakage checks, metrics, and implementation handoff
 - synthesis/neural_model_dossier_local_neuron_state.md -- local neuron state as polarity-separated, membrane/subthreshold, and trace state
 - synthesis/neural_model_dossier_memory_formation.md -- write decisions, output-gate fixed points, and learned versus oracle writes
 - synthesis/neural_model_dossier_addressing.md -- address margin, slot entropy, key correlation, and shuffled-address controls
@@ -527,7 +533,7 @@ frozen evidence records, one per paid run:
 ## statistics
 - total mechanism articles: 61
 - total bridge notes: 28 (25 current + 3 legacy-title redirects)
-- total synthesis articles: 46 (45 current + 1 superseded)
+- total synthesis articles: 47 (46 current + 1 superseded)
 - total test markdown files: 24 (6 paid-run cards + 5 pilots + 1 series landing page + 9 later simulation results + 1 hard symbolic test-material note + 1 supporting prototype note + tests/index.md)
 - total entity notes: 33
 - total comparison articles: 15 (14 current + 1 legacy-title redirect)
@@ -552,6 +558,7 @@ frozen evidence records, one per paid run:
 - [[synthesis/oracle_compression_analysis_plan]]
 - [[synthesis/cellular_state_storage_gap_map]]
 - [[synthesis/neural_model_dossier_eligibility_gated_local_commit]]
+- [[synthesis/neural_model_symbolic_contract_eligibility_gated_local_commit]]
 - [[synthesis/neural_model_lane_cellular_state_storage]]
 - [[synthesis/neural_model_lane_operation_preserving_compression]]
 - [[synthesis/neural_model_lane_memory_replay_imagination]]

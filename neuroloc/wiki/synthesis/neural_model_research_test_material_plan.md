@@ -21,7 +21,7 @@ every candidate mechanism must pass through this sequence:
 7. full model integration only if the small mirror localizes the effect
 8. paid compute only after broad lane research, mechanism dossiers, dossier-driven test material, oracle compression analysis where relevant, a tiny trainable mirror, cpu controls, telemetry, prosecutor-clean state updates, and one explicitly selected hypothesis
 
-after the hard symbolic package, the first biology-led lane gap map is [[cellular_state_storage_gap_map]] and the first cellular mechanism dossier is [[neural_model_dossier_eligibility_gated_local_commit]]. the next research targets are symbolic/oracle test material for that mechanism and oracle compression analysis on the same latent worlds. the tiny trainable neural-model mirror follows those gates. the full model path is not the first target.
+after the hard symbolic package, the first biology-led lane gap map is [[cellular_state_storage_gap_map]], the first cellular mechanism dossier is [[neural_model_dossier_eligibility_gated_local_commit]], and the first mechanism-specific symbolic contract is [[neural_model_symbolic_contract_eligibility_gated_local_commit]]. the next research targets are implementing that contract and running oracle compression analysis on the same latent worlds. the tiny trainable neural-model mirror follows those gates. the full model path is not the first target.
 
 ## dossier contract
 
@@ -114,6 +114,7 @@ a mechanism fails if it only improves loss, only works with oracle components, l
 
 - [[cellular_state_storage_gap_map]]
 - [[neural_model_dossier_eligibility_gated_local_commit]]
+- [[neural_model_symbolic_contract_eligibility_gated_local_commit]]
 - [[neural_model_paper_spine]]
 - [[oracle_compression_analysis_plan]]
 - [[neural_model_lane_cellular_state_storage]]

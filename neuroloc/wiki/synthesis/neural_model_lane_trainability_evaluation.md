@@ -20,6 +20,7 @@ the first executable model target remains a tiny trainable neural-model mirror, 
 
 - [[cellular_state_storage_gap_map]] identifies the first local-state mechanisms that need oracle/write/read/gate controls before implementation.
 - [[neural_model_dossier_eligibility_gated_local_commit]] defines the first specific trace, commit, and output-exposure localization problem.
+- [[neural_model_symbolic_contract_eligibility_gated_local_commit]] defines the phase-localized symbolic contract that must precede the tiny mirror.
 - [[neural_model_research_test_material_plan]] defines dossier, control, and metric requirements.
 - [[phase1_evaluation_surface_for_neural_models]] defines the broader state/action evaluation frame.
 - [[tests/hard_symbolic_nm_test_material]] documents the implemented hard symbolic package.
@@ -51,13 +52,14 @@ the first executable model target remains a tiny trainable neural-model mirror, 
 
 ## next action
 
-scope symbolic/oracle tests for [[neural_model_dossier_eligibility_gated_local_commit]] before the tiny-mirror target, while keeping oracle compression bounds ahead of any full-model path.
+implement symbolic/oracle tests for [[neural_model_symbolic_contract_eligibility_gated_local_commit]] before the tiny-mirror target, while keeping oracle compression bounds ahead of any full-model path.
 
 ## see also
 
 - [[PROJECT_PLAN]]
 - [[cellular_state_storage_gap_map]]
 - [[neural_model_dossier_eligibility_gated_local_commit]]
+- [[neural_model_symbolic_contract_eligibility_gated_local_commit]]
 - [[neural_model_paper_spine]]
 - [[oracle_compression_analysis_plan]]
 - [[neural_model_research_test_material_plan]]

@@ -20,6 +20,7 @@ the claim is not that biology should be copied. the claim is conditional: a cell
 
 - [[cellular_state_storage_gap_map]] records the first ranked no-paid-compute synthesis for this lane.
 - [[neural_model_dossier_eligibility_gated_local_commit]] records the first cellular mechanism dossier: delayed write permission plus bounded output exposure.
+- [[neural_model_symbolic_contract_eligibility_gated_local_commit]] records the symbolic/oracle contract for the first cellular mechanism.
 - [[cellular_molecular_computational_primitives]] maps candidate biological primitives into computation-filtered operations.
 - [[cellular_molecular_neurobiology_research]] records the source shelf for dendrites, receptors, glia, and biochemical control motifs.
 - [[indexed_reconstruction_compression]] records the recent source check: complemented-neuron ternary spiking models and neuronspark-style membrane state support preserving subthreshold state around discrete events, but do not prove retrieval capacity for this project.
@@ -49,13 +50,14 @@ the claim is not that biology should be copied. the claim is conditional: a cell
 
 ## next action
 
-turn [[neural_model_dossier_eligibility_gated_local_commit]] into symbolic/oracle test material for delayed relevance local commit, bounded output exposure, crossed commit/exposure splits, and commit compression frontier before any code changes.
+implement [[neural_model_symbolic_contract_eligibility_gated_local_commit]] as symbolic/oracle test material before any model code changes.
 
 ## see also
 
 - [[PROJECT_PLAN]]
 - [[cellular_state_storage_gap_map]]
 - [[neural_model_dossier_eligibility_gated_local_commit]]
+- [[neural_model_symbolic_contract_eligibility_gated_local_commit]]
 - [[neural_model_paper_spine]]
 - [[oracle_compression_analysis_plan]]
 - [[neural_model_research_test_material_plan]]

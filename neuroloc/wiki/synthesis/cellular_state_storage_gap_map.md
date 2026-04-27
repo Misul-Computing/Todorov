@@ -278,7 +278,7 @@ this lane becomes paper-worthy only if a candidate operation clears all of these
 
 ## next action
 
-the first mechanism dossier from this gap map is now [[neural_model_dossier_eligibility_gated_local_commit]]. the next work is to define the symbolic/oracle episode contract for delayed relevance local commit, bounded output exposure, crossed commit/exposure splits, and commit compression frontier. in parallel, start the oracle compression analysis on the hard symbolic worlds so the project can decide whether reduced writes produce a real rate-distortion advantage.
+the first mechanism dossier from this gap map is [[neural_model_dossier_eligibility_gated_local_commit]], and the symbolic/oracle episode contract is [[neural_model_symbolic_contract_eligibility_gated_local_commit]]. next, implement that contract and start the oracle compression analysis on the hard symbolic worlds so the project can decide whether reduced writes produce a real rate-distortion advantage.
 
 ## see also
 
@@ -287,6 +287,7 @@ the first mechanism dossier from this gap map is now [[neural_model_dossier_elig
 - [[oracle_compression_analysis_plan]]
 - [[neural_model_lane_cellular_state_storage]]
 - [[neural_model_dossier_eligibility_gated_local_commit]]
+- [[neural_model_symbolic_contract_eligibility_gated_local_commit]]
 - [[neural_model_dossier_local_neuron_state]]
 - [[cellular_molecular_computational_primitives]]
 - [[cellular_molecular_neurobiology_research]]
