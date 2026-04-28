@@ -1,6 +1,6 @@
 # neural model tiny mirror contract: compression under bit budget
 
-status: current (as of 2026-04-27).
+status: current (as of 2026-04-28).
 
 ## purpose
 
@@ -272,9 +272,9 @@ kill or redesign the mirror if:
 
 ## implementation handoff
 
-the first local dataset, learned-codec, and source-diagnostic surface is now documented in [[tests/compression_under_bit_budget_mirror]]. it produced a negative smoke result and exposed a source-observability contract problem that must be repaired before another codec is trained.
+the first local dataset, learned-codec, and source-diagnostic surface is now documented in [[tests/compression_under_bit_budget_mirror]]. it produced a negative smoke result, exposed a source-observability contract problem, and then repaired that contract so legal visible-source extraction solves the smoke task.
 
-the next code slice should modify the family/mirror contract, not the full model. it should make the source state and action target legally inferable from the non-oracle input path, or explicitly recast the task as a commit-time memory problem with an earlier observed source event. it should preserve deterministic splits, forbidden-input guards, baselines, telemetry artifacts, and focused tests.
+the next code slice should modify the local learned-codec path, not the full model. it should repair or replace the learned address/payload/action and decoder-generalization path while preserving deterministic splits, forbidden-input guards, baselines, telemetry artifacts, and focused tests.
 
 ## see also
 

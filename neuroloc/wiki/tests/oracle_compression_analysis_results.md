@@ -1,6 +1,6 @@
 # oracle compression analysis results
 
-status: current (as of 2026-04-27).
+status: current (as of 2026-04-28).
 
 test type: symbolic/oracle compression-bound package
 
@@ -94,7 +94,7 @@ it does not justify a global tiny trainable mirror yet, because six families rem
 
 ## verdict
 
-accepted as the first oracle compression-bound package. the frontier split is documented in [[synthesis/oracle_compression_frontier_split]], the first family-specific proof package is [[synthesis/neural_model_dossier_compression_under_bit_budget_codec]], the tiny mirror contract is [[synthesis/neural_model_tiny_mirror_contract_compression_under_bit_budget]], and the local learned-codec/source-diagnostic surface is [[tests/compression_under_bit_budget_mirror]]. the first learned-codec smoke result and source-diagnostic pass are negative, so the next research action is to repair the `compression_under_bit_budget` family/mirror source-observability contract before another codec is trained, not a global mirror.
+accepted as the first oracle compression-bound package. the frontier split is documented in [[synthesis/oracle_compression_frontier_split]], the first family-specific proof package is [[synthesis/neural_model_dossier_compression_under_bit_budget_codec]], the tiny mirror contract is [[synthesis/neural_model_tiny_mirror_contract_compression_under_bit_budget]], and the local learned-codec/source-diagnostic surface is [[tests/compression_under_bit_budget_mirror]]. the first learned-codec smoke result is negative, and the source-observability contract is now repaired, so the next research action is learned address/payload/action and decoder-generalization repair for `compression_under_bit_budget`, not a global mirror.
 
 ## see also
 

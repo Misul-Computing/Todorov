@@ -1,8 +1,8 @@
 # neuroloc index
 
-status: current (as of 2026-04-27).
+status: current (as of 2026-04-28).
 
-update note: single master plan recorded, six neural-model research lanes added, the first no-paid cellular/local-state gap map documented, the first cellular mechanism dossier added, the first mechanism-specific symbolic contract plus implemented symbolic/oracle test-material package added, the first oracle compression analysis package implemented, the oracle-compression frontier split added, the first narrow learned-codec proof package documented, the tiny local mirror contract added, the first local mirror baseline surface implemented, the first learned-codec smoke result recorded as negative, and the source-diagnostic pass recorded. the next research step is to repair the `compression_under_bit_budget` family/mirror source-observability contract before another codec is trained.
+update note: single master plan recorded, six neural-model research lanes added, the first no-paid cellular/local-state gap map documented, the first cellular mechanism dossier added, the first mechanism-specific symbolic contract plus implemented symbolic/oracle test-material package added, the first oracle compression analysis package implemented, the oracle-compression frontier split added, the first narrow learned-codec proof package documented, the tiny local mirror contract added, the first local mirror baseline surface implemented, the first learned-codec smoke result recorded as negative, the source-diagnostic pass recorded, and the `compression_under_bit_budget` source-observability contract repaired. the next research step is local learned address/payload/action and decoder-generalization repair for the repaired mirror.
 
 this is the flat reference catalog of every article in the wiki, grouped
 by topic within each top-level directory. for guided navigation, start

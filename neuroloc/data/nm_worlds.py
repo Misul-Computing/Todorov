@@ -499,8 +499,25 @@ def _action_for_identity(identity_bank: dict[str, np.ndarray], identity_id: int,
     return int((color * 7 + shape * 5 + speed * 3 + identity_id) % action_count)
 
 
+def _action_for_visible_source_state(color: int, shape: int, velocity: int, action_count: int) -> int:
+    return int((int(color) * 7 + int(shape) * 5 + (int(velocity) + 3) * 3) % int(action_count))
+
+
 def _hard_family_seed(seed: int, family_index: int) -> int:
     return int((int(seed) * 1_000_003 + family_index * 97_409 + 17) % np.iinfo(np.uint32).max)
+
+
+def _non_bounce_source_time(episode: dict[str, Any], object_index: int, seq_len: int, preferred_limit: int) -> int:
+    positions = episode["positions"]
+    velocities = episode["velocities"]
+    candidates = list(range(max(1, int(preferred_limit))))
+    candidates.extend(time_index for time_index in range(seq_len - 1) if time_index not in candidates)
+    for time_index in candidates:
+        if time_index >= seq_len - 1:
+            continue
+        if int(positions[time_index + 1, object_index] - positions[time_index, object_index]) == int(velocities[time_index, object_index]):
+            return int(time_index)
+    raise ValueError("no non-bounce source step available")
 
 
 def _choose_interference_pair(active_ids: np.ndarray, identity_bank: dict[str, np.ndarray]) -> tuple[int, int, str]:
@@ -721,7 +738,7 @@ def generate_nm_hard_symbolic_episode(seed: int, profile: str = "smoke") -> dict
         "delayed_use_partial_observability": {"delay": query_time - source_time, "visible_fraction": 1.0 - float(profile_config["occlusion_prob"]), "address_margin": 0.9},
         "episodic_reuse_after_distractors": {"distractor_count": int(profile_config["n_active"]) - 1, "cue_drop": 0.5, "address_margin": 0.8},
         "context_gated_routing": {"context_count": 3, "same_cue_different_action": True, "address_margin": 0.7},
-        "compression_under_bit_budget": {"bit_budget_fraction": float(profile_config["bit_budget_fraction"]), "compressed_required_fields_present": True, "address_margin": 1.1},
+        "compression_under_bit_budget": {"bit_budget_fraction": float(profile_config["bit_budget_fraction"]), "compressed_required_fields_present": True, "action_rule": "visible_source_state", "address_margin": 1.1},
         "replay_rewrite": {"rewrite_steps": 2, "random_replay_collision": True, "address_margin": 0.8},
         "iterative_hard_case_rollout": {"easy_no_rollout": 0.75, "easy_iterative": 0.85, "hard_no_rollout": 0.15, "hard_iterative": 0.7, "address_margin": 0.5},
         "imagination_recombination": {"latent_recombination": True, "requires_reconstruction": True, "address_margin": 0.9, "reconstruction_error": 0.0},
@@ -732,6 +749,9 @@ def generate_nm_hard_symbolic_episode(seed: int, profile: str = "smoke") -> dict
         family_source_time = int(rng.integers(0, max(1, seq_len // 3)))
         family_query_time = int(rng.integers(max(family_source_time + 1, seq_len // 2), seq_len))
         family_target_local = interference_target if family == "correlated_key_interference" else target_local
+        if family == "compression_under_bit_budget":
+            family_source_time = _non_bounce_source_time(base, family_target_local, seq_len, seq_len // 3)
+            family_query_time = int(rng.integers(max(family_source_time + 2, seq_len // 2), seq_len))
         contract = _contract(
             family=family,
             episode=base,
@@ -767,11 +787,40 @@ def generate_nm_hard_symbolic_episode(seed: int, profile: str = "smoke") -> dict
             contract["query"]["cue_id"] = cue_id
             contract["target"]["context_action_map"] = action_map
             contract["target"]["action"] = int(action_map[str(context_id)])
+        if family == "compression_under_bit_budget":
+            state = contract["target"]["state"]
+            source_time = int(contract["memory_relevant_positions"][0]["time"])
+            source_object = int(contract["memory_relevant_positions"][0]["object_index"])
+            next_time = min(source_time + 1, seq_len - 1)
+            state["vel"] = int(base["velocities"][source_time, source_object])
+            contract["query"]["commit_time"] = source_time
+            contract["query"]["commit_local_index"] = source_object
+            contract["target"]["action"] = _action_for_visible_source_state(
+                int(state["color"]),
+                int(state["shape"]),
+                int(state["vel"]),
+                action_count,
+            )
         contracts.append(contract)
     observation_stream = {
         key: value.copy()
         for key, value in base["observations"].items()
     }
+    for contract in contracts:
+        if contract["family"] == "compression_under_bit_budget":
+            source = contract["memory_relevant_positions"][0]
+            source_time = int(source["time"])
+            source_object = int(source["object_index"])
+            state = contract["target"]["state"]
+            next_time = min(source_time + 1, seq_len - 1)
+            observation_stream["visible"][source_time, source_object] = 1
+            observation_stream["color"][source_time, source_object] = int(state["color"])
+            observation_stream["shape"][source_time, source_object] = int(state["shape"])
+            observation_stream["pos"][source_time, source_object] = int(base["positions"][source_time, source_object])
+            observation_stream["visible"][next_time, source_object] = 1
+            observation_stream["color"][next_time, source_object] = int(state["color"])
+            observation_stream["shape"][next_time, source_object] = int(state["shape"])
+            observation_stream["pos"][next_time, source_object] = int(base["positions"][next_time, source_object])
     for contract in contracts:
         query = contract["query"]
         observation_stream["visible"][int(query["time"]), int(query["focus_local_index"])] = 0

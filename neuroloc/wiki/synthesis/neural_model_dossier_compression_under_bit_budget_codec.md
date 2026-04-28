@@ -1,6 +1,6 @@
 # neural model dossier: compression under bit budget codec
 
-status: current (as of 2026-04-27).
+status: current (as of 2026-04-28).
 
 ## claim
 
@@ -185,7 +185,7 @@ this would still not prove general compression, biological novelty, full-model u
 
 ## next implementation boundary
 
-the next executable work is not the full model. the tiny local mirror defined in [[neural_model_tiny_mirror_contract_compression_under_bit_budget]] now exists and is documented in [[tests/compression_under_bit_budget_mirror]]. its first learned-codec/source-diagnostic result is negative and exposes a source-observability contract problem. the next local work is to repair that contract before another codec is trained.
+the next executable work is not the full model. the tiny local mirror defined in [[neural_model_tiny_mirror_contract_compression_under_bit_budget]] now exists and is documented in [[tests/compression_under_bit_budget_mirror]]. its first learned-codec/source-diagnostic result was negative, exposed a source-observability contract problem, and then repaired that contract. the next local work is learned address/payload/action and decoder-generalization repair before another broader codec is trained.
 
 the tiny mirror must not touch:
 

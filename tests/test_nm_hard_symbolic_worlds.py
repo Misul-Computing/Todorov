@@ -3,6 +3,7 @@ import pytest
 from neuroloc.data.nm_worlds import (
     HARD_SYMBOLIC_FAMILIES,
     HARD_SYMBOLIC_POLICIES,
+    HARD_SYMBOLIC_PROFILES,
     evaluate_nm_hard_policy,
     evaluate_nm_hard_symbolic_episode,
     generate_nm_hard_symbolic_batch,
@@ -104,6 +105,34 @@ def test_hard_symbolic_replay_and_compression_gates_are_separated() -> None:
     assert compressed["bits_written"] < verbatim["bits_written"]
     assert compressed["within_budget"] == 1.0
     assert verbatim["within_budget"] == 0.0
+
+
+def test_hard_symbolic_compression_source_is_legally_observable() -> None:
+    episode = generate_nm_hard_symbolic_episode(seed=3, profile="smoke")
+    compression = {contract["family"]: contract for contract in episode["contracts"]}["compression_under_bit_budget"]
+    for contract in episode["contracts"]:
+        if contract["family"] != "compression_under_bit_budget":
+            assert "commit_time" not in contract["query"]
+            assert "commit_local_index" not in contract["query"]
+    source = compression["memory_relevant_positions"][0]
+    observations = episode["observation_stream"]
+    hidden = episode["hidden_state"]
+    source_time = int(source["time"])
+    source_object = int(source["object_index"])
+    next_time = source_time + 1
+    state = compression["target"]["state"]
+    assert observations["visible"][source_time, source_object] == 1
+    assert observations["visible"][next_time, source_object] == 1
+    assert observations["color"][source_time, source_object] == state["color"]
+    assert observations["shape"][source_time, source_object] == state["shape"]
+    assert observations["pos"][source_time, source_object] == state["pos"]
+    assert observations["pos"][next_time, source_object] - observations["pos"][source_time, source_object] == state["vel"]
+    assert hidden["positions"][source_time, source_object] == state["pos"]
+    assert hidden["positions"][next_time, source_object] - hidden["positions"][source_time, source_object] == state["vel"]
+    assert hidden["velocities"][source_time, source_object] == state["vel"]
+    action_count = int(HARD_SYMBOLIC_PROFILES["smoke"]["action_count"])
+    expected_action = (state["color"] * 7 + state["shape"] * 5 + (state["vel"] + 3) * 3) % action_count
+    assert compression["target"]["action"] == expected_action
 
 
 def test_hard_symbolic_interference_and_context_are_instantiated() -> None:

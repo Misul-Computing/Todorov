@@ -1,6 +1,6 @@
 # oracle compression analysis plan
 
-status: current (as of 2026-04-27).
+status: current (as of 2026-04-28).
 
 ## purpose
 
@@ -167,7 +167,7 @@ hard-profile result summary:
 - six weak families below the 10x useful-compression threshold
 - global tiny-mirror recommendation 0.0
 
-the first result changed the next step from "run the counters" to "split the frontier." the split is now documented in [[oracle_compression_frontier_split]]. after that split, `compression_under_bit_budget` became the first narrow learned-codec candidate, then produced a negative learned-codec and source-diagnostic result in [[tests/compression_under_bit_budget_mirror]]. the current next step is to repair that family's source-observability contract before another codec is trained. weak families still need task revision, codec revision, or demotion of the compression claim before training.
+the first result changed the next step from "run the counters" to "split the frontier." the split is now documented in [[oracle_compression_frontier_split]]. after that split, `compression_under_bit_budget` became the first narrow learned-codec candidate, then produced a negative learned-codec and source-diagnostic result in [[tests/compression_under_bit_budget_mirror]]. that family's source-observability contract is now repaired; the current next step is learned address/payload/action and decoder-generalization repair before any broader codec is trained. weak families still need task revision, codec revision, or demotion of the compression claim before training.
 
 ## sequencing
 
@@ -182,8 +182,9 @@ the first result changed the next step from "run the counters" to "split the fro
 9. completed: write the tiny local mirror contract for that family before any code: [[neural_model_tiny_mirror_contract_compression_under_bit_budget]].
 10. completed: implement the local baseline mirror surface for that family only: [[tests/compression_under_bit_budget_mirror]].
 11. completed: add the first learned codec to that local surface; smoke result is negative, with train joint success 1.0 and held-out joint success 0.0.
-12. completed: add diagnostic-only trainability split and provenance/source controls without changing the full model or using paid compute. the result localizes first toward source-observability, payload/action inference, and learned decoder generalization, not a proved learned-compression claim.
-13. next: repair the `compression_under_bit_budget` family/mirror source-observability contract before another codec, broader mirror, full-model path, or paid compute.
+12. completed: add diagnostic-only trainability split and provenance/source controls without changing the full model or using paid compute. the result localized first toward source-observability, payload/action inference, and learned decoder generalization, not a proved learned-compression claim.
+13. completed: repair the `compression_under_bit_budget` family/mirror source-observability contract; legal visible-source extraction now solves the smoke task.
+14. next: repair learned address/payload/action and decoder generalization before another codec, broader mirror, full-model path, or paid compute.
 
 ## see also
 

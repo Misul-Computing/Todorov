@@ -56,6 +56,12 @@ def test_compression_mirror_model_input_excludes_forbidden_fields() -> None:
         assert "labels" in row
         assert "target" not in row["model_input"]
         assert "hidden_state" not in row["model_input"]
+        commit_events = [event for event in row["model_input"]["observations"] if event["commit_marker"] == 1]
+        commit_next_events = [event for event in row["model_input"]["observations"] if event["commit_next_marker"] == 1]
+        assert len(commit_events) == 1
+        assert len(commit_next_events) == 1
+        assert commit_events[0]["observed"] == 1
+        assert commit_next_events[0]["observed"] == 1
 
 
 def test_compression_mirror_vector_features_ignore_label_fields() -> None:
@@ -98,6 +104,9 @@ def test_compression_mirror_controls_and_bit_accounting() -> None:
     assert summary["recency_only_joint_success"] == 0.0
     assert summary["shuffled_address_joint_success"] == 0.0
     assert summary["random_codebook_joint_success"] == 0.0
+    assert summary["source_event_observed_rate"] == 1.0
+    assert summary["source_required_fields_visible_rate"] == 1.0
+    assert summary["source_state_reconstructable_rate"] == 1.0
     assert summary["verbatim_within_budget"] == 0.0
     assert summary["compressed_oracle_within_budget"] == 1.0
     assert summary["compression_ratio_vs_verbatim"] > 1.0
@@ -226,10 +235,23 @@ def test_compression_mirror_visible_source_extractor_uses_model_input_and_contra
 
 def test_compression_mirror_payload_action_split_diagnostics_are_registered() -> None:
     assert "visible_source_state_oracle_action_oracle_decoder" in DIAGNOSTIC_POLICIES
+    assert "visible_source_codec" in DIAGNOSTIC_POLICIES
     assert "provenance_exposed_oracle_decoder" in DIAGNOSTIC_POLICIES
     assert "learned_state_oracle_action_oracle_decoder" in DIAGNOSTIC_POLICIES
     assert "oracle_state_learned_action_oracle_decoder" in DIAGNOSTIC_POLICIES
     assert len(ALL_POLICIES) == len(BASELINE_POLICIES) + len(DIAGNOSTIC_POLICIES) + 1
+
+
+def test_compression_mirror_visible_source_codec_solves_repaired_contract() -> None:
+    dataset = build_dataset("smoke", seed=140, train_episodes=4, val_episodes=2, test_episodes=4)
+    learned = train_learned_codec(dataset, "smoke", seed=140, epochs=3)
+    rows = evaluate_dataset(dataset, "smoke", seed=140, learned=learned)
+    summary = build_summary(dataset, rows)
+    assert summary["source_required_fields_visible_rate"] == 1.0
+    assert summary["source_state_reconstructable_rate"] == 1.0
+    assert summary["visible_source_codec_joint_success"] == 1.0
+    assert summary["visible_source_codec_state_success"] == 1.0
+    assert summary["visible_source_codec_action_success"] == 1.0
 
 
 def test_compression_mirror_decoder_generalization_summary_reports_train_validation_test() -> None:

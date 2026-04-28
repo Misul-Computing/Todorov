@@ -78,6 +78,7 @@ DIAGNOSTIC_POLICIES = (
     "learned_address_oracle_payload",
     "oracle_address_learned_payload",
     "provenance_exposed_learned_codec",
+    "visible_source_codec",
     "visible_source_state_oracle_action_oracle_decoder",
     "source_observation_learned_action",
     "provenance_exposed_oracle_decoder",
@@ -102,7 +103,7 @@ def split_seed(base_seed: int, split: str) -> int:
     return int(base_seed + offsets[split])
 
 
-def observation_events(episode: dict[str, Any], max_time: int) -> list[dict[str, int]]:
+def observation_events(episode: dict[str, Any], max_time: int, commit_time: int | None = None, commit_object: int | None = None) -> list[dict[str, int]]:
     observations = episode["observation_stream"]
     event_rows = []
     seq_len, n_active = observations["color"].shape
@@ -118,6 +119,8 @@ def observation_events(episode: dict[str, Any], max_time: int) -> list[dict[str,
                     "shape": int(observations["shape"][time_index, object_index]),
                     "pos": int(observations["pos"][time_index, object_index]),
                     "observed": int(observations["visible"][time_index, object_index]),
+                    "commit_marker": int(commit_time is not None and commit_object is not None and time_index == int(commit_time) and object_index == int(commit_object)),
+                    "commit_next_marker": int(commit_time is not None and commit_object is not None and time_index == int(commit_time) + 1 and object_index == int(commit_object)),
                 }
             )
     return event_rows
@@ -133,14 +136,18 @@ def contract_for_family(episode: dict[str, Any]) -> dict[str, Any]:
 def build_model_input(episode: dict[str, Any], contract: dict[str, Any]) -> dict[str, Any]:
     query = contract["query"]
     query_time = int(query["time"])
+    commit_time = int(query["commit_time"])
+    commit_object = int(query["commit_local_index"])
     return {
-        "observations": observation_events(episode, query_time),
+        "observations": observation_events(episode, query_time, commit_time, commit_object),
         "query": {
             "time": query_time,
             "focus_local_index": int(query["focus_local_index"]),
             "cue_color": int(query["cue_color"]),
             "cue_shape": int(query["cue_shape"]),
             "cue_pos": int(query["cue_pos"]),
+            "commit_time": commit_time,
+            "commit_local_index": commit_object,
         },
         "bit_budget": {
             "remaining_bits": int(contract["bit_budget"]["budget_bits"]),
@@ -283,6 +290,34 @@ def estimate_velocity(events: list[dict[str, int]], max_speed: int) -> int:
     return int(max(-max_speed, min(max_speed, estimate)))
 
 
+def marked_source_event(record: dict[str, Any]) -> dict[str, int]:
+    matches = [event for event in record["model_input"]["observations"] if int(event.get("commit_marker", 0)) == 1]
+    if not matches:
+        return source_event_for_record(record)
+    return dict(matches[0])
+
+
+def marked_source_next_event(record: dict[str, Any]) -> dict[str, int] | None:
+    matches = [event for event in record["model_input"]["observations"] if int(event.get("commit_next_marker", 0)) == 1]
+    if not matches:
+        return None
+    return dict(matches[0])
+
+
+def estimate_marked_source_velocity(record: dict[str, Any], max_speed: int) -> int:
+    source = marked_source_event(record)
+    next_event = marked_source_next_event(record)
+    if next_event is None:
+        return estimate_velocity(focus_events_for_record(record), max_speed)
+    if int(source["observed"]) != 1 or int(next_event["observed"]) != 1:
+        return 0
+    if int(source["pos"]) < 0 or int(next_event["pos"]) < 0:
+        return 0
+    delta_time = max(1, int(next_event["time"]) - int(source["time"]))
+    estimate = int(round(float(int(next_event["pos"]) - int(source["pos"])) / float(delta_time)))
+    return int(max(-max_speed, min(max_speed, estimate)))
+
+
 def vectorize_record(record: dict[str, Any], caps: dict[str, int]) -> np.ndarray:
     query = record["model_input"]["query"]
     focus = int(query["focus_local_index"])
@@ -297,6 +332,8 @@ def vectorize_record(record: dict[str, Any], caps: dict[str, int]) -> np.ndarray
     last_pos = last_known(events, "pos", pos_missing)
     first_pos = first_known(events, "pos", pos_missing)
     velocity = estimate_velocity(events, int(caps["max_speed"]))
+    source_event = marked_source_event(record)
+    source_velocity = estimate_marked_source_velocity(record, int(caps["max_speed"]))
     observed_count = sum(1 for event in events if int(event["observed"]) == 1)
     visible_fraction = float(observed_count) / max(1.0, float(len(events)))
     values: list[float] = []
@@ -307,12 +344,19 @@ def vectorize_record(record: dict[str, Any], caps: dict[str, int]) -> np.ndarray
     values.extend(one_hot(last_pos, int(caps["track_length"]) + 1))
     values.extend(one_hot(first_pos, int(caps["track_length"]) + 1))
     values.extend(one_hot(velocity + int(caps["max_speed"]), int(caps["max_speed"]) * 2 + 1))
+    values.extend(one_hot(int(source_event["color"]) if int(source_event["color"]) >= 0 else int(caps["n_colors"]), int(caps["n_colors"]) + 1))
+    values.extend(one_hot(int(source_event["shape"]) if int(source_event["shape"]) >= 0 else int(caps["n_shapes"]), int(caps["n_shapes"]) + 1))
+    values.extend(one_hot(int(source_event["pos"]) if int(source_event["pos"]) >= 0 else int(caps["track_length"]), int(caps["track_length"]) + 1))
+    values.extend(one_hot(source_velocity + int(caps["max_speed"]), int(caps["max_speed"]) * 2 + 1))
     values.extend(
         [
             float(query["time"]) / max(1.0, float(caps["seq_len"] - 1)),
             float(focus) / max(1.0, float(caps["n_active"] - 1)),
+            float(query["commit_time"]) / max(1.0, float(caps["seq_len"] - 1)),
+            float(query["commit_local_index"]) / max(1.0, float(caps["n_active"] - 1)),
             float(record["model_input"]["bit_budget"]["budget_bits"]) / 128.0,
             visible_fraction,
+            float(source_event["observed"]),
         ]
     )
     return np.asarray(values, dtype=np.float32)
@@ -379,15 +423,15 @@ def source_event_complete(record: dict[str, Any]) -> float:
 
 
 def source_observation_audit(record: dict[str, Any], caps: dict[str, int]) -> dict[str, float]:
-    event = source_event_for_record(record)
+    event = marked_source_event(record)
+    next_event = marked_source_next_event(record)
     target_state = record["labels"]["state"]
-    focus_events = focus_events_for_record(record)
-    observed_focus_count = sum(1 for item in focus_events if int(item["observed"]) == 1 and int(item["pos"]) >= 0)
-    estimated_vel = estimate_velocity(focus_events, int(caps["max_speed"]))
+    estimated_vel = estimate_marked_source_velocity(record, int(caps["max_speed"]))
     color_visible = float(int(int(event["observed"]) == 1 and int(event["color"]) >= 0))
     shape_visible = float(int(int(event["observed"]) == 1 and int(event["shape"]) >= 0))
     pos_visible = float(int(int(event["observed"]) == 1 and int(event["pos"]) >= 0))
-    vel_reconstructable = float(int(observed_focus_count >= 2 and estimated_vel == int(target_state["vel"])))
+    next_pos_visible = float(int(next_event is not None and int(next_event["observed"]) == 1 and int(next_event["pos"]) >= 0))
+    vel_reconstructable = float(int(next_pos_visible == 1.0 and estimated_vel == int(target_state["vel"])))
     source_query_gap = int(record["model_input"]["query"]["time"]) - int(event["time"])
     source_state_reconstructable = float(
         int(
@@ -409,7 +453,7 @@ def source_observation_audit(record: dict[str, Any], caps: dict[str, int]) -> di
         "source_pos_visible": pos_visible,
         "source_vel_reconstructable": vel_reconstructable,
         "source_state_reconstructable": source_state_reconstructable,
-        "source_required_fields_visible": float(int(color_visible == 1.0 and shape_visible == 1.0 and pos_visible == 1.0 and observed_focus_count >= 2)),
+        "source_required_fields_visible": float(int(color_visible == 1.0 and shape_visible == 1.0 and pos_visible == 1.0 and next_pos_visible == 1.0)),
         "source_query_gap": float(source_query_gap),
     }
 
@@ -430,8 +474,8 @@ def empty_source_observation_audit() -> dict[str, float]:
 
 
 def source_observation_code_fields(record: dict[str, Any], caps: dict[str, int], action_value: int) -> dict[str, int]:
-    event = source_event_for_record(record)
-    velocity = estimate_velocity(focus_events_for_record(record), int(caps["max_speed"]))
+    event = marked_source_event(record)
+    velocity = estimate_marked_source_velocity(record, int(caps["max_speed"]))
     color = int(event["color"])
     shape = int(event["shape"])
     address = color * int(caps["n_shapes"]) + shape if color >= 0 and shape >= 0 else -1
@@ -445,12 +489,12 @@ def source_observation_code_fields(record: dict[str, Any], caps: dict[str, int],
 
 
 def source_signature_for_action(record: dict[str, Any], caps: dict[str, int]) -> tuple[int, ...]:
-    event = source_event_for_record(record)
+    event = marked_source_event(record)
     return (
         int(event["color"]),
         int(event["shape"]),
         int(event["pos"]),
-        int(estimate_velocity(focus_events_for_record(record), int(caps["max_speed"]))),
+        int(estimate_marked_source_velocity(record, int(caps["max_speed"]))),
         int(event["observed"]),
         int(source_event_complete(record)),
     )
@@ -468,9 +512,14 @@ def action_ambiguity_rate(dataset: list[dict[str, Any]], caps: dict[str, int], s
     return float(ambiguous) / max(1.0, float(len(selected)))
 
 
+def visible_source_action(fields: dict[str, int], caps: dict[str, int]) -> int:
+    state = state_from_code_fields(fields, caps)
+    return int((int(state["color"]) * 7 + int(state["shape"]) * 5 + (int(state["vel"]) + 3) * 3) % int(caps["action_count"]))
+
+
 def vectorize_record_with_provenance(record: dict[str, Any], caps: dict[str, int]) -> np.ndarray:
     values = list(vectorize_record(record, caps))
-    event = source_event_for_record(record)
+    event = marked_source_event(record)
     values.extend(one_hot(int(event["time"]), int(caps["seq_len"])))
     values.extend(one_hot(int(event["object_index"]), int(caps["n_active"])))
     values.extend(one_hot(int(event["color"]) if int(event["color"]) >= 0 else int(caps["n_colors"]), int(caps["n_colors"]) + 1))
@@ -903,6 +952,10 @@ def diagnostic_result(record: dict[str, Any], learned: dict[str, Any], policy: s
     if policy == "provenance_exposed_learned_codec":
         fields, confidence = predict_fields_with_stack(learned, vectorize_record_with_provenance(record, caps), "provenance_model", "provenance_heads")
         return decode_fields_with_learned_decoder(record, learned, fields, confidence)
+    if policy == "visible_source_codec":
+        fields = source_observation_code_fields(record, caps, 0)
+        fields["action"] = visible_source_action(fields, caps)
+        return score_code_fields(fields, record, caps, confidence=float(source_event_complete(record)))
     if policy == "visible_source_state_oracle_action_oracle_decoder":
         return score_code_fields(source_observation_code_fields(record, caps, int(record["labels"]["action"])), record, caps, confidence=float(source_event_complete(record)))
     if policy == "source_observation_learned_action":
@@ -1051,6 +1104,9 @@ def build_summary(dataset: list[dict[str, Any]], rows: list[dict[str, Any]], pro
     learned_address_oracle_payload_joint = mean_for(rows, "learned_address_oracle_payload", "joint_success", split="test")
     oracle_address_learned_payload_joint = mean_for(rows, "oracle_address_learned_payload", "joint_success", split="test")
     provenance_exposed_joint = mean_for(rows, "provenance_exposed_learned_codec", "joint_success", split="test")
+    visible_source_codec_joint = mean_for(rows, "visible_source_codec", "joint_success", split="test")
+    visible_source_codec_state = mean_for(rows, "visible_source_codec", "state_probe_accuracy", split="test")
+    visible_source_codec_action = mean_for(rows, "visible_source_codec", "action_success", split="test")
     visible_source_joint = mean_for(rows, "visible_source_state_oracle_action_oracle_decoder", "joint_success", split="test")
     visible_source_state = mean_for(rows, "visible_source_state_oracle_action_oracle_decoder", "state_probe_accuracy", split="test")
     source_observation_learned_action_joint = mean_for(rows, "source_observation_learned_action", "joint_success", split="test")
@@ -1153,6 +1209,9 @@ def build_summary(dataset: list[dict[str, Any]], rows: list[dict[str, Any]], pro
         "learned_address_oracle_payload_joint_success": float(learned_address_oracle_payload_joint),
         "oracle_address_learned_payload_joint_success": float(oracle_address_learned_payload_joint),
         "provenance_exposed_learned_codec_joint_success": float(provenance_exposed_joint),
+        "visible_source_codec_joint_success": float(visible_source_codec_joint),
+        "visible_source_codec_state_success": float(visible_source_codec_state),
+        "visible_source_codec_action_success": float(visible_source_codec_action),
         "visible_source_state_oracle_action_oracle_decoder_joint_success": float(visible_source_joint),
         "visible_source_state_oracle_action_oracle_decoder_state_success": float(visible_source_state),
         "source_observation_oracle_action_joint_success": float(visible_source_joint),
@@ -1172,6 +1231,7 @@ def build_summary(dataset: list[dict[str, Any]], rows: list[dict[str, Any]], pro
         "oracle_address_payload_rescue_delta": float(max(learned_address_oracle_payload_joint, oracle_address_learned_payload_joint) - learned_joint),
         "provenance_exposure_rescue_delta": float(provenance_exposed_joint - learned_joint),
         "provenance_exposed_oracle_decoder_rescue_delta": float(provenance_exposed_oracle_decoder_joint - learned_joint),
+        "visible_source_codec_rescue_delta": float(visible_source_codec_joint - learned_joint),
         "source_observation_rescue_delta": float(source_observation_learned_action_joint - learned_joint),
         "visible_source_state_rescue_delta": float(visible_source_joint - learned_joint),
         "oracle_action_rescue_delta": float(learned_state_oracle_action_joint - learned_joint),

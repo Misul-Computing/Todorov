@@ -1,6 +1,6 @@
 # neural model lane: operation-preserving compression
 
-status: current (as of 2026-04-27).
+status: current (as of 2026-04-28).
 
 ## thesis
 
@@ -23,12 +23,12 @@ the useful claim is conditional: an operation-preserving compression stack may b
 - [[neural_model_symbolic_contract_eligibility_gated_local_commit]] defines the first mechanism-specific bit fields and storage policies for oracle compression.
 - [[tests/eligibility_gated_local_commit_test_material]] documents the implemented mechanism-specific symbolic/oracle surface for those counters.
 - [[neural_model_compression_stack]] defines the current stack-wide compression contract.
-- [[oracle_compression_analysis_plan]] records the oracle-bound analysis sequence and the current handoff from completed counters to source-observability contract repair.
+- [[oracle_compression_analysis_plan]] records the oracle-bound analysis sequence and the handoff from completed counters to the repaired source-observability contract and current learned-generalization repair.
 - [[tests/oracle_compression_analysis_results]] documents the first oracle-bound result: clean controls, no leakage, eight strong families, and six weak families below 10x.
 - [[oracle_compression_frontier_split]] separates accepted frontier families from weak frontier families and ranks the next narrow learned-codec proof-package candidates.
 - [[neural_model_dossier_compression_under_bit_budget_codec]] defines the first narrow learned-codec proof package before implementation.
 - [[neural_model_tiny_mirror_contract_compression_under_bit_budget]] defines the local implementation contract for the first tiny learned-codec mirror.
-- [[tests/compression_under_bit_budget_mirror]] documents the first local dataset, guard, baseline, learned-codec, source-diagnostic, bit-accounting, and telemetry surface for that mirror. the first learned-codec smoke result is negative on held-out splits, and the source-diagnostic pass localizes failure toward source-observability, payload/action inference, and learned decoder generalization.
+- [[tests/compression_under_bit_budget_mirror]] documents the first local dataset, guard, baseline, learned-codec, source-diagnostic, bit-accounting, and telemetry surface for that mirror. the source-observability contract is repaired, the visible-source codec solves the smoke task, and the learned-codec smoke result remains negative on held-out splits because address, payload color, payload position, velocity, action, and learned decoder generalization still fail.
 - [[indexed_reconstruction_compression]] defines compact handles, schema or residual codes, provenance, and reconstruction.
 - [[neural_model_dossier_compression]] defines the mechanism dossier for compression claims.
 - [[tests/hard_symbolic_nm_test_material]] provides the symbolic worlds that expose hidden state, controls, and bit-budget tasks.
@@ -57,11 +57,11 @@ the useful claim is conditional: an operation-preserving compression stack may b
 
 ## current result
 
-the first oracle compression analysis and frontier split are implemented. useful compression is not uniform across the symbolic surfaces. hard-profile controls are clean and leakage-free, but direct associative recall, correlated-key interference, delayed relevance local commit, bounded output exposure, crossed commit/exposure split, and commit compression frontier remain weak under the current 10x threshold. the first learned-codec mirror for `compression_under_bit_budget` fails held-out operation preservation. diagnostics show partial address signal, no learned payload/action or learned-decoder success, and a source-observability contract problem in the legal non-oracle input.
+the first oracle compression analysis and frontier split are implemented. useful compression is not uniform across the symbolic surfaces. hard-profile controls are clean and leakage-free, but direct associative recall, correlated-key interference, delayed relevance local commit, bounded output exposure, crossed commit/exposure split, and commit compression frontier remain weak under the current 10x threshold. the first learned-codec mirror for `compression_under_bit_budget` fails held-out operation preservation. the source-observability contract is now clean: source event observed rate, required fields visible rate, source state reconstructable rate, and visible-source-codec joint success are all 1.0. remaining failure is learned address, payload color, payload position, velocity, action, and decoder generalization.
 
 ## next action
 
-revise the local `compression_under_bit_budget` family/mirror contract documented in [[tests/compression_under_bit_budget_mirror]] so source state and action are legally inferable from the non-oracle input path before another codec is trained. do not train a global mirror from this result.
+repair the local learned address/payload/action and decoder-generalization path documented in [[tests/compression_under_bit_budget_mirror]] before any global mirror, full model path, or paid compute. do not treat the visible-source diagnostic as a learned-compression result.
 
 ## see also
 
