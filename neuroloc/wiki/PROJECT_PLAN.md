@@ -1,14 +1,18 @@
 # project_plan
 
-status: current (as of 2026-04-28).
+status: current (as of 2026-05-02).
 
 this file is the canonical, persistent project state. any agent picking up the project starts here. updating this file is a hard rule with prosecutor enforcement (see `CLAUDE.md` and the rule section at the bottom of this file).
 
-last updated: 2026-04-28 (the `compression_under_bit_budget` source-observability contract is repaired and documented in `wiki/tests/compression_under_bit_budget_mirror.md`. the symbolic family now marks the committed source event and adjacent source event, exposes color, shape, position, and hidden-velocity-consistent one-step motion before query time, and defines the target action from visible source state rather than hidden identity. the local mirror now reports 23 policies and 264 diagnostic rows over 24 smoke records. source event observed rate, required source fields visible rate, source state reconstructable rate, visible-source-codec state success, visible-source-codec action success, and visible-source-codec joint success are all 1.0. the learned codec still overfits train split at 1.0 joint success and scores 0.0 validation and 0.0 test joint success, with measured compact-code ratio about 2.74x. the latest smoke metrics are learned address 0.25, learned color 0.25, learned shape 1.0, learned position 0.25, learned velocity 0.0, learned action 0.0, and learned provenance 1.0. this is a repaired problem-specification result plus a negative learned-generalization result, not a compression claim. no paid compute, full-model integration, simulator choice, or architecture preset change is authorised.)
+last updated: 2026-05-02 (linux migration handoff added at `docs/linux_handoff_2026-05-02.md` as an operational supplement, not a competing plan. the scientific state is unchanged from the 2026-04-28 repaired `compression_under_bit_budget` source-observability result: source event observed rate, required source fields visible rate, source state reconstructable rate, visible-source-codec state success, visible-source-codec action success, and visible-source-codec joint success are all 1.0; the learned codec still overfits train split at 1.0 joint success and scores 0.0 validation and 0.0 test joint success, with measured compact-code ratio about 2.74x. the next no-paid target remains learned address/payload/action and decoder generalization for the local mirror. no paid compute, full-model integration, simulator choice, or architecture preset change is authorised.)
 
 ## master plan: neural model program (2026-04-26)
 
 this is the single canonical session-start plan. all other status files are subordinate summaries or specialized protocols. when another plan file disagrees with this one, fix this file first, then sync the subordinate file only if the current task touches that surface.
+
+### linux migration handoff
+
+the linux migration handoff is `docs/linux_handoff_2026-05-02.md`. it records the windows-to-linux transfer state, current validation commands, user preferences, mistake history, compression-mirror metrics, and next local work. it is an operational supplement only; this file remains the canonical project plan and the first source to repair when state files disagree.
 
 ### project identity
 
@@ -360,6 +364,7 @@ every entry below is an append-only record of a change to this file. format: `da
 - **2026-04-27** — deyan todorov — diagnostic-localization controls added to the `compression_under_bit_budget` mirror. learned-code/oracle-decoder, oracle-code/learned-decoder, learned-address/oracle-payload, oracle-address/learned-payload, and provenance-exposed learned-codec rows are now diagnostic-only and excluded from learned-result counts. smoke validation localizes the failure toward payload/action/source-state inference and learned decoder generalization: learned-address/oracle-payload reaches 0.5 joint success, while the learned-payload and learned-decoder branches remain 0.0. next action is local mirror revision, not paid compute or full-model work.
 - **2026-04-27** — deyan todorov — source-availability and decoder-generalization diagnostics added to the `compression_under_bit_budget` mirror. the smoke suite now exposes 22 policies and 240 diagnostic rows over 24 records. the result is a sharper negative: source event observed rate 0.25, required source fields visible rate 0.0, source state reconstructable rate 0.0, visible-source-state/oracle-action/oracle-decoder joint success 0.0, and oracle-code/learned-decoder train 1.0 but validation/test 0.0. validation passed 19 focused tests, 21 targeted compression/registry tests, the compression-mirror smoke suite, py_compile, yaml parse, and repository collection now reports 328 tests. next action is to repair the family/mirror source-observability contract before another codec is trained.
 - **2026-04-28** — deyan todorov — repaired the `compression_under_bit_budget` source-observability contract and mirror diagnostics. the symbolic family now exposes the committed source event plus adjacent velocity evidence before query time, and the action target is a function of visible source state rather than hidden identity. the smoke suite now exposes 23 policies and 264 diagnostic rows over 24 records. source event observed rate, required source fields visible rate, source state reconstructable rate, visible-source-codec joint success, and visible-source-state/oracle-action/oracle-decoder joint success are all 1.0. the learned codec still scores train joint success 1.0 but validation/test joint success 0.0; latest learned smoke metrics are address 0.25, color 0.25, shape 1.0, position 0.25, velocity 0.0, action 0.0, and provenance 1.0. the next no-paid target is learned address/payload/action and decoder generalization, not paid compute or full-model work.
+- **2026-05-02** — deyan todorov — linux migration handoff added at `docs/linux_handoff_2026-05-02.md` as an operational supplement. this records the transfer state, validation commands, user preferences, mistake history, current compression-mirror metrics, and next local no-paid work for the linux continuation environment without changing the canonical scientific question.
 
 ## the rule
 
@@ -391,6 +396,7 @@ the update history at the bottom of this file is append-only. every change to th
 - [[neural_model_dossier_compression_under_bit_budget_codec]]
 - [[neural_model_tiny_mirror_contract_compression_under_bit_budget]]
 - [[tests/compression_under_bit_budget_mirror]]
+- `docs/linux_handoff_2026-05-02.md`
 - [[neural_model_lane_operation_preserving_compression]]
 - [[neural_model_lane_memory_replay_imagination]]
 - [[neural_model_lane_3d_world_physics]]
