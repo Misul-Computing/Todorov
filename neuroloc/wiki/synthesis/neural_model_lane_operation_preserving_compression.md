@@ -31,6 +31,7 @@ the useful claim is conditional: an operation-preserving compression stack may b
 - [[neural_model_tiny_mirror_contract_compression_under_bit_budget]] defines the local implementation contract for the first tiny learned-codec mirror.
 - [[tests/compression_under_bit_budget_mirror]] documents the first local dataset, guard, baseline, learned-codec, source-diagnostic, bit-accounting, and telemetry surface for that mirror. the source-observability contract is repaired, the visible-source codec solves the smoke task, and the learned-codec smoke result remains negative on held-out splits because address, payload color, payload position, velocity, action, and learned decoder generalization still fail.
 - [[content_routed_sparse_read_prior]] records the 2026 subq / selective sparse attention prior-art boundary. it validates content-dependent routing and functional context as load-bearing problems, but it does not prove memory-object compression, replay compression, imagined-branch compression, or local-neuron storage. it adds a required baseline family for future compression claims.
+- [[neural_model_related_work_pressure_matrix]] consolidates the six-lane prior-art pass and sharpens the operation-preserving compression boundary: task-relative compression, latent/context compression, vector/cache compression, and schema/provenance engineering are all prior-art-covered pieces; the remaining project edge is a learned memory-object code that preserves operations under exact controls.
 - [[indexed_reconstruction_compression]] defines compact handles, schema or residual codes, provenance, and reconstruction.
 - [[neural_model_dossier_compression]] defines the mechanism dossier for compression claims.
 - [[tests/hard_symbolic_nm_test_material]] provides the symbolic worlds that expose hidden state, controls, and bit-budget tasks.
@@ -95,3 +96,4 @@ after a clean local learned result, add the content-routed sparse-read baseline 
 - [[neural_model_lane_trainability_evaluation]]
 - [[neural_model_lane_project_operations]]
 - [[content_routed_sparse_read_prior]]
+- [[neural_model_related_work_pressure_matrix]]

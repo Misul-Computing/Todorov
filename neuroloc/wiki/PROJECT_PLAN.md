@@ -4,7 +4,7 @@ status: current (as of 2026-05-06).
 
 this file is the canonical, persistent project state. any agent picking up the project starts here. updating this file is a hard rule with prosecutor enforcement (see `CLAUDE.md` and the rule section at the bottom of this file).
 
-last updated: 2026-05-06 (subq / selective sparse attention prior-art boundary added at `wiki/synthesis/content_routed_sparse_read_prior.md`. it validates content-dependent sparse reads and functional context as load-bearing long-memory problems, but it does not prove memory-object compression, replay compression, imagined-branch compression, local-neuron storage, or any paid neural-model preset. the next no-paid target remains learned address/payload/action and decoder generalization for the repaired `compression_under_bit_budget` local mirror; after a clean learned result, relevant compression claims must compare against a content-routed sparse-read baseline over verbatim context. no paid compute, full-model integration, simulator choice, or architecture preset change is authorised.)
+last updated: 2026-05-06 (multi-lane related-work pressure matrix added at `wiki/synthesis/neural_model_related_work_pressure_matrix.md` after six parallel research sweeps. the synthesis confirms that the project's likely edge is not any individual component, but a proof-gated compound interface: learned compact memory objects that preserve retrieval, action, reconstruction, replay/rewrite, rollout, and provenance under legal source visibility and held-out exact-world controls. the next no-paid target remains learned address/payload/action and decoder generalization for the repaired `compression_under_bit_budget` local mirror; after a clean learned result, relevant compression claims must compare against content-routed sparse read over verbatim context. no paid compute, full-model integration, simulator choice, or architecture preset change is authorised.)
 
 ## master plan: neural model program (2026-04-26)
 
@@ -80,6 +80,10 @@ paid compute remains blocked until broad lane research, mechanism dossiers, doss
 the 2026 subq / selective sparse attention public material is now recorded in [[content_routed_sparse_read_prior]]. it validates the project's insistence that long memory depends on content-dependent routing and functional context, and it lets the project demote fixed position-only sparse patterns to controls for arbitrary-position memory. it does not validate the project's stronger memory-object compression claim.
 
 future compression claims must beat or complement a content-routed sparse-read baseline over verbatim context wherever that baseline is fair. this is a stricter comparison standard, not a new paid-compute path.
+
+### related-work pressure matrix
+
+the 2026-05-06 multi-lane research pass is consolidated in [[neural_model_related_work_pressure_matrix]]. it covers cellular/local state storage, operation-preserving compression, memory/addressing/replay/imagination, 3d world simulators, trainability/evaluation, and content-routed sparse-read baselines. the main result is a tighter prior-art boundary: local state, fast weights, differentiable memory, sparse attention, semantic compression, context compression, replay, world models, and oracle-style evaluations are all heavily covered. the project remains defensible only as a compound proof of operation-preserving learned memory objects under exact controls.
 
 ## teaching curriculum package (2026-04-17; preserved after 2026-04-23)
 
@@ -372,6 +376,7 @@ every entry below is an append-only record of a change to this file. format: `da
 - **2026-04-28** — deyan todorov — repaired the `compression_under_bit_budget` source-observability contract and mirror diagnostics. the symbolic family now exposes the committed source event plus adjacent velocity evidence before query time, and the action target is a function of visible source state rather than hidden identity. the smoke suite now exposes 23 policies and 264 diagnostic rows over 24 records. source event observed rate, required source fields visible rate, source state reconstructable rate, visible-source-codec joint success, and visible-source-state/oracle-action/oracle-decoder joint success are all 1.0. the learned codec still scores train joint success 1.0 but validation/test joint success 0.0; latest learned smoke metrics are address 0.25, color 0.25, shape 1.0, position 0.25, velocity 0.0, action 0.0, and provenance 1.0. the next no-paid target is learned address/payload/action and decoder generalization, not paid compute or full-model work.
 - **2026-05-02** — deyan todorov — linux migration handoff added at `docs/linux_handoff_2026-05-02.md` as an operational supplement. this records the transfer state, validation commands, user preferences, mistake history, current compression-mirror metrics, and next local no-paid work for the linux continuation environment without changing the canonical scientific question.
 - **2026-05-06** — deyan todorov — subq / selective sparse attention related-work boundary added. [[content_routed_sparse_read_prior]] records what the public subq material validates for the project, what it does not prove, and why future compression claims must compare against content-routed sparse read over verbatim context where that baseline is fair. the immediate no-paid learned-codec repair target is unchanged.
+- **2026-05-06** — deyan todorov — multi-lane related-work pressure matrix added. [[neural_model_related_work_pressure_matrix]] consolidates six research sweeps into a prior-art boundary and next-step standard across local cellular state, operation-preserving compression, memory/replay/imagination, simulator selection, trainability/evaluation, and content-routed sparse-read baselines. no paid compute or model integration is authorised.
 
 ## the rule
 
@@ -405,6 +410,7 @@ the update history at the bottom of this file is append-only. every change to th
 - [[tests/compression_under_bit_budget_mirror]]
 - `docs/linux_handoff_2026-05-02.md`
 - [[content_routed_sparse_read_prior]]
+- [[neural_model_related_work_pressure_matrix]]
 - [[neural_model_lane_operation_preserving_compression]]
 - [[neural_model_lane_memory_replay_imagination]]
 - [[neural_model_lane_3d_world_physics]]

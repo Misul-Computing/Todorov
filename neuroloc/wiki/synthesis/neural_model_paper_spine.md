@@ -36,7 +36,7 @@ the compression target is not tensor reconstruction. for each memory surface, de
 
 proof state: partially bounded and not learned. the first oracle compression result and frontier split exist, but they are mixed across families. the first learned codec for `compression_under_bit_budget` fails held-out operation preservation, so the operation-preserving compression stack remains unproved.
 
-2026-05-06 related-work boundary: subquadratic's public subq / selective sparse attention material strengthens the prior-art baseline for content-dependent sparse reads over long context. this validates routing and functional-context concerns, but it also means any strong compression claim must beat or complement content-routed sparse read over verbatim context where that baseline is well-defined. source: [[content_routed_sparse_read_prior]].
+2026-05-06 related-work boundary: subquadratic's public subq / selective sparse attention material strengthens the prior-art baseline for content-dependent sparse reads over long context. this validates routing and functional-context concerns, but it also means any strong compression claim must beat or complement content-routed sparse read over verbatim context where that baseline is well-defined. the broader multi-lane pressure matrix also shows that local state, differentiable memory, sparse routing, semantic compression, replay, world models, and oracle-style evaluations are all prior-art-covered pieces. source: [[content_routed_sparse_read_prior]] and [[neural_model_related_work_pressure_matrix]].
 
 ### claim 4: lane research and oracle compression bounds must come before training
 
@@ -130,6 +130,7 @@ load-bearing pages: [[oracle_compression_analysis_plan]], [[synthetic_shared_wor
 - no evidence yet shows a swappable codec interface working across memory levels.
 - no related-work section has fully separated prior art from the conditional new claim.
 - content-routed sparse read is now a required prior-art baseline where a verbatim memory field exists.
+- the related-work pressure matrix exists, but its requirements have not yet been implemented into every symbolic/mirror family.
 - the first candidate proof package for `compression_under_bit_budget` has produced a repaired source-observability result and a negative learned result: legal visible-source extraction solves the task, but learned address, payload color, payload position, velocity, action, and learned decoder generalization still fail. the next obligation is local learned-codec repair or proof-package demotion rather than claim expansion.
 - no paid compute is authorised by this paper spine.
 
@@ -160,6 +161,7 @@ after a clean local learned-codec result, add a content-routed sparse-read basel
 - [[neural_model_lane_project_operations]]
 - [[neural_model_compression_stack]]
 - [[content_routed_sparse_read_prior]]
+- [[neural_model_related_work_pressure_matrix]]
 - [[indexed_reconstruction_compression]]
 - [[neural_model_research_test_material_plan]]
 - [[neural_model_dossier_compression]]

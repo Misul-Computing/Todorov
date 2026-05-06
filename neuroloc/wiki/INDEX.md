@@ -2,7 +2,7 @@
 
 status: current (as of 2026-05-06).
 
-update note: subq / selective sparse attention related-work boundary added as [[synthesis/content_routed_sparse_read_prior]]. the current compression lane now treats content-routed sparse read over verbatim context as a required future baseline where applicable. the immediate no-paid work remains local learned address/payload/action and decoder-generalization repair for the repaired `compression_under_bit_budget` mirror.
+update note: multi-lane related-work pressure matrix added as [[synthesis/neural_model_related_work_pressure_matrix]]. the current compression lane now treats content-routed sparse read over verbatim context as a required future baseline where applicable. the immediate no-paid work remains local learned address/payload/action and decoder-generalization repair for the repaired `compression_under_bit_budget` mirror.
 
 this is the flat reference catalog of every article in the wiki, grouped
 by topic within each top-level directory. for guided navigation, start
@@ -16,6 +16,7 @@ at [[start_here]]. for the rules that govern every article below, see
 - [[concepts/start_here]] — guided onboarding path for new readers
 - [[PROJECT_PLAN]] — single canonical master plan and session-start state
 - [[synthesis/neural_model_paper_spine]] — future paper spine and current research argument
+- [[synthesis/neural_model_related_work_pressure_matrix]] — 2026-05-06 multi-lane related-work pressure matrix and prior-art boundary
 - [[synthesis/oracle_compression_analysis_plan]] — compression-lane proof step for oracle bounds
 - [[synthesis/cellular_state_storage_gap_map]] — first biology-led lane gap map for local-state storage mechanisms
 - [[synthesis/neural_model_dossier_eligibility_gated_local_commit]] — first cellular mechanism dossier
@@ -46,9 +47,13 @@ at [[start_here]]. for the rules that govern every article below, see
 
 ## current project-state analyses (synthesis/)
 
-all 51 articles in `synthesis/` are the load-bearing project-level
-reasoning documents. one is superseded, fifty are current.
+all 52 articles in `synthesis/` are the load-bearing project-level
+reasoning documents. one is superseded, fifty-one are current.
 
+- [[synthesis/neural_model_related_work_pressure_matrix]] — the 2026-05-06
+  multi-lane related-work consolidation. records what external work already
+  covers, what translates into the neural-model program, which baselines are
+  mandatory, and what remains defensible if proved.
 - [[synthesis/content_routed_sparse_read_prior]] — the 2026 subq / selective
   sparse attention related-work boundary. validates content-dependent
   routing and functional context as load-bearing problems, but does not

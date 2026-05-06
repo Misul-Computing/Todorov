@@ -2,7 +2,7 @@ project: todorov
 canonical_plan: neuroloc/wiki/PROJECT_PLAN.md
 current_phase: neural_model_master_plan_research_phase
 current_step: compression_under_bit_budget_learned_payload_action_decoder_generalization_then_content_routed_sparse_read_baseline_no_paid_compute
-status: "2026_05_06_subq_prior_boundary_added_compression_mirror_learned_generalization_still_negative"
+status: "2026_05_06_related_work_pressure_matrix_added_compression_mirror_learned_generalization_still_negative"
 last_updated: "2026-05-06"
 tests_passing: 33
 total_tests: 33
@@ -10,6 +10,7 @@ test_collection_total: 330
 test_surface: compression_under_bit_budget_mirror_and_hard_symbolic_contract_checks
 test_status_note: "2026-04-28 focused validation passed 31 hard-symbolic and compression-mirror tests, 33 targeted compression/registry tests after rerunning the tmp_path case outside the sandbox, and the compression_mirror smoke profile through suite_runner after the source-observability contract repair. py_compile and YAML parse passed; pytest collection reports 330 tests. the repaired legal visible-source codec solves state/action/joint success at 1.0, while the learned codec still fails held-out operation preservation."
 related_work_update: "2026-05-06 subq / selective sparse attention public material recorded at neuroloc/wiki/synthesis/content_routed_sparse_read_prior.md. validates content-dependent sparse read and functional context as prior-art pressure, does not prove memory-object compression, and adds content-routed sparse read over verbatim context as a future baseline where fair. no paid compute authorized."
+related_work_pressure_matrix: "2026-05-06 six-lane literature pass consolidated at neuroloc/wiki/synthesis/neural_model_related_work_pressure_matrix.md. external work covers local state, fast weights, differentiable memory, sparse routing, task-relative compression, context compression, replay, world models, simulator gates, and oracle evaluation methods. remaining project edge is a compound proof of learned operation-preserving memory objects under exact controls. no paid compute authorized."
 critical_fix: "god_machine.py step logger hardcoded dict dropped 40+ probe metrics, fixed class-wide via merge loop and smoke-test disk round-trip guard; bcm train/eval path divergence fixed by aligning recurrent path to running_state_norm; running_state_norm now training-only mutation; 17 prosecutor findings F1-F17 all fixed"
 run_history:
   run_001: Phase 1, sequential, 2000 steps, BPB 2.235 (PASS)
