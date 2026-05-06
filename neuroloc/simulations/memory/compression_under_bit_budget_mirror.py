@@ -61,6 +61,7 @@ FORBIDDEN_INPUT_KEYS = {
 BASELINE_POLICIES = (
     "oracle_codec",
     "verbatim_store",
+    "content_routed_sparse_read",
     "compressed_oracle_store",
     "no_memory",
     "recency_only",
@@ -259,6 +260,28 @@ def learned_bits_by_field(caps: dict[str, int]) -> dict[str, int]:
         "residual": bits_for_cardinality(int(caps["track_length"])),
         "action": bits_for_cardinality(int(caps["action_count"])),
         "provenance": bits_for_cardinality(int(caps["seq_len"])),
+    }
+
+
+def sparse_read_record_bits(caps: dict[str, int]) -> int:
+    return int(
+        bits_for_cardinality(int(caps["seq_len"]))
+        + bits_for_cardinality(int(caps["n_active"]))
+        + bits_for_cardinality(int(caps["n_colors"]) + 1)
+        + bits_for_cardinality(int(caps["n_shapes"]) + 1)
+        + bits_for_cardinality(int(caps["track_length"]) + 1)
+        + 1
+        + 1
+        + 1
+    )
+
+
+def sparse_read_bits_by_field(caps: dict[str, int], selected_count: int) -> dict[str, int]:
+    selected = int(selected_count)
+    return {
+        "address": int(selected * (bits_for_cardinality(int(caps["seq_len"])) + bits_for_cardinality(int(caps["n_active"])))),
+        "schema": int(selected * (bits_for_cardinality(int(caps["n_colors"]) + 1) + bits_for_cardinality(int(caps["n_shapes"]) + 1))),
+        "residual": int(selected * (bits_for_cardinality(int(caps["track_length"]) + 1) + 3)),
     }
 
 
@@ -517,6 +540,65 @@ def visible_source_action(fields: dict[str, int], caps: dict[str, int]) -> int:
     return int((int(state["color"]) * 7 + int(state["shape"]) * 5 + (int(state["vel"]) + 3) * 3) % int(caps["action_count"]))
 
 
+def content_routed_sparse_read_result(record: dict[str, Any], caps: dict[str, int]) -> dict[str, Any]:
+    query = record["model_input"]["query"]
+    source = source_event_for_record(record)
+    source_key = (int(source["time"]), int(source["object_index"]))
+    selected = sorted(
+        record["model_input"]["observations"],
+        key=lambda event: (
+            -int(event.get("commit_marker", 0)),
+            -int(event.get("commit_next_marker", 0)),
+            -int(int(event["observed"]) == 1),
+            -int(int(event["color"]) == int(query["cue_color"]) and int(event["color"]) >= 0),
+            -int(int(event["shape"]) == int(query["cue_shape"]) and int(event["shape"]) >= 0),
+            -int(int(event["object_index"]) == int(query["commit_local_index"])),
+            abs(int(event["time"]) - int(query["commit_time"])),
+            int(event["time"]),
+            int(event["object_index"]),
+        ),
+    )[:2]
+    source_selected = any((int(event["time"]), int(event["object_index"])) == source_key for event in selected)
+    next_selected = any(int(event.get("commit_next_marker", 0)) == 1 for event in selected)
+    source_event = next((event for event in selected if int(event.get("commit_marker", 0)) == 1), None)
+    next_event = next((event for event in selected if int(event.get("commit_next_marker", 0)) == 1), None)
+    if source_event is None:
+        source_event = selected[0] if selected else source
+    velocity = 0
+    if next_event is not None and int(source_event["observed"]) == 1 and int(next_event["observed"]) == 1 and int(source_event["pos"]) >= 0 and int(next_event["pos"]) >= 0:
+        delta_time = max(1, int(next_event["time"]) - int(source_event["time"]))
+        velocity = int(round(float(int(next_event["pos"]) - int(source_event["pos"])) / float(delta_time)))
+        velocity = int(max(-int(caps["max_speed"]), min(int(caps["max_speed"]), velocity)))
+    fields = {
+        "address": int(int(source_event["color"]) * int(caps["n_shapes"]) + int(source_event["shape"])) if int(source_event["color"]) >= 0 and int(source_event["shape"]) >= 0 else -1,
+        "schema": int(velocity + int(caps["max_speed"])),
+        "residual": int(source_event["pos"]) if int(source_event["pos"]) >= 0 else -1,
+        "action": 0,
+        "provenance": int(source_event["time"]),
+    }
+    fields["action"] = visible_source_action(fields, caps)
+    result = score_code_fields(fields, record, caps, confidence=float(int(source_selected and next_selected)))
+    selected_count = int(len(selected))
+    bits = int(selected_count * sparse_read_record_bits(caps))
+    false_selected = sum(
+        1
+        for event in selected
+        if (int(event["time"]), int(event["object_index"])) != source_key and int(event.get("commit_next_marker", 0)) != 1
+    )
+    result.update(
+        {
+            "bits_committed": bits,
+            "within_budget": float(int(bits <= int(record["model_input"]["bit_budget"]["budget_bits"]))),
+            "selected_record_count": float(selected_count),
+            "source_selection_recall": float(int(source_selected)),
+            "next_source_selection_recall": float(int(next_selected)),
+            "false_source_selection_rate": float(false_selected / max(1.0, float(selected_count))),
+            "sparse_read_record_bits": float(sparse_read_record_bits(caps)),
+        }
+    )
+    return result
+
+
 def vectorize_record_with_provenance(record: dict[str, Any], caps: dict[str, int]) -> np.ndarray:
     values = list(vectorize_record(record, caps))
     event = marked_source_event(record)
@@ -656,9 +738,12 @@ def baseline_from_policy(contract: dict[str, Any], policy: str) -> dict[str, Any
     }
 
 
-def control_result(contract: dict[str, Any], policy: str, rng: np.random.Generator) -> dict[str, Any]:
+def control_result(record: dict[str, Any], policy: str, rng: np.random.Generator) -> dict[str, Any]:
+    contract = record["evaluation_contract"]
     if policy == "oracle_codec":
         return baseline_from_policy(contract, "compressed_store")
+    if policy == "content_routed_sparse_read":
+        return content_routed_sparse_read_result(record, profile_caps(str(record["model_input"]["visible_context"]["profile"])))
     if policy == "compressed_oracle_store":
         return baseline_from_policy(contract, "compressed_store")
     if policy in {"verbatim_store", "no_memory", "recency_only", "shuffled_address"}:
@@ -918,6 +1003,11 @@ def row_from_result(record: dict[str, Any], policy: str, result: dict[str, Any],
         "encoder_payload_vel_accuracy": float(result["encoder_payload_vel_accuracy"]),
         "encoder_action_accuracy": float(result["encoder_action_accuracy"]),
         "encoder_provenance_accuracy": float(result["encoder_provenance_accuracy"]),
+        "selected_record_count": float(result.get("selected_record_count", 0.0)),
+        "source_selection_recall": float(result.get("source_selection_recall", 0.0)),
+        "next_source_selection_recall": float(result.get("next_source_selection_recall", 0.0)),
+        "false_source_selection_rate": float(result.get("false_source_selection_rate", 0.0)),
+        "sparse_read_record_bits": float(result.get("sparse_read_record_bits", 0.0)),
     }
     row.update(audit)
     return row
@@ -991,7 +1081,12 @@ def evaluate_dataset(dataset: list[dict[str, Any]], profile: str, seed: int = SE
         if str(contract["family"]) != FAMILY:
             raise ValueError("evaluation contract family mismatch")
         for policy in BASELINE_POLICIES:
-            result = control_result(contract, policy, rng)
+            result = control_result(record, policy, rng)
+            committed_bits = sparse_read_bits_by_field(profile_caps(profile), int(result.get("selected_record_count", 0))) if policy == "content_routed_sparse_read" else {
+                "address": int(result["bits_committed"] // 3),
+                "schema": int(result["bits_committed"] // 3),
+                "residual": int(result["bits_committed"] - 2 * (result["bits_committed"] // 3)),
+            }
             rows.append(
                 {
                     "split": record["split"],
@@ -1013,11 +1108,7 @@ def evaluate_dataset(dataset: list[dict[str, Any]], profile: str, seed: int = SE
                     "state_probe_accuracy": float(result["state_correct"]),
                     "action_success": float(result["action_correct"]),
                     "joint_success": float(result["joint_correct"]),
-                    "committed_bits_by_field": {
-                        "address": int(result["bits_committed"] // 3),
-                        "schema": int(result["bits_committed"] // 3),
-                        "residual": int(result["bits_committed"] - 2 * (result["bits_committed"] // 3)),
-                    },
+                    "committed_bits_by_field": committed_bits,
                     "total_committed_bits": int(result["bits_committed"]),
                     "address_entropy": float(result["address_entropy"]),
                     "address_margin": float(result["address_margin"]),
@@ -1027,6 +1118,11 @@ def evaluate_dataset(dataset: list[dict[str, Any]], profile: str, seed: int = SE
                     "reconstruction_error": float(result["reconstruction_error"]),
                     "memory_output_norm": float(result["memory_output_norm"]),
                     "memory_output_vs_residual_norm": float(result["memory_output_norm"] / max(result["residual_norm"], 1e-9)),
+                    "selected_record_count": float(result.get("selected_record_count", 0.0)),
+                    "source_selection_recall": float(result.get("source_selection_recall", 0.0)),
+                    "next_source_selection_recall": float(result.get("next_source_selection_recall", 0.0)),
+                    "false_source_selection_rate": float(result.get("false_source_selection_rate", 0.0)),
+                    "sparse_read_record_bits": float(result.get("sparse_read_record_bits", 0.0)),
                 }
             )
     if learned is not None:
@@ -1093,6 +1189,8 @@ def build_summary(dataset: list[dict[str, Any]], rows: list[dict[str, Any]], pro
     verbatim_bits = mean_for(rows, "verbatim_store", "total_committed_bits", split="test")
     oracle_joint = mean_for(rows, "oracle_codec", "joint_success", split="test")
     random_joint = mean_for(rows, "random_codebook", "joint_success", split="test")
+    sparse_read_joint = mean_for(rows, "content_routed_sparse_read", "joint_success", split="test")
+    sparse_read_bits = mean_for(rows, "content_routed_sparse_read", "total_committed_bits", split="test")
     learned_joint = mean_for(rows, "learned_codec", "joint_success", split="test")
     learned_state = mean_for(rows, "learned_codec", "state_probe_accuracy", split="test")
     learned_action = mean_for(rows, "learned_codec", "action_success", split="test")
@@ -1129,6 +1227,7 @@ def build_summary(dataset: list[dict[str, Any]], rows: list[dict[str, Any]], pro
         "learned_minus_recency_only": float(learned_joint - mean_for(rows, "recency_only", "joint_success", split="test")),
         "learned_minus_shuffled_address": float(learned_joint - mean_for(rows, "shuffled_address", "joint_success", split="test")),
         "learned_minus_random_codebook": float(learned_joint - random_joint),
+        "learned_minus_content_routed_sparse_read": float(learned_joint - sparse_read_joint),
         "learned_versus_oracle_codec": float(learned_joint - oracle_joint),
     }
     control_gap_values = [
@@ -1160,6 +1259,17 @@ def build_summary(dataset: list[dict[str, Any]], rows: list[dict[str, Any]], pro
         "oracle_joint_success": float(oracle_joint),
         "compressed_oracle_joint_success": float(mean_for(rows, "compressed_oracle_store", "joint_success", split="test")),
         "verbatim_joint_success": float(mean_for(rows, "verbatim_store", "joint_success", split="test")),
+        "content_routed_sparse_read_joint_success": float(sparse_read_joint),
+        "content_routed_sparse_read_state_success": float(mean_for(rows, "content_routed_sparse_read", "state_probe_accuracy", split="test")),
+        "content_routed_sparse_read_action_success": float(mean_for(rows, "content_routed_sparse_read", "action_success", split="test")),
+        "content_routed_sparse_read_selected_record_count": float(mean_for(rows, "content_routed_sparse_read", "selected_record_count", split="test")),
+        "content_routed_sparse_read_source_selection_recall": float(mean_for(rows, "content_routed_sparse_read", "source_selection_recall", split="test")),
+        "content_routed_sparse_read_next_source_selection_recall": float(mean_for(rows, "content_routed_sparse_read", "next_source_selection_recall", split="test")),
+        "content_routed_sparse_read_false_source_selection_rate": float(mean_for(rows, "content_routed_sparse_read", "false_source_selection_rate", split="test")),
+        "content_routed_sparse_read_total_committed_bits": float(sparse_read_bits),
+        "content_routed_sparse_read_within_budget": float(mean_for(rows, "content_routed_sparse_read", "within_budget", split="test")),
+        "content_routed_sparse_read_bits_per_successful_episode": None if sparse_read_joint == 0.0 else float(sparse_read_bits / sparse_read_joint),
+        "content_routed_sparse_read_compression_ratio_vs_verbatim": float(verbatim_bits / max(sparse_read_bits, 1.0)),
         "no_memory_joint_success": float(mean_for(rows, "no_memory", "joint_success", split="test")),
         "recency_only_joint_success": float(mean_for(rows, "recency_only", "joint_success", split="test")),
         "shuffled_address_joint_success": float(mean_for(rows, "shuffled_address", "joint_success", split="test")),
@@ -1233,6 +1343,7 @@ def build_summary(dataset: list[dict[str, Any]], rows: list[dict[str, Any]], pro
         "provenance_exposed_oracle_decoder_rescue_delta": float(provenance_exposed_oracle_decoder_joint - learned_joint),
         "visible_source_codec_rescue_delta": float(visible_source_codec_joint - learned_joint),
         "source_observation_rescue_delta": float(source_observation_learned_action_joint - learned_joint),
+        "content_routed_sparse_read_rescue_delta": float(sparse_read_joint - learned_joint),
         "visible_source_state_rescue_delta": float(visible_source_joint - learned_joint),
         "oracle_action_rescue_delta": float(learned_state_oracle_action_joint - learned_joint),
         "oracle_state_rescue_delta": float(oracle_state_learned_action_joint - learned_joint),

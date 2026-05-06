@@ -16,6 +16,7 @@ from neuroloc.simulations.memory.compression_under_bit_budget_mirror import (
     build_dataset,
     build_summary,
     collect_forbidden_keys,
+    content_routed_sparse_read_result,
     evaluate_dataset,
     learned_bits_by_field,
     oracle_code_fields,
@@ -26,6 +27,7 @@ from neuroloc.simulations.memory.compression_under_bit_budget_mirror import (
     source_observation_code_fields,
     source_event_for_record,
     source_signature_for_action,
+    sparse_read_record_bits,
     vectorize_record,
 )
 from neuroloc.simulations.suite_registry import SIMULATION_SPECS, SUITES, get_suite_specs
@@ -100,6 +102,9 @@ def test_compression_mirror_controls_and_bit_accounting() -> None:
     assert summary["oracle_joint_success"] == 1.0
     assert summary["compressed_oracle_joint_success"] == 1.0
     assert summary["verbatim_joint_success"] == 1.0
+    assert summary["content_routed_sparse_read_joint_success"] == 1.0
+    assert summary["content_routed_sparse_read_source_selection_recall"] == 1.0
+    assert summary["content_routed_sparse_read_next_source_selection_recall"] == 1.0
     assert summary["no_memory_joint_success"] == 0.0
     assert summary["recency_only_joint_success"] == 0.0
     assert summary["shuffled_address_joint_success"] == 0.0
@@ -110,6 +115,8 @@ def test_compression_mirror_controls_and_bit_accounting() -> None:
     assert summary["verbatim_within_budget"] == 0.0
     assert summary["compressed_oracle_within_budget"] == 1.0
     assert summary["compression_ratio_vs_verbatim"] > 1.0
+    assert summary["content_routed_sparse_read_total_committed_bits"] > 0.0
+    assert summary["content_routed_sparse_read_compression_ratio_vs_verbatim"] > 1.0
     assert summary["paid_compute_authorized"] == 0.0
     assert summary["full_model_authorized"] == 0.0
     assert summary["blocked_authorization_violation_count"] == 0.0
@@ -136,6 +143,46 @@ def test_compression_mirror_statistics_cover_every_policy() -> None:
     assert policies == set(BASELINE_POLICIES)
     assert all("committed_bits_by_field" in row for row in rows)
     assert all("memory_output_vs_residual_norm" in row for row in rows)
+
+
+def test_compression_mirror_content_routed_sparse_read_uses_legal_observations() -> None:
+    dataset = build_dataset("smoke", seed=141, train_episodes=4, val_episodes=1, test_episodes=1)
+    caps = profile_caps("smoke")
+    row = dataset[0]
+    result = content_routed_sparse_read_result(row, caps)
+    assert result["joint_correct"] == 1.0
+    assert result["source_selection_recall"] == 1.0
+    assert result["next_source_selection_recall"] == 1.0
+    assert result["selected_record_count"] == 2.0
+    assert result["bits_committed"] == 2 * sparse_read_record_bits(caps)
+    assert result["bits_committed"] < row["labels"]["verbatim_bits"]
+    original = dict(result["compact_code_fields"])
+    row["labels"]["state"]["pos"] = (int(row["labels"]["state"]["pos"]) + 1) % caps["track_length"]
+    assert content_routed_sparse_read_result(row, caps)["compact_code_fields"] == original
+    source_time = int(row["evaluation_contract"]["memory_relevant_positions"][0]["time"])
+    for event in row["model_input"]["observations"]:
+        if int(event["time"]) == source_time and int(event.get("commit_marker", 0)) == 1:
+            event["pos"] = (int(event["pos"]) + 1) % caps["track_length"]
+            break
+    assert content_routed_sparse_read_result(row, caps)["compact_code_fields"]["residual"] != original["residual"]
+
+
+def test_compression_mirror_content_routed_sparse_read_is_first_class_baseline() -> None:
+    dataset = build_dataset("smoke", seed=142, train_episodes=4, val_episodes=2, test_episodes=4)
+    rows = evaluate_dataset(dataset, "smoke", seed=142)
+    summary = build_summary(dataset, rows)
+    sparse_rows = [row for row in rows if row["policy"] == "content_routed_sparse_read"]
+    assert "content_routed_sparse_read" in BASELINE_POLICIES
+    assert sparse_rows
+    assert all(row["policy_is_diagnostic_control"] == 0.0 for row in sparse_rows)
+    assert all(row["policy_is_learned_result"] == 0.0 for row in sparse_rows)
+    assert all(row["selected_record_count"] == 2.0 for row in sparse_rows)
+    assert summary["content_routed_sparse_read_joint_success"] == 1.0
+    assert summary["content_routed_sparse_read_state_success"] == 1.0
+    assert summary["content_routed_sparse_read_action_success"] == 1.0
+    assert summary["content_routed_sparse_read_within_budget"] == 0.0
+    assert summary["content_routed_sparse_read_rescue_delta"] == 1.0
+    assert summary["learned_minus_content_routed_sparse_read"] == -1.0
 
 
 def test_compression_mirror_learned_codec_emits_trainable_rows() -> None:

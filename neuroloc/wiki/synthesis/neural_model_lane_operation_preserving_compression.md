@@ -1,6 +1,6 @@
 # neural model lane: operation-preserving compression
 
-status: current (as of 2026-05-06).
+status: current (as of 2026-05-07).
 
 ## thesis
 
@@ -29,7 +29,7 @@ the useful claim is conditional: an operation-preserving compression stack may b
 - [[oracle_compression_frontier_split]] separates accepted frontier families from weak frontier families and ranks the next narrow learned-codec proof-package candidates.
 - [[neural_model_dossier_compression_under_bit_budget_codec]] defines the first narrow learned-codec proof package before implementation.
 - [[neural_model_tiny_mirror_contract_compression_under_bit_budget]] defines the local implementation contract for the first tiny learned-codec mirror.
-- [[tests/compression_under_bit_budget_mirror]] documents the first local dataset, guard, baseline, learned-codec, source-diagnostic, bit-accounting, and telemetry surface for that mirror. the source-observability contract is repaired, the visible-source codec solves the smoke task, and the learned-codec smoke result remains negative on held-out splits because address, payload color, payload position, velocity, action, and learned decoder generalization still fail.
+- [[tests/compression_under_bit_budget_mirror]] documents the first local dataset, guard, baseline, learned-codec, source-diagnostic, bit-accounting, sparse-read, and telemetry surface for that mirror. the source-observability contract is repaired, the visible-source codec solves the smoke task, content-routed sparse read also solves it from two legal observation records at 40 committed bits, and the learned-codec smoke result remains negative because it does not beat sparse read on held-out operation success.
 - [[content_routed_sparse_read_prior]] records the 2026 subq / selective sparse attention prior-art boundary. it validates content-dependent routing and functional context as load-bearing problems, but it does not prove memory-object compression, replay compression, imagined-branch compression, or local-neuron storage. it adds a required baseline family for future compression claims.
 - [[neural_model_related_work_pressure_matrix]] consolidates the six-lane prior-art pass and sharpens the operation-preserving compression boundary: task-relative compression, latent/context compression, vector/cache compression, and schema/provenance engineering are all prior-art-covered pieces; the remaining project edge is a learned memory-object code that preserves operations under exact controls.
 - [[indexed_reconstruction_compression]] defines compact handles, schema or residual codes, provenance, and reconstruction.
@@ -63,13 +63,13 @@ the useful claim is conditional: an operation-preserving compression stack may b
 
 the first oracle compression analysis and frontier split are implemented. useful compression is not uniform across the symbolic surfaces. hard-profile controls are clean and leakage-free, but direct associative recall, correlated-key interference, delayed relevance local commit, bounded output exposure, crossed commit/exposure split, and commit compression frontier remain weak under the current 10x threshold. the first learned-codec mirror for `compression_under_bit_budget` fails held-out operation preservation. the source-observability contract is now clean: source event observed rate, required fields visible rate, source state reconstructable rate, and visible-source-codec joint success are all 1.0. remaining failure is learned address, payload color, payload position, velocity, action, and decoder generalization.
 
-the subq prior-art update does not change that result. it tightens the next comparison standard: future compression wins must beat or complement a content-routed sparse-read baseline where that baseline is fair.
+the subq prior-art update does not change that result. it tightened the comparison standard, and the first implemented sparse-read baseline now shows why: the repaired `compression_under_bit_budget` smoke task can be solved by selecting two legal raw records. this baseline commits 40 bits and is outside the compact-code budget, so it does not kill the compact-code goal, but it does demote the current mirror from "compression evidence" to "source selection plus budget pressure" until the learned code beats or complements sparse read.
 
 ## next action
 
-repair the local learned address/payload/action and decoder-generalization path documented in [[tests/compression_under_bit_budget_mirror]] before any global mirror, full model path, or paid compute. do not treat the visible-source diagnostic as a learned-compression result.
+repair the local learned address/payload/action and decoder-generalization path documented in [[tests/compression_under_bit_budget_mirror]] against the content-routed sparse-read baseline before any global mirror, full model path, or paid compute. do not treat the visible-source diagnostic or sparse-read success as a learned-compression result.
 
-after a clean local learned result, add the content-routed sparse-read baseline to the relevant symbolic/mirror surfaces before expanding the claim.
+after a clean local learned result, compare useful bits per successful episode directly against sparse read and demote the proof package if the learned code cannot win under that accounting.
 
 ## see also
 

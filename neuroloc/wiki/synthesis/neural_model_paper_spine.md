@@ -1,6 +1,6 @@
 # neural model paper spine
 
-status: current (as of 2026-05-06).
+status: current (as of 2026-05-07).
 
 ## master-plan role
 
@@ -34,7 +34,7 @@ proof state: canonical project framing, not a scientific result.
 
 the compression target is not tensor reconstruction. for each memory surface, define the operations that must remain correct, then minimize committed bits under those operations. source: [[neural_model_compression_stack]] and [[indexed_reconstruction_compression]].
 
-proof state: partially bounded and not learned. the first oracle compression result and frontier split exist, but they are mixed across families. the first learned codec for `compression_under_bit_budget` fails held-out operation preservation, so the operation-preserving compression stack remains unproved.
+proof state: partially bounded and not learned. the first oracle compression result and frontier split exist, but they are mixed across families. the first learned codec for `compression_under_bit_budget` fails held-out operation preservation, and the first content-routed sparse-read baseline solves the repaired smoke task from two legal raw records while exceeding the compact-code budget. the operation-preserving compression stack remains unproved.
 
 2026-05-06 related-work boundary: subquadratic's public subq / selective sparse attention material strengthens the prior-art baseline for content-dependent sparse reads over long context. this validates routing and functional-context concerns, but it also means any strong compression claim must beat or complement content-routed sparse read over verbatim context where that baseline is well-defined. the broader multi-lane pressure matrix also shows that local state, differentiable memory, sparse routing, semantic compression, replay, world models, and oracle-style evaluations are all prior-art-covered pieces. source: [[content_routed_sparse_read_prior]] and [[neural_model_related_work_pressure_matrix]].
 
@@ -48,7 +48,7 @@ proof state: partially bounded. the first cellular mechanism dossier is [[neural
 
 after oracle bounds exist, a tiny trainable neural-model mirror must learn at least one non-oracle codec above no-memory, recency-only, shuffled-address, and verbatim-storage controls before any full model integration. source: [[neural_model_research_test_material_plan]].
 
-proof state: locally trained and diagnostically localized, but failed on held-out smoke. the first family-specific proof package is [[neural_model_dossier_compression_under_bit_budget_codec]], the first implementation contract is [[neural_model_tiny_mirror_contract_compression_under_bit_budget]], and the local dataset/baseline/learned-codec/source-diagnostic surface is [[tests/compression_under_bit_budget_mirror]]. the source-observability contract is now repaired: the legal visible-source codec reaches 1.0 joint/state/action success on the smoke suite. the first learned codec still memorizes train split at joint success 1.0 but scores 0.0 on validation and test. diagnostics now localize failure to learned position, velocity, action, provenance, and learned decoder generalization. this is a negative trainability-localization result rather than a paper claim.
+proof state: locally trained and diagnostically localized, but failed on held-out smoke. the first family-specific proof package is [[neural_model_dossier_compression_under_bit_budget_codec]], the first implementation contract is [[neural_model_tiny_mirror_contract_compression_under_bit_budget]], and the local dataset/baseline/learned-codec/source-diagnostic surface is [[tests/compression_under_bit_budget_mirror]]. the source-observability contract is now repaired: the legal visible-source codec reaches 1.0 joint/state/action success on the smoke suite. the content-routed sparse-read baseline also reaches 1.0 by selecting two legal observation records, committing 40 bits, and compressing verbatim storage by 1.3x, but it is outside the compact-code budget. the first learned codec still memorizes train split at joint success 1.0 and remains below sparse read on held-out records. this is a negative trainability-localization result and a stronger baseline result, not a paper claim.
 
 ## missing proof obligations
 
@@ -102,7 +102,7 @@ load-bearing pages: [[oracle_compression_analysis_plan]], [[tests/hard_symbolic_
 
 ### experiments
 
-the first executable model experiment is not a full model run. the cellular/local-state gap map, first cellular mechanism dossier, symbolic/oracle contract implementation, first oracle compression analysis, frontier split, `compression_under_bit_budget` proof package, tiny mirror contract, local mirror baseline surface, first negative learned-codec smoke result, source-diagnostic pass, and source-observability repair come first. because the first learned codec still overfits train split after the source repair, the next model experiment is not a paid run or full integration. first repair the local learned address/payload/action and decoder-generalization path, then rerun the local controls. full integration and paid compute remain blocked.
+the first executable model experiment is not a full model run. the cellular/local-state gap map, first cellular mechanism dossier, symbolic/oracle contract implementation, first oracle compression analysis, frontier split, `compression_under_bit_budget` proof package, tiny mirror contract, local mirror baseline surface, first negative learned-codec smoke result, source-diagnostic pass, source-observability repair, and content-routed sparse-read baseline come first. because the first learned codec still overfits train split and does not beat sparse read after the source repair, the next model experiment is not a paid run or full integration. first repair the local learned address/payload/action and decoder-generalization path against the sparse-read baseline, then rerun the local controls. full integration and paid compute remain blocked.
 
 load-bearing pages: [[oracle_compression_analysis_plan]], [[phase1_evaluation_surface_for_neural_models]], [[synthetic_shared_world_bridge]].
 
@@ -130,6 +130,7 @@ load-bearing pages: [[oracle_compression_analysis_plan]], [[synthetic_shared_wor
 - no evidence yet shows a swappable codec interface working across memory levels.
 - no related-work section has fully separated prior art from the conditional new claim.
 - content-routed sparse read is now a required prior-art baseline where a verbatim memory field exists.
+- the first implemented content-routed sparse-read baseline solves the repaired `compression_under_bit_budget` smoke task, so the learned codec must beat or complement it under useful-bit accounting before this family supports a compression claim.
 - the related-work pressure matrix exists, but its requirements have not yet been implemented into every symbolic/mirror family.
 - the first candidate proof package for `compression_under_bit_budget` has produced a repaired source-observability result and a negative learned result: legal visible-source extraction solves the task, but learned address, payload color, payload position, velocity, action, and learned decoder generalization still fail. the next obligation is local learned-codec repair or proof-package demotion rather than claim expansion.
 - no paid compute is authorised by this paper spine.
@@ -138,9 +139,9 @@ load-bearing pages: [[oracle_compression_analysis_plan]], [[synthetic_shared_wor
 
 the first biology-led lane gap map is [[cellular_state_storage_gap_map]], the first cellular mechanism dossier is [[neural_model_dossier_eligibility_gated_local_commit]], the first mechanism-specific symbolic contract is [[neural_model_symbolic_contract_eligibility_gated_local_commit]], the first oracle compression result is [[tests/oracle_compression_analysis_results]], the frontier split is [[oracle_compression_frontier_split]], the first narrow learned-codec proof package is [[neural_model_dossier_compression_under_bit_budget_codec]], the tiny mirror contract is [[neural_model_tiny_mirror_contract_compression_under_bit_budget]], and the first local mirror surface is [[tests/compression_under_bit_budget_mirror]].
 
-next, repair the learned-codec failure inside the repaired `compression_under_bit_budget` local mirror. source state and action target are now legally inferable from the non-oracle input path, so the next localization target is learned address, payload color, payload position, velocity, action, and decoder generalization. if the repaired local mirror still needs oracle payload or oracle decoder exposure to pass, revise or demote the symbolic contract before any model path.
+next, repair the learned-codec failure inside the repaired `compression_under_bit_budget` local mirror against the implemented content-routed sparse-read baseline. source state and action target are now legally inferable from the non-oracle input path, and sparse read can solve the task from two selected records, so the next localization target is learned address, payload color, payload position, velocity, action, decoder generalization, and useful bits per successful episode. if the repaired local mirror still needs oracle payload or oracle decoder exposure to pass, or cannot beat sparse read under useful-bit accounting, revise or demote the symbolic contract before any model path.
 
-after a clean local learned-codec result, add a content-routed sparse-read baseline for the relevant symbolic/mirror families before expanding the compression claim. this comparison is required by the 2026-05-06 subq related-work update and does not authorize paid compute.
+after a clean local learned-codec result, extend the same sparse-read comparison to the other relevant symbolic/mirror families before expanding the compression claim. this comparison is required by the 2026-05-06 subq related-work update and does not authorize paid compute.
 
 ## see also
 

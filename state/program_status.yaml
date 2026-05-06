@@ -1,14 +1,14 @@
 project: todorov
 canonical_plan: neuroloc/wiki/PROJECT_PLAN.md
 current_phase: neural_model_master_plan_research_phase
-current_step: compression_under_bit_budget_learned_payload_action_decoder_generalization_then_content_routed_sparse_read_baseline_no_paid_compute
-status: "2026_05_06_related_work_pressure_matrix_added_compression_mirror_learned_generalization_still_negative"
-last_updated: "2026-05-06"
-tests_passing: 33
-total_tests: 33
-test_collection_total: 330
+current_step: compression_under_bit_budget_learned_payload_action_decoder_generalization_against_content_routed_sparse_read_no_paid_compute
+status: "2026_05_07_content_routed_sparse_read_baseline_added_compression_mirror_learned_result_still_negative"
+last_updated: "2026-05-07"
+tests_passing: 34
+total_tests: 34
+test_collection_total: 332
 test_surface: compression_under_bit_budget_mirror_and_hard_symbolic_contract_checks
-test_status_note: "2026-04-28 focused validation passed 31 hard-symbolic and compression-mirror tests, 33 targeted compression/registry tests after rerunning the tmp_path case outside the sandbox, and the compression_mirror smoke profile through suite_runner after the source-observability contract repair. py_compile and YAML parse passed; pytest collection reports 330 tests. the repaired legal visible-source codec solves state/action/joint success at 1.0, while the learned codec still fails held-out operation preservation."
+test_status_note: "2026-05-07 focused validation passed 22 compression-mirror tests and 34 targeted compression/registry/hard-symbolic tests after adding the content-routed sparse-read baseline. pytest collection reports 332 tests. the sparse-read baseline solves state/action/joint success at 1.0 by selecting two legal observation records, but it commits 40 bits and is not within the compact-code budget. the learned codec still fails the engineering and paper-track gates."
 related_work_update: "2026-05-06 subq / selective sparse attention public material recorded at neuroloc/wiki/synthesis/content_routed_sparse_read_prior.md. validates content-dependent sparse read and functional context as prior-art pressure, does not prove memory-object compression, and adds content-routed sparse read over verbatim context as a future baseline where fair. no paid compute authorized."
 related_work_pressure_matrix: "2026-05-06 six-lane literature pass consolidated at neuroloc/wiki/synthesis/neural_model_related_work_pressure_matrix.md. external work covers local state, fast weights, differentiable memory, sparse routing, task-relative compression, context compression, replay, world models, simulator gates, and oracle evaluation methods. remaining project edge is a compound proof of learned operation-preserving memory objects under exact controls. no paid compute authorized."
 critical_fix: "god_machine.py step logger hardcoded dict dropped 40+ probe metrics, fixed class-wide via merge loop and smoke-test disk round-trip guard; bcm train/eval path divergence fixed by aligning recurrent path to running_state_norm; running_state_norm now training-only mutation; 17 prosecutor findings F1-F17 all fixed"
@@ -108,22 +108,32 @@ compression_under_bit_budget_tiny_mirror_contract:
   paid_compute_authorized: false
 compression_under_bit_budget_mirror_surface:
   phase: neural_model_master_plan_research_phase
-  description: "first local code surface, first learned-codec smoke result, source-diagnostic result, and repaired source-observability contract for the accepted compression_under_bit_budget family. implements deterministic split generation, forbidden-input guards, baseline controls, diagnostic-only hybrid controls, source-availability and action-ambiguity probes, a legal visible-source codec, a trainable field codec, suite-registry wiring, explicit bit accounting, and telemetry artifacts. the learned result remains negative on held-out splits and now localizes to learned address/payload/action and learned-decoder generalization failures rather than illegal source input."
+  description: "first local code surface, first learned-codec smoke result, source-diagnostic result, repaired source-observability contract, and content-routed sparse-read baseline for the accepted compression_under_bit_budget family. implements deterministic split generation, forbidden-input guards, baseline controls, diagnostic-only hybrid controls, source-availability and action-ambiguity probes, a legal visible-source codec, a legal sparse-read selector, a trainable field codec, suite-registry wiring, explicit bit accounting, and telemetry artifacts. the learned result remains negative against sparse read and now localizes to learned address/payload/action and learned-decoder generalization failures rather than illegal source input."
   family: compression_under_bit_budget
   script: neuroloc/simulations/memory/compression_under_bit_budget_mirror.py
   tests: tests/test_compression_under_bit_budget_mirror.py
   result_card: neuroloc/wiki/tests/compression_under_bit_budget_mirror.md
   suite: compression_mirror
-  focused_tests_passing: 31
+  focused_tests_passing: 34
   suite_smoke_passed: true
-  test_collection_total: 330
-  policy_count: 23
+  test_collection_total: 332
+  policy_count: 24
   dataset_record_count: 24
   learned_result_count: 24
   diagnostic_result_count: 264
   forbidden_input_violation_count: 0
   future_observation_violation_count: 0
   oracle_joint_success: 1.0
+  content_routed_sparse_read_joint_success: 1.0
+  content_routed_sparse_read_state_success: 1.0
+  content_routed_sparse_read_action_success: 1.0
+  content_routed_sparse_read_selected_record_count: 2.0
+  content_routed_sparse_read_source_selection_recall: 1.0
+  content_routed_sparse_read_next_source_selection_recall: 1.0
+  content_routed_sparse_read_false_source_selection_rate: 0.0
+  content_routed_sparse_read_total_committed_bits: 40.0
+  content_routed_sparse_read_within_budget: 0.0
+  content_routed_sparse_read_compression_ratio_vs_verbatim: 1.3
   no_memory_joint_success: 0.0
   recency_only_joint_success: 0.0
   shuffled_address_joint_success: 0.0
@@ -131,17 +141,17 @@ compression_under_bit_budget_mirror_surface:
   compressed_oracle_within_budget: 1.0
   learned_codec_train_joint_success: 1.0
   learned_codec_validation_joint_success: 0.0
-  learned_codec_test_joint_success: 0.0
-  learned_codec_test_state_probe_accuracy: 0.0
-  learned_codec_test_action_success: 0.0
-  learned_codec_encoder_address_accuracy: 0.25
-  learned_codec_encoder_payload_accuracy: 0.0
-  learned_codec_encoder_payload_color_accuracy: 0.25
-  learned_codec_encoder_payload_shape_accuracy: 1.0
-  learned_codec_encoder_payload_pos_accuracy: 0.25
-  learned_codec_encoder_payload_vel_accuracy: 0.0
-  learned_codec_encoder_action_accuracy: 0.0
-  learned_codec_encoder_provenance_accuracy: 1.0
+  learned_codec_test_joint_success: 0.125
+  learned_codec_test_state_probe_accuracy: 0.125
+  learned_codec_test_action_success: 0.625
+  learned_codec_encoder_address_accuracy: 0.875
+  learned_codec_encoder_payload_accuracy: 0.125
+  learned_codec_encoder_payload_color_accuracy: 0.9375
+  learned_codec_encoder_payload_shape_accuracy: 0.9375
+  learned_codec_encoder_payload_pos_accuracy: 0.4375
+  learned_codec_encoder_payload_vel_accuracy: 0.4375
+  learned_codec_encoder_action_accuracy: 0.375
+  learned_codec_encoder_provenance_accuracy: 0.9375
   source_event_observed_rate: 1.0
   source_required_fields_visible_rate: 1.0
   source_state_reconstructable_rate: 1.0
@@ -151,18 +161,18 @@ compression_under_bit_budget_mirror_surface:
   visible_source_codec_action_success: 1.0
   visible_source_state_oracle_action_oracle_decoder_joint_success: 1.0
   visible_source_state_oracle_action_oracle_decoder_state_success: 1.0
-  learned_codec_bits_per_success_defined: 0.0
-  learned_codec_bits_committed_per_successful_episode: null
+  learned_codec_bits_per_success_defined: 1.0
+  learned_codec_bits_committed_per_successful_episode: 152.0
   learned_codec_compression_ratio_vs_verbatim: 2.74
-  learned_code_oracle_decoder_joint_success: 0.0
+  learned_code_oracle_decoder_joint_success: 0.125
   oracle_code_learned_decoder_joint_success: 0.0
   oracle_code_learned_decoder_train_joint_success: 1.0
   oracle_code_learned_decoder_validation_joint_success: 0.0
   oracle_code_learned_decoder_test_joint_success: 0.0
   oracle_code_learned_decoder_train_test_joint_gap: 1.0
   learned_address_oracle_payload_joint_success: 0.25
-  oracle_address_learned_payload_joint_success: 0.0
-  provenance_exposed_learned_codec_joint_success: 0.0
+  oracle_address_learned_payload_joint_success: 0.125
+  provenance_exposed_learned_codec_joint_success: 0.125
   provenance_exposed_oracle_decoder_joint_success: 0.0
   learned_state_oracle_action_oracle_decoder_joint_success: 0.0
   oracle_state_learned_action_oracle_decoder_joint_success: 0.0
@@ -170,12 +180,14 @@ compression_under_bit_budget_mirror_surface:
   learned_action_only_failure_rate: 1.0
   oracle_address_payload_rescue_delta: 0.25
   visible_source_codec_rescue_delta: 1.0
+  learned_minus_content_routed_sparse_read: -0.875
+  content_routed_sparse_read_rescue_delta: 0.875
   diagnostic_oracle_input_used: true
   learned_codec_engineering_pass: 0.0
   learned_codec_paper_track_pass: 0.0
   learned_codec_kill_condition_count: 1
   blocked_authorization_violation_count: 0
-  next_code_target: repair_local_learned_address_payload_action_decoder_generalization_for_repaired_compression_contract
+  next_code_target: repair_local_learned_address_payload_action_decoder_generalization_against_content_routed_sparse_read_or_demote_proof_package
   local_mirror_code_authorized: true
   full_model_authorized: false
   paid_compute_authorized: false
@@ -243,4 +255,4 @@ latest_run_results:
   git_sha: f27b81c
   config_hash: 4e3f02be249cc069
   run_card: neuroloc/wiki/tests/run3_cognition_phase1_results.md
-next_action: "chapter 1 remains review-ready in pdf_curriculum/chapters/ch_01_what_a_number_means/ after the 2026-04-23 math correction pass; chapter 2 remains outline-only awaiting approval in pdf_curriculum/chapters/ch_02_how_things_change/ch_02_outline.md. the oracle compression frontier split, first family-specific learned-codec proof package, tiny local mirror contract, local baseline/guard surface, first negative learned-codec smoke result, source-diagnostic result, and repaired source-observability contract are implemented. the approved neural-model work should next repair local learned address/payload/action and decoder generalization for the repaired compression_under_bit_budget mirror, while preserving forbidden-input guards, deterministic baselines, explicit bit accounting, telemetry artifacts, and focused tests. simulator selection is a research gate, not a decision already made. no full model integration, intervention preset, kaggle, h200, pod, or paid run is authorised."
+next_action: "chapter 1 remains review-ready in pdf_curriculum/chapters/ch_01_what_a_number_means/ after the 2026-04-23 math correction pass; chapter 2 remains outline-only awaiting approval in pdf_curriculum/chapters/ch_02_how_things_change/ch_02_outline.md. the oracle compression frontier split, first family-specific learned-codec proof package, tiny local mirror contract, local baseline/guard surface, first negative learned-codec smoke result, source-diagnostic result, repaired source-observability contract, and content-routed sparse-read baseline are implemented. sparse read solves the repaired compression_under_bit_budget mirror from two legal observation records at 1.0 joint success but commits 40 bits and is not within the compact-code budget; the learned codec remains below it. the approved neural-model work should next repair local learned address/payload/action and decoder generalization against this sparse-read baseline, or demote/revise the proof package if learned compression cannot beat shallow legal sparse read under useful-bit accounting. simulator selection is a research gate, not a decision already made. no full model integration, intervention preset, kaggle, h200, pod, or paid run is authorised."

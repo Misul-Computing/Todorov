@@ -1,6 +1,6 @@
 # neural model related-work pressure matrix
 
-status: current (as of 2026-05-06).
+status: current (as of 2026-05-07).
 
 ## role
 
@@ -34,9 +34,9 @@ that is the narrow paper edge. it is conditional. it remains unproved.
 
 the project should not argue from novelty by component. nearly every component has prior art. the claim must be compound and proof-gated.
 
-the next local code target does not change: repair learned address, payload, velocity, action, and decoder generalization for the repaired `compression_under_bit_budget` mirror.
+the next local code target is now sharpened by the implemented sparse-read baseline: repair learned address, payload, velocity, action, and decoder generalization for the repaired `compression_under_bit_budget` mirror against content-routed sparse read, or demote the proof package if the learned compact code cannot beat shallow legal sparse read under useful-bit accounting.
 
-the next research standard does change. once a local learned result is clean, the next baseline layer must include content-routed sparse read over verbatim records where a fair verbatim memory field exists.
+the next research standard has changed in code as well as prose. the first content-routed sparse-read baseline over verbatim records is now implemented for `compression_under_bit_budget`; it solves the repaired smoke task from two legal records but exceeds the compact-code budget.
 
 the simulator lane remains a selection gate. do not choose a simulator yet. run a small exact-state contract spike across candidate simulators before promoting one.
 
@@ -357,8 +357,8 @@ related sources include:
 
 ## immediate next steps
 
-1. finish the current local learned-codec repair for `compression_under_bit_budget`.
-2. add a content-routed sparse-read baseline only after the local learned result is clean or after the proof package is demoted.
+1. finish the current local learned-codec repair for `compression_under_bit_budget` against the implemented content-routed sparse-read baseline, or demote the proof package if the learned compact code cannot beat it under useful-bit accounting.
+2. extend the sparse-read baseline to other relevant symbolic/mirror families only after the local proof-package decision is clear.
 3. add the oracle ladder and fieldwise failure-localization tree to every future mirror result.
 4. define the tagged eligibility buffer with sparse consolidation as the next cellular/local-state proof package candidate, not as model code.
 5. prepare a simulator-selection contract page before touching simulator implementation.

@@ -1,8 +1,8 @@
 # neuroloc index
 
-status: current (as of 2026-05-06).
+status: current (as of 2026-05-07).
 
-update note: multi-lane related-work pressure matrix added as [[synthesis/neural_model_related_work_pressure_matrix]]. the current compression lane now treats content-routed sparse read over verbatim context as a required future baseline where applicable. the immediate no-paid work remains local learned address/payload/action and decoder-generalization repair for the repaired `compression_under_bit_budget` mirror.
+update note: content-routed sparse-read baseline added to [[tests/compression_under_bit_budget_mirror]]. sparse read solves the repaired smoke task from two legal records but exceeds the compact-code budget, so the immediate no-paid work is learned address/payload/action and decoder-generalization repair against that baseline or proof-package demotion.
 
 this is the flat reference catalog of every article in the wiki, grouped
 by topic within each top-level directory. for guided navigation, start
