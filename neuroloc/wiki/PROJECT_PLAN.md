@@ -1,10 +1,10 @@
 # project_plan
 
-status: current (as of 2026-05-02).
+status: current (as of 2026-05-06).
 
 this file is the canonical, persistent project state. any agent picking up the project starts here. updating this file is a hard rule with prosecutor enforcement (see `CLAUDE.md` and the rule section at the bottom of this file).
 
-last updated: 2026-05-02 (linux migration handoff added at `docs/linux_handoff_2026-05-02.md` as an operational supplement, not a competing plan. the scientific state is unchanged from the 2026-04-28 repaired `compression_under_bit_budget` source-observability result: source event observed rate, required source fields visible rate, source state reconstructable rate, visible-source-codec state success, visible-source-codec action success, and visible-source-codec joint success are all 1.0; the learned codec still overfits train split at 1.0 joint success and scores 0.0 validation and 0.0 test joint success, with measured compact-code ratio about 2.74x. the next no-paid target remains learned address/payload/action and decoder generalization for the local mirror. no paid compute, full-model integration, simulator choice, or architecture preset change is authorised.)
+last updated: 2026-05-06 (subq / selective sparse attention prior-art boundary added at `wiki/synthesis/content_routed_sparse_read_prior.md`. it validates content-dependent sparse reads and functional context as load-bearing long-memory problems, but it does not prove memory-object compression, replay compression, imagined-branch compression, local-neuron storage, or any paid neural-model preset. the next no-paid target remains learned address/payload/action and decoder generalization for the repaired `compression_under_bit_budget` local mirror; after a clean learned result, relevant compression claims must compare against a content-routed sparse-read baseline over verbatim context. no paid compute, full-model integration, simulator choice, or architecture preset change is authorised.)
 
 ## master plan: neural model program (2026-04-26)
 
@@ -75,6 +75,12 @@ do not choose a simulator yet. candidate simulators must be evaluated for custom
 
 paid compute remains blocked until broad lane research, mechanism dossiers, dossier-driven test material, oracle compression bounds where relevant, a tiny trainable mirror, cpu controls, telemetry, prosecutor-clean docs, and one explicitly selected hypothesis exist. paid compute is validation after proof gates, not exploration.
 
+### related-work boundary: content-routed sparse reads
+
+the 2026 subq / selective sparse attention public material is now recorded in [[content_routed_sparse_read_prior]]. it validates the project's insistence that long memory depends on content-dependent routing and functional context, and it lets the project demote fixed position-only sparse patterns to controls for arbitrary-position memory. it does not validate the project's stronger memory-object compression claim.
+
+future compression claims must beat or complement a content-routed sparse-read baseline over verbatim context wherever that baseline is fair. this is a stricter comparison standard, not a new paid-compute path.
+
 ## teaching curriculum package (2026-04-17; preserved after 2026-04-23)
 
 **the teaching PDF curriculum remains preserved and reviewable** in the plan file at `~/.claude/plans/compressed-dancing-haven.md`. after the 2026-04-26 master-plan decision, the current scientific planning lane is the neural-model master-plan research phase, not immediate curriculum production and not architecture execution. paid compute is paused indefinitely. the architectural-intervention track (A-E candidates in `wiki/synthesis/substrate_requires_architectural_change.md`) remains in the research backlog but is NOT the active workstream — it becomes active again only after lane research, dossier-driven test material, oracle compression bounds where relevant, cpu controls, and a selected intervention exist. any agent picking up this project reads this file as the current state before treating older curriculum or architecture plans as active.
@@ -101,7 +107,7 @@ the curriculum specifies 36 chapters across 6 phases that teach a reader from ne
 
 **current obstacle** (2026-04-17): six paid runs at 0% passkey across two substrates, two retention regimes, and two corpora. cpu gates A and B verify the slot mechanism retrieves in isolation. sgd on the training pipeline never opens the output gate (mean gate at sigmoid(-4)≈0.018 through run2_slot_memory_retention_fixed, same regime suspected of run3 absent telemetry). the substrate does not fail for any reason that can be fixed by varying the corpus alone or the hyperparameters of the current initialisation alone.
 
-**immediate next action** (2026-04-28): no paid run is authorised. chapter 1 (`pdf_curriculum/chapters/ch_01_what_a_number_means/`) remains review-ready after the math correction pass, and chapter 2 remains outline-only pending approval. the approved no-paid-compute neural-model work should next repair the local learned-codec generalization path for the repaired `compression_under_bit_budget` mirror: address, payload color, payload position, velocity, action, and decoder generalization must be localized under the existing forbidden-input guards, deterministic baselines, explicit bit accounting, telemetry artifacts, and focused tests. do not write full model code, touch paid presets, h200, kaggle, pod, simulator implementation, or global mirror training until the local learned mirror has a clean engineering result or the proof package is revised downward.
+**immediate next action** (2026-05-06): no paid run is authorised. chapter 1 (`pdf_curriculum/chapters/ch_01_what_a_number_means/`) remains review-ready after the math correction pass, and chapter 2 remains outline-only pending approval. the approved no-paid-compute neural-model work should next repair the local learned-codec generalization path for the repaired `compression_under_bit_budget` mirror: address, payload color, payload position, velocity, action, and decoder generalization must be localized under the existing forbidden-input guards, deterministic baselines, explicit bit accounting, telemetry artifacts, and focused tests. after that local learned result is clean, add a content-routed sparse-read baseline where the family has a fair verbatim memory field. do not write full model code, touch paid presets, h200, kaggle, pod, simulator implementation, or global mirror training until the local learned mirror has a clean engineering result or the proof package is revised downward.
 
 ## hypothesis under test
 
@@ -365,6 +371,7 @@ every entry below is an append-only record of a change to this file. format: `da
 - **2026-04-27** — deyan todorov — source-availability and decoder-generalization diagnostics added to the `compression_under_bit_budget` mirror. the smoke suite now exposes 22 policies and 240 diagnostic rows over 24 records. the result is a sharper negative: source event observed rate 0.25, required source fields visible rate 0.0, source state reconstructable rate 0.0, visible-source-state/oracle-action/oracle-decoder joint success 0.0, and oracle-code/learned-decoder train 1.0 but validation/test 0.0. validation passed 19 focused tests, 21 targeted compression/registry tests, the compression-mirror smoke suite, py_compile, yaml parse, and repository collection now reports 328 tests. next action is to repair the family/mirror source-observability contract before another codec is trained.
 - **2026-04-28** — deyan todorov — repaired the `compression_under_bit_budget` source-observability contract and mirror diagnostics. the symbolic family now exposes the committed source event plus adjacent velocity evidence before query time, and the action target is a function of visible source state rather than hidden identity. the smoke suite now exposes 23 policies and 264 diagnostic rows over 24 records. source event observed rate, required source fields visible rate, source state reconstructable rate, visible-source-codec joint success, and visible-source-state/oracle-action/oracle-decoder joint success are all 1.0. the learned codec still scores train joint success 1.0 but validation/test joint success 0.0; latest learned smoke metrics are address 0.25, color 0.25, shape 1.0, position 0.25, velocity 0.0, action 0.0, and provenance 1.0. the next no-paid target is learned address/payload/action and decoder generalization, not paid compute or full-model work.
 - **2026-05-02** — deyan todorov — linux migration handoff added at `docs/linux_handoff_2026-05-02.md` as an operational supplement. this records the transfer state, validation commands, user preferences, mistake history, current compression-mirror metrics, and next local no-paid work for the linux continuation environment without changing the canonical scientific question.
+- **2026-05-06** — deyan todorov — subq / selective sparse attention related-work boundary added. [[content_routed_sparse_read_prior]] records what the public subq material validates for the project, what it does not prove, and why future compression claims must compare against content-routed sparse read over verbatim context where that baseline is fair. the immediate no-paid learned-codec repair target is unchanged.
 
 ## the rule
 
@@ -397,6 +404,7 @@ the update history at the bottom of this file is append-only. every change to th
 - [[neural_model_tiny_mirror_contract_compression_under_bit_budget]]
 - [[tests/compression_under_bit_budget_mirror]]
 - `docs/linux_handoff_2026-05-02.md`
+- [[content_routed_sparse_read_prior]]
 - [[neural_model_lane_operation_preserving_compression]]
 - [[neural_model_lane_memory_replay_imagination]]
 - [[neural_model_lane_3d_world_physics]]

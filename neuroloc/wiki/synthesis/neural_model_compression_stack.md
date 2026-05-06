@@ -1,6 +1,6 @@
 # neural model compression stack
 
-status: current (as of 2026-04-27).
+status: current (as of 2026-05-06).
 
 ## claim
 
@@ -17,6 +17,8 @@ this makes compression task-relative. a code is acceptable only if the model can
 ## why this is not just quantization
 
 kv-cache compression is the obvious shallow case. turboquant compresses high-dimensional key/value vectors while preserving geometric quantities used by attention, especially inner products. that is valuable because attention needs dot-product structure more than exact fp16 vectors.
+
+content-routed sparse long-context attention is the other shallow case. subquadratic's public subq / selective sparse attention material claims that a model can select relevant context positions per query and compute attention over only those positions, preserving arbitrary-position retrieval while reducing dense attention work. that is an important prior-art boundary for this project. it validates content-dependent routing and functional context as central problems, but it is not the same as memory-object compression. see [[content_routed_sparse_read_prior]].
 
 the neural model needs the same discipline at more levels:
 
@@ -65,6 +67,8 @@ where:
 - `rewrite_cost_s` measures whether compression requires excessive replay or decode work
 
 a compression claim is valid only if it improves the Pareto frontier against verbatim storage and matched no-memory / recency-only / shuffled-address controls.
+
+after the 2026-05-06 subq prior-art update, relevant families must also compare against a content-routed sparse read over verbatim context when such a baseline is well-defined. if sparse read over verbatim memory solves the task at acceptable compute and storage, the compressed codec must either use fewer committed bits at equal operation success or support operations the sparse-read baseline cannot represent, such as replay rewrite, imagined-branch storage, or world-state consolidation.
 
 ## memory object
 
@@ -295,6 +299,8 @@ before paid compute, complete the master-plan gap map and use oracle compression
 
 the first implemented result is [[tests/oracle_compression_analysis_results]]. the family decision surface is [[oracle_compression_frontier_split]]. the result is mixed: controls are clean, eight families are strong, and six families remain below the 10x threshold. if the oracle cannot produce large compression on a constructed world, a neural model will not discover it by paid training.
 
+the next related-work refinement is to add a content-routed sparse-read baseline to the symbolic and mirror surfaces where the task family permits a verbatim memory field. this is not a replacement for the current `compression_under_bit_budget` learned-codec repair. it is a stricter comparison required before any strong compression paper claim.
+
 ## decision rule
 
 do not use paid compute to search for this. use paid compute only after:
@@ -320,10 +326,13 @@ do not use paid compute to search for this. use paid compute only after:
 - [[neural_model_research_test_material_plan]]
 - [[tests/hard_symbolic_nm_test_material]]
 - [[PROJECT_PLAN]]
+- [[content_routed_sparse_read_prior]]
 
 ## references
 
 - [zandieh et al. 2025, turboquant: online vector quantization with near-optimal distortion rate](https://huggingface.co/papers/2504.19874)
+- [subquadratic 2026, how ssa makes long context practical](https://subq.ai/how-ssa-makes-long-context-practical)
+- [subquadratic 2026, introducing subq](https://subq.ai/introducing-subq)
 - [shannon 1959, coding theorems for a discrete source with a fidelity criterion](https://ieeexplore.ieee.org/document/1057159)
 - [rao and ballard 1999, predictive coding in visual cortex](https://www.nature.com/articles/nn0199_79)
 - [olshausen and field 1996, sparse coding of natural images](https://www.nature.com/articles/381607a0)

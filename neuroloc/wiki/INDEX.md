@@ -1,8 +1,8 @@
 # neuroloc index
 
-status: current (as of 2026-04-28).
+status: current (as of 2026-05-06).
 
-update note: single master plan recorded, six neural-model research lanes added, the first no-paid cellular/local-state gap map documented, the first cellular mechanism dossier added, the first mechanism-specific symbolic contract plus implemented symbolic/oracle test-material package added, the first oracle compression analysis package implemented, the oracle-compression frontier split added, the first narrow learned-codec proof package documented, the tiny local mirror contract added, the first local mirror baseline surface implemented, the first learned-codec smoke result recorded as negative, the source-diagnostic pass recorded, and the `compression_under_bit_budget` source-observability contract repaired. the next research step is local learned address/payload/action and decoder-generalization repair for the repaired mirror.
+update note: subq / selective sparse attention related-work boundary added as [[synthesis/content_routed_sparse_read_prior]]. the current compression lane now treats content-routed sparse read over verbatim context as a required future baseline where applicable. the immediate no-paid work remains local learned address/payload/action and decoder-generalization repair for the repaired `compression_under_bit_budget` mirror.
 
 this is the flat reference catalog of every article in the wiki, grouped
 by topic within each top-level directory. for guided navigation, start
@@ -28,6 +28,7 @@ at [[start_here]]. for the rules that govern every article below, see
 - [[tests/compression_under_bit_budget_mirror]] — local dataset, guard, baseline, learned-codec, source-diagnostic, and telemetry surface for the first compression mirror
 - [[synthesis/neural_model_lane_cellular_state_storage]] — biology-led local-state research lane
 - [[synthesis/neural_model_lane_operation_preserving_compression]] — operation-preserving compression research lane
+- [[synthesis/content_routed_sparse_read_prior]] — subq / selective sparse attention prior-art boundary and content-routed sparse-read baseline requirement
 - [[synthesis/neural_model_lane_memory_replay_imagination]] — memory, replay, and imagination research lane
 - [[synthesis/neural_model_lane_3d_world_physics]] — 3d world model and physics research lane
 - [[synthesis/neural_model_lane_trainability_evaluation]] — trainability and evaluation research lane
@@ -45,9 +46,14 @@ at [[start_here]]. for the rules that govern every article below, see
 
 ## current project-state analyses (synthesis/)
 
-all 50 articles in `synthesis/` are the load-bearing project-level
-reasoning documents. one is superseded, forty-nine are current.
+all 51 articles in `synthesis/` are the load-bearing project-level
+reasoning documents. one is superseded, fifty are current.
 
+- [[synthesis/content_routed_sparse_read_prior]] — the 2026 subq / selective
+  sparse attention related-work boundary. validates content-dependent
+  routing and functional context as load-bearing problems, but does not
+  prove memory-object compression. adds content-routed sparse read over
+  verbatim context as a required future baseline where applicable.
 - [[synthesis/neural_model_symbolic_contract_eligibility_gated_local_commit]]
   — the first mechanism-specific symbolic/oracle contract. defines
   candidate, relevance, commit, read, and exposure phase fields plus
