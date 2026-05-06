@@ -2,7 +2,7 @@
 
 status: current (as of 2026-05-07).
 
-update note: content-routed sparse-read baseline added to [[tests/compression_under_bit_budget_mirror]]. sparse read solves the repaired smoke task from two legal records but exceeds the compact-code budget, so the immediate no-paid work is learned address/payload/action and decoder-generalization repair against that baseline or proof-package demotion.
+update note: original source-pair [[tests/compression_under_bit_budget_mirror]] demoted as compression evidence. content-routed sparse read solves it from two legal records but exceeds the compact-code budget; matched-budget sparse read fails; a distributed-evidence probe now requires four legal fragments and also fails under matched budget. the immediate no-paid work is learned compact-code operation preservation on distributed evidence, starting with oracle-code/learned-decoder generalization.
 
 this is the flat reference catalog of every article in the wiki, grouped
 by topic within each top-level directory. for guided navigation, start
@@ -26,7 +26,7 @@ at [[start_here]]. for the rules that govern every article below, see
 - [[synthesis/oracle_compression_frontier_split]] — family-level split into accepted and weak compression frontiers
 - [[synthesis/neural_model_dossier_compression_under_bit_budget_codec]] — first family-specific learned-codec proof package
 - [[synthesis/neural_model_tiny_mirror_contract_compression_under_bit_budget]] — implementation contract for the first tiny local learned-codec mirror
-- [[tests/compression_under_bit_budget_mirror]] — local dataset, guard, baseline, learned-codec, source-diagnostic, and telemetry surface for the first compression mirror
+- [[tests/compression_under_bit_budget_mirror]] — local dataset, guard, baseline, sparse-read, matched-budget, distributed-evidence, learned-codec, source-diagnostic, and telemetry surface for the first compression mirror
 - [[synthesis/neural_model_lane_cellular_state_storage]] — biology-led local-state research lane
 - [[synthesis/neural_model_lane_operation_preserving_compression]] — operation-preserving compression research lane
 - [[synthesis/content_routed_sparse_read_prior]] — subq / selective sparse attention prior-art boundary and content-routed sparse-read baseline requirement

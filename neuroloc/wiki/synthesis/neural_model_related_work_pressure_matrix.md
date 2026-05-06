@@ -34,9 +34,9 @@ that is the narrow paper edge. it is conditional. it remains unproved.
 
 the project should not argue from novelty by component. nearly every component has prior art. the claim must be compound and proof-gated.
 
-the next local code target is now sharpened by the implemented sparse-read baseline: repair learned address, payload, velocity, action, and decoder generalization for the repaired `compression_under_bit_budget` mirror against content-routed sparse read, or demote the proof package if the learned compact code cannot beat shallow legal sparse read under useful-bit accounting.
+the next local code target is now sharpened by the implemented sparse-read baseline and the external demotion decision: the original source-pair `compression_under_bit_budget` mirror is a source-selection diagnostic, not compression evidence. matched-budget sparse read and a distributed-evidence probe are implemented. the next target is learned compact-code operation preservation on distributed evidence, starting with oracle-code/learned-decoder generalization.
 
-the next research standard has changed in code as well as prose. the first content-routed sparse-read baseline over verbatim records is now implemented for `compression_under_bit_budget`; it solves the repaired smoke task from two legal records but exceeds the compact-code budget.
+the next research standard has changed in code as well as prose. the first content-routed sparse-read baseline over verbatim records is now implemented for `compression_under_bit_budget`; it solves the repaired source-pair smoke task from two legal records but exceeds the compact-code budget. matched-budget sparse read fails, and the distributed-evidence probe now requires four legal fragments for uncapped sparse read while still failing under the matched budget.
 
 the simulator lane remains a selection gate. do not choose a simulator yet. run a small exact-state contract spike across candidate simulators before promoting one.
 
@@ -357,7 +357,7 @@ related sources include:
 
 ## immediate next steps
 
-1. finish the current local learned-codec repair for `compression_under_bit_budget` against the implemented content-routed sparse-read baseline, or demote the proof package if the learned compact code cannot beat it under useful-bit accounting.
+1. finish the current local learned-codec repair for the distributed-evidence `compression_under_bit_budget` slice against uncapped and matched-budget sparse-read baselines, or demote the proof package if the learned compact code cannot beat it under useful-bit accounting.
 2. extend the sparse-read baseline to other relevant symbolic/mirror families only after the local proof-package decision is clear.
 3. add the oracle ladder and fieldwise failure-localization tree to every future mirror result.
 4. define the tagged eligibility buffer with sparse consolidation as the next cellular/local-state proof package candidate, not as model code.

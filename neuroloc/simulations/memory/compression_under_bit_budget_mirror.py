@@ -62,6 +62,7 @@ BASELINE_POLICIES = (
     "oracle_codec",
     "verbatim_store",
     "content_routed_sparse_read",
+    "matched_budget_sparse_read",
     "compressed_oracle_store",
     "no_memory",
     "recency_only",
@@ -541,6 +542,8 @@ def visible_source_action(fields: dict[str, int], caps: dict[str, int]) -> int:
 
 
 def content_routed_sparse_read_result(record: dict[str, Any], caps: dict[str, int]) -> dict[str, Any]:
+    if str(record.get("evidence_variant", "source_pair")) == "distributed":
+        return distributed_evidence_sparse_read_result(record, caps, max_records=4)
     query = record["model_input"]["query"]
     source = source_event_for_record(record)
     source_key = (int(source["time"]), int(source["object_index"]))
@@ -597,6 +600,183 @@ def content_routed_sparse_read_result(record: dict[str, Any], caps: dict[str, in
         }
     )
     return result
+
+
+def matched_budget_sparse_read_result(record: dict[str, Any], caps: dict[str, int]) -> dict[str, Any]:
+    limit = max(1, int(record["model_input"]["bit_budget"]["budget_bits"]) // max(1, sparse_read_record_bits(caps)))
+    if str(record.get("evidence_variant", "source_pair")) == "distributed":
+        return distributed_evidence_sparse_read_result(record, caps, max_records=limit)
+    full = content_routed_sparse_read_result(record, caps)
+    if limit >= int(full["selected_record_count"]):
+        return full
+    query = record["model_input"]["query"]
+    selected = sorted(
+        record["model_input"]["observations"],
+        key=lambda event: (
+            -int(event.get("commit_marker", 0)),
+            -int(event.get("commit_next_marker", 0)),
+            -int(int(event["observed"]) == 1),
+            -int(int(event["color"]) == int(query["cue_color"]) and int(event["color"]) >= 0),
+            -int(int(event["shape"]) == int(query["cue_shape"]) and int(event["shape"]) >= 0),
+            -int(int(event["object_index"]) == int(query["commit_local_index"])),
+            abs(int(event["time"]) - int(query["commit_time"])),
+            int(event["time"]),
+            int(event["object_index"]),
+        ),
+    )[:limit]
+    source = source_event_for_record(record)
+    source_key = (int(source["time"]), int(source["object_index"]))
+    source_selected = any((int(event["time"]), int(event["object_index"])) == source_key for event in selected)
+    next_selected = any(int(event.get("commit_next_marker", 0)) == 1 for event in selected)
+    source_event = next((event for event in selected if int(event.get("commit_marker", 0)) == 1), selected[0] if selected else source)
+    fields = {
+        "address": int(int(source_event["color"]) * int(caps["n_shapes"]) + int(source_event["shape"])) if int(source_event["color"]) >= 0 and int(source_event["shape"]) >= 0 else -1,
+        "schema": int(caps["max_speed"]),
+        "residual": int(source_event["pos"]) if int(source_event["pos"]) >= 0 else -1,
+        "action": 0,
+        "provenance": int(source_event["time"]),
+    }
+    fields["action"] = visible_source_action(fields, caps)
+    result = score_code_fields(fields, record, caps, confidence=float(int(source_selected and next_selected)))
+    bits = int(len(selected) * sparse_read_record_bits(caps))
+    result.update(
+        {
+            "bits_committed": bits,
+            "within_budget": float(int(bits <= int(record["model_input"]["bit_budget"]["budget_bits"]))),
+            "selected_record_count": float(len(selected)),
+            "source_selection_recall": float(int(source_selected)),
+            "next_source_selection_recall": float(int(next_selected)),
+            "false_source_selection_rate": 0.0,
+            "sparse_read_record_bits": float(sparse_read_record_bits(caps)),
+        }
+    )
+    return result
+
+
+def distributed_evidence_sparse_read_result(record: dict[str, Any], caps: dict[str, int], max_records: int) -> dict[str, Any]:
+    query = record["model_input"]["query"]
+    focus = int(query["focus_local_index"])
+    target = record["labels"]["state"]
+    selected = sorted(
+        record["model_input"]["observations"],
+        key=lambda event: (
+            -int(int(event["object_index"]) == focus),
+            -int(int(event["observed"]) == 1),
+            -int(int(event["color"]) == int(query["cue_color"]) and int(event["color"]) >= 0),
+            -int(int(event["shape"]) == int(query["cue_shape"]) and int(event["shape"]) >= 0),
+            -int(int(event["pos"]) >= 0),
+            abs(int(event["time"]) - int(query["commit_time"])),
+            int(event["time"]),
+            int(event["object_index"]),
+        ),
+    )[: max(1, int(max_records))]
+    focus_selected = [event for event in selected if int(event["object_index"]) == focus and int(event["observed"]) == 1]
+    color_values = [int(event["color"]) for event in focus_selected if int(event["color"]) >= 0]
+    shape_values = [int(event["shape"]) for event in focus_selected if int(event["shape"]) >= 0]
+    pos_values = [(int(event["time"]), int(event["pos"])) for event in focus_selected if int(event["pos"]) >= 0]
+    color = color_values[0] if color_values else -1
+    shape = shape_values[0] if shape_values else -1
+    pos_at_commit = [pos for time_index, pos in pos_values if time_index == int(query["commit_time"])]
+    residual = pos_at_commit[0] if pos_at_commit else (pos_values[-1][1] if pos_values else -1)
+    velocity = 0
+    if len(pos_values) >= 2:
+        pos_values = sorted(pos_values)
+        first_time, first_pos = pos_values[0]
+        last_time, last_pos = pos_values[-1]
+        velocity = int(round(float(last_pos - first_pos) / float(max(1, last_time - first_time))))
+        velocity = int(max(-int(caps["max_speed"]), min(int(caps["max_speed"]), velocity)))
+    fields = {
+        "address": int(color * int(caps["n_shapes"]) + shape) if color >= 0 and shape >= 0 else -1,
+        "schema": int(velocity + int(caps["max_speed"])),
+        "residual": int(residual),
+        "action": 0,
+        "provenance": int(query["commit_time"]),
+    }
+    fields["action"] = visible_source_action(fields, caps)
+    result = score_code_fields(fields, record, caps, confidence=float(int(color == int(target["color"]) and shape == int(target["shape"]) and residual == int(target["pos"]) and velocity == int(target["vel"]))))
+    bits = int(len(selected) * sparse_read_record_bits(caps))
+    relevant_keys = {(int(item["time"]), int(item["object_index"])) for item in record["evaluation_contract"].get("distributed_evidence_positions", [])}
+    selected_keys = {(int(event["time"]), int(event["object_index"])) for event in selected}
+    result.update(
+        {
+            "bits_committed": bits,
+            "within_budget": float(int(bits <= int(record["model_input"]["bit_budget"]["budget_bits"]))),
+            "selected_record_count": float(len(selected)),
+            "source_selection_recall": float(len(relevant_keys & selected_keys) / max(1.0, float(len(relevant_keys)))),
+            "next_source_selection_recall": float(int(len(pos_values) >= 2)),
+            "false_source_selection_rate": float(len(selected_keys - relevant_keys) / max(1.0, float(len(selected_keys)))),
+            "sparse_read_record_bits": float(sparse_read_record_bits(caps)),
+        }
+    )
+    return result
+
+
+def build_distributed_evidence_record(record: dict[str, Any], caps: dict[str, int], index: int) -> dict[str, Any]:
+    labels = record["labels"]
+    state = dict(labels["state"])
+    query = record["model_input"]["query"]
+    focus = int(query["focus_local_index"])
+    commit_time = int(min(max(3, int(query["commit_time"])), max(3, int(query["time"]) - 1)))
+    vel = int(max(-2, min(2, int(state["vel"]))))
+    if vel == 0:
+        vel = 1
+    pos = int(max(abs(vel) + 1, min(int(caps["track_length"]) - abs(vel) - 2, int(state["pos"]))))
+    state["pos"] = pos
+    state["vel"] = vel
+    next_time = min(int(query["time"]), commit_time + 1)
+    next_pos = int(pos + vel * max(1, next_time - commit_time))
+    prev_time = max(0, commit_time - 2)
+    id_time = max(0, commit_time - 3)
+    prev_pos = int(max(0, min(int(caps["track_length"]) - 1, pos - vel * max(1, commit_time - prev_time))))
+    action = visible_source_action({"address": int(int(state["color"]) * int(caps["n_shapes"]) + int(state["shape"])), "schema": int(vel + int(caps["max_speed"])), "residual": int(pos), "action": 0, "provenance": int(commit_time)}, caps)
+    events = [
+        {"time": id_time, "object_index": focus, "color": int(state["color"]), "shape": int(state["shape"]), "pos": -1, "observed": 1, "commit_marker": 0, "commit_next_marker": 0},
+        {"time": prev_time, "object_index": focus, "color": -1, "shape": -1, "pos": prev_pos, "observed": 1, "commit_marker": 0, "commit_next_marker": 0},
+        {"time": commit_time, "object_index": focus, "color": -1, "shape": -1, "pos": pos, "observed": 1, "commit_marker": 0, "commit_next_marker": 0},
+        {"time": next_time, "object_index": focus, "color": -1, "shape": -1, "pos": next_pos, "observed": 1, "commit_marker": 0, "commit_next_marker": 0},
+    ]
+    distractor_slots = [slot for slot in range(int(caps["n_active"])) if slot != focus]
+    for offset, object_index in enumerate(distractor_slots):
+        events.append(
+            {
+                "time": max(0, commit_time - offset),
+                "object_index": object_index,
+                "color": int((int(state["color"]) + offset + 1) % int(caps["n_colors"])),
+                "shape": int((int(state["shape"]) + offset + 1) % int(caps["n_shapes"])),
+                "pos": int((pos + offset + 3) % int(caps["track_length"])),
+                "observed": 1,
+                "commit_marker": 0,
+                "commit_next_marker": 0,
+            }
+        )
+    distributed_positions = [{"time": int(event["time"]), "object_index": int(event["object_index"])} for event in events[:4]]
+    new_record = {
+        **record,
+        "episode_id": f"{record['episode_id']}_distributed_{index}",
+        "evidence_variant": "distributed",
+        "labels": {**labels, "state": state, "action": int(action)},
+        "model_input": {
+            **record["model_input"],
+            "observations": sorted(events, key=lambda item: (int(item["time"]), int(item["object_index"]))),
+            "query": {**query, "cue_color": int(state["color"]), "cue_shape": int(state["shape"]), "commit_time": commit_time, "commit_local_index": focus},
+        },
+        "evaluation_contract": {
+            **record["evaluation_contract"],
+            "memory_relevant_positions": distributed_positions,
+            "distributed_evidence_positions": distributed_positions,
+        },
+        "future_observation_violation_count": 0,
+    }
+    new_record["forbidden_input_keys"] = collect_forbidden_keys(new_record["model_input"])
+    return new_record
+
+
+def build_distributed_evidence_dataset(dataset: list[dict[str, Any]], profile: str, split: str = "test") -> list[dict[str, Any]]:
+    caps = profile_caps(profile)
+    return [
+        build_distributed_evidence_record(record, caps, index)
+        for index, record in enumerate(row for row in dataset if row["split"] == split)
+    ]
 
 
 def vectorize_record_with_provenance(record: dict[str, Any], caps: dict[str, int]) -> np.ndarray:
@@ -744,6 +924,8 @@ def control_result(record: dict[str, Any], policy: str, rng: np.random.Generator
         return baseline_from_policy(contract, "compressed_store")
     if policy == "content_routed_sparse_read":
         return content_routed_sparse_read_result(record, profile_caps(str(record["model_input"]["visible_context"]["profile"])))
+    if policy == "matched_budget_sparse_read":
+        return matched_budget_sparse_read_result(record, profile_caps(str(record["model_input"]["visible_context"]["profile"])))
     if policy == "compressed_oracle_store":
         return baseline_from_policy(contract, "compressed_store")
     if policy in {"verbatim_store", "no_memory", "recency_only", "shuffled_address"}:
@@ -1082,7 +1264,7 @@ def evaluate_dataset(dataset: list[dict[str, Any]], profile: str, seed: int = SE
             raise ValueError("evaluation contract family mismatch")
         for policy in BASELINE_POLICIES:
             result = control_result(record, policy, rng)
-            committed_bits = sparse_read_bits_by_field(profile_caps(profile), int(result.get("selected_record_count", 0))) if policy == "content_routed_sparse_read" else {
+            committed_bits = sparse_read_bits_by_field(profile_caps(profile), int(result.get("selected_record_count", 0))) if policy in {"content_routed_sparse_read", "matched_budget_sparse_read"} else {
                 "address": int(result["bits_committed"] // 3),
                 "schema": int(result["bits_committed"] // 3),
                 "residual": int(result["bits_committed"] - 2 * (result["bits_committed"] // 3)),
@@ -1191,6 +1373,17 @@ def build_summary(dataset: list[dict[str, Any]], rows: list[dict[str, Any]], pro
     random_joint = mean_for(rows, "random_codebook", "joint_success", split="test")
     sparse_read_joint = mean_for(rows, "content_routed_sparse_read", "joint_success", split="test")
     sparse_read_bits = mean_for(rows, "content_routed_sparse_read", "total_committed_bits", split="test")
+    matched_sparse_joint = mean_for(rows, "matched_budget_sparse_read", "joint_success", split="test")
+    matched_sparse_bits = mean_for(rows, "matched_budget_sparse_read", "total_committed_bits", split="test")
+    distributed_dataset = build_distributed_evidence_dataset(dataset, profile)
+    distributed_rows = []
+    for record in distributed_dataset:
+        distributed_rows.append({"policy": "content_routed_sparse_read", **content_routed_sparse_read_result(record, caps)})
+        distributed_rows.append({"policy": "matched_budget_sparse_read", **matched_budget_sparse_read_result(record, caps)})
+    distributed_sparse_joint = float(np.mean([row["joint_correct"] for row in distributed_rows if row["policy"] == "content_routed_sparse_read"])) if distributed_rows else 0.0
+    distributed_matched_joint = float(np.mean([row["joint_correct"] for row in distributed_rows if row["policy"] == "matched_budget_sparse_read"])) if distributed_rows else 0.0
+    distributed_sparse_bits = float(np.mean([row["bits_committed"] for row in distributed_rows if row["policy"] == "content_routed_sparse_read"])) if distributed_rows else 0.0
+    distributed_matched_bits = float(np.mean([row["bits_committed"] for row in distributed_rows if row["policy"] == "matched_budget_sparse_read"])) if distributed_rows else 0.0
     learned_joint = mean_for(rows, "learned_codec", "joint_success", split="test")
     learned_state = mean_for(rows, "learned_codec", "state_probe_accuracy", split="test")
     learned_action = mean_for(rows, "learned_codec", "action_success", split="test")
@@ -1228,6 +1421,7 @@ def build_summary(dataset: list[dict[str, Any]], rows: list[dict[str, Any]], pro
         "learned_minus_shuffled_address": float(learned_joint - mean_for(rows, "shuffled_address", "joint_success", split="test")),
         "learned_minus_random_codebook": float(learned_joint - random_joint),
         "learned_minus_content_routed_sparse_read": float(learned_joint - sparse_read_joint),
+        "learned_minus_matched_budget_sparse_read": float(learned_joint - matched_sparse_joint),
         "learned_versus_oracle_codec": float(learned_joint - oracle_joint),
     }
     control_gap_values = [
@@ -1270,6 +1464,23 @@ def build_summary(dataset: list[dict[str, Any]], rows: list[dict[str, Any]], pro
         "content_routed_sparse_read_within_budget": float(mean_for(rows, "content_routed_sparse_read", "within_budget", split="test")),
         "content_routed_sparse_read_bits_per_successful_episode": None if sparse_read_joint == 0.0 else float(sparse_read_bits / sparse_read_joint),
         "content_routed_sparse_read_compression_ratio_vs_verbatim": float(verbatim_bits / max(sparse_read_bits, 1.0)),
+        "matched_budget_sparse_read_joint_success": float(matched_sparse_joint),
+        "matched_budget_sparse_read_state_success": float(mean_for(rows, "matched_budget_sparse_read", "state_probe_accuracy", split="test")),
+        "matched_budget_sparse_read_action_success": float(mean_for(rows, "matched_budget_sparse_read", "action_success", split="test")),
+        "matched_budget_sparse_read_selected_record_count": float(mean_for(rows, "matched_budget_sparse_read", "selected_record_count", split="test")),
+        "matched_budget_sparse_read_total_committed_bits": float(matched_sparse_bits),
+        "matched_budget_sparse_read_within_budget": float(mean_for(rows, "matched_budget_sparse_read", "within_budget", split="test")),
+        "matched_budget_sparse_read_bits_per_successful_episode": None if matched_sparse_joint == 0.0 else float(matched_sparse_bits / matched_sparse_joint),
+        "distributed_evidence_record_count": int(len(distributed_dataset)),
+        "distributed_evidence_sparse_read_joint_success": float(distributed_sparse_joint),
+        "distributed_evidence_matched_budget_sparse_read_joint_success": float(distributed_matched_joint),
+        "distributed_evidence_sparse_read_selected_record_count": float(np.mean([row["selected_record_count"] for row in distributed_rows if row["policy"] == "content_routed_sparse_read"])) if distributed_rows else 0.0,
+        "distributed_evidence_matched_budget_sparse_read_selected_record_count": float(np.mean([row["selected_record_count"] for row in distributed_rows if row["policy"] == "matched_budget_sparse_read"])) if distributed_rows else 0.0,
+        "distributed_evidence_sparse_read_total_committed_bits": float(distributed_sparse_bits),
+        "distributed_evidence_matched_budget_sparse_read_total_committed_bits": float(distributed_matched_bits),
+        "distributed_evidence_sparse_read_within_budget": float(np.mean([row["within_budget"] for row in distributed_rows if row["policy"] == "content_routed_sparse_read"])) if distributed_rows else 0.0,
+        "distributed_evidence_matched_budget_sparse_read_within_budget": float(np.mean([row["within_budget"] for row in distributed_rows if row["policy"] == "matched_budget_sparse_read"])) if distributed_rows else 0.0,
+        "distributed_evidence_compression_needed_flag": float(int(distributed_sparse_joint > distributed_matched_joint)),
         "no_memory_joint_success": float(mean_for(rows, "no_memory", "joint_success", split="test")),
         "recency_only_joint_success": float(mean_for(rows, "recency_only", "joint_success", split="test")),
         "shuffled_address_joint_success": float(mean_for(rows, "shuffled_address", "joint_success", split="test")),

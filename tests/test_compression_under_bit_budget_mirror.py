@@ -12,6 +12,7 @@ import pytest
 from neuroloc.simulations.memory.compression_under_bit_budget_mirror import (
     ALL_POLICIES,
     BASELINE_POLICIES,
+    build_distributed_evidence_dataset,
     DIAGNOSTIC_POLICIES,
     build_dataset,
     build_summary,
@@ -28,6 +29,7 @@ from neuroloc.simulations.memory.compression_under_bit_budget_mirror import (
     source_event_for_record,
     source_signature_for_action,
     sparse_read_record_bits,
+    matched_budget_sparse_read_result,
     vectorize_record,
 )
 from neuroloc.simulations.suite_registry import SIMULATION_SPECS, SUITES, get_suite_specs
@@ -183,6 +185,36 @@ def test_compression_mirror_content_routed_sparse_read_is_first_class_baseline()
     assert summary["content_routed_sparse_read_within_budget"] == 0.0
     assert summary["content_routed_sparse_read_rescue_delta"] == 1.0
     assert summary["learned_minus_content_routed_sparse_read"] == -1.0
+
+
+def test_compression_mirror_matched_budget_and_distributed_evidence_probe() -> None:
+    dataset = build_dataset("smoke", seed=143, train_episodes=4, val_episodes=2, test_episodes=4)
+    caps = profile_caps("smoke")
+    distributed = build_distributed_evidence_dataset(dataset, "smoke")
+    assert distributed
+    for row in distributed:
+        assert row["evidence_variant"] == "distributed"
+        assert row["forbidden_input_keys"] == []
+        assert all(event["commit_marker"] == 0 for event in row["model_input"]["observations"])
+        assert all(event["commit_next_marker"] == 0 for event in row["model_input"]["observations"])
+        focused = [event for event in row["model_input"]["observations"] if event["object_index"] == row["model_input"]["query"]["focus_local_index"]]
+        assert any(event["color"] >= 0 and event["shape"] >= 0 and event["pos"] < 0 for event in focused)
+        assert sum(1 for event in focused if event["pos"] >= 0) >= 3
+        unconstrained = content_routed_sparse_read_result(row, caps)
+        matched = matched_budget_sparse_read_result(row, caps)
+        assert unconstrained["selected_record_count"] == 4.0
+        assert unconstrained["joint_correct"] == 1.0
+        assert unconstrained["within_budget"] == 0.0
+        assert matched["selected_record_count"] < unconstrained["selected_record_count"]
+        assert matched["within_budget"] == 1.0
+        assert matched["joint_correct"] == 0.0
+    rows = evaluate_dataset(dataset, "smoke", seed=143)
+    summary = build_summary(dataset, rows)
+    assert summary["matched_budget_sparse_read_within_budget"] == 1.0
+    assert summary["matched_budget_sparse_read_joint_success"] == 0.0
+    assert summary["distributed_evidence_sparse_read_joint_success"] == 1.0
+    assert summary["distributed_evidence_matched_budget_sparse_read_joint_success"] == 0.0
+    assert summary["distributed_evidence_compression_needed_flag"] == 1.0
 
 
 def test_compression_mirror_learned_codec_emits_trainable_rows() -> None:
