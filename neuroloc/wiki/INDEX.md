@@ -2,7 +2,7 @@
 
 status: current (as of 2026-05-07).
 
-update note: [[tests/compression_under_bit_budget_mirror]] now includes the first tiny distributed local learned model and a factor-heldout local falsification gate. the original source-pair task remains demoted as compression evidence. the ordinary distributed-evidence slice has a narrow local pass, but held-out color-shape pair bands fail at 0.03125 test joint success. the immediate no-paid work is local compositional-generalization repair, not paid compute or full-model expansion.
+update note: [[tests/compression_under_bit_budget_mirror]] now includes the first tiny distributed local learned model, a factor-heldout local falsification gate, and a factorized structured local codec. the original source-pair task remains demoted as compression evidence. the shared nonlinear model fails held-out color-shape pair bands at 0.03125 test joint success, while the factorized structured codec repairs that gate at 1.0 test joint success with 7,392 parameters and 19 committed bits after the encoder is restricted to legal model input. the immediate no-paid work is robustness testing and less hand-shaped event pooling, not paid compute or full-model expansion.
 
 this is the flat reference catalog of every article in the wiki, grouped
 by topic within each top-level directory. for guided navigation, start

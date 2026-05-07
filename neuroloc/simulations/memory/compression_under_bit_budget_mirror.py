@@ -45,6 +45,10 @@ FACTOR_HELDOUT_TRAIN_EPISODES = env_int("CUBB_FACTOR_HELDOUT_TRAIN_EPISODES", 51
 FACTOR_HELDOUT_VAL_EPISODES = env_int("CUBB_FACTOR_HELDOUT_VAL_EPISODES", 64)
 FACTOR_HELDOUT_TEST_EPISODES = env_int("CUBB_FACTOR_HELDOUT_TEST_EPISODES", 64)
 FACTOR_HELDOUT_EPOCHS = env_int("CUBB_FACTOR_HELDOUT_EPOCHS", 100)
+FACTORIZED_TRAIN_EPISODES = env_int("CUBB_FACTORIZED_TRAIN_EPISODES", 4096)
+FACTORIZED_VAL_EPISODES = env_int("CUBB_FACTORIZED_VAL_EPISODES", 128)
+FACTORIZED_TEST_EPISODES = env_int("CUBB_FACTORIZED_TEST_EPISODES", 128)
+FACTORIZED_EPOCHS = env_int("CUBB_FACTORIZED_EPOCHS", 300)
 
 require_positive("CUBB_MIRROR_TRAIN_EPISODES", TRAIN_EPISODES)
 require_positive("CUBB_MIRROR_VAL_EPISODES", VAL_EPISODES)
@@ -58,6 +62,10 @@ require_positive("CUBB_FACTOR_HELDOUT_TRAIN_EPISODES", FACTOR_HELDOUT_TRAIN_EPIS
 require_positive("CUBB_FACTOR_HELDOUT_VAL_EPISODES", FACTOR_HELDOUT_VAL_EPISODES)
 require_positive("CUBB_FACTOR_HELDOUT_TEST_EPISODES", FACTOR_HELDOUT_TEST_EPISODES)
 require_positive("CUBB_FACTOR_HELDOUT_EPOCHS", FACTOR_HELDOUT_EPOCHS)
+require_positive("CUBB_FACTORIZED_TRAIN_EPISODES", FACTORIZED_TRAIN_EPISODES)
+require_positive("CUBB_FACTORIZED_VAL_EPISODES", FACTORIZED_VAL_EPISODES)
+require_positive("CUBB_FACTORIZED_TEST_EPISODES", FACTORIZED_TEST_EPISODES)
+require_positive("CUBB_FACTORIZED_EPOCHS", FACTORIZED_EPOCHS)
 
 FAMILY = "compression_under_bit_budget"
 FORBIDDEN_INPUT_KEYS = {
@@ -397,6 +405,51 @@ def vectorize_record(record: dict[str, Any], caps: dict[str, int]) -> np.ndarray
             float(record["model_input"]["bit_budget"]["budget_bits"]) / 128.0,
             visible_fraction,
             float(source_event["observed"]),
+        ]
+    )
+    return np.asarray(values, dtype=np.float32)
+
+
+def vectorize_legal_model_input_record(record: dict[str, Any], caps: dict[str, int]) -> np.ndarray:
+    query = record["model_input"]["query"]
+    focus = int(query["focus_local_index"])
+    events = [event for event in record["model_input"]["observations"] if int(event["object_index"]) == focus]
+    color_missing = int(caps["n_colors"])
+    shape_missing = int(caps["n_shapes"])
+    pos_missing = int(caps["track_length"])
+    commit_time = int(query["commit_time"])
+    prior_positions = [(int(event["time"]), int(event["pos"])) for event in events if int(event["observed"]) == 1 and int(event["pos"]) >= 0 and int(event["time"]) <= commit_time]
+    later_positions = [(int(event["time"]), int(event["pos"])) for event in events if int(event["observed"]) == 1 and int(event["pos"]) >= 0 and int(event["time"]) >= commit_time]
+    commit_positions = [pos for time_index, pos in prior_positions if time_index == commit_time]
+    prior_pos = sorted(prior_positions)[-1][1] if prior_positions else pos_missing
+    later_pos = sorted(later_positions)[0][1] if later_positions else pos_missing
+    commit_pos = commit_positions[0] if commit_positions else prior_pos
+    observed_count = sum(1 for event in events if int(event["observed"]) == 1)
+    visible_fraction = float(observed_count) / max(1.0, float(len(events)))
+    velocity = estimate_velocity(events, int(caps["max_speed"]))
+    values: list[float] = []
+    values.extend(one_hot(int(query["cue_color"]), int(caps["n_colors"])))
+    values.extend(one_hot(int(query["cue_shape"]), int(caps["n_shapes"])))
+    values.extend(one_hot(last_known(events, "color", color_missing), int(caps["n_colors"]) + 1))
+    values.extend(one_hot(first_known(events, "color", color_missing), int(caps["n_colors"]) + 1))
+    values.extend(one_hot(last_known(events, "shape", shape_missing), int(caps["n_shapes"]) + 1))
+    values.extend(one_hot(first_known(events, "shape", shape_missing), int(caps["n_shapes"]) + 1))
+    values.extend(one_hot(last_known(events, "pos", pos_missing), int(caps["track_length"]) + 1))
+    values.extend(one_hot(first_known(events, "pos", pos_missing), int(caps["track_length"]) + 1))
+    values.extend(one_hot(commit_pos, int(caps["track_length"]) + 1))
+    values.extend(one_hot(prior_pos, int(caps["track_length"]) + 1))
+    values.extend(one_hot(later_pos, int(caps["track_length"]) + 1))
+    values.extend(one_hot(velocity + int(caps["max_speed"]), int(caps["max_speed"]) * 2 + 1))
+    values.extend(
+        [
+            float(query["time"]) / max(1.0, float(caps["seq_len"] - 1)),
+            float(focus) / max(1.0, float(caps["n_active"] - 1)),
+            float(commit_time) / max(1.0, float(caps["seq_len"] - 1)),
+            float(query["commit_local_index"]) / max(1.0, float(caps["n_active"] - 1)),
+            float(record["model_input"]["bit_budget"]["budget_bits"]) / 128.0,
+            visible_fraction,
+            float(len(prior_positions)) / max(1.0, float(len(events))),
+            float(len(later_positions)) / max(1.0, float(len(events))),
         ]
     )
     return np.asarray(values, dtype=np.float32)
@@ -1136,6 +1189,76 @@ def train_learned_codec(dataset: list[dict[str, Any]], profile: str, seed: int =
     }
 
 
+def train_factorized_codec(dataset: list[dict[str, Any]], profile: str, seed: int = SEED, epochs: int = FACTORIZED_EPOCHS) -> dict[str, Any]:
+    import torch
+    import torch.nn as nn
+    import torch.nn.functional as functional
+
+    caps = profile_caps(profile)
+    torch.manual_seed(int(seed))
+    train_records = records_for_split(dataset, "train")
+    if not train_records:
+        raise ValueError("factorized codec requires at least one train record")
+    features = np.stack([vectorize_legal_model_input_record(row, caps) for row in train_records], axis=0)
+    labels = label_arrays(train_records, caps)
+    x_train = torch.tensor(features, dtype=torch.float32)
+    y_train = {key: torch.tensor(value, dtype=torch.long) for key, value in labels.items()}
+    heads = nn.ModuleDict(
+        {
+            "color": nn.Linear(int(features.shape[1]), int(caps["n_colors"])),
+            "shape": nn.Linear(int(features.shape[1]), int(caps["n_shapes"])),
+            "pos": nn.Linear(int(features.shape[1]), int(caps["track_length"])),
+            "vel": nn.Linear(int(features.shape[1]), int(caps["max_speed"]) * 2 + 1),
+            "provenance": nn.Linear(int(features.shape[1]), int(caps["seq_len"])),
+        }
+    )
+    optimizer = torch.optim.Adam(heads.parameters(), lr=0.05)
+    losses = []
+    for _ in range(int(epochs)):
+        optimizer.zero_grad(set_to_none=True)
+        loss = sum(functional.cross_entropy(heads[key](x_train), y_train[key]) for key in heads)
+        loss.backward()
+        optimizer.step()
+        losses.append(float(loss.detach().cpu().item()))
+    param_count = int(sum(parameter.numel() for parameter in heads.parameters()))
+    return {
+        "heads": heads,
+        "caps": caps,
+        "parameter_count": param_count,
+        "trainable_parameter_count": param_count,
+        "train_loss_start": float(losses[0]) if losses else 0.0,
+        "train_loss_final": float(losses[-1]) if losses else 0.0,
+        "epochs": int(epochs),
+    }
+
+
+def predict_factorized_fields(record: dict[str, Any], learned: dict[str, Any]) -> tuple[dict[str, int], float]:
+    import torch
+
+    caps = learned["caps"]
+    heads = learned["heads"]
+    x_value = torch.tensor(vectorize_legal_model_input_record(record, caps)[None, :], dtype=torch.float32)
+    heads.eval()
+    with torch.no_grad():
+        logits = {key: head(x_value) for key, head in heads.items()}
+        pred = {key: int(value.argmax(dim=-1).cpu().item()) for key, value in logits.items()}
+        confidence = {key: float(torch.softmax(value, dim=-1).max(dim=-1).values.cpu().item()) for key, value in logits.items()}
+    fields = {
+        "address": int(pred["color"] * int(caps["n_shapes"]) + pred["shape"]),
+        "schema": int(pred["vel"]),
+        "residual": int(pred["pos"]),
+        "action": 0,
+        "provenance": int(pred["provenance"]),
+    }
+    fields["action"] = visible_source_action(fields, caps)
+    return fields, float(np.mean(list(confidence.values())))
+
+
+def predict_factorized_codec(record: dict[str, Any], learned: dict[str, Any]) -> dict[str, Any]:
+    fields, confidence = predict_factorized_fields(record, learned)
+    return score_code_fields(fields, record, learned["caps"], confidence=confidence)
+
+
 def predict_fields_with_stack(learned: dict[str, Any], feature: np.ndarray, model_key: str, heads_key: str) -> tuple[dict[str, int], float]:
     import torch
 
@@ -1769,6 +1892,65 @@ def tiny_factor_heldout_local_model_summary(profile: str, seed: int = SEED, trai
     }
 
 
+def factorized_structured_rows(dataset: list[dict[str, Any]], learned: dict[str, Any]) -> list[dict[str, Any]]:
+    return [
+        row_from_result(record, "factorized_structured_codec", predict_factorized_codec(record, learned), learned, 1.0, 0.0, 0.0)
+        for record in dataset
+    ]
+
+
+def tiny_factorized_structured_local_model_summary(profile: str, seed: int = SEED, train_episodes: int = FACTORIZED_TRAIN_EPISODES, val_episodes: int = FACTORIZED_VAL_EPISODES, test_episodes: int = FACTORIZED_TEST_EPISODES, epochs: int = FACTORIZED_EPOCHS) -> dict[str, Any]:
+    dataset = build_factor_heldout_distributed_dataset(profile, seed + 91_001, train_episodes, val_episodes, test_episodes)
+    learned = train_factorized_codec(dataset, profile, seed=seed + 101_111, epochs=epochs)
+    rows = factorized_structured_rows(dataset, learned)
+    caps = profile_caps(profile)
+    matched_results = [matched_budget_sparse_read_result(record, caps) for record in dataset if record["split"] == "test"]
+    matched_joint = float(np.mean([row["joint_correct"] for row in matched_results])) if matched_results else 0.0
+    matched_bits = float(np.mean([row["bits_committed"] for row in matched_results])) if matched_results else 0.0
+    learned_joint = mean_for(rows, "factorized_structured_codec", "joint_success", split="test")
+    learned_bits = mean_for(rows, "factorized_structured_codec", "total_committed_bits", split="test")
+    train_buckets = factor_bucket_set(dataset, "train")
+    validation_buckets = factor_bucket_set(dataset, "validation")
+    test_buckets = factor_bucket_set(dataset, "test")
+    train_colors = label_value_set(dataset, "train", "color")
+    test_colors = label_value_set(dataset, "test", "color")
+    train_shapes = label_value_set(dataset, "train", "shape")
+    test_shapes = label_value_set(dataset, "test", "shape")
+    return {
+        "factorized_structured_local_model_authorized": 1.0,
+        "factorized_structured_full_model_authorized": 0.0,
+        "factorized_structured_paid_compute_authorized": 0.0,
+        "factorized_structured_train_record_count": int(sum(1 for row in dataset if row["split"] == "train")),
+        "factorized_structured_validation_record_count": int(sum(1 for row in dataset if row["split"] == "validation")),
+        "factorized_structured_test_record_count": int(sum(1 for row in dataset if row["split"] == "test")),
+        "factorized_structured_train_epochs": int(epochs),
+        "factorized_structured_parameter_count": int(learned["parameter_count"]),
+        "factorized_structured_train_loss_start": float(learned["train_loss_start"]),
+        "factorized_structured_train_loss_final": float(learned["train_loss_final"]),
+        "factorized_structured_train_validation_bucket_overlap": int(len(train_buckets & validation_buckets)),
+        "factorized_structured_train_test_bucket_overlap": int(len(train_buckets & test_buckets)),
+        "factorized_structured_validation_test_bucket_overlap": int(len(validation_buckets & test_buckets)),
+        "factorized_structured_test_colors_seen_in_train": float(int(test_colors <= train_colors)),
+        "factorized_structured_test_shapes_seen_in_train": float(int(test_shapes <= train_shapes)),
+        "factorized_structured_learned_codec_train_joint_success": float(mean_for(rows, "factorized_structured_codec", "joint_success", split="train")),
+        "factorized_structured_learned_codec_validation_joint_success": float(mean_for(rows, "factorized_structured_codec", "joint_success", split="validation")),
+        "factorized_structured_learned_codec_test_joint_success": float(learned_joint),
+        "factorized_structured_learned_codec_test_state_success": float(mean_for(rows, "factorized_structured_codec", "state_probe_accuracy", split="test")),
+        "factorized_structured_learned_codec_test_action_success": float(mean_for(rows, "factorized_structured_codec", "action_success", split="test")),
+        "factorized_structured_encoder_address_accuracy": float(mean_for(rows, "factorized_structured_codec", "encoder_address_accuracy", split="test")),
+        "factorized_structured_encoder_payload_color_accuracy": float(mean_for(rows, "factorized_structured_codec", "encoder_payload_color_accuracy", split="test")),
+        "factorized_structured_encoder_payload_shape_accuracy": float(mean_for(rows, "factorized_structured_codec", "encoder_payload_shape_accuracy", split="test")),
+        "factorized_structured_encoder_payload_pos_accuracy": float(mean_for(rows, "factorized_structured_codec", "encoder_payload_pos_accuracy", split="test")),
+        "factorized_structured_encoder_payload_vel_accuracy": float(mean_for(rows, "factorized_structured_codec", "encoder_payload_vel_accuracy", split="test")),
+        "factorized_structured_encoder_provenance_accuracy": float(mean_for(rows, "factorized_structured_codec", "encoder_provenance_accuracy", split="test")),
+        "factorized_structured_matched_budget_sparse_read_test_joint_success": float(matched_joint),
+        "factorized_structured_matched_budget_sparse_read_total_committed_bits": float(matched_bits),
+        "factorized_structured_learned_codec_total_committed_bits": float(learned_bits),
+        "factorized_structured_learned_minus_matched_budget_sparse_read": float(learned_joint - matched_joint),
+        "factorized_structured_engineering_pass": float(int(learned_joint >= 0.95 and learned_bits <= max(1.0, matched_bits) and learned_joint > matched_joint and len(train_buckets & test_buckets) == 0 and test_colors <= train_colors and test_shapes <= train_shapes)),
+    }
+
+
 def main() -> int:
     profile = infer_profile()
     started = time.perf_counter()
@@ -1779,6 +1961,7 @@ def main() -> int:
     summary = build_summary(dataset, rows, profile)
     summary.update(tiny_distributed_local_model_summary(profile))
     summary.update(tiny_factor_heldout_local_model_summary(profile))
+    summary.update(tiny_factorized_structured_local_model_summary(profile))
     statistics = build_statistics(rows)
     output_dir = output_dir_for(SCRIPT_PATH)
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -1804,6 +1987,10 @@ def main() -> int:
             "factor_heldout_validation_episodes": int(FACTOR_HELDOUT_VAL_EPISODES),
             "factor_heldout_test_episodes": int(FACTOR_HELDOUT_TEST_EPISODES),
             "factor_heldout_train_epochs": int(FACTOR_HELDOUT_EPOCHS),
+            "factorized_train_episodes": int(FACTORIZED_TRAIN_EPISODES),
+            "factorized_validation_episodes": int(FACTORIZED_VAL_EPISODES),
+            "factorized_test_episodes": int(FACTORIZED_TEST_EPISODES),
+            "factorized_train_epochs": int(FACTORIZED_EPOCHS),
             "family": FAMILY,
             "policies": list(ALL_POLICIES),
             "learned_codec_parameter_count": int(learned["parameter_count"]),

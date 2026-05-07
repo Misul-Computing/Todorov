@@ -33,6 +33,8 @@ from neuroloc.simulations.memory.compression_under_bit_budget_mirror import (
     matched_budget_sparse_read_result,
     tiny_distributed_local_model_summary,
     tiny_factor_heldout_local_model_summary,
+    tiny_factorized_structured_local_model_summary,
+    vectorize_legal_model_input_record,
     vectorize_record,
 )
 from neuroloc.simulations.suite_registry import SIMULATION_SPECS, SUITES, get_suite_specs
@@ -273,6 +275,33 @@ def test_compression_mirror_factor_heldout_local_model_falsifies_current_tiny_wi
     assert summary["factor_heldout_matched_budget_sparse_read_test_joint_success"] == 0.0
     assert summary["factor_heldout_learned_codec_test_joint_success"] < 0.95
     assert summary["factor_heldout_engineering_pass"] == 0.0
+
+
+def test_compression_mirror_factorized_vectorizer_ignores_evaluation_contract() -> None:
+    dataset = build_factor_heldout_distributed_dataset("smoke", seed=211, train_episodes=4, val_episodes=1, test_episodes=1)
+    caps = profile_caps("smoke")
+    record = dataset[0]
+    mutated = json.loads(json.dumps(record))
+    mutated.pop("labels")
+    mutated.pop("evaluation_contract")
+    assert np.array_equal(vectorize_legal_model_input_record(record, caps), vectorize_legal_model_input_record(mutated, caps))
+
+
+def test_compression_mirror_factorized_structured_local_model_repairs_factor_holdout() -> None:
+    summary = tiny_factorized_structured_local_model_summary("smoke", seed=211, train_episodes=4096, val_episodes=128, test_episodes=128, epochs=300)
+    assert summary["factorized_structured_local_model_authorized"] == 1.0
+    assert summary["factorized_structured_full_model_authorized"] == 0.0
+    assert summary["factorized_structured_paid_compute_authorized"] == 0.0
+    assert summary["factorized_structured_train_test_bucket_overlap"] == 0
+    assert summary["factorized_structured_test_colors_seen_in_train"] == 1.0
+    assert summary["factorized_structured_test_shapes_seen_in_train"] == 1.0
+    assert summary["factorized_structured_parameter_count"] < 10000
+    assert summary["factorized_structured_learned_codec_validation_joint_success"] >= 0.95
+    assert summary["factorized_structured_learned_codec_test_joint_success"] >= 0.95
+    assert summary["factorized_structured_encoder_address_accuracy"] >= 0.95
+    assert summary["factorized_structured_matched_budget_sparse_read_test_joint_success"] == 0.0
+    assert summary["factorized_structured_learned_codec_total_committed_bits"] <= summary["factorized_structured_matched_budget_sparse_read_total_committed_bits"]
+    assert summary["factorized_structured_engineering_pass"] == 1.0
 
 
 def test_compression_mirror_learned_codec_emits_trainable_rows() -> None:

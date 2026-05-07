@@ -146,7 +146,7 @@ required trainability splits:
 
 these splits must localize whether failure is encoder-side, decoder-side, address-side, payload-side, or optimization-side.
 
-if the ordinary split passes but factor-heldout fails, the result is a local sanity pass only. the next action must repair compositional generalization locally before broader mirrors, full-model code, simulator work, or paid compute.
+if the ordinary split passes but factor-heldout fails, the result is a local sanity pass only. if a factorized local repair passes, the next action must harden that repair locally before broader mirrors, full-model code, simulator work, or paid compute.
 
 ## losses
 
@@ -280,7 +280,7 @@ kill or redesign the mirror if:
 
 the first local dataset, learned-codec, and source-diagnostic surface is now documented in [[tests/compression_under_bit_budget_mirror]]. it produced a negative smoke result, exposed a source-observability contract problem, repaired that contract so legal visible-source extraction solves the smoke task, added sparse-read and matched-budget sparse-read controls, added distributed evidence, produced an ordinary-split tiny local pass, and then failed factor-heldout recombination.
 
-the next code slice should modify the local learned-codec path, not the full model. it should repair or replace compositional generalization with factor-balanced training, a less hand-shaped event-pooling encoder, or a structured decoder/action head while preserving deterministic splits, forbidden-input guards, baselines, telemetry artifacts, and focused tests.
+the next code slice should modify the local learned-codec path, not the full model. the first factorized structured codec repaired the color-shape pair-band gate, so the next slice should harden it with multiple seeds, hard-profile/local larger sweeps, other heldout axes, and less hand-shaped event pooling while preserving deterministic splits, forbidden-input guards, baselines, telemetry artifacts, and focused tests.
 
 ## see also
 

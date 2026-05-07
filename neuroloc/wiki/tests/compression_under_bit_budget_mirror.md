@@ -2,7 +2,7 @@
 
 status: current (as of 2026-05-07).
 
-test type: local tiny-mirror dataset, baseline-control, content-routed sparse-read, matched-budget sparse-read, distributed-evidence probe, tiny local learned model, factor-heldout local falsification gate, learned-codec, source-availability, and diagnostic-localization surface
+test type: local tiny-mirror dataset, baseline-control, content-routed sparse-read, matched-budget sparse-read, distributed-evidence probe, tiny local learned model, factor-heldout local falsification gate, factorized structured local codec, learned-codec, source-availability, and diagnostic-localization surface
 
 script:
 - `neuroloc/simulations/memory/compression_under_bit_budget_mirror.py`
@@ -17,7 +17,7 @@ implemented surface:
 
 ## what was done
 
-implemented the first local code surface for the accepted `compression_under_bit_budget` family, the first trainable learned-codec smoke result, the first diagnostic-only failure-localization controls, the first source-availability/action-ambiguity checks, the repaired source-observability contract, the first content-routed sparse-read baseline over legal observation events, a matched-budget sparse-read control, a distributed-evidence probe, a tiny local learned model trained only on distributed evidence, and a factor-heldout local falsification gate. the original source-pair mirror remains demoted as compression evidence and kept as a source-selection, useful-bit, and diagnostic-localization benchmark. the tiny distributed model is a narrow ordinary-split sanity pass, but the factor-heldout gate falsifies compositional generalization on held-out color-shape pair bands. it is not a paper claim or full neural-model result.
+implemented the first local code surface for the accepted `compression_under_bit_budget` family, the first trainable learned-codec smoke result, the first diagnostic-only failure-localization controls, the first source-availability/action-ambiguity checks, the repaired source-observability contract, the first content-routed sparse-read baseline over legal observation events, a matched-budget sparse-read control, a distributed-evidence probe, a tiny local learned model trained only on distributed evidence, a factor-heldout local falsification gate, and a factorized structured local codec. the original source-pair mirror remains demoted as compression evidence and kept as a source-selection, useful-bit, and diagnostic-localization benchmark. the tiny distributed model is a narrow ordinary-split sanity pass, the shared nonlinear tiny model fails factor-heldout compositional generalization, and the factorized structured codec repairs that specific held-out color-shape pair-band gate. it is not a paper claim or full neural-model result.
 
 the surface now provides:
 
@@ -37,6 +37,7 @@ the surface now provides:
 - distributed-evidence telemetry where the answer is split across four legal observation fragments with no commit markers; uncapped sparse read can solve this probe, while matched-budget sparse read cannot.
 - tiny distributed local model telemetry for train/validation/test joint success, oracle-code to learned-decoder success, learned-code to oracle-decoder success, parameter count, committed bits, matched-budget sparse-read gap, and authorization guards.
 - factor-heldout telemetry for color-shape pair-band split integrity, train/validation/test overlap, seen marginal classes, learned-codec split success, oracle-code/learned-decoder success, learned-code/oracle-decoder success, matched-budget sparse-read success, committed bits, engineering pass, and authorization guards.
+- factorized structured local codec telemetry for legal-input vectorization, independent learned field heads, deterministic action computation from learned code fields, factor-heldout split success, fieldwise accuracy, committed bits, matched-budget sparse-read gap, parameter count, and authorization guards.
 - suite-runner gates that require learned-result telemetry while rejecting future-observation leakage, full-model authorization, paid-compute authorization, and blocked-authorization violations.
 - suite-registry entry `compression_mirror`.
 
@@ -106,6 +107,21 @@ commands run on 2026-05-07 after adding the factor-heldout local falsification g
 - result: wrote `neuroloc/output/simulation_runs/memory/compression_under_bit_budget_mirror/compression_under_bit_budget_mirror_metrics.json`
 - `python -m pytest tests/test_compression_under_bit_budget_mirror.py tests/test_simulation_suite.py::test_suite_registry_contract -q`
 - result: 27 passed, 1 known numpy-on-windows warning
+
+commands run on 2026-05-07 after adding and prosecutor-repairing the factorized structured local codec:
+
+- `python -m pytest tests/test_compression_under_bit_budget_mirror.py::test_compression_mirror_factorized_structured_local_model_repairs_factor_holdout -q`
+- result: 1 passed, 1 known numpy-on-windows warning
+- `python -m pytest tests/test_compression_under_bit_budget_mirror.py::test_compression_mirror_factorized_vectorizer_ignores_evaluation_contract tests/test_compression_under_bit_budget_mirror.py::test_compression_mirror_factorized_structured_local_model_repairs_factor_holdout -q`
+- result: 2 passed, 1 known numpy-on-windows warning
+- `python -m pytest tests/test_compression_under_bit_budget_mirror.py tests/test_simulation_suite.py::test_suite_registry_contract -q`
+- result: 28 passed, 1 known numpy-on-windows warning
+- `python -m pytest tests/test_simulation_suite.py::test_suite_registry_contract tests/test_nm_hard_symbolic_worlds.py tests/test_compression_under_bit_budget_mirror.py -q`
+- result: 40 passed, 1 known numpy-on-windows warning
+- `python -m pytest tests --collect-only -q`
+- result: 338 tests collected, 1 known numpy-on-windows warning
+- `python -m neuroloc.simulations.memory.compression_under_bit_budget_mirror smoke`
+- result: wrote `neuroloc/output/simulation_runs/memory/compression_under_bit_budget_mirror/compression_under_bit_budget_mirror_metrics.json`
 
 ## key smoke outputs
 
@@ -185,6 +201,30 @@ commands run on 2026-05-07 after adding the factor-heldout local falsification g
 - factor-heldout matched-budget sparse-read total committed bits: 20.0
 - factor-heldout learned-minus-matched-budget sparse-read: 0.03125
 - factor-heldout engineering pass: 0.0
+- factorized structured local model authorized: 1.0
+- factorized structured full model authorized: 0.0
+- factorized structured paid compute authorized: 0.0
+- factorized structured train record count: 4096
+- factorized structured validation record count: 128
+- factorized structured test record count: 128
+- factorized structured train epochs: 300
+- factorized structured parameter count: 7392
+- factorized structured train/test bucket overlap: 0
+- factorized structured test colors seen in train: 1.0
+- factorized structured test shapes seen in train: 1.0
+- factorized structured learned-codec validation joint success: 1.0
+- factorized structured learned-codec test joint success: 1.0
+- factorized structured learned-codec test state success: 1.0
+- factorized structured learned-codec test action success: 1.0
+- factorized structured encoder address accuracy: 1.0
+- factorized structured encoder payload color accuracy: 1.0
+- factorized structured encoder payload shape accuracy: 1.0
+- factorized structured encoder payload position accuracy: 1.0
+- factorized structured encoder payload velocity accuracy: 1.0
+- factorized structured matched-budget sparse-read test joint success: 0.0
+- factorized structured learned-codec total committed bits: 19.0
+- factorized structured matched-budget sparse-read total committed bits: 20.0
+- factorized structured engineering pass: 1.0
 - no-memory joint success: 0.0
 - recency-only joint success: 0.0
 - shuffled-address joint success: 0.0
@@ -254,6 +294,8 @@ the tiny distributed local model is the first narrow positive learned result on 
 
 the factor-heldout gate falsifies the current tiny win as a compositional-generalization result. the split withholds color-shape pair bands while keeping every individual test color and test shape represented in train. train/test factor overlap is 0, test colors seen in train is 1.0, and test shapes seen in train is 1.0. under this stronger local split, the same tiny model reaches train joint success 1.0 but validation joint success 0.1875 and test joint success 0.03125. learned-code/oracle-decoder test joint success is 0.046875, oracle-code/learned-decoder test joint success is 0.4375, matched-budget sparse read remains 0.0, and engineering pass is 0.0. this is a useful negative result: the current encoder/decoder can fit ordinary split structure, but it does not yet recombine held-out factor pairs.
 
+the factorized structured local codec repairs this specific failure after prosecutor review caught and removed an evaluator-source shortcut from the encoder path. it replaces the shared nonlinear trunk with a legal-input vectorizer, independent learned field heads, and a deterministic action computation from the learned address, velocity, and position fields. with 4,096 train records, 128 validation records, 128 test records, 300 epochs, and 7,392 parameters, it reaches validation/test joint/state/action success 1.0 on the same factor-heldout split. address, color, shape, position, velocity, and provenance accuracy are all 1.0. it commits 19 bits while matched-budget sparse read remains at 20 bits and 0.0 joint success. this is evidence that the local operation wants factorized code formation and a structured operation decoder rather than a shared tuple-memorizing trunk.
+
 the latest learned path remains weak after the sparse-read addition: train joint success is 1.0, validation joint success is 0.0, test joint success is 0.125, learned compression ratio versus verbatim is 2.74x, and the learned-minus-sparse-read joint gap is -0.875. this points next at a learned-codec problem and at a tighter bit-efficiency comparison: the source state and action target are legally observable, but the current local learner does not yet generalize address, payload, velocity, action, or the decoder well enough to compete with shallow legal sparse read.
 
 it also proves that the suite registry can run this surface as a local smoke suite and reject blocked authorization flags if they turn on.
@@ -265,6 +307,8 @@ this does not prove learned compression as a broad project claim.
 the tiny distributed local model is a local positive on ordinary deterministic splits only, not a full compression paper result.
 
 the factor-heldout gate does not prove the mechanism is impossible. it proves that the current tiny encoder/decoder/training setup fails the first recombination falsification gate.
+
+the factorized structured codec does not prove the full compression stack. it proves one local symbolic repair under one factor-heldout split. it still needs multiple seeds, hard-profile sweeps, other heldout axes, and a less hand-shaped event-pooling encoder before the proof package can expand.
 
 it does not prove that the current `compression_under_bit_budget` source-pair task is a strong compression benchmark. the content-routed sparse-read baseline solves it from legal observations, although at a higher bit cost than the learned compact-code budget.
 
@@ -278,7 +322,7 @@ it does not authorize full-model integration, simulator work, h200, kaggle, pod,
 
 ## verdict
 
-accepted as the repaired local dataset, baseline-control, sparse-read baseline, matched-budget sparse-read control, distributed-evidence probe, first learned-codec smoke surface, tiny distributed local learned model, factor-heldout falsification gate, source-availability audit, and diagnostic-localization surface for the `compression_under_bit_budget` tiny mirror. the original source-pair task remains demoted as compression evidence. the ordinary distributed-evidence slice has a narrow local pass, but the factor-heldout gate fails hard: test joint success 0.03125 and engineering pass 0.0. the next no-paid work is local compositional-generalization repair through factor-balanced training, a less hand-shaped event-pooling encoder, or a structured decoder/action head before any broader mirror, full-model integration, or paid compute.
+accepted as the repaired local dataset, baseline-control, sparse-read baseline, matched-budget sparse-read control, distributed-evidence probe, first learned-codec smoke surface, tiny distributed local learned model, factor-heldout falsification gate, factorized structured local codec, source-availability audit, and diagnostic-localization surface for the `compression_under_bit_budget` tiny mirror. the original source-pair task remains demoted as compression evidence. the ordinary distributed-evidence slice has a narrow local pass, the shared nonlinear factor-heldout model fails hard, and the factorized structured local codec repairs that specific gate. the next no-paid work is robustness: multiple seeds, hard-profile/local larger sweeps, other factor-heldout axes, and less hand-shaped event pooling before any broader mirror, full-model integration, or paid compute.
 
 ## see also
 
