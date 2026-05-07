@@ -357,7 +357,7 @@ related sources include:
 
 ## immediate next steps
 
-1. harden the current tiny distributed local learned result for the `compression_under_bit_budget` slice against factor-held-out splits, multiple seeds, hard-profile/local larger sweeps, and less hand-shaped feature extraction.
+1. repair the current tiny distributed local model for the `compression_under_bit_budget` slice after the factor-heldout color-shape pair-band gate failed at 0.03125 test joint success. keep the work local and test factor-balanced batches, a less hand-shaped event-pooling encoder, and a structured decoder/action head before any broader claim.
 2. extend the sparse-read baseline to other relevant symbolic/mirror families only after the local proof-package decision is clear.
 3. add the oracle ladder and fieldwise failure-localization tree to every future mirror result.
 4. define the tagged eligibility buffer with sparse consolidation as the next cellular/local-state proof package candidate, not as model code.

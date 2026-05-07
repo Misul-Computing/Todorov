@@ -41,6 +41,10 @@ TINY_DISTRIBUTED_TRAIN_EPISODES = env_int("CUBB_TINY_DISTRIBUTED_TRAIN_EPISODES"
 TINY_DISTRIBUTED_VAL_EPISODES = env_int("CUBB_TINY_DISTRIBUTED_VAL_EPISODES", 128)
 TINY_DISTRIBUTED_TEST_EPISODES = env_int("CUBB_TINY_DISTRIBUTED_TEST_EPISODES", 128)
 TINY_DISTRIBUTED_EPOCHS = env_int("CUBB_TINY_DISTRIBUTED_EPOCHS", 120)
+FACTOR_HELDOUT_TRAIN_EPISODES = env_int("CUBB_FACTOR_HELDOUT_TRAIN_EPISODES", 512)
+FACTOR_HELDOUT_VAL_EPISODES = env_int("CUBB_FACTOR_HELDOUT_VAL_EPISODES", 64)
+FACTOR_HELDOUT_TEST_EPISODES = env_int("CUBB_FACTOR_HELDOUT_TEST_EPISODES", 64)
+FACTOR_HELDOUT_EPOCHS = env_int("CUBB_FACTOR_HELDOUT_EPOCHS", 100)
 
 require_positive("CUBB_MIRROR_TRAIN_EPISODES", TRAIN_EPISODES)
 require_positive("CUBB_MIRROR_VAL_EPISODES", VAL_EPISODES)
@@ -50,6 +54,10 @@ require_positive("CUBB_TINY_DISTRIBUTED_TRAIN_EPISODES", TINY_DISTRIBUTED_TRAIN_
 require_positive("CUBB_TINY_DISTRIBUTED_VAL_EPISODES", TINY_DISTRIBUTED_VAL_EPISODES)
 require_positive("CUBB_TINY_DISTRIBUTED_TEST_EPISODES", TINY_DISTRIBUTED_TEST_EPISODES)
 require_positive("CUBB_TINY_DISTRIBUTED_EPOCHS", TINY_DISTRIBUTED_EPOCHS)
+require_positive("CUBB_FACTOR_HELDOUT_TRAIN_EPISODES", FACTOR_HELDOUT_TRAIN_EPISODES)
+require_positive("CUBB_FACTOR_HELDOUT_VAL_EPISODES", FACTOR_HELDOUT_VAL_EPISODES)
+require_positive("CUBB_FACTOR_HELDOUT_TEST_EPISODES", FACTOR_HELDOUT_TEST_EPISODES)
+require_positive("CUBB_FACTOR_HELDOUT_EPOCHS", FACTOR_HELDOUT_EPOCHS)
 
 FAMILY = "compression_under_bit_budget"
 FORBIDDEN_INPUT_KEYS = {
@@ -793,6 +801,56 @@ def build_distributed_trainable_dataset(profile: str, seed: int, train_episodes:
         *build_distributed_evidence_dataset(base, profile, split="train"),
         *build_distributed_evidence_dataset(base, profile, split="validation"),
         *build_distributed_evidence_dataset(base, profile, split="test"),
+    ]
+
+
+def factor_holdout_bucket(record: dict[str, Any], caps: dict[str, int]) -> int:
+    state = record["labels"]["state"]
+    color = int(state["color"])
+    shape = int(state["shape"])
+    if shape == color % int(caps["n_shapes"]):
+        return 1
+    if shape == (color + 1) % int(caps["n_shapes"]):
+        return 2
+    return 0
+
+
+def split_accepts_factor_bucket(split: str, bucket: int) -> bool:
+    if split == "train":
+        return int(bucket) == 0
+    if split == "validation":
+        return int(bucket) == 1
+    if split == "test":
+        return int(bucket) == 2
+    raise ValueError(f"unknown split: {split}")
+
+
+def build_factor_heldout_distributed_split(profile: str, split: str, target_count: int, seed: int) -> list[dict[str, Any]]:
+    caps = profile_caps(profile)
+    selected: list[dict[str, Any]] = []
+    attempt = 0
+    while len(selected) < int(target_count) and attempt < 512:
+        batch = build_split(split, max(64, int(target_count)), seed + attempt * 9973, profile)
+        for record in batch:
+            bucket = factor_holdout_bucket(record, caps)
+            if split_accepts_factor_bucket(split, bucket):
+                distributed = build_distributed_evidence_record(record, caps, len(selected))
+                distributed["factor_holdout_key"] = "color_shape_pair_band"
+                distributed["factor_holdout_bucket"] = int(bucket)
+                selected.append(distributed)
+                if len(selected) == int(target_count):
+                    break
+        attempt += 1
+    if len(selected) != int(target_count):
+        raise ValueError(f"could not build {target_count} {split} factor-heldout records")
+    return selected
+
+
+def build_factor_heldout_distributed_dataset(profile: str, seed: int, train_episodes: int, val_episodes: int, test_episodes: int) -> list[dict[str, Any]]:
+    return [
+        *build_factor_heldout_distributed_split(profile, "train", train_episodes, seed + 10_001),
+        *build_factor_heldout_distributed_split(profile, "validation", val_episodes, seed + 20_003),
+        *build_factor_heldout_distributed_split(profile, "test", test_episodes, seed + 30_007),
     ]
 
 
@@ -1650,6 +1708,67 @@ def tiny_distributed_local_model_summary(profile: str, seed: int = SEED, train_e
     }
 
 
+def factor_bucket_set(dataset: list[dict[str, Any]], split: str) -> set[int]:
+    return {int(row["factor_holdout_bucket"]) for row in dataset if row["split"] == split}
+
+
+def label_value_set(dataset: list[dict[str, Any]], split: str, key: str) -> set[int]:
+    return {int(row["labels"]["state"][key]) for row in dataset if row["split"] == split}
+
+
+def tiny_factor_heldout_local_model_summary(profile: str, seed: int = SEED, train_episodes: int = FACTOR_HELDOUT_TRAIN_EPISODES, val_episodes: int = FACTOR_HELDOUT_VAL_EPISODES, test_episodes: int = FACTOR_HELDOUT_TEST_EPISODES, epochs: int = FACTOR_HELDOUT_EPOCHS) -> dict[str, Any]:
+    dataset = build_factor_heldout_distributed_dataset(profile, seed + 61_993, train_episodes, val_episodes, test_episodes)
+    learned = train_learned_codec(dataset, profile, seed=seed + 71_129, epochs=epochs)
+    rows = evaluate_dataset(dataset, profile, seed=seed + 81_011, learned=learned)
+    oracle_decoder_split = split_metric_summary(rows, "oracle_code_learned_decoder", "factor_heldout_oracle_code_learned_decoder")
+    learned_joint = mean_for(rows, "learned_codec", "joint_success", split="test")
+    matched_joint = mean_for(rows, "matched_budget_sparse_read", "joint_success", split="test")
+    learned_bits = mean_for(rows, "learned_codec", "total_committed_bits", split="test")
+    matched_bits = mean_for(rows, "matched_budget_sparse_read", "total_committed_bits", split="test")
+    train_buckets = factor_bucket_set(dataset, "train")
+    validation_buckets = factor_bucket_set(dataset, "validation")
+    test_buckets = factor_bucket_set(dataset, "test")
+    train_colors = label_value_set(dataset, "train", "color")
+    test_colors = label_value_set(dataset, "test", "color")
+    train_shapes = label_value_set(dataset, "train", "shape")
+    test_shapes = label_value_set(dataset, "test", "shape")
+    return {
+        "factor_heldout_local_model_authorized": 1.0,
+        "factor_heldout_full_model_authorized": 0.0,
+        "factor_heldout_paid_compute_authorized": 0.0,
+        "factor_heldout_key": "color_shape_pair_band",
+        "factor_heldout_train_bucket_count": int(len(train_buckets)),
+        "factor_heldout_validation_bucket_count": int(len(validation_buckets)),
+        "factor_heldout_test_bucket_count": int(len(test_buckets)),
+        "factor_heldout_train_validation_bucket_overlap": int(len(train_buckets & validation_buckets)),
+        "factor_heldout_train_test_bucket_overlap": int(len(train_buckets & test_buckets)),
+        "factor_heldout_validation_test_bucket_overlap": int(len(validation_buckets & test_buckets)),
+        "factor_heldout_test_colors_seen_in_train": float(int(test_colors <= train_colors)),
+        "factor_heldout_test_shapes_seen_in_train": float(int(test_shapes <= train_shapes)),
+        "factor_heldout_train_record_count": int(sum(1 for row in dataset if row["split"] == "train")),
+        "factor_heldout_validation_record_count": int(sum(1 for row in dataset if row["split"] == "validation")),
+        "factor_heldout_test_record_count": int(sum(1 for row in dataset if row["split"] == "test")),
+        "factor_heldout_train_epochs": int(epochs),
+        "factor_heldout_parameter_count": int(learned["parameter_count"]),
+        "factor_heldout_train_loss_start": float(learned["train_loss_start"]),
+        "factor_heldout_train_loss_final": float(learned["train_loss_final"]),
+        "factor_heldout_decoder_train_loss_start": float(learned["decoder_train_loss_start"]),
+        "factor_heldout_decoder_train_loss_final": float(learned["decoder_train_loss_final"]),
+        "factor_heldout_learned_codec_train_joint_success": float(mean_for(rows, "learned_codec", "joint_success", split="train")),
+        "factor_heldout_learned_codec_validation_joint_success": float(mean_for(rows, "learned_codec", "joint_success", split="validation")),
+        "factor_heldout_learned_codec_test_joint_success": float(learned_joint),
+        "factor_heldout_learned_codec_test_state_success": float(mean_for(rows, "learned_codec", "state_probe_accuracy", split="test")),
+        "factor_heldout_learned_codec_test_action_success": float(mean_for(rows, "learned_codec", "action_success", split="test")),
+        "factor_heldout_learned_code_oracle_decoder_test_joint_success": float(mean_for(rows, "learned_code_oracle_decoder", "joint_success", split="test")),
+        "factor_heldout_matched_budget_sparse_read_test_joint_success": float(matched_joint),
+        "factor_heldout_matched_budget_sparse_read_total_committed_bits": float(matched_bits),
+        "factor_heldout_learned_codec_total_committed_bits": float(learned_bits),
+        "factor_heldout_learned_minus_matched_budget_sparse_read": float(learned_joint - matched_joint),
+        "factor_heldout_engineering_pass": float(int(learned_joint >= 0.95 and mean_for(rows, "oracle_code_learned_decoder", "joint_success", split="test") >= 0.95 and learned_joint > matched_joint and learned_bits <= max(1.0, matched_bits) and len(train_buckets & test_buckets) == 0 and test_colors <= train_colors and test_shapes <= train_shapes)),
+        **oracle_decoder_split,
+    }
+
+
 def main() -> int:
     profile = infer_profile()
     started = time.perf_counter()
@@ -1659,6 +1778,7 @@ def main() -> int:
     rows = evaluate_dataset(dataset, profile, learned=learned)
     summary = build_summary(dataset, rows, profile)
     summary.update(tiny_distributed_local_model_summary(profile))
+    summary.update(tiny_factor_heldout_local_model_summary(profile))
     statistics = build_statistics(rows)
     output_dir = output_dir_for(SCRIPT_PATH)
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -1680,6 +1800,10 @@ def main() -> int:
             "tiny_distributed_validation_episodes": int(TINY_DISTRIBUTED_VAL_EPISODES),
             "tiny_distributed_test_episodes": int(TINY_DISTRIBUTED_TEST_EPISODES),
             "tiny_distributed_train_epochs": int(TINY_DISTRIBUTED_EPOCHS),
+            "factor_heldout_train_episodes": int(FACTOR_HELDOUT_TRAIN_EPISODES),
+            "factor_heldout_validation_episodes": int(FACTOR_HELDOUT_VAL_EPISODES),
+            "factor_heldout_test_episodes": int(FACTOR_HELDOUT_TEST_EPISODES),
+            "factor_heldout_train_epochs": int(FACTOR_HELDOUT_EPOCHS),
             "family": FAMILY,
             "policies": list(ALL_POLICIES),
             "learned_codec_parameter_count": int(learned["parameter_count"]),

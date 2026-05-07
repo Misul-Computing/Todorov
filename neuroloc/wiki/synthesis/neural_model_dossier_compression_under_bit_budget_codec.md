@@ -1,6 +1,6 @@
 # neural model dossier: compression under bit budget codec
 
-status: current (as of 2026-04-28).
+status: current (as of 2026-05-07).
 
 ## claim
 
@@ -82,6 +82,8 @@ the primary preserved operation is not pixel or tensor reconstruction. it is tas
 
 the first tiny mirror should use the existing hard symbolic episode contract, narrowed to the `compression_under_bit_budget` family.
 
+after an ordinary-split local pass, the mirror must add factor-heldout recombination before the result can advance the proof package. the current factor-heldout split withholds color-shape pair bands while keeping individual colors and shapes represented in train. failure on this split is a compositional-generalization failure, not a paid-compute blocker.
+
 required episode fields:
 
 - exact hidden state
@@ -159,6 +161,7 @@ the learned codec passes the narrow proof package only if:
 - oracle-code / learned-decoder and learned-code / oracle-decoder splits localize remaining errors.
 - telemetry shows the compressed path is used rather than bypassed.
 - confidence intervals rule out noise.
+- factor-heldout recombination passes before the ordinary-split result is treated as mechanism evidence.
 
 ## kill condition
 
@@ -172,6 +175,7 @@ kill the learned-codec path for this family if any of these occur:
 - oracle-code / learned-decoder succeeds but learned-code / oracle-decoder fails, and encoder-side fixes do not improve it.
 - learned-code / oracle-decoder succeeds but oracle-code / learned-decoder fails, and decoder-side fixes do not improve it.
 - telemetry shows unused memory output, collapsed address entropy, or budget use that does not correlate with success.
+- ordinary deterministic splits pass but factor-heldout recombination fails and local encoder or decoder repairs do not improve it.
 
 ## paper claim if proved
 
@@ -185,7 +189,7 @@ this would still not prove general compression, biological novelty, full-model u
 
 ## next implementation boundary
 
-the next executable work is not the full model. the tiny local mirror defined in [[neural_model_tiny_mirror_contract_compression_under_bit_budget]] now exists and is documented in [[tests/compression_under_bit_budget_mirror]]. its first learned-codec/source-diagnostic result was negative, exposed a source-observability contract problem, and then repaired that contract. the next local work is learned address/payload/action and decoder-generalization repair before another broader codec is trained.
+the next executable work is not the full model. the tiny local mirror defined in [[neural_model_tiny_mirror_contract_compression_under_bit_budget]] now exists and is documented in [[tests/compression_under_bit_budget_mirror]]. its first learned-codec/source-diagnostic result was negative, exposed a source-observability contract problem, repaired that contract, added sparse-read and matched-budget controls, added distributed evidence, produced an ordinary-split tiny local pass, and then failed factor-heldout recombination. the next local work is compositional-generalization repair before another broader codec is trained.
 
 the tiny mirror must not touch:
 

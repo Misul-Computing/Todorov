@@ -2,7 +2,7 @@
 
 status: current (as of 2026-05-07).
 
-update note: [[tests/compression_under_bit_budget_mirror]] now includes the first tiny distributed local learned model. the original source-pair task remains demoted as compression evidence, but the distributed-evidence slice has a narrow local positive: 25,975 parameters, 1.0 test joint success, 19 committed bits, and matched-budget sparse read at 20 bits with 0.0 joint success. the immediate no-paid work is stronger local falsification: factor-held-out splits, multiple seeds, hard-profile/local larger sweeps, and less hand-shaped feature extraction.
+update note: [[tests/compression_under_bit_budget_mirror]] now includes the first tiny distributed local learned model and a factor-heldout local falsification gate. the original source-pair task remains demoted as compression evidence. the ordinary distributed-evidence slice has a narrow local pass, but held-out color-shape pair bands fail at 0.03125 test joint success. the immediate no-paid work is local compositional-generalization repair, not paid compute or full-model expansion.
 
 this is the flat reference catalog of every article in the wiki, grouped
 by topic within each top-level directory. for guided navigation, start

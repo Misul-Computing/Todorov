@@ -1,6 +1,6 @@
 # neural model lane: trainability and evaluation
 
-status: current (as of 2026-04-28).
+status: current (as of 2026-05-07).
 
 ## thesis
 
@@ -26,7 +26,7 @@ the first executable model target remains a tiny trainable neural-model mirror, 
 - [[oracle_compression_frontier_split]] ranks the accepted families and makes `compression_under_bit_budget` the first learned-codec proof-package candidate.
 - [[neural_model_dossier_compression_under_bit_budget_codec]] defines the exact non-oracle input rule, controls, metrics, telemetry, and kill conditions for the first narrow learned-codec mirror.
 - [[neural_model_tiny_mirror_contract_compression_under_bit_budget]] defines the dataset split, baselines, trainability splits, losses, telemetry schema, acceptance thresholds, and forbidden-input guards for the first local mirror.
-- [[tests/compression_under_bit_budget_mirror]] documents the implemented local dataset, guard, baseline-control, learned-codec, source-diagnostic, bit-accounting, and telemetry surface. the source-observability contract is repaired, the visible-source codec solves the smoke task, and the learned-codec smoke result still overfits train split while failing held-out address, payload color, payload position, velocity, action, and decoder generalization.
+- [[tests/compression_under_bit_budget_mirror]] documents the implemented local dataset, guard, baseline-control, learned-codec, source-diagnostic, bit-accounting, sparse-read baseline, distributed-evidence probe, tiny local learned model, factor-heldout gate, and telemetry surface. the ordinary distributed-evidence split passes locally, but held-out color-shape pair bands fail with test joint success 0.03125. the current bottleneck is compositional generalization, not paid compute.
 - [[neural_model_research_test_material_plan]] defines dossier, control, and metric requirements.
 - [[phase1_evaluation_surface_for_neural_models]] defines the broader state/action evaluation frame.
 - [[tests/hard_symbolic_nm_test_material]] documents the implemented hard symbolic package.
@@ -58,7 +58,7 @@ the first executable model target remains a tiny trainable neural-model mirror, 
 
 ## next action
 
-repair the learned address/payload/action and decoder-generalization path in the repaired `compression_under_bit_budget` mirror, while keeping oracle compression bounds and family-specific controls ahead of any full-model path.
+repair factor-heldout compositional generalization in the repaired `compression_under_bit_budget` mirror through local-only encoder, decoder, or training changes, while keeping oracle compression bounds and family-specific controls ahead of any full-model path.
 
 ## see also
 

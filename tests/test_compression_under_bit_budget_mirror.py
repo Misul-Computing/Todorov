@@ -13,6 +13,7 @@ from neuroloc.simulations.memory.compression_under_bit_budget_mirror import (
     ALL_POLICIES,
     BASELINE_POLICIES,
     build_distributed_evidence_dataset,
+    build_factor_heldout_distributed_dataset,
     DIAGNOSTIC_POLICIES,
     build_dataset,
     build_summary,
@@ -31,6 +32,7 @@ from neuroloc.simulations.memory.compression_under_bit_budget_mirror import (
     sparse_read_record_bits,
     matched_budget_sparse_read_result,
     tiny_distributed_local_model_summary,
+    tiny_factor_heldout_local_model_summary,
     vectorize_record,
 )
 from neuroloc.simulations.suite_registry import SIMULATION_SPECS, SUITES, get_suite_specs
@@ -233,6 +235,44 @@ def test_compression_mirror_tiny_distributed_local_model_trains_on_cpu_surface()
     assert summary["tiny_distributed_matched_budget_sparse_read_test_joint_success"] == 0.0
     assert summary["tiny_distributed_learned_codec_total_committed_bits"] <= summary["tiny_distributed_matched_budget_sparse_read_total_committed_bits"]
     assert summary["tiny_distributed_engineering_pass"] == 1.0
+
+
+def test_compression_mirror_factor_heldout_split_is_combinational_and_local_only() -> None:
+    dataset = build_factor_heldout_distributed_dataset("smoke", seed=211, train_episodes=64, val_episodes=16, test_episodes=16)
+    second = build_factor_heldout_distributed_dataset("smoke", seed=211, train_episodes=64, val_episodes=16, test_episodes=16)
+    assert dataset == second
+    train_buckets = {row["factor_holdout_bucket"] for row in dataset if row["split"] == "train"}
+    validation_buckets = {row["factor_holdout_bucket"] for row in dataset if row["split"] == "validation"}
+    test_buckets = {row["factor_holdout_bucket"] for row in dataset if row["split"] == "test"}
+    assert train_buckets == {0}
+    assert validation_buckets == {1}
+    assert test_buckets == {2}
+    assert not train_buckets & validation_buckets
+    assert not train_buckets & test_buckets
+    train_colors = {row["labels"]["state"]["color"] for row in dataset if row["split"] == "train"}
+    test_colors = {row["labels"]["state"]["color"] for row in dataset if row["split"] == "test"}
+    train_shapes = {row["labels"]["state"]["shape"] for row in dataset if row["split"] == "train"}
+    test_shapes = {row["labels"]["state"]["shape"] for row in dataset if row["split"] == "test"}
+    assert test_colors <= train_colors
+    assert test_shapes <= train_shapes
+    assert all(row["factor_holdout_key"] == "color_shape_pair_band" for row in dataset)
+    assert all(row["evidence_variant"] == "distributed" for row in dataset)
+
+
+def test_compression_mirror_factor_heldout_local_model_falsifies_current_tiny_win() -> None:
+    summary = tiny_factor_heldout_local_model_summary("smoke", seed=211, train_episodes=512, val_episodes=64, test_episodes=64, epochs=100)
+    assert summary["factor_heldout_local_model_authorized"] == 1.0
+    assert summary["factor_heldout_full_model_authorized"] == 0.0
+    assert summary["factor_heldout_paid_compute_authorized"] == 0.0
+    assert summary["factor_heldout_train_test_bucket_overlap"] == 0
+    assert summary["factor_heldout_test_colors_seen_in_train"] == 1.0
+    assert summary["factor_heldout_test_shapes_seen_in_train"] == 1.0
+    assert summary["factor_heldout_train_record_count"] == 512
+    assert summary["factor_heldout_validation_record_count"] == 64
+    assert summary["factor_heldout_test_record_count"] == 64
+    assert summary["factor_heldout_matched_budget_sparse_read_test_joint_success"] == 0.0
+    assert summary["factor_heldout_learned_codec_test_joint_success"] < 0.95
+    assert summary["factor_heldout_engineering_pass"] == 0.0
 
 
 def test_compression_mirror_learned_codec_emits_trainable_rows() -> None:

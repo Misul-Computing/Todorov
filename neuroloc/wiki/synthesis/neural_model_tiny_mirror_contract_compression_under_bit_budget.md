@@ -1,6 +1,6 @@
 # neural model tiny mirror contract: compression under bit budget
 
-status: current (as of 2026-04-28).
+status: current (as of 2026-05-07).
 
 ## purpose
 
@@ -82,6 +82,8 @@ the implementation must produce deterministic, non-overlapping splits:
 
 the split key is seed, not array position. validation and test seeds must not overlap train seeds. no metric may be selected on the test split. the test split is read once after thresholds are fixed.
 
+the mirror must also include factor-heldout local falsification before an ordinary-split result is treated as mechanism evidence. the current factor split withholds color-shape pair bands while keeping every individual test color and test shape represented in train. the artifact must report train/validation/test factor-bucket overlap, seen-marginal checks, learned-code/oracle-decoder success, oracle-code/learned-decoder success, matched-budget sparse-read success, committed bits, and engineering pass.
+
 difficulty sweeps must vary at least:
 
 - distractor count.
@@ -143,6 +145,8 @@ required trainability splits:
 - learned encoder with frozen random decoder.
 
 these splits must localize whether failure is encoder-side, decoder-side, address-side, payload-side, or optimization-side.
+
+if the ordinary split passes but factor-heldout fails, the result is a local sanity pass only. the next action must repair compositional generalization locally before broader mirrors, full-model code, simulator work, or paid compute.
 
 ## losses
 
@@ -250,6 +254,7 @@ hard profile:
 - verbatim storage must not satisfy the compressed budget.
 - shuffled-address must fail the address-dependent result.
 - confidence intervals must exclude the control scores.
+- factor-heldout learned codec `joint_success >= 0.95` before an ordinary-split tiny result counts as mechanism evidence.
 
 anything below the engineering pass may still be useful as a negative trainability result, but it does not advance the compression claim.
 
@@ -269,12 +274,13 @@ kill or redesign the mirror if:
 - budget usage does not correlate with success.
 - telemetry shows memory output is unused.
 - the result appears only on smoke and vanishes on hard.
+- the result appears on ordinary deterministic splits but fails factor-heldout recombination.
 
 ## implementation handoff
 
-the first local dataset, learned-codec, and source-diagnostic surface is now documented in [[tests/compression_under_bit_budget_mirror]]. it produced a negative smoke result, exposed a source-observability contract problem, and then repaired that contract so legal visible-source extraction solves the smoke task.
+the first local dataset, learned-codec, and source-diagnostic surface is now documented in [[tests/compression_under_bit_budget_mirror]]. it produced a negative smoke result, exposed a source-observability contract problem, repaired that contract so legal visible-source extraction solves the smoke task, added sparse-read and matched-budget sparse-read controls, added distributed evidence, produced an ordinary-split tiny local pass, and then failed factor-heldout recombination.
 
-the next code slice should modify the local learned-codec path, not the full model. it should repair or replace the learned address/payload/action and decoder-generalization path while preserving deterministic splits, forbidden-input guards, baselines, telemetry artifacts, and focused tests.
+the next code slice should modify the local learned-codec path, not the full model. it should repair or replace compositional generalization with factor-balanced training, a less hand-shaped event-pooling encoder, or a structured decoder/action head while preserving deterministic splits, forbidden-input guards, baselines, telemetry artifacts, and focused tests.
 
 ## see also
 
