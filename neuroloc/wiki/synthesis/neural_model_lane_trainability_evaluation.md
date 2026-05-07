@@ -1,6 +1,6 @@
 # neural model lane: trainability and evaluation
 
-status: current (as of 2026-05-07).
+status: current (as of 2026-05-08).
 
 ## thesis
 
@@ -26,7 +26,7 @@ the first executable model target remains a tiny trainable neural-model mirror, 
 - [[oracle_compression_frontier_split]] ranks the accepted families and makes `compression_under_bit_budget` the first learned-codec proof-package candidate.
 - [[neural_model_dossier_compression_under_bit_budget_codec]] defines the exact non-oracle input rule, controls, metrics, telemetry, and kill conditions for the first narrow learned-codec mirror.
 - [[neural_model_tiny_mirror_contract_compression_under_bit_budget]] defines the dataset split, baselines, trainability splits, losses, telemetry schema, acceptance thresholds, and forbidden-input guards for the first local mirror.
-- [[tests/compression_under_bit_budget_mirror]] documents the implemented local dataset, guard, baseline-control, learned-codec, source-diagnostic, bit-accounting, sparse-read baseline, distributed-evidence probe, tiny local learned model, factor-heldout gate, factorized structured local codec, 10k-scale local data-heavy gate, useful-state-density telemetry, and telemetry surface. [[tests/language_grounded_state_density_mirror]] documents the first constrained generated-language bridge, negative parser-resistant token-count gate, parser-supported event-binding baseline, and typed trainable event-binding local-state pass. the shared nonlinear factor-heldout model fails at test joint success 0.03125, while the 9,792-parameter factorized structured local codec clears four heldout factor axes across three smoke seeds at minimum test joint success 1.0, the 3,847-parameter language bridge clears four heldout axes across two smoke seeds, and the 8,856-parameter typed trainable event binder clears the randomized symbolic-message gate at minimum heldout joint/state/action success 0.9583333333333334. this is a narrow local symbolic-language gate, not arbitrary chat or solved compression. the current bottleneck is memory update, replay, imagination/branch-state, longer dialogue, provenance controls, and stronger learned binding, not paid compute.
+- [[tests/compression_under_bit_budget_mirror]] documents the implemented local dataset, guard, baseline-control, learned-codec, source-diagnostic, bit-accounting, sparse-read baseline, distributed-evidence probe, tiny local learned model, factor-heldout gate, factorized structured local codec, 10k-scale local data-heavy gate, useful-state-density telemetry, and telemetry surface. [[tests/language_grounded_state_density_mirror]] documents the first constrained generated-language bridge, negative parser-resistant token-count gate, parser-supported event-binding baseline, and typed trainable event-binding local-state pass. [[tests/local_v1_language_model]] documents the first dataset-grounded local v1 state-first responder with constrained memory update, targeted replay, random-replay failure, and branch-state controls. the shared nonlinear factor-heldout model fails at test joint success 0.03125, while the 9,792-parameter factorized structured local codec clears four heldout factor axes across three smoke seeds at minimum test joint success 1.0, the 3,847-parameter language bridge clears four heldout axes across two smoke seeds, the 8,856-parameter typed trainable event binder clears the randomized symbolic-message gate at minimum heldout joint/state/action success 0.9583333333333334, and the 2,688-parameter local v1 router clears its dataset-memory and dialogue controls. this is a narrow local symbolic-language and dataset-record gate, not arbitrary chat or solved compression. the current bottleneck is longer grounded dialogue, provenance-preserving rewrites, factor-heldout query forms, fair sparse-read baselines, and stronger learned binding, not paid compute.
 - [[neural_model_research_test_material_plan]] defines dossier, control, and metric requirements.
 - [[phase1_evaluation_surface_for_neural_models]] defines the broader state/action evaluation frame.
 - [[tests/hard_symbolic_nm_test_material]] documents the implemented hard symbolic package.
@@ -58,7 +58,7 @@ the first executable model target remains a tiny trainable neural-model mirror, 
 
 ## next action
 
-harden the constrained language bridge in [[tests/language_grounded_state_density_mirror]] through hard-profile/local larger sweeps, less hand-shaped message parsing, and a stronger storage-in-local-state formulation, while keeping oracle compression bounds and family-specific controls ahead of any full-model path.
+harden the local v1 responder in [[tests/local_v1_language_model]] through longer grounded dialogue, provenance-preserving rewrites, factor-heldout query forms, fair sparse-read baselines, and larger local dataset ingestion, while keeping oracle compression bounds and family-specific controls ahead of any full-model path.
 
 ## see also
 
@@ -74,6 +74,7 @@ harden the constrained language bridge in [[tests/language_grounded_state_densit
 - [[neural_model_tiny_mirror_contract_compression_under_bit_budget]]
 - [[tests/compression_under_bit_budget_mirror]]
 - [[tests/language_grounded_state_density_mirror]]
+- [[tests/local_v1_language_model]]
 - [[neural_model_research_test_material_plan]]
 - [[phase1_evaluation_surface_for_neural_models]]
 - [[tests/hard_symbolic_nm_test_material]]

@@ -1,6 +1,6 @@
 # neural model lane: memory, addressing, replay, and imagination
 
-status: current (as of 2026-04-26).
+status: current (as of 2026-05-08).
 
 ## thesis
 
@@ -23,6 +23,7 @@ the claim is conditional: this lane matters only if targeted routing, replay rew
 - [[neural_model_dossier_replay_rewrite]] defines replay as rewrite and recompression.
 - [[world_models_imagination_and_planning]] translates latent rollout and world-model work into the project frame.
 - [[synthetic_shared_world_bridge]] defines the exact-state phase-2 bridge for embodied worlds.
+- [[tests/local_v1_language_model]] documents the first constrained local v1 update, targeted replay, random-replay, and branch-state rehearsal gate. it is dataset-record state routing, not open-ended imagination.
 
 ## proof gates
 
@@ -49,7 +50,7 @@ the claim is conditional: this lane matters only if targeted routing, replay rew
 
 ## next action
 
-align memory, replay, and imagination proof obligations with the hard symbolic worlds and the simulator-selection gate so that later embodied 3d tasks export the same episode contract.
+harden the local v1 update/replay/branch-state loop with longer grounded dialogue, provenance-preserving rewrites, factor-heldout query forms, larger local dataset ingestion, and fair sparse-read baselines before expanding to embodied 3d tasks.
 
 ## see also
 
@@ -65,5 +66,6 @@ align memory, replay, and imagination proof obligations with the hard symbolic w
 - [[neural_model_dossier_memory_formation]]
 - [[neural_model_dossier_addressing]]
 - [[neural_model_dossier_replay_rewrite]]
+- [[tests/local_v1_language_model]]
 - [[world_models_imagination_and_planning]]
 - [[synthetic_shared_world_bridge]]

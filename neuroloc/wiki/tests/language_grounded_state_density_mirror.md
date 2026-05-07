@@ -1,12 +1,12 @@
 # language_grounded_state_density_mirror
 
-status: current (as of 2026-05-07).
+status: current (as of 2026-05-08).
 
 test type: local symbolic-language state-density bridge for constrained message-response behavior
 
 ## summary
 
-`language_grounded_state_density_mirror` is the first no-paid bridge from the symbolic useful-state-density surface toward a chat-like interface. it generates text observations and text queries from the same distributed-evidence worlds used by `compression_under_bit_budget_mirror`, trains a small local model from the generated message surface, and emits a text answer.
+`language_grounded_state_density_mirror` is the first no-paid bridge from the symbolic useful-state-density surface toward a constrained message-response surface. it generates text observations and text queries from the same distributed-evidence worlds used by `compression_under_bit_budget_mirror`, trains a small local model from the generated message surface, and emits a text answer.
 
 this does not make the model generally conversational. it proves only that a constrained generated-language message can feed the local state-density mechanism and produce a constrained answer under exact controls.
 
@@ -200,6 +200,7 @@ this is a bridge toward message-response training, not evidence that arbitrary c
 
 ## see also
 
+- [[local_v1_language_model]]
 - [[compression_under_bit_budget_mirror]]
 - [[../synthesis/neural_model_tiny_mirror_contract_compression_under_bit_budget]]
 - [[../synthesis/neural_model_paper_spine]]

@@ -1,6 +1,6 @@
 # neural model related-work pressure matrix
 
-status: current (as of 2026-05-07).
+status: current (as of 2026-05-08).
 
 ## role
 
@@ -34,7 +34,7 @@ that is the narrow paper edge. it is conditional. it remains unproved.
 
 the project should not argue from novelty by component. nearly every component has prior art. the claim must be compound and proof-gated.
 
-the next local code target is now sharpened by the implemented sparse-read baseline, the external demotion decision, the first tiny distributed local learned result, the 10k-scale factorized local gate, the first constrained generated-language bridge, the negative parser-resistant token-count gate, and the typed trainable event-binding local-state pass. the original source-pair `compression_under_bit_budget` mirror is a source-selection diagnostic, not compression evidence. matched-budget sparse read and a distributed-evidence probe are implemented. a 25,975-parameter local model passes the distributed-evidence slice at 19 bits, a 9,792-parameter factorized structured local codec clears four heldout factor axes across three smoke seeds at 19 bits, a 3,847-parameter language-grounded bridge clears generated text observations and constrained text answers across four heldout axes and two smoke seeds, and an 8,856-parameter typed trainable event binder clears randomized symbolic-message event binding at minimum heldout joint/state/action success 0.9583333333333334. these are local useful-state-density gates, not solved compression and not arbitrary chat. the next target is memory update, replay, imagination/branch-state, longer dialogue, provenance controls, and stronger learned binding rather than claim expansion.
+the next local code target is now sharpened by the implemented sparse-read baseline, the external demotion decision, the first tiny distributed local learned result, the 10k-scale factorized local gate, the first constrained generated-language bridge, the negative parser-resistant token-count gate, the typed trainable event-binding local-state pass, and the first dataset-grounded local v1 responder. the original source-pair `compression_under_bit_budget` mirror is a source-selection diagnostic, not compression evidence. matched-budget sparse read and a distributed-evidence probe are implemented. a 25,975-parameter local model passes the distributed-evidence slice at 19 bits, a 9,792-parameter factorized structured local codec clears four heldout factor axes across three smoke seeds at 19 bits, a 3,847-parameter language-grounded bridge clears generated text observations and constrained text answers across four heldout axes and two smoke seeds, an 8,856-parameter typed trainable event binder clears randomized symbolic-message event binding at minimum heldout joint/state/action success 0.9583333333333334, and a 2,688-parameter local v1 state router clears dataset-memory, update, targeted replay, random-replay, branch-state, zero-state, and shuffled-state controls. these are local useful-state-density gates, not solved compression and not arbitrary chat. the next target is longer grounded dialogue, provenance-preserving rewrites, factor-heldout query forms, fair sparse-read baselines, and stronger learned binding rather than claim expansion.
 
 the next research standard has changed in code as well as prose. the first content-routed sparse-read baseline over verbatim records is now implemented for `compression_under_bit_budget`; it solves the repaired source-pair smoke task from two legal records but exceeds the compact-code budget. matched-budget sparse read fails, and the distributed-evidence probe now requires four legal fragments for uncapped sparse read while still failing under the matched budget.
 
@@ -357,7 +357,7 @@ related sources include:
 
 ## immediate next steps
 
-1. harden the constrained language bridge after it cleared four heldout factor axes at 1.0 minimum test joint success. keep the work local and test multiple seeds, hard-profile/local larger sweeps, less hand-shaped message parsing, and stronger storage-in-local-state formulations before any broader claim.
+1. harden the local v1 responder after it cleared dataset-memory, update, targeted replay, random-replay, branch-state, zero-state, and shuffled-state controls. keep the work local and test longer grounded dialogue, provenance-preserving rewrites, factor-heldout query forms, fair sparse-read baselines, larger local datasets, and stronger storage-in-local-state formulations before any broader claim.
 2. extend the sparse-read baseline to other relevant symbolic/mirror families only after the local proof-package decision is clear.
 3. add the oracle ladder and fieldwise failure-localization tree to every future mirror result.
 4. define the tagged eligibility buffer with sparse consolidation as the next cellular/local-state proof package candidate, not as model code.
@@ -381,5 +381,6 @@ related sources include:
 - [[neural_model_tiny_mirror_contract_compression_under_bit_budget]]
 - [[tests/compression_under_bit_budget_mirror]]
 - [[tests/language_grounded_state_density_mirror]]
+- [[tests/local_v1_language_model]]
 - [[phase1_evaluation_surface_for_neural_models]]
 - [[synthetic_shared_world_bridge]]

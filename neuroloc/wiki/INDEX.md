@@ -1,8 +1,8 @@
 # neuroloc index
 
-status: current (as of 2026-05-07).
+status: current (as of 2026-05-08).
 
-update note: [[tests/compression_under_bit_budget_mirror]] now includes the first tiny distributed local learned model, a factor-heldout local falsification gate, a factorized structured local codec, and a 10k-scale local data-heavy robustness gate. [[tests/language_grounded_state_density_mirror]] now adds the first constrained generated-language message-response bridge, a negative parser-resistant learned token-count gate, a parser-supported event-binding baseline, and a typed trainable event-binding local-state pass. the original source-pair task remains demoted as compression evidence. the 9,792-parameter factorized structured codec clears four heldout factor axes across three smoke seeds at 1.0 minimum test joint success with 19 committed bits. the 3,847-parameter language-grounded bridge clears four heldout axes across two smoke seeds with 16,384 generated train records and constrained text answers. the typed trainable event-binding segment binder clears the randomized symbolic-message gate with 8,856 parameters and minimum heldout joint/state/action success 0.9583333333333334. this is useful-state-density evidence on symbolic surfaces, not arbitrary chat and not solved compression. the immediate no-paid work is memory update, replay, imagination/branch-state, longer dialogue, provenance controls, and stronger learned binding, not paid compute or full-model expansion.
+update note: [[tests/compression_under_bit_budget_mirror]] now includes the first tiny distributed local learned model, a factor-heldout local falsification gate, a factorized structured local codec, and a 10k-scale local data-heavy robustness gate. [[tests/language_grounded_state_density_mirror]] now adds the first constrained generated-language message-response bridge, a negative parser-resistant learned token-count gate, a parser-supported event-binding baseline, and a typed trainable event-binding local-state pass. [[tests/local_v1_language_model]] adds the first dataset-grounded local v1 language-state gate: 2,688 parameters, 32 local dataset-derived records, minimum joint/state/action/provenance success 1.0, zero-state and shuffled-state collapse, answers from bounded memory state rather than next-token decoding, and constrained memory update, targeted replay, random-replay failure, and branch-state controls. this is useful-state-density evidence on symbolic and dataset-record surfaces, not arbitrary chat, open-ended imagination, full neural-model v1, or solved compression. the immediate no-paid work is longer grounded dialogue, provenance-preserving rewrites, factor-heldout query forms, larger local dataset ingestion, fair sparse-read baselines, and stronger learned binding, not paid compute or full-model expansion.
 
 this is the flat reference catalog of every article in the wiki, grouped
 by topic within each top-level directory. for guided navigation, start
@@ -28,6 +28,7 @@ at [[start_here]]. for the rules that govern every article below, see
 - [[synthesis/neural_model_tiny_mirror_contract_compression_under_bit_budget]] — implementation contract for the first tiny local learned-codec mirror
 - [[tests/compression_under_bit_budget_mirror]] — local dataset, guard, baseline, sparse-read, matched-budget, distributed-evidence, tiny local learned model, learned-codec, source-diagnostic, and telemetry surface for the first compression mirror
 - [[tests/language_grounded_state_density_mirror]] — constrained generated-language message-response bridge for the useful-state-density surface
+- [[tests/local_v1_language_model]] — first dataset-grounded local v1 state-first language responder
 - [[synthesis/neural_model_lane_cellular_state_storage]] — biology-led local-state research lane
 - [[synthesis/neural_model_lane_operation_preserving_compression]] — operation-preserving compression research lane
 - [[synthesis/content_routed_sparse_read_prior]] — subq / selective sparse attention prior-art boundary and content-routed sparse-read baseline requirement
@@ -498,9 +499,10 @@ frozen evidence records, one per paid run:
 ### oracle-bound results (1)
 - tests/oracle_compression_analysis_results.md -- first oracle compression-bound package over hard symbolic and eligibility-commit worlds; controls and leakage pass, eight families clear the current strong threshold, six remain below 10x
 
-### local mirror surfaces (2)
+### local mirror surfaces (3)
 - tests/compression_under_bit_budget_mirror.md -- first local dataset, forbidden-input guard, baseline-control, learned-codec, source-diagnostic, bit-accounting, and telemetry surface for the accepted compression_under_bit_budget family
 - tests/language_grounded_state_density_mirror.md -- constrained generated-language message-response bridge for the useful-state-density surface
+- tests/local_v1_language_model.md -- first dataset-grounded local v1 state-first language responder
 
 ### supporting prototype note (1)
 - tests/aesthetic_logger_prototype.md -- frozen prototype note for the phase 6a logging module; not counted as an evidence record
@@ -514,7 +516,7 @@ frozen evidence records, one per paid run:
 - simulations/neuromodulation/ (1 script: dopamine_rpe)
 - simulations/lateral_inhibition/ (1 script: wta_dynamics)
 - simulations/oscillations/ (1 script: gamma_ping)
-- simulations/memory/ (22 scripts: pattern_completion, capacity_scaling, imagination_recombination, asymmetric_outer_product_recall, correction_field_capacity, correction_field_trained_prediction, multi_resolution_head_split, slot_buffer_capacity, slot_surprise_writes, slot_integration, contextual_recall_world, slot_key_interference_sweep, multi_association_recall, delayed_cue_world, episodic_separation_completion, episodic_replay_reuse, contextual_gate_routing, nm_hard_symbolic_test_material, eligibility_gated_local_commit, oracle_compression_analysis, compression_under_bit_budget_mirror, language_grounded_state_density_mirror)
+- simulations/memory/ (23 scripts: pattern_completion, capacity_scaling, imagination_recombination, asymmetric_outer_product_recall, correction_field_capacity, correction_field_trained_prediction, multi_resolution_head_split, slot_buffer_capacity, slot_surprise_writes, slot_integration, contextual_recall_world, slot_key_interference_sweep, multi_association_recall, delayed_cue_world, episodic_separation_completion, episodic_replay_reuse, contextual_gate_routing, nm_hard_symbolic_test_material, eligibility_gated_local_commit, oracle_compression_analysis, compression_under_bit_budget_mirror, language_grounded_state_density_mirror, local_v1_language_model)
 - simulations/attention/ (1 script: biased_competition)
 - simulations/dendritic/ (1 script: multicompartment_neuron)
 - simulations/energy/ (1 script: energy_comparison)
@@ -579,8 +581,8 @@ frozen evidence records, one per paid run:
 ## statistics
 - total mechanism articles: 61
 - total bridge notes: 28 (25 current + 3 legacy-title redirects)
-- total synthesis articles: 50 (49 current + 1 superseded)
-- total test markdown files: 27 (6 paid-run cards + 5 pilots + 1 series landing page + 10 later simulation results + 1 oracle-bound result + 2 symbolic test-material notes + 1 supporting prototype note + tests/index.md)
+- total synthesis articles: 52
+- total test markdown files: 29
 - total entity notes: 33
 - total comparison articles: 15 (14 current + 1 legacy-title redirect)
 - total concept articles: 7
@@ -588,8 +590,8 @@ frozen evidence records, one per paid run:
 - total mistake docs: 2
 - total supporting prototype notes: 1 (`tests/aesthetic_logger_prototype.md`)
 - total navigation / meta: 7 (INDEX.md, OPERATING_DIRECTIVE.md, PROJECT_PLAN.md, _audit_2026-04-16.md, Home.md, log.md, tests/index.md)
-- total simulations: 49 scripts across 17 script-containing directories plus 3 root-level utilities (shared.py, suite_registry.py, suite_runner.py)
-- last updated: 2026-04-27
+- total simulations: 51 scripts across 17 script-containing directories plus 3 root-level utilities (shared.py, suite_registry.py, suite_runner.py)
+- last updated: 2026-05-08
 
 ## historical meta
 
@@ -612,6 +614,7 @@ frozen evidence records, one per paid run:
 - [[synthesis/neural_model_tiny_mirror_contract_compression_under_bit_budget]]
 - [[tests/compression_under_bit_budget_mirror]]
 - [[tests/language_grounded_state_density_mirror]]
+- [[tests/local_v1_language_model]]
 - [[synthesis/neural_model_lane_cellular_state_storage]]
 - [[synthesis/neural_model_lane_operation_preserving_compression]]
 - [[synthesis/neural_model_lane_memory_replay_imagination]]

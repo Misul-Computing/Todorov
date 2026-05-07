@@ -1,6 +1,6 @@
 # compression under bit budget mirror
 
-status: current (as of 2026-05-07).
+status: current (as of 2026-05-08).
 
 test type: local tiny-mirror dataset, baseline-control, content-routed sparse-read, matched-budget sparse-read, distributed-evidence probe, tiny local learned model, factor-heldout local falsification gate, factorized structured local codec, 10k-scale local data-heavy robustness gate, learned-codec, source-availability, and diagnostic-localization surface
 
@@ -355,13 +355,14 @@ it does not authorize full-model integration, simulator work, h200, kaggle, pod,
 
 ## verdict
 
-accepted as the repaired local dataset, baseline-control, sparse-read baseline, matched-budget sparse-read control, distributed-evidence probe, first learned-codec smoke surface, tiny distributed local learned model, factor-heldout falsification gate, factorized structured local codec, 10k-scale local data-heavy robustness gate, source-availability audit, and diagnostic-localization surface for the `compression_under_bit_budget` tiny mirror. the original source-pair task remains demoted as compression evidence. the ordinary distributed-evidence slice has a narrow local pass, the shared nonlinear factor-heldout model fails hard, and the factorized structured local codec clears four heldout factor axes across three smoke seeds. the follow-up bridge is [[language_grounded_state_density_mirror]], which now includes the typed trainable event-binding local-state pass. the next no-paid work is robustness: hard-profile/local larger sweeps, memory update, replay, imagination/branch-state, longer dialogue, provenance controls, and stronger learned binding before any broader mirror, full-model integration, or paid compute.
+accepted as the repaired local dataset, baseline-control, sparse-read baseline, matched-budget sparse-read control, distributed-evidence probe, first learned-codec smoke surface, tiny distributed local learned model, factor-heldout falsification gate, factorized structured local codec, 10k-scale local data-heavy robustness gate, source-availability audit, and diagnostic-localization surface for the `compression_under_bit_budget` tiny mirror. the original source-pair task remains demoted as compression evidence. the ordinary distributed-evidence slice has a narrow local pass, the shared nonlinear factor-heldout model fails hard, and the factorized structured local codec clears four heldout factor axes across three smoke seeds. follow-up bridges now include [[language_grounded_state_density_mirror]] for constrained symbolic-message state and [[local_v1_language_model]] for the first dataset-grounded local v1 state responder with constrained update, targeted replay, random-replay failure, and branch-state controls. the next no-paid work is robustness: longer grounded dialogue, provenance-preserving rewrites, factor-heldout query forms, larger local dataset ingestion, fair sparse-read baselines, and stronger learned binding before any broader mirror, full-model integration, or paid compute.
 
 ## see also
 
 - [[PROJECT_PLAN]]
 - [[tests/index]]
 - [[language_grounded_state_density_mirror]]
+- [[local_v1_language_model]]
 - [[synthesis/neural_model_paper_spine]]
 - [[synthesis/neural_model_research_test_material_plan]]
 - [[synthesis/neural_model_tiny_mirror_contract_compression_under_bit_budget]]
