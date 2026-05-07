@@ -37,11 +37,19 @@ TRAIN_EPISODES = env_int("CUBB_MIRROR_TRAIN_EPISODES", 64)
 VAL_EPISODES = env_int("CUBB_MIRROR_VAL_EPISODES", 16)
 TEST_EPISODES = env_int("CUBB_MIRROR_TEST_EPISODES", 16)
 TRAIN_EPOCHS = env_int("CUBB_MIRROR_TRAIN_EPOCHS", 80)
+TINY_DISTRIBUTED_TRAIN_EPISODES = env_int("CUBB_TINY_DISTRIBUTED_TRAIN_EPISODES", 1536)
+TINY_DISTRIBUTED_VAL_EPISODES = env_int("CUBB_TINY_DISTRIBUTED_VAL_EPISODES", 128)
+TINY_DISTRIBUTED_TEST_EPISODES = env_int("CUBB_TINY_DISTRIBUTED_TEST_EPISODES", 128)
+TINY_DISTRIBUTED_EPOCHS = env_int("CUBB_TINY_DISTRIBUTED_EPOCHS", 120)
 
 require_positive("CUBB_MIRROR_TRAIN_EPISODES", TRAIN_EPISODES)
 require_positive("CUBB_MIRROR_VAL_EPISODES", VAL_EPISODES)
 require_positive("CUBB_MIRROR_TEST_EPISODES", TEST_EPISODES)
 require_positive("CUBB_MIRROR_TRAIN_EPOCHS", TRAIN_EPOCHS)
+require_positive("CUBB_TINY_DISTRIBUTED_TRAIN_EPISODES", TINY_DISTRIBUTED_TRAIN_EPISODES)
+require_positive("CUBB_TINY_DISTRIBUTED_VAL_EPISODES", TINY_DISTRIBUTED_VAL_EPISODES)
+require_positive("CUBB_TINY_DISTRIBUTED_TEST_EPISODES", TINY_DISTRIBUTED_TEST_EPISODES)
+require_positive("CUBB_TINY_DISTRIBUTED_EPOCHS", TINY_DISTRIBUTED_EPOCHS)
 
 FAMILY = "compression_under_bit_budget"
 FORBIDDEN_INPUT_KEYS = {
@@ -776,6 +784,15 @@ def build_distributed_evidence_dataset(dataset: list[dict[str, Any]], profile: s
     return [
         build_distributed_evidence_record(record, caps, index)
         for index, record in enumerate(row for row in dataset if row["split"] == split)
+    ]
+
+
+def build_distributed_trainable_dataset(profile: str, seed: int, train_episodes: int, val_episodes: int, test_episodes: int) -> list[dict[str, Any]]:
+    base = build_dataset(profile, seed=seed, train_episodes=train_episodes, val_episodes=val_episodes, test_episodes=test_episodes)
+    return [
+        *build_distributed_evidence_dataset(base, profile, split="train"),
+        *build_distributed_evidence_dataset(base, profile, split="validation"),
+        *build_distributed_evidence_dataset(base, profile, split="test"),
     ]
 
 
@@ -1596,6 +1613,43 @@ def build_statistics(rows: list[dict[str, Any]]) -> dict[str, Any]:
     }
 
 
+def tiny_distributed_local_model_summary(profile: str, seed: int = SEED, train_episodes: int = TINY_DISTRIBUTED_TRAIN_EPISODES, val_episodes: int = TINY_DISTRIBUTED_VAL_EPISODES, test_episodes: int = TINY_DISTRIBUTED_TEST_EPISODES, epochs: int = TINY_DISTRIBUTED_EPOCHS) -> dict[str, Any]:
+    dataset = build_distributed_trainable_dataset(profile, seed + 31_337, train_episodes, val_episodes, test_episodes)
+    learned = train_learned_codec(dataset, profile, seed=seed + 41_771, epochs=epochs)
+    rows = evaluate_dataset(dataset, profile, seed=seed + 51_001, learned=learned)
+    oracle_decoder_split = split_metric_summary(rows, "oracle_code_learned_decoder", "tiny_distributed_oracle_code_learned_decoder")
+    learned_joint = mean_for(rows, "learned_codec", "joint_success", split="test")
+    matched_joint = mean_for(rows, "matched_budget_sparse_read", "joint_success", split="test")
+    learned_bits = mean_for(rows, "learned_codec", "total_committed_bits", split="test")
+    matched_bits = mean_for(rows, "matched_budget_sparse_read", "total_committed_bits", split="test")
+    return {
+        "tiny_distributed_local_model_authorized": 1.0,
+        "tiny_distributed_full_model_authorized": 0.0,
+        "tiny_distributed_paid_compute_authorized": 0.0,
+        "tiny_distributed_train_record_count": int(sum(1 for row in dataset if row["split"] == "train")),
+        "tiny_distributed_validation_record_count": int(sum(1 for row in dataset if row["split"] == "validation")),
+        "tiny_distributed_test_record_count": int(sum(1 for row in dataset if row["split"] == "test")),
+        "tiny_distributed_train_epochs": int(epochs),
+        "tiny_distributed_parameter_count": int(learned["parameter_count"]),
+        "tiny_distributed_train_loss_start": float(learned["train_loss_start"]),
+        "tiny_distributed_train_loss_final": float(learned["train_loss_final"]),
+        "tiny_distributed_decoder_train_loss_start": float(learned["decoder_train_loss_start"]),
+        "tiny_distributed_decoder_train_loss_final": float(learned["decoder_train_loss_final"]),
+        "tiny_distributed_learned_codec_train_joint_success": float(mean_for(rows, "learned_codec", "joint_success", split="train")),
+        "tiny_distributed_learned_codec_validation_joint_success": float(mean_for(rows, "learned_codec", "joint_success", split="validation")),
+        "tiny_distributed_learned_codec_test_joint_success": float(learned_joint),
+        "tiny_distributed_learned_codec_test_state_success": float(mean_for(rows, "learned_codec", "state_probe_accuracy", split="test")),
+        "tiny_distributed_learned_codec_test_action_success": float(mean_for(rows, "learned_codec", "action_success", split="test")),
+        "tiny_distributed_learned_code_oracle_decoder_test_joint_success": float(mean_for(rows, "learned_code_oracle_decoder", "joint_success", split="test")),
+        "tiny_distributed_matched_budget_sparse_read_test_joint_success": float(matched_joint),
+        "tiny_distributed_matched_budget_sparse_read_total_committed_bits": float(matched_bits),
+        "tiny_distributed_learned_codec_total_committed_bits": float(learned_bits),
+        "tiny_distributed_learned_minus_matched_budget_sparse_read": float(learned_joint - matched_joint),
+        "tiny_distributed_engineering_pass": float(int(learned_joint >= 0.95 and mean_for(rows, "oracle_code_learned_decoder", "joint_success", split="test") >= 0.95 and learned_joint > matched_joint and learned_bits <= max(1.0, matched_bits))),
+        **oracle_decoder_split,
+    }
+
+
 def main() -> int:
     profile = infer_profile()
     started = time.perf_counter()
@@ -1604,6 +1658,7 @@ def main() -> int:
     learned = train_learned_codec(dataset, profile)
     rows = evaluate_dataset(dataset, profile, learned=learned)
     summary = build_summary(dataset, rows, profile)
+    summary.update(tiny_distributed_local_model_summary(profile))
     statistics = build_statistics(rows)
     output_dir = output_dir_for(SCRIPT_PATH)
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -1621,6 +1676,10 @@ def main() -> int:
             "validation_episodes": int(VAL_EPISODES),
             "test_episodes": int(TEST_EPISODES),
             "train_epochs": int(TRAIN_EPOCHS),
+            "tiny_distributed_train_episodes": int(TINY_DISTRIBUTED_TRAIN_EPISODES),
+            "tiny_distributed_validation_episodes": int(TINY_DISTRIBUTED_VAL_EPISODES),
+            "tiny_distributed_test_episodes": int(TINY_DISTRIBUTED_TEST_EPISODES),
+            "tiny_distributed_train_epochs": int(TINY_DISTRIBUTED_EPOCHS),
             "family": FAMILY,
             "policies": list(ALL_POLICIES),
             "learned_codec_parameter_count": int(learned["parameter_count"]),

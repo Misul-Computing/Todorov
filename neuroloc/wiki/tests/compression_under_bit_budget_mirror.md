@@ -2,7 +2,7 @@
 
 status: current (as of 2026-05-07).
 
-test type: local tiny-mirror dataset, baseline-control, content-routed sparse-read, matched-budget sparse-read, distributed-evidence probe, learned-codec, source-availability, and diagnostic-localization surface
+test type: local tiny-mirror dataset, baseline-control, content-routed sparse-read, matched-budget sparse-read, distributed-evidence probe, tiny local learned model, learned-codec, source-availability, and diagnostic-localization surface
 
 script:
 - `neuroloc/simulations/memory/compression_under_bit_budget_mirror.py`
@@ -17,7 +17,7 @@ implemented surface:
 
 ## what was done
 
-implemented the first local code surface for the accepted `compression_under_bit_budget` family, the first trainable learned-codec smoke result, the first diagnostic-only failure-localization controls, the first source-availability/action-ambiguity checks, the repaired source-observability contract, the first content-routed sparse-read baseline over legal observation events, a matched-budget sparse-read control, and a distributed-evidence probe. this is not a passing learned-compression result. it is now explicitly demoted as compression evidence and kept as a source-selection, useful-bit, and diagnostic-localization benchmark: the visible-source codec and unconstrained sparse read solve the repaired task from legal non-oracle inputs, matched-budget sparse read fails, and the tiny learned codec memorizes train split while remaining below the strong sparse-read baseline on held-out episodes.
+implemented the first local code surface for the accepted `compression_under_bit_budget` family, the first trainable learned-codec smoke result, the first diagnostic-only failure-localization controls, the first source-availability/action-ambiguity checks, the repaired source-observability contract, the first content-routed sparse-read baseline over legal observation events, a matched-budget sparse-read control, a distributed-evidence probe, and a tiny local learned model trained only on distributed evidence. the original source-pair mirror remains demoted as compression evidence and kept as a source-selection, useful-bit, and diagnostic-localization benchmark. the new tiny distributed model is the first narrow positive local result: it learns the distributed-evidence compact-code task locally, beats matched-budget sparse read, and keeps paid/full-model authorization at zero. it is still not a paper claim or full neural-model result.
 
 the surface now provides:
 
@@ -35,6 +35,7 @@ the surface now provides:
 - explicit bit accounting and telemetry fields for committed bits, address margin, address entropy, read concentration, write frequency, reconstruction error, memory-output norm, and confidence intervals.
 - sparse-read telemetry for selected-record count, source-selection recall, next-source-selection recall, false-source-selection rate, record-bit cost, total committed bits, within-budget status, and compression ratio versus verbatim storage.
 - distributed-evidence telemetry where the answer is split across four legal observation fragments with no commit markers; uncapped sparse read can solve this probe, while matched-budget sparse read cannot.
+- tiny distributed local model telemetry for train/validation/test joint success, oracle-code to learned-decoder success, learned-code to oracle-decoder success, parameter count, committed bits, matched-budget sparse-read gap, and authorization guards.
 - suite-runner gates that require learned-result telemetry while rejecting future-observation leakage, full-model authorization, paid-compute authorization, and blocked-authorization violations.
 - suite-registry entry `compression_mirror`.
 
@@ -85,6 +86,17 @@ commands run on 2026-05-07 after demoting the original mirror as compression evi
 - `python -m neuroloc.simulations.memory.compression_under_bit_budget_mirror smoke`
 - result: wrote `neuroloc/output/simulation_runs/memory/compression_under_bit_budget_mirror/compression_under_bit_budget_mirror_metrics.json`
 
+commands run on 2026-05-07 after adding the tiny distributed local learned model:
+
+- `python -m pytest tests/test_compression_under_bit_budget_mirror.py tests/test_simulation_suite.py::test_suite_registry_contract -q`
+- result: 25 passed, 1 known numpy-on-windows warning
+- `python -m pytest tests/test_simulation_suite.py::test_suite_registry_contract tests/test_nm_hard_symbolic_worlds.py tests/test_compression_under_bit_budget_mirror.py -q`
+- result: 36 passed, 1 known numpy-on-windows warning
+- `python -m neuroloc.simulations.memory.compression_under_bit_budget_mirror smoke`
+- result: wrote `neuroloc/output/simulation_runs/memory/compression_under_bit_budget_mirror/compression_under_bit_budget_mirror_metrics.json`
+- `python -m pytest tests --collect-only -q`
+- result: 334 tests collected, 1 known numpy-on-windows warning
+
 ## key smoke outputs
 
 - family count: 1
@@ -118,6 +130,26 @@ commands run on 2026-05-07 after demoting the original mirror as compression evi
 - distributed-evidence sparse-read within budget: 0.0
 - distributed-evidence matched-budget sparse-read within budget: 1.0
 - distributed-evidence compression-needed flag: 1.0
+- tiny distributed local model authorized: 1.0
+- tiny distributed full model authorized: 0.0
+- tiny distributed paid compute authorized: 0.0
+- tiny distributed train record count: 1536
+- tiny distributed validation record count: 128
+- tiny distributed test record count: 128
+- tiny distributed train epochs: 120
+- tiny distributed parameter count: 25975
+- tiny distributed learned-codec train joint success: 1.0
+- tiny distributed learned-codec validation joint success: 0.9921875
+- tiny distributed learned-codec test joint success: 1.0
+- tiny distributed learned-codec test state success: 1.0
+- tiny distributed learned-codec test action success: 1.0
+- tiny distributed learned-code/oracle-decoder test joint success: 1.0
+- tiny distributed oracle-code/learned-decoder test joint success: 1.0
+- tiny distributed matched-budget sparse-read test joint success: 0.0
+- tiny distributed learned-codec total committed bits: 19.0
+- tiny distributed matched-budget sparse-read total committed bits: 20.0
+- tiny distributed learned-minus-matched-budget sparse-read: 1.0
+- tiny distributed engineering pass: 1.0
 - no-memory joint success: 0.0
 - recency-only joint success: 0.0
 - shuffled-address joint success: 0.0
@@ -181,7 +213,9 @@ it also shows that the first tiny trainable codec can memorize the training spli
 
 the diagnostic controls localize the current failure more sharply. on the smoke profile, legal source fields are now fully visible and reconstructable. the visible-source codec solves state, action, and joint success at 1.0, so the repaired contract is legally solvable from non-oracle input. the content-routed sparse-read baseline also solves state, action, and joint success at 1.0 by selecting two legal observation records: the committed source event and its next-source velocity support event. it commits 40 bits, compresses the full verbatim record by only 1.3x, and does not fit inside the learned codec budget. matched-budget sparse read commits 20 bits and fails at joint success 0.0. this demotes the current mirror as compression evidence and preserves it as a source-selection and useful-bit benchmark.
 
-the distributed-evidence probe is a stricter local slice, not a learned result. it removes commit markers and splits color/shape, position, and velocity evidence across four legal observation fragments. uncapped sparse read solves it at joint success 1.0 with 80 committed bits and within-budget 0.0. matched-budget sparse read commits 20 bits, stays within budget, and fails at joint success 0.0. this proves that the next real target must be learned compact operation preservation under a budget, not another demonstration that legal sparse read can recover marked source pairs.
+the distributed-evidence probe is a stricter local slice. it removes commit markers and splits color/shape, position, and velocity evidence across four legal observation fragments. uncapped sparse read solves it at joint success 1.0 with 80 committed bits and within-budget 0.0. matched-budget sparse read commits 20 bits, stays within budget, and fails at joint success 0.0.
+
+the tiny distributed local model is the first narrow positive learned result. using 1536 local train records, 128 validation records, 128 test records, 120 epochs, and 25,975 parameters, it reaches validation joint success 0.9921875 and test joint/state/action success 1.0. oracle-code to learned-decoder test joint success is 1.0, learned-code to oracle-decoder test joint success is 1.0, and end-to-end learned compact-code success is 1.0. it commits 19 bits against matched-budget sparse read at 20 bits and 0.0 joint success. this is local evidence that the distributed-evidence task can be learned by a tiny cpu-trainable model under the current symbolic contract.
 
 the latest learned path remains weak after the sparse-read addition: train joint success is 1.0, validation joint success is 0.0, test joint success is 0.125, learned compression ratio versus verbatim is 2.74x, and the learned-minus-sparse-read joint gap is -0.875. this points next at a learned-codec problem and at a tighter bit-efficiency comparison: the source state and action target are legally observable, but the current local learner does not yet generalize address, payload, velocity, action, or the decoder well enough to compete with shallow legal sparse read.
 
@@ -189,7 +223,9 @@ it also proves that the suite registry can run this surface as a local smoke sui
 
 ## what this does not prove
 
-this does not prove learned compression.
+this does not prove learned compression as a broad project claim.
+
+the tiny distributed local model is a local positive on a symbolic distributed-evidence slice, not a full compression paper result.
 
 it does not prove that the current `compression_under_bit_budget` source-pair task is a strong compression benchmark. the content-routed sparse-read baseline solves it from legal observations, although at a higher bit cost than the learned compact-code budget.
 
@@ -203,7 +239,7 @@ it does not authorize full-model integration, simulator work, h200, kaggle, pod,
 
 ## verdict
 
-accepted as the repaired local dataset, baseline-control, sparse-read baseline, matched-budget sparse-read control, distributed-evidence probe, first learned-codec smoke surface, source-availability audit, and diagnostic-localization surface for the `compression_under_bit_budget` tiny mirror. demoted as compression evidence. the source-observability contract now passes. sparse read solves the original task with two legal records but exceeds the compact-code budget. the distributed-evidence probe requires four legal fragments for sparse read and also fails under the matched compact-code budget. the learned result still fails the engineering and paper-track gates and does not beat sparse read. the next no-paid work is a learned compact-code result on the distributed-evidence slice, with oracle-code/learned-decoder generalization repaired before any broader mirror, full-model integration, or paid compute.
+accepted as the repaired local dataset, baseline-control, sparse-read baseline, matched-budget sparse-read control, distributed-evidence probe, first learned-codec smoke surface, tiny distributed local learned model, source-availability audit, and diagnostic-localization surface for the `compression_under_bit_budget` tiny mirror. the original source-pair task remains demoted as compression evidence. the distributed-evidence slice now has a narrow positive local result: a 25,975-parameter cpu-trainable model reaches 1.0 test joint success at 19 committed bits while matched-budget sparse read fails at 20 bits. the next no-paid work is to harden this result with factor-held-out splits, multiple seeds, larger local profiles, and less hand-shaped feature extraction before any broader mirror, full-model integration, or paid compute.
 
 ## see also
 

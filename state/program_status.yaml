@@ -1,14 +1,14 @@
 project: todorov
 canonical_plan: neuroloc/wiki/PROJECT_PLAN.md
 current_phase: neural_model_master_plan_research_phase
-current_step: compression_under_bit_budget_distributed_evidence_learned_compact_code_no_paid_compute
-status: "2026_05_07_compression_mirror_demoted_matched_budget_sparse_read_and_distributed_evidence_added"
+current_step: harden_tiny_distributed_local_learned_compact_model_no_paid_compute
+status: "2026_05_07_tiny_distributed_local_model_passes_distributed_evidence_gate"
 last_updated: "2026-05-07"
-tests_passing: 35
-total_tests: 35
-test_collection_total: 333
+tests_passing: 36
+total_tests: 36
+test_collection_total: 334
 test_surface: compression_under_bit_budget_mirror_and_hard_symbolic_contract_checks
-test_status_note: "2026-05-07 focused validation passed 23 compression-mirror tests and 35 targeted compression/registry/hard-symbolic tests after demoting the original mirror as compression evidence and adding matched-budget sparse read plus a distributed-evidence probe. pytest collection reports 333 tests. original sparse read solves state/action/joint success at 1.0 by selecting two legal observation records but commits 40 bits and is not within the compact-code budget; matched-budget sparse read commits 20 bits and fails. the distributed-evidence probe is solved by four-record sparse read at 80 bits and fails under matched budget at 20 bits. the learned codec still fails the engineering and paper-track gates."
+test_status_note: "2026-05-07 focused validation passed 24 compression-mirror tests, 25 compression/registry tests, and 36 targeted compression/registry/hard-symbolic tests after adding the tiny distributed local learned model. pytest collection reports 334 tests. original sparse read solves state/action/joint success at 1.0 by selecting two legal observation records but commits 40 bits and is not within the compact-code budget; matched-budget sparse read commits 20 bits and fails. the distributed-evidence probe is solved by four-record sparse read at 80 bits and fails under matched budget at 20 bits. the tiny distributed local model has 25,975 parameters and reaches test joint/state/action success 1.0 at 19 committed bits against matched-budget sparse read at 20 bits and 0.0 joint success. this is a local symbolic positive, not paid compute or full-model evidence."
 related_work_update: "2026-05-06 subq / selective sparse attention public material recorded at neuroloc/wiki/synthesis/content_routed_sparse_read_prior.md. validates content-dependent sparse read and functional context as prior-art pressure, does not prove memory-object compression, and adds content-routed sparse read over verbatim context as a future baseline where fair. no paid compute authorized."
 related_work_pressure_matrix: "2026-05-06 six-lane literature pass consolidated at neuroloc/wiki/synthesis/neural_model_related_work_pressure_matrix.md. external work covers local state, fast weights, differentiable memory, sparse routing, task-relative compression, context compression, replay, world models, simulator gates, and oracle evaluation methods. remaining project edge is a compound proof of learned operation-preserving memory objects under exact controls. no paid compute authorized."
 critical_fix: "god_machine.py step logger hardcoded dict dropped 40+ probe metrics, fixed class-wide via merge loop and smoke-test disk round-trip guard; bcm train/eval path divergence fixed by aligning recurrent path to running_state_norm; running_state_norm now training-only mutation; 17 prosecutor findings F1-F17 all fixed"
@@ -108,15 +108,15 @@ compression_under_bit_budget_tiny_mirror_contract:
   paid_compute_authorized: false
 compression_under_bit_budget_mirror_surface:
   phase: neural_model_master_plan_research_phase
-  description: "first local code surface, first learned-codec smoke result, source-diagnostic result, repaired source-observability contract, content-routed sparse-read baseline, matched-budget sparse-read control, and distributed-evidence probe for the accepted compression_under_bit_budget family. implements deterministic split generation, forbidden-input guards, baseline controls, diagnostic-only hybrid controls, source-availability and action-ambiguity probes, a legal visible-source codec, legal sparse-read selectors, a trainable field codec, suite-registry wiring, explicit bit accounting, and telemetry artifacts. the original mirror is demoted as compression evidence and retained as a source-selection/useful-bit diagnostic. the learned result remains negative against sparse read and now localizes to learned address/payload/action and learned-decoder generalization failures rather than illegal source input."
+  description: "first local code surface, first learned-codec smoke result, source-diagnostic result, repaired source-observability contract, content-routed sparse-read baseline, matched-budget sparse-read control, distributed-evidence probe, and tiny distributed local learned model for the accepted compression_under_bit_budget family. implements deterministic split generation, forbidden-input guards, baseline controls, diagnostic-only hybrid controls, source-availability and action-ambiguity probes, a legal visible-source codec, legal sparse-read selectors, a trainable field codec, suite-registry wiring, explicit bit accounting, and telemetry artifacts. the original mirror is demoted as compression evidence and retained as a source-selection/useful-bit diagnostic. the tiny distributed model is the first narrow positive local result: it learns compact operation preservation on distributed evidence and beats matched-budget sparse read locally. this remains symbolic/local evidence, not full-model or paid-compute evidence."
   family: compression_under_bit_budget
   script: neuroloc/simulations/memory/compression_under_bit_budget_mirror.py
   tests: tests/test_compression_under_bit_budget_mirror.py
   result_card: neuroloc/wiki/tests/compression_under_bit_budget_mirror.md
   suite: compression_mirror
-  focused_tests_passing: 35
+  focused_tests_passing: 36
   suite_smoke_passed: true
-  test_collection_total: 333
+  test_collection_total: 334
   policy_count: 25
   dataset_record_count: 24
   learned_result_count: 24
@@ -145,6 +145,26 @@ compression_under_bit_budget_mirror_surface:
   distributed_evidence_sparse_read_within_budget: 0.0
   distributed_evidence_matched_budget_sparse_read_within_budget: 1.0
   distributed_evidence_compression_needed_flag: 1.0
+  tiny_distributed_local_model_authorized: true
+  tiny_distributed_full_model_authorized: false
+  tiny_distributed_paid_compute_authorized: false
+  tiny_distributed_train_record_count: 1536
+  tiny_distributed_validation_record_count: 128
+  tiny_distributed_test_record_count: 128
+  tiny_distributed_train_epochs: 120
+  tiny_distributed_parameter_count: 25975
+  tiny_distributed_learned_codec_train_joint_success: 1.0
+  tiny_distributed_learned_codec_validation_joint_success: 0.9921875
+  tiny_distributed_learned_codec_test_joint_success: 1.0
+  tiny_distributed_learned_codec_test_state_success: 1.0
+  tiny_distributed_learned_codec_test_action_success: 1.0
+  tiny_distributed_learned_code_oracle_decoder_test_joint_success: 1.0
+  tiny_distributed_oracle_code_learned_decoder_test_joint_success: 1.0
+  tiny_distributed_matched_budget_sparse_read_test_joint_success: 0.0
+  tiny_distributed_learned_codec_total_committed_bits: 19.0
+  tiny_distributed_matched_budget_sparse_read_total_committed_bits: 20.0
+  tiny_distributed_learned_minus_matched_budget_sparse_read: 1.0
+  tiny_distributed_engineering_pass: 1.0
   no_memory_joint_success: 0.0
   recency_only_joint_success: 0.0
   shuffled_address_joint_success: 0.0
@@ -199,7 +219,7 @@ compression_under_bit_budget_mirror_surface:
   learned_codec_paper_track_pass: 0.0
   learned_codec_kill_condition_count: 1
   blocked_authorization_violation_count: 0
-  next_code_target: learned_compact_code_on_distributed_evidence_with_oracle_code_learned_decoder_generalization_first
+  next_code_target: harden_tiny_distributed_local_model_with_factor_splits_multi_seed_and_less_hand_shaped_features
   local_mirror_code_authorized: true
   full_model_authorized: false
   paid_compute_authorized: false
@@ -267,4 +287,4 @@ latest_run_results:
   git_sha: f27b81c
   config_hash: 4e3f02be249cc069
   run_card: neuroloc/wiki/tests/run3_cognition_phase1_results.md
-next_action: "chapter 1 remains review-ready in pdf_curriculum/chapters/ch_01_what_a_number_means/ after the 2026-04-23 math correction pass; chapter 2 remains outline-only awaiting approval in pdf_curriculum/chapters/ch_02_how_things_change/ch_02_outline.md. the oracle compression frontier split, first family-specific learned-codec proof package, tiny local mirror contract, local baseline/guard surface, first negative learned-codec smoke result, source-diagnostic result, repaired source-observability contract, content-routed sparse-read baseline, matched-budget sparse-read control, and distributed-evidence probe are implemented. the original source-pair mirror is demoted as compression evidence: sparse read solves it from two legal observation records at 1.0 joint success but commits 40 bits and is not within the compact-code budget; matched-budget sparse read fails at 20 bits. the distributed-evidence probe removes commit markers and requires four legal fragments; uncapped sparse read solves at 80 bits and matched-budget sparse read fails at 20 bits. the approved neural-model work should next produce a learned compact-code result on the distributed-evidence slice, starting with oracle-code/learned-decoder generalization, or demote/revise the proof package if learned compression cannot beat shallow legal sparse read under useful-bit accounting. simulator selection is a research gate, not a decision already made. no full model integration, intervention preset, kaggle, h200, pod, or paid run is authorised."
+next_action: "chapter 1 remains review-ready in pdf_curriculum/chapters/ch_01_what_a_number_means/ after the 2026-04-23 math correction pass; chapter 2 remains outline-only awaiting approval in pdf_curriculum/chapters/ch_02_how_things_change/ch_02_outline.md. the oracle compression frontier split, first family-specific learned-codec proof package, tiny local mirror contract, local baseline/guard surface, first negative learned-codec smoke result, source-diagnostic result, repaired source-observability contract, content-routed sparse-read baseline, matched-budget sparse-read control, distributed-evidence probe, and tiny distributed local learned model are implemented. the original source-pair mirror is demoted as compression evidence. sparse read solves it from two legal observation records at 1.0 joint success but commits 40 bits and is not within the compact-code budget; matched-budget sparse read fails at 20 bits. the distributed-evidence probe removes commit markers and requires four legal fragments; uncapped sparse read solves at 80 bits and matched-budget sparse read fails at 20 bits. the tiny distributed local model reaches validation joint success 0.9921875 and test joint/state/action success 1.0 with 25,975 parameters and 19 committed bits, beating matched-budget sparse read at 20 bits and 0.0 joint success. the approved neural-model work should next harden this local positive with factor-held-out splits, multiple seeds, hard profile/local larger sweeps, and less hand-shaped feature extraction before any full model integration, simulator commitment, intervention preset, kaggle, h200, pod, or paid run."

@@ -30,6 +30,7 @@ from neuroloc.simulations.memory.compression_under_bit_budget_mirror import (
     source_signature_for_action,
     sparse_read_record_bits,
     matched_budget_sparse_read_result,
+    tiny_distributed_local_model_summary,
     vectorize_record,
 )
 from neuroloc.simulations.suite_registry import SIMULATION_SPECS, SUITES, get_suite_specs
@@ -215,6 +216,23 @@ def test_compression_mirror_matched_budget_and_distributed_evidence_probe() -> N
     assert summary["distributed_evidence_sparse_read_joint_success"] == 1.0
     assert summary["distributed_evidence_matched_budget_sparse_read_joint_success"] == 0.0
     assert summary["distributed_evidence_compression_needed_flag"] == 1.0
+
+
+def test_compression_mirror_tiny_distributed_local_model_trains_on_cpu_surface() -> None:
+    summary = tiny_distributed_local_model_summary("smoke", seed=144, train_episodes=1536, val_episodes=128, test_episodes=128, epochs=120)
+    assert summary["tiny_distributed_local_model_authorized"] == 1.0
+    assert summary["tiny_distributed_full_model_authorized"] == 0.0
+    assert summary["tiny_distributed_paid_compute_authorized"] == 0.0
+    assert summary["tiny_distributed_train_record_count"] == 1536
+    assert summary["tiny_distributed_validation_record_count"] == 128
+    assert summary["tiny_distributed_test_record_count"] == 128
+    assert summary["tiny_distributed_parameter_count"] < 50000
+    assert summary["tiny_distributed_oracle_code_learned_decoder_test_joint_success"] >= 0.95
+    assert summary["tiny_distributed_learned_codec_test_joint_success"] >= 0.95
+    assert summary["tiny_distributed_learned_code_oracle_decoder_test_joint_success"] >= 0.95
+    assert summary["tiny_distributed_matched_budget_sparse_read_test_joint_success"] == 0.0
+    assert summary["tiny_distributed_learned_codec_total_committed_bits"] <= summary["tiny_distributed_matched_budget_sparse_read_total_committed_bits"]
+    assert summary["tiny_distributed_engineering_pass"] == 1.0
 
 
 def test_compression_mirror_learned_codec_emits_trainable_rows() -> None:
