@@ -1,6 +1,6 @@
 # tests
 
-status: current (as of 2026-04-27).
+status: current (as of 2026-05-07).
 
 this folder records concrete simulations and experiments that were actually
 run, plus a small number of frozen supporting prototype notes that were
@@ -57,6 +57,7 @@ each test page should include:
 - [[tests/eligibility_gated_local_commit_test_material|eligibility-gated local commit test material]] -- first mechanism-specific symbolic/oracle package for cellular local-state storage; documents the generator, deterministic controls, leakage checks, committed-distractor exposure gate, validation record, and the oracle-compression handoff
 - [[tests/oracle_compression_analysis_results|oracle compression analysis results]] -- first oracle compression-bound package over `hard_symbolic_nm` and `eligibility_commit`; records clean controls, no leakage, eight strong families, six weak families below 10x, and no global tiny-mirror recommendation
 - [[tests/compression_under_bit_budget_mirror|compression under bit budget mirror]] -- first local dataset, forbidden-input guard, baseline-control, learned-codec, source-diagnostic, bit-accounting, and telemetry surface for the accepted compression-under-bit-budget tiny mirror
+- [[tests/language_grounded_state_density_mirror|language grounded state density mirror]] -- constrained generated-language message-response bridge for the useful-state-density local surface
 - [[tests/correction_field_trained_prediction_results|correction-field trained-prediction results]] -- trained-predictor correction-field sim; memory_capacity_delta=0 at every quality
 - [[tests/multi_resolution_head_split_results|multi-resolution head split results]] -- fast/medium/slow heads with surprise gates; rare-class recall improves
 - [[tests/thinking_loop_prototype_results|thinking-loop prototype results]] -- recurrent hidden-state refinement pilot on modular arithmetic
@@ -76,5 +77,6 @@ each test page should include:
 - [[tests/eligibility_gated_local_commit_test_material]]
 - [[tests/oracle_compression_analysis_results]]
 - [[tests/compression_under_bit_budget_mirror]]
+- [[tests/language_grounded_state_density_mirror]]
 - [[synthesis/phase1_evaluation_surface_for_neural_models]]
 - [[synthesis/synthetic_shared_world_bridge]]

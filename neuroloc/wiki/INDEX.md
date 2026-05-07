@@ -2,7 +2,7 @@
 
 status: current (as of 2026-05-07).
 
-update note: [[tests/compression_under_bit_budget_mirror]] now includes the first tiny distributed local learned model, a factor-heldout local falsification gate, a factorized structured local codec, and a 10k-scale local data-heavy robustness gate. the original source-pair task remains demoted as compression evidence. the shared nonlinear model fails held-out color-shape pair bands at 0.03125 test joint success, while the 9,792-parameter factorized structured codec clears four heldout factor axes across three smoke seeds at 1.0 minimum test joint success with 19 committed bits and useful operation success per committed bit 0.05263157894736842. this is useful-state-density evidence on one symbolic surface, not a chat-capable model and not solved compression. the immediate no-paid work is hard-profile robustness, less hand-shaped event pooling, and a stronger storage-in-local-state formulation, not paid compute or full-model expansion.
+update note: [[tests/compression_under_bit_budget_mirror]] now includes the first tiny distributed local learned model, a factor-heldout local falsification gate, a factorized structured local codec, and a 10k-scale local data-heavy robustness gate. [[tests/language_grounded_state_density_mirror]] now adds the first constrained generated-language message-response bridge. the original source-pair task remains demoted as compression evidence. the 9,792-parameter factorized structured codec clears four heldout factor axes across three smoke seeds at 1.0 minimum test joint success with 19 committed bits. the 3,847-parameter language-grounded bridge clears four heldout axes across two smoke seeds with 16,384 generated train records and constrained text answers. this is useful-state-density evidence on symbolic surfaces, not arbitrary chat and not solved compression. the immediate no-paid work is hard-profile robustness, less hand-shaped event/message parsing, and a stronger storage-in-local-state formulation, not paid compute or full-model expansion.
 
 this is the flat reference catalog of every article in the wiki, grouped
 by topic within each top-level directory. for guided navigation, start
@@ -27,6 +27,7 @@ at [[start_here]]. for the rules that govern every article below, see
 - [[synthesis/neural_model_dossier_compression_under_bit_budget_codec]] — first family-specific learned-codec proof package
 - [[synthesis/neural_model_tiny_mirror_contract_compression_under_bit_budget]] — implementation contract for the first tiny local learned-codec mirror
 - [[tests/compression_under_bit_budget_mirror]] — local dataset, guard, baseline, sparse-read, matched-budget, distributed-evidence, tiny local learned model, learned-codec, source-diagnostic, and telemetry surface for the first compression mirror
+- [[tests/language_grounded_state_density_mirror]] — constrained generated-language message-response bridge for the useful-state-density surface
 - [[synthesis/neural_model_lane_cellular_state_storage]] — biology-led local-state research lane
 - [[synthesis/neural_model_lane_operation_preserving_compression]] — operation-preserving compression research lane
 - [[synthesis/content_routed_sparse_read_prior]] — subq / selective sparse attention prior-art boundary and content-routed sparse-read baseline requirement
@@ -497,8 +498,9 @@ frozen evidence records, one per paid run:
 ### oracle-bound results (1)
 - tests/oracle_compression_analysis_results.md -- first oracle compression-bound package over hard symbolic and eligibility-commit worlds; controls and leakage pass, eight families clear the current strong threshold, six remain below 10x
 
-### local mirror surfaces (1)
+### local mirror surfaces (2)
 - tests/compression_under_bit_budget_mirror.md -- first local dataset, forbidden-input guard, baseline-control, learned-codec, source-diagnostic, bit-accounting, and telemetry surface for the accepted compression_under_bit_budget family
+- tests/language_grounded_state_density_mirror.md -- constrained generated-language message-response bridge for the useful-state-density surface
 
 ### supporting prototype note (1)
 - tests/aesthetic_logger_prototype.md -- frozen prototype note for the phase 6a logging module; not counted as an evidence record
@@ -512,7 +514,7 @@ frozen evidence records, one per paid run:
 - simulations/neuromodulation/ (1 script: dopamine_rpe)
 - simulations/lateral_inhibition/ (1 script: wta_dynamics)
 - simulations/oscillations/ (1 script: gamma_ping)
-- simulations/memory/ (21 scripts: pattern_completion, capacity_scaling, imagination_recombination, asymmetric_outer_product_recall, correction_field_capacity, correction_field_trained_prediction, multi_resolution_head_split, slot_buffer_capacity, slot_surprise_writes, slot_integration, contextual_recall_world, slot_key_interference_sweep, multi_association_recall, delayed_cue_world, episodic_separation_completion, episodic_replay_reuse, contextual_gate_routing, nm_hard_symbolic_test_material, eligibility_gated_local_commit, oracle_compression_analysis, compression_under_bit_budget_mirror)
+- simulations/memory/ (22 scripts: pattern_completion, capacity_scaling, imagination_recombination, asymmetric_outer_product_recall, correction_field_capacity, correction_field_trained_prediction, multi_resolution_head_split, slot_buffer_capacity, slot_surprise_writes, slot_integration, contextual_recall_world, slot_key_interference_sweep, multi_association_recall, delayed_cue_world, episodic_separation_completion, episodic_replay_reuse, contextual_gate_routing, nm_hard_symbolic_test_material, eligibility_gated_local_commit, oracle_compression_analysis, compression_under_bit_budget_mirror, language_grounded_state_density_mirror)
 - simulations/attention/ (1 script: biased_competition)
 - simulations/dendritic/ (1 script: multicompartment_neuron)
 - simulations/energy/ (1 script: energy_comparison)
@@ -609,6 +611,7 @@ frozen evidence records, one per paid run:
 - [[synthesis/neural_model_dossier_compression_under_bit_budget_codec]]
 - [[synthesis/neural_model_tiny_mirror_contract_compression_under_bit_budget]]
 - [[tests/compression_under_bit_budget_mirror]]
+- [[tests/language_grounded_state_density_mirror]]
 - [[synthesis/neural_model_lane_cellular_state_storage]]
 - [[synthesis/neural_model_lane_operation_preserving_compression]]
 - [[synthesis/neural_model_lane_memory_replay_imagination]]
