@@ -34,7 +34,7 @@ that is the narrow paper edge. it is conditional. it remains unproved.
 
 the project should not argue from novelty by component. nearly every component has prior art. the claim must be compound and proof-gated.
 
-the next local code target is now sharpened by the implemented sparse-read baseline, the external demotion decision, and the first tiny distributed local learned result. the original source-pair `compression_under_bit_budget` mirror is a source-selection diagnostic, not compression evidence. matched-budget sparse read and a distributed-evidence probe are implemented. a 25,975-parameter local model now passes the distributed-evidence slice at 19 bits, so the next target is stronger local falsification rather than claim expansion.
+the next local code target is now sharpened by the implemented sparse-read baseline, the external demotion decision, and the first tiny distributed local learned result. the original source-pair `compression_under_bit_budget` mirror is a source-selection diagnostic, not compression evidence. matched-budget sparse read and a distributed-evidence probe are implemented. a 25,975-parameter local model passes the distributed-evidence slice at 19 bits, and a 9,792-parameter factorized structured local codec clears four heldout factor axes across three smoke seeds at 19 bits. these are local symbolic useful-state-density gates, not solved compression. the next target is stronger local falsification rather than claim expansion.
 
 the next research standard has changed in code as well as prose. the first content-routed sparse-read baseline over verbatim records is now implemented for `compression_under_bit_budget`; it solves the repaired source-pair smoke task from two legal records but exceeds the compact-code budget. matched-budget sparse read fails, and the distributed-evidence probe now requires four legal fragments for uncapped sparse read while still failing under the matched budget.
 
@@ -357,7 +357,7 @@ related sources include:
 
 ## immediate next steps
 
-1. harden the factorized structured local codec for the `compression_under_bit_budget` slice after it repaired the color-shape pair-band factor-heldout gate at 1.0 test joint success. keep the work local and test multiple seeds, hard-profile/local larger sweeps, other heldout axes, and less hand-shaped event pooling before any broader claim.
+1. harden the 10k-scale local codec for the `compression_under_bit_budget` slice after it cleared four heldout factor axes at 1.0 minimum test joint success. keep the work local and test multiple seeds, hard-profile/local larger sweeps, and less hand-shaped event pooling before any broader claim.
 2. extend the sparse-read baseline to other relevant symbolic/mirror families only after the local proof-package decision is clear.
 3. add the oracle ladder and fieldwise failure-localization tree to every future mirror result.
 4. define the tagged eligibility buffer with sparse consolidation as the next cellular/local-state proof package candidate, not as model code.

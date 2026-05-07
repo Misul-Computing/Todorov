@@ -34,6 +34,8 @@ from neuroloc.simulations.memory.compression_under_bit_budget_mirror import (
     tiny_distributed_local_model_summary,
     tiny_factor_heldout_local_model_summary,
     tiny_factorized_structured_local_model_summary,
+    tenk_general_local_model_summary,
+    vectorize_legal_model_input_fields,
     vectorize_legal_model_input_record,
     vectorize_record,
 )
@@ -282,9 +284,18 @@ def test_compression_mirror_factorized_vectorizer_ignores_evaluation_contract() 
     caps = profile_caps("smoke")
     record = dataset[0]
     mutated = json.loads(json.dumps(record))
+    no_contract = json.loads(json.dumps(record))
+    no_contract.pop("labels")
+    no_contract.pop("evaluation_contract")
+    assert np.array_equal(vectorize_legal_model_input_record(record, caps), vectorize_legal_model_input_record(no_contract, caps))
+    mutated["model_input"]["query"]["cue_color"] = (int(record["model_input"]["query"]["cue_color"]) + 1) % int(caps["n_colors"])
+    mutated["model_input"]["query"]["cue_shape"] = (int(record["model_input"]["query"]["cue_shape"]) + 1) % int(caps["n_shapes"])
     mutated.pop("labels")
     mutated.pop("evaluation_contract")
-    assert np.array_equal(vectorize_legal_model_input_record(record, caps), vectorize_legal_model_input_record(mutated, caps))
+    original_fields = vectorize_legal_model_input_fields(record, caps)
+    mutated_fields = vectorize_legal_model_input_fields(mutated, caps)
+    assert original_fields.keys() == mutated_fields.keys()
+    assert all(np.array_equal(original_fields[key], mutated_fields[key]) for key in original_fields)
 
 
 def test_compression_mirror_factorized_structured_local_model_repairs_factor_holdout() -> None:
@@ -302,6 +313,32 @@ def test_compression_mirror_factorized_structured_local_model_repairs_factor_hol
     assert summary["factorized_structured_matched_budget_sparse_read_test_joint_success"] == 0.0
     assert summary["factorized_structured_learned_codec_total_committed_bits"] <= summary["factorized_structured_matched_budget_sparse_read_total_committed_bits"]
     assert summary["factorized_structured_engineering_pass"] == 1.0
+
+
+def test_compression_mirror_tenk_general_local_model_clears_multiple_factor_gates() -> None:
+    summary = tenk_general_local_model_summary("smoke", seed=311, train_episodes=2048, val_episodes=96, test_episodes=96, epochs=240, seed_count=3)
+    assert summary["tenk_general_local_model_authorized"] == 1.0
+    assert summary["tenk_general_full_model_authorized"] == 0.0
+    assert summary["tenk_general_paid_compute_authorized"] == 0.0
+    assert summary["tenk_general_axis_count"] == 4
+    assert summary["tenk_general_seed_count"] == 3
+    assert summary["tenk_general_run_count"] == 12
+    assert summary["tenk_general_total_local_train_record_count"] == 24576
+    assert summary["tenk_general_total_local_validation_record_count"] == 1152
+    assert summary["tenk_general_total_local_test_record_count"] == 1152
+    assert summary["tenk_general_parameter_count_max"] < 10000
+    assert summary["tenk_general_learned_codec_test_joint_success_min"] >= 0.95
+    assert summary["tenk_general_learned_codec_test_state_success_min"] >= 0.95
+    assert summary["tenk_general_learned_codec_test_action_success_min"] >= 0.95
+    assert summary["tenk_general_field_accuracy_floor"] >= 0.95
+    assert summary["tenk_general_matched_budget_sparse_read_test_joint_success_max"] == 0.0
+    assert summary["tenk_general_learned_codec_total_committed_bits_max"] <= summary["tenk_general_matched_budget_sparse_read_total_committed_bits_min"]
+    assert summary["tenk_general_useful_operation_success_per_committed_bit_min"] > summary["tenk_general_matched_sparse_operation_success_per_committed_bit_max"]
+    assert summary["tenk_general_useful_state_density_advantage_min"] > 0.0
+    assert summary["tenk_general_bucket_clean_rate"] == 1.0
+    assert summary["tenk_general_marginal_seen_rate"] == 1.0
+    assert summary["tenk_general_axis_seed_pass_rate"] == 1.0
+    assert summary["tenk_general_engineering_pass"] == 1.0
 
 
 def test_compression_mirror_learned_codec_emits_trainable_rows() -> None:

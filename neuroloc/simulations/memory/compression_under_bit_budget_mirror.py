@@ -49,6 +49,12 @@ FACTORIZED_TRAIN_EPISODES = env_int("CUBB_FACTORIZED_TRAIN_EPISODES", 4096)
 FACTORIZED_VAL_EPISODES = env_int("CUBB_FACTORIZED_VAL_EPISODES", 128)
 FACTORIZED_TEST_EPISODES = env_int("CUBB_FACTORIZED_TEST_EPISODES", 128)
 FACTORIZED_EPOCHS = env_int("CUBB_FACTORIZED_EPOCHS", 300)
+FACTORIZED_HEAD_RANK = env_int("CUBB_FACTORIZED_HEAD_RANK", 48)
+TENK_TRAIN_EPISODES = env_int("CUBB_TENK_TRAIN_EPISODES", 2048)
+TENK_VAL_EPISODES = env_int("CUBB_TENK_VAL_EPISODES", 96)
+TENK_TEST_EPISODES = env_int("CUBB_TENK_TEST_EPISODES", 96)
+TENK_EPOCHS = env_int("CUBB_TENK_EPOCHS", 240)
+TENK_SEED_COUNT = env_int("CUBB_TENK_SEED_COUNT", 3)
 
 require_positive("CUBB_MIRROR_TRAIN_EPISODES", TRAIN_EPISODES)
 require_positive("CUBB_MIRROR_VAL_EPISODES", VAL_EPISODES)
@@ -66,6 +72,12 @@ require_positive("CUBB_FACTORIZED_TRAIN_EPISODES", FACTORIZED_TRAIN_EPISODES)
 require_positive("CUBB_FACTORIZED_VAL_EPISODES", FACTORIZED_VAL_EPISODES)
 require_positive("CUBB_FACTORIZED_TEST_EPISODES", FACTORIZED_TEST_EPISODES)
 require_positive("CUBB_FACTORIZED_EPOCHS", FACTORIZED_EPOCHS)
+require_positive("CUBB_FACTORIZED_HEAD_RANK", FACTORIZED_HEAD_RANK)
+require_positive("CUBB_TENK_TRAIN_EPISODES", TENK_TRAIN_EPISODES)
+require_positive("CUBB_TENK_VAL_EPISODES", TENK_VAL_EPISODES)
+require_positive("CUBB_TENK_TEST_EPISODES", TENK_TEST_EPISODES)
+require_positive("CUBB_TENK_EPOCHS", TENK_EPOCHS)
+require_positive("CUBB_TENK_SEED_COUNT", TENK_SEED_COUNT)
 
 FAMILY = "compression_under_bit_budget"
 FORBIDDEN_INPUT_KEYS = {
@@ -453,6 +465,47 @@ def vectorize_legal_model_input_record(record: dict[str, Any], caps: dict[str, i
         ]
     )
     return np.asarray(values, dtype=np.float32)
+
+
+def vectorize_legal_model_input_fields(record: dict[str, Any], caps: dict[str, int]) -> dict[str, np.ndarray]:
+    query = record["model_input"]["query"]
+    focus = int(query["focus_local_index"])
+    events = [event for event in record["model_input"]["observations"] if int(event["object_index"]) == focus]
+    color_missing = int(caps["n_colors"])
+    shape_missing = int(caps["n_shapes"])
+    pos_missing = int(caps["track_length"])
+    commit_time = int(query["commit_time"])
+    prior_positions = [(int(event["time"]), int(event["pos"])) for event in events if int(event["observed"]) == 1 and int(event["pos"]) >= 0 and int(event["time"]) <= commit_time]
+    later_positions = [(int(event["time"]), int(event["pos"])) for event in events if int(event["observed"]) == 1 and int(event["pos"]) >= 0 and int(event["time"]) >= commit_time]
+    commit_positions = [pos for time_index, pos in prior_positions if time_index == commit_time]
+    prior_pos = sorted(prior_positions)[-1][1] if prior_positions else pos_missing
+    later_pos = sorted(later_positions)[0][1] if later_positions else pos_missing
+    commit_pos = commit_positions[0] if commit_positions else prior_pos
+    velocity = estimate_velocity(events, int(caps["max_speed"]))
+    color_values: list[float] = []
+    color_values.extend(one_hot(last_known(events, "color", color_missing), int(caps["n_colors"]) + 1))
+    color_values.extend(one_hot(first_known(events, "color", color_missing), int(caps["n_colors"]) + 1))
+    shape_values: list[float] = []
+    shape_values.extend(one_hot(last_known(events, "shape", shape_missing), int(caps["n_shapes"]) + 1))
+    shape_values.extend(one_hot(first_known(events, "shape", shape_missing), int(caps["n_shapes"]) + 1))
+    pos_values: list[float] = []
+    pos_values.extend(one_hot(commit_pos, int(caps["track_length"]) + 1))
+    pos_values.extend(one_hot(prior_pos, int(caps["track_length"]) + 1))
+    pos_values.extend(one_hot(later_pos, int(caps["track_length"]) + 1))
+    pos_values.extend(one_hot(last_known(events, "pos", pos_missing), int(caps["track_length"]) + 1))
+    pos_values.extend(one_hot(first_known(events, "pos", pos_missing), int(caps["track_length"]) + 1))
+    velocity_values: list[float] = []
+    velocity_values.extend(one_hot(velocity + int(caps["max_speed"]), int(caps["max_speed"]) * 2 + 1))
+    provenance_values: list[float] = []
+    provenance_values.extend(one_hot(commit_time, int(caps["seq_len"])))
+    provenance_values.append(float(commit_time) / max(1.0, float(caps["seq_len"] - 1)))
+    return {
+        "color": np.asarray(color_values, dtype=np.float32),
+        "shape": np.asarray(shape_values, dtype=np.float32),
+        "pos": np.asarray(pos_values, dtype=np.float32),
+        "vel": np.asarray(velocity_values, dtype=np.float32),
+        "provenance": np.asarray(provenance_values, dtype=np.float32),
+    }
 
 
 def source_event_for_record(record: dict[str, Any]) -> dict[str, int]:
@@ -858,12 +911,45 @@ def build_distributed_trainable_dataset(profile: str, seed: int, train_episodes:
 
 
 def factor_holdout_bucket(record: dict[str, Any], caps: dict[str, int]) -> int:
+    return factor_holdout_bucket_for_key(record, caps, "color_shape_pair_band")
+
+
+def velocity_band(record: dict[str, Any], caps: dict[str, int]) -> int:
+    velocity = int(record["labels"]["state"]["vel"])
+    if velocity <= -2:
+        return 0
+    if velocity == -1:
+        return 1
+    if velocity == 1:
+        return 2
+    return 3
+
+
+def factor_holdout_bucket_for_key(record: dict[str, Any], caps: dict[str, int], key: str) -> int:
     state = record["labels"]["state"]
     color = int(state["color"])
     shape = int(state["shape"])
-    if shape == color % int(caps["n_shapes"]):
+    if key == "color_shape_pair_band":
+        left = color
+        right = shape
+        modulus = int(caps["n_shapes"])
+    elif key == "color_velocity_pair_band":
+        left = color
+        right = velocity_band(record, caps)
+        modulus = 4
+    elif key == "shape_velocity_pair_band":
+        left = shape
+        right = velocity_band(record, caps)
+        modulus = 4
+    elif key == "position_velocity_phase_band":
+        left = int(state["pos"]) % 4
+        right = velocity_band(record, caps)
+        modulus = 4
+    else:
+        raise ValueError(f"unknown factor holdout key: {key}")
+    if right == left % modulus:
         return 1
-    if shape == (color + 1) % int(caps["n_shapes"]):
+    if right == (left + 1) % modulus:
         return 2
     return 0
 
@@ -878,17 +964,17 @@ def split_accepts_factor_bucket(split: str, bucket: int) -> bool:
     raise ValueError(f"unknown split: {split}")
 
 
-def build_factor_heldout_distributed_split(profile: str, split: str, target_count: int, seed: int) -> list[dict[str, Any]]:
+def build_factor_heldout_distributed_split(profile: str, split: str, target_count: int, seed: int, key: str = "color_shape_pair_band") -> list[dict[str, Any]]:
     caps = profile_caps(profile)
     selected: list[dict[str, Any]] = []
     attempt = 0
     while len(selected) < int(target_count) and attempt < 512:
         batch = build_split(split, max(64, int(target_count)), seed + attempt * 9973, profile)
         for record in batch:
-            bucket = factor_holdout_bucket(record, caps)
+            distributed = build_distributed_evidence_record(record, caps, len(selected))
+            bucket = factor_holdout_bucket_for_key(distributed, caps, key)
             if split_accepts_factor_bucket(split, bucket):
-                distributed = build_distributed_evidence_record(record, caps, len(selected))
-                distributed["factor_holdout_key"] = "color_shape_pair_band"
+                distributed["factor_holdout_key"] = key
                 distributed["factor_holdout_bucket"] = int(bucket)
                 selected.append(distributed)
                 if len(selected) == int(target_count):
@@ -899,11 +985,11 @@ def build_factor_heldout_distributed_split(profile: str, split: str, target_coun
     return selected
 
 
-def build_factor_heldout_distributed_dataset(profile: str, seed: int, train_episodes: int, val_episodes: int, test_episodes: int) -> list[dict[str, Any]]:
+def build_factor_heldout_distributed_dataset(profile: str, seed: int, train_episodes: int, val_episodes: int, test_episodes: int, key: str = "color_shape_pair_band") -> list[dict[str, Any]]:
     return [
-        *build_factor_heldout_distributed_split(profile, "train", train_episodes, seed + 10_001),
-        *build_factor_heldout_distributed_split(profile, "validation", val_episodes, seed + 20_003),
-        *build_factor_heldout_distributed_split(profile, "test", test_episodes, seed + 30_007),
+        *build_factor_heldout_distributed_split(profile, "train", train_episodes, seed + 10_001, key=key),
+        *build_factor_heldout_distributed_split(profile, "validation", val_episodes, seed + 20_003, key=key),
+        *build_factor_heldout_distributed_split(profile, "test", test_episodes, seed + 30_007, key=key),
     ]
 
 
@@ -1199,24 +1285,26 @@ def train_factorized_codec(dataset: list[dict[str, Any]], profile: str, seed: in
     train_records = records_for_split(dataset, "train")
     if not train_records:
         raise ValueError("factorized codec requires at least one train record")
-    features = np.stack([vectorize_legal_model_input_record(row, caps) for row in train_records], axis=0)
+    feature_fields = {key: np.stack([vectorize_legal_model_input_fields(row, caps)[key] for row in train_records], axis=0) for key in ("color", "shape", "pos", "vel", "provenance")}
     labels = label_arrays(train_records, caps)
-    x_train = torch.tensor(features, dtype=torch.float32)
+    x_train = {key: torch.tensor(value, dtype=torch.float32) for key, value in feature_fields.items()}
     y_train = {key: torch.tensor(value, dtype=torch.long) for key, value in labels.items()}
+    def make_head(input_dim: int, output_dim: int) -> nn.Sequential:
+        return nn.Sequential(nn.Linear(input_dim, int(FACTORIZED_HEAD_RANK)), nn.ReLU(), nn.Linear(int(FACTORIZED_HEAD_RANK), output_dim))
     heads = nn.ModuleDict(
         {
-            "color": nn.Linear(int(features.shape[1]), int(caps["n_colors"])),
-            "shape": nn.Linear(int(features.shape[1]), int(caps["n_shapes"])),
-            "pos": nn.Linear(int(features.shape[1]), int(caps["track_length"])),
-            "vel": nn.Linear(int(features.shape[1]), int(caps["max_speed"]) * 2 + 1),
-            "provenance": nn.Linear(int(features.shape[1]), int(caps["seq_len"])),
+            "color": make_head(int(feature_fields["color"].shape[1]), int(caps["n_colors"])),
+            "shape": make_head(int(feature_fields["shape"].shape[1]), int(caps["n_shapes"])),
+            "pos": make_head(int(feature_fields["pos"].shape[1]), int(caps["track_length"])),
+            "vel": make_head(int(feature_fields["vel"].shape[1]), int(caps["max_speed"]) * 2 + 1),
+            "provenance": make_head(int(feature_fields["provenance"].shape[1]), int(caps["seq_len"])),
         }
     )
     optimizer = torch.optim.Adam(heads.parameters(), lr=0.05)
     losses = []
     for _ in range(int(epochs)):
         optimizer.zero_grad(set_to_none=True)
-        loss = sum(functional.cross_entropy(heads[key](x_train), y_train[key]) for key in heads)
+        loss = sum(functional.cross_entropy(heads[key](x_train[key]), y_train[key]) for key in heads)
         loss.backward()
         optimizer.step()
         losses.append(float(loss.detach().cpu().item()))
@@ -1237,10 +1325,11 @@ def predict_factorized_fields(record: dict[str, Any], learned: dict[str, Any]) -
 
     caps = learned["caps"]
     heads = learned["heads"]
-    x_value = torch.tensor(vectorize_legal_model_input_record(record, caps)[None, :], dtype=torch.float32)
+    field_features = vectorize_legal_model_input_fields(record, caps)
+    x_value = {key: torch.tensor(value[None, :], dtype=torch.float32) for key, value in field_features.items()}
     heads.eval()
     with torch.no_grad():
-        logits = {key: head(x_value) for key, head in heads.items()}
+        logits = {key: head(x_value[key]) for key, head in heads.items()}
         pred = {key: int(value.argmax(dim=-1).cpu().item()) for key, value in logits.items()}
         confidence = {key: float(torch.softmax(value, dim=-1).max(dim=-1).values.cpu().item()) for key, value in logits.items()}
     fields = {
@@ -1951,6 +2040,103 @@ def tiny_factorized_structured_local_model_summary(profile: str, seed: int = SEE
     }
 
 
+def tenk_axis_summary(profile: str, axis_key: str, seed: int, train_episodes: int, val_episodes: int, test_episodes: int, epochs: int) -> dict[str, float]:
+    dataset = build_factor_heldout_distributed_dataset(profile, seed + 121_013, train_episodes, val_episodes, test_episodes, key=axis_key)
+    learned = train_factorized_codec(dataset, profile, seed=seed + 131_071, epochs=epochs)
+    rows = factorized_structured_rows(dataset, learned)
+    matched_rows = [
+        row_from_result(record, "matched_budget_sparse_read", matched_budget_sparse_read_result(record, learned["caps"]), learned, 0.0, 1.0, 0.0)
+        for record in records_for_split(dataset, "test")
+    ]
+    train_buckets = {row["factor_holdout_bucket"] for row in dataset if row["split"] == "train"}
+    validation_buckets = {row["factor_holdout_bucket"] for row in dataset if row["split"] == "validation"}
+    test_buckets = {row["factor_holdout_bucket"] for row in dataset if row["split"] == "test"}
+    train_colors = {row["labels"]["state"]["color"] for row in dataset if row["split"] == "train"}
+    test_colors = {row["labels"]["state"]["color"] for row in dataset if row["split"] == "test"}
+    train_shapes = {row["labels"]["state"]["shape"] for row in dataset if row["split"] == "train"}
+    test_shapes = {row["labels"]["state"]["shape"] for row in dataset if row["split"] == "test"}
+    train_velocities = {row["labels"]["state"]["vel"] for row in dataset if row["split"] == "train"}
+    test_velocities = {row["labels"]["state"]["vel"] for row in dataset if row["split"] == "test"}
+    train_position_phases = {int(row["labels"]["state"]["pos"]) % 4 for row in dataset if row["split"] == "train"}
+    test_position_phases = {int(row["labels"]["state"]["pos"]) % 4 for row in dataset if row["split"] == "test"}
+    learned_joint = mean_for(rows, "factorized_structured_codec", "joint_success", split="test")
+    matched_joint = float(np.mean([row["joint_success"] for row in matched_rows])) if matched_rows else 0.0
+    learned_bits = mean_for(rows, "factorized_structured_codec", "total_committed_bits", split="test")
+    matched_bits = float(np.mean([row["total_committed_bits"] for row in matched_rows])) if matched_rows else 0.0
+    marginal_seen = float(int(test_colors <= train_colors and test_shapes <= train_shapes and test_velocities <= train_velocities and test_position_phases <= train_position_phases))
+    bucket_clean = float(int(len(train_buckets & validation_buckets) == 0 and len(train_buckets & test_buckets) == 0 and len(validation_buckets & test_buckets) == 0))
+    field_floor = min(
+        mean_for(rows, "factorized_structured_codec", "encoder_address_accuracy", split="test"),
+        mean_for(rows, "factorized_structured_codec", "encoder_payload_color_accuracy", split="test"),
+        mean_for(rows, "factorized_structured_codec", "encoder_payload_shape_accuracy", split="test"),
+        mean_for(rows, "factorized_structured_codec", "encoder_payload_pos_accuracy", split="test"),
+        mean_for(rows, "factorized_structured_codec", "encoder_payload_vel_accuracy", split="test"),
+        mean_for(rows, "factorized_structured_codec", "encoder_provenance_accuracy", split="test"),
+    )
+    return {
+        "joint": float(learned_joint),
+        "state": float(mean_for(rows, "factorized_structured_codec", "state_probe_accuracy", split="test")),
+        "action": float(mean_for(rows, "factorized_structured_codec", "action_success", split="test")),
+        "field_floor": float(field_floor),
+        "matched_joint": float(matched_joint),
+        "learned_bits": float(learned_bits),
+        "matched_bits": float(matched_bits),
+        "parameter_count": float(learned["parameter_count"]),
+        "bucket_clean": float(bucket_clean),
+        "marginal_seen": float(marginal_seen),
+        "pass": float(int(learned_joint >= 0.95 and field_floor >= 0.95 and matched_joint == 0.0 and learned_bits <= max(1.0, matched_bits) and bucket_clean == 1.0 and marginal_seen == 1.0 and int(learned["parameter_count"]) < 10_000)),
+    }
+
+
+def tenk_general_local_model_summary(profile: str, seed: int = SEED, train_episodes: int = TENK_TRAIN_EPISODES, val_episodes: int = TENK_VAL_EPISODES, test_episodes: int = TENK_TEST_EPISODES, epochs: int = TENK_EPOCHS, seed_count: int = TENK_SEED_COUNT) -> dict[str, Any]:
+    axes = ("color_shape_pair_band", "color_velocity_pair_band", "shape_velocity_pair_band", "position_velocity_phase_band")
+    axis_runs: list[dict[str, float]] = []
+    for axis_index, axis_key in enumerate(axes):
+        for seed_index in range(int(seed_count)):
+            axis_runs.append(tenk_axis_summary(profile, axis_key, seed + axis_index * 10_003 + seed_index * 1_009, train_episodes, val_episodes, test_episodes, epochs))
+    joints = [float(item["joint"]) for item in axis_runs]
+    states = [float(item["state"]) for item in axis_runs]
+    actions = [float(item["action"]) for item in axis_runs]
+    field_floors = [float(item["field_floor"]) for item in axis_runs]
+    matched = [float(item["matched_joint"]) for item in axis_runs]
+    passes = [float(item["pass"]) for item in axis_runs]
+    params = [float(item["parameter_count"]) for item in axis_runs]
+    learned_bits = [float(item["learned_bits"]) for item in axis_runs]
+    matched_bits = [float(item["matched_bits"]) for item in axis_runs]
+    return {
+        "tenk_general_local_model_authorized": 1.0,
+        "tenk_general_full_model_authorized": 0.0,
+        "tenk_general_paid_compute_authorized": 0.0,
+        "tenk_general_axis_count": int(len(axes)),
+        "tenk_general_seed_count": int(seed_count),
+        "tenk_general_run_count": int(len(axis_runs)),
+        "tenk_general_total_local_train_record_count": int(len(axis_runs) * int(train_episodes)),
+        "tenk_general_total_local_validation_record_count": int(len(axis_runs) * int(val_episodes)),
+        "tenk_general_total_local_test_record_count": int(len(axis_runs) * int(test_episodes)),
+        "tenk_general_train_record_count_per_run": int(train_episodes),
+        "tenk_general_validation_record_count_per_run": int(val_episodes),
+        "tenk_general_test_record_count_per_run": int(test_episodes),
+        "tenk_general_train_epochs": int(epochs),
+        "tenk_general_parameter_count_max": float(max(params) if params else 0.0),
+        "tenk_general_parameter_count_mean": float(np.mean(params)) if params else 0.0,
+        "tenk_general_learned_codec_test_joint_success_min": float(min(joints) if joints else 0.0),
+        "tenk_general_learned_codec_test_joint_success_mean": float(np.mean(joints)) if joints else 0.0,
+        "tenk_general_learned_codec_test_state_success_min": float(min(states) if states else 0.0),
+        "tenk_general_learned_codec_test_action_success_min": float(min(actions) if actions else 0.0),
+        "tenk_general_field_accuracy_floor": float(min(field_floors) if field_floors else 0.0),
+        "tenk_general_matched_budget_sparse_read_test_joint_success_max": float(max(matched) if matched else 0.0),
+        "tenk_general_learned_codec_total_committed_bits_max": float(max(learned_bits) if learned_bits else 0.0),
+        "tenk_general_matched_budget_sparse_read_total_committed_bits_min": float(min(matched_bits) if matched_bits else 0.0),
+        "tenk_general_useful_operation_success_per_committed_bit_min": float(min([joints[index] / max(learned_bits[index], 1e-9) for index in range(len(joints))]) if joints else 0.0),
+        "tenk_general_matched_sparse_operation_success_per_committed_bit_max": float(max([matched[index] / max(matched_bits[index], 1e-9) for index in range(len(matched))]) if matched else 0.0),
+        "tenk_general_useful_state_density_advantage_min": float(min([(joints[index] / max(learned_bits[index], 1e-9)) - (matched[index] / max(matched_bits[index], 1e-9)) for index in range(len(joints))]) if joints else 0.0),
+        "tenk_general_bucket_clean_rate": float(np.mean([item["bucket_clean"] for item in axis_runs])) if axis_runs else 0.0,
+        "tenk_general_marginal_seen_rate": float(np.mean([item["marginal_seen"] for item in axis_runs])) if axis_runs else 0.0,
+        "tenk_general_axis_seed_pass_rate": float(np.mean(passes)) if passes else 0.0,
+        "tenk_general_engineering_pass": float(int(passes and min(passes) == 1.0)),
+    }
+
+
 def main() -> int:
     profile = infer_profile()
     started = time.perf_counter()
@@ -1962,6 +2148,7 @@ def main() -> int:
     summary.update(tiny_distributed_local_model_summary(profile))
     summary.update(tiny_factor_heldout_local_model_summary(profile))
     summary.update(tiny_factorized_structured_local_model_summary(profile))
+    summary.update(tenk_general_local_model_summary(profile))
     statistics = build_statistics(rows)
     output_dir = output_dir_for(SCRIPT_PATH)
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -1991,6 +2178,11 @@ def main() -> int:
             "factorized_validation_episodes": int(FACTORIZED_VAL_EPISODES),
             "factorized_test_episodes": int(FACTORIZED_TEST_EPISODES),
             "factorized_train_epochs": int(FACTORIZED_EPOCHS),
+            "tenk_train_episodes": int(TENK_TRAIN_EPISODES),
+            "tenk_validation_episodes": int(TENK_VAL_EPISODES),
+            "tenk_test_episodes": int(TENK_TEST_EPISODES),
+            "tenk_train_epochs": int(TENK_EPOCHS),
+            "tenk_seed_count": int(TENK_SEED_COUNT),
             "family": FAMILY,
             "policies": list(ALL_POLICIES),
             "learned_codec_parameter_count": int(learned["parameter_count"]),

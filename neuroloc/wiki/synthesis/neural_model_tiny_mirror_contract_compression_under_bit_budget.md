@@ -280,7 +280,7 @@ kill or redesign the mirror if:
 
 the first local dataset, learned-codec, and source-diagnostic surface is now documented in [[tests/compression_under_bit_budget_mirror]]. it produced a negative smoke result, exposed a source-observability contract problem, repaired that contract so legal visible-source extraction solves the smoke task, added sparse-read and matched-budget sparse-read controls, added distributed evidence, produced an ordinary-split tiny local pass, and then failed factor-heldout recombination.
 
-the next code slice should modify the local learned-codec path, not the full model. the first factorized structured codec repaired the color-shape pair-band gate, so the next slice should harden it with multiple seeds, hard-profile/local larger sweeps, other heldout axes, and less hand-shaped event pooling while preserving deterministic splits, forbidden-input guards, baselines, telemetry artifacts, and focused tests.
+the next code slice should modify the local learned-codec path, not the full model. the first 10k-scale local data-heavy gate cleared color-shape, color-velocity, shape-velocity, and position-velocity phase heldout axes across three smoke seeds, so the next slice should harden it with hard-profile/local larger sweeps, less hand-shaped event pooling, and a stronger storage-in-local-state formulation while preserving deterministic splits, forbidden-input guards, baselines, telemetry artifacts, and focused tests.
 
 ## see also
 
