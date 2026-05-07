@@ -1,5 +1,7 @@
 from neuroloc.simulations.memory.language_grounded_state_density_mirror import (
     answer_text,
+    answer_event_binding_prompt,
+    build_event_binding_foundation_summary,
     build_summary,
     build_parser_resistant_summary,
     parse_prompt,
@@ -99,3 +101,57 @@ def test_parser_resistant_local_state_gate_reports_controls() -> None:
     assert summary["parser_resistant_parser_schema_cost_bits"] == 37.0
     assert summary["parser_resistant_engineering_pass"] == 0.0
     assert summary["parser_resistant_claim_downgraded_to_structured_bridge"] == 1.0
+
+
+def test_event_binding_foundation_clears_randomized_local_state_gate() -> None:
+    summary = build_event_binding_foundation_summary("smoke", seed=101)
+    assert summary["event_binding_foundation_evaluated"] == 1.0
+    assert summary["event_binding_parser_baseline_reported"] == 1.0
+    assert summary["event_binding_trainable_encoder_reported"] == 1.0
+    assert summary["event_binding_local_mechanism_authorized"] == 1.0
+    assert summary["event_binding_full_model_authorized"] == 0.0
+    assert summary["event_binding_paid_compute_authorized"] == 0.0
+    assert summary["event_binding_arbitrary_chat_authorized"] == 0.0
+    assert summary["event_binding_prefix_dependency_removed"] == 1.0
+    assert summary["event_binding_axis_count"] == 4
+    assert summary["event_binding_seed_count"] == 2
+    assert summary["event_binding_run_count"] == 8
+    assert summary["event_binding_total_train_record_count"] == 16384
+    assert summary["event_binding_total_validation_record_count"] == 768
+    assert summary["event_binding_total_test_record_count"] == 768
+    assert summary["event_binding_rule_cost_score_max"] < 10000
+    assert summary["event_binding_test_joint_success_min"] >= 0.95
+    assert summary["event_binding_test_state_success_min"] >= 0.95
+    assert summary["event_binding_test_action_success_min"] >= 0.95
+    assert summary["event_binding_field_accuracy_floor"] >= 0.95
+    assert summary["event_binding_zero_state_joint_success_max"] < summary["event_binding_test_joint_success_min"]
+    assert summary["event_binding_state_shuffle_joint_success_max"] < summary["event_binding_test_joint_success_min"]
+    assert summary["event_binding_matched_sparse_joint_success_max"] == 0.0
+    assert summary["event_binding_uncapped_sparse_joint_success_min"] >= 0.95
+    assert summary["event_binding_committed_bits_max"] == 19.0
+    assert summary["event_binding_rule_schema_cost_bits"] == 37.0
+    assert summary["event_binding_accounted_bits_max"] == 56.0
+    assert summary["event_binding_useful_operation_success_per_committed_bit_min"] > summary["event_binding_matched_sparse_operation_success_per_committed_bit_max"]
+    assert summary["event_binding_parser_supported_foundation_pass"] == 1.0
+    assert summary["event_binding_trainable_segment_joint_success_min"] >= 0.95
+    assert summary["event_binding_trainable_segment_field_accuracy_floor"] >= 0.95
+    assert summary["event_binding_trainable_segment_parameter_count_max"] < 10000
+    assert summary["event_binding_trainable_segment_zero_state_joint_success_max"] < summary["event_binding_trainable_segment_joint_success_min"]
+    assert summary["event_binding_trainable_segment_shuffle_joint_success_max"] < summary["event_binding_trainable_segment_joint_success_min"]
+    assert summary["event_binding_trainable_useful_operation_success_per_accounted_bit_min"] > summary["event_binding_matched_sparse_operation_success_per_committed_bit_max"]
+    assert summary["event_binding_trainable_useful_state_density_advantage_min"] > 0.0
+    assert summary["event_binding_engineering_pass"] == 1.0
+    assert summary["event_binding_claim_downgraded_to_parser_supported_foundation"] == 0.0
+
+
+def test_event_binding_responder_uses_bounded_state_for_coherent_answer() -> None:
+    dataset = build_factor_heldout_distributed_dataset("smoke", seed=113, train_episodes=2, val_episodes=1, test_episodes=1)
+    record = [row for row in dataset if row["split"] == "test"][0]
+    prompt = randomized_record_prompt(record, seed=919)
+    response = answer_event_binding_prompt(prompt, "smoke")
+    assert response.startswith("answer action_")
+    assert f"action_{int(record['labels']['action'])}" in response
+    assert f"color_{int(record['labels']['state']['color'])}" in response
+    assert f"shape_{int(record['labels']['state']['shape'])}" in response
+    assert f"pos_{int(record['labels']['state']['pos'])}" in response
+    assert f"vel_{int(record['labels']['state']['vel'])}" in response

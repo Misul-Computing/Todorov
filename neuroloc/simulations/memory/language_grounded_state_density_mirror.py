@@ -92,12 +92,17 @@ def randomized_event_text(event: dict[str, int], template_index: int) -> str:
 
 
 def randomized_record_prompt(record: dict[str, Any], seed: int) -> str:
+    segments, query = randomized_record_parts(record, seed)
+    return " | ".join([segment for segment, _ in segments] + [query])
+
+
+def randomized_record_parts(record: dict[str, Any], seed: int) -> tuple[list[tuple[str, dict[str, int] | None]], str]:
     rng = np.random.default_rng(int(seed))
     events = list(record["model_input"]["observations"])
     order = rng.permutation(len(events)) if events else []
-    rendered = [randomized_event_text(events[int(index)], int(rng.integers(0, EVENT_TEMPLATE_COUNT))) for index in order]
+    rendered = [(randomized_event_text(events[int(index)], int(rng.integers(0, EVENT_TEMPLATE_COUNT))), events[int(index)]) for index in order]
     if int(rng.integers(0, 2)) == 1:
-        rendered.insert(int(rng.integers(0, len(rendered) + 1)), "background note: the room stayed quiet and this clause is irrelevant")
+        rendered.insert(int(rng.integers(0, len(rendered) + 1)), ("background note: the room stayed quiet and this clause is irrelevant", None))
     focus = word_at(SLOT_WORDS, int(record["model_input"]["query"]["focus_local_index"]))
     query_style = int(rng.integers(0, QUERY_TEMPLATE_COUNT))
     if query_style == 0:
@@ -108,7 +113,7 @@ def randomized_record_prompt(record: dict[str, Any], seed: int) -> str:
         query = f"decide the response for {focus} using the prior reports"
     else:
         query = f"give {focus} the correct action, hue, form, place, and motion"
-    return " | ".join(rendered + [query])
+    return rendered, query
 
 
 def tokenize_randomized_prompt(prompt: str) -> list[str]:
@@ -236,11 +241,16 @@ def natural_events_from_prompt(prompt: str) -> tuple[list[dict[str, int]], int]:
             break
     for segment in segments[:-1]:
         tokens = tokenize_randomized_prompt(segment)
-        slot = next((int(SLOT_WORDS.index(token)) for token in tokens if token in SLOT_WORDS), 0)
+        slot_tokens = [int(SLOT_WORDS.index(token)) for token in tokens if token in SLOT_WORDS]
+        if not slot_tokens:
+            continue
+        slot = int(slot_tokens[0])
         time_value = 0
         for index, token in enumerate(tokens[:-1]):
             if token in {"moment", "step", "beat", "clock"} and tokens[index + 1] in NUMBER_WORDS:
                 time_value = int(NUMBER_WORDS.index(tokens[index + 1]))
+            if token in {"beat", "clock"} and index + 2 < len(tokens) and tokens[index + 1] in {"was", "near"} and tokens[index + 2] in NUMBER_WORDS:
+                time_value = int(NUMBER_WORDS.index(tokens[index + 2]))
         event = {"time": int(time_value), "object_index": int(slot), "color": -1, "shape": -1, "pos": -1, "observed": 1}
         for index, token in enumerate(tokens[:-1]):
             value = tokens[index + 1]
@@ -294,6 +304,38 @@ def randomized_prompts_for_records(records: list[dict[str, Any]], seed: int) -> 
 def build_vocab(prompts: list[str]) -> dict[str, int]:
     tokens = sorted({token for prompt in prompts for token in tokenize_randomized_prompt(prompt)})
     return {token: index for index, token in enumerate(tokens)}
+
+
+def segment_feature_tokens(text: str) -> list[str]:
+    tokens = tokenize_randomized_prompt(text)
+    role_tokens = {"beat", "clock", "near", "place", "moment", "tick", "at", "around", "position", "marked", "marker", "slot", "unit", "object", "index", "source", "target", "query", "ask", "tell", "report", "answer", "where", "which", "what"}
+    pairs = [f"{tokens[index]}_{tokens[index + 1]}" for index in range(max(0, len(tokens) - 1)) if tokens[index] in role_tokens or tokens[index + 1] in role_tokens]
+    return tokens + pairs
+
+
+def build_segment_vocab(texts: list[str]) -> dict[str, int]:
+    tokens = sorted({token for text in texts for token in segment_feature_tokens(text)})
+    return {token: index for index, token in enumerate(tokens)}
+
+
+def segment_features(texts: list[str], vocab: dict[str, int], blocked_tokens: set[str] | None = None) -> np.ndarray:
+    blocked = blocked_tokens or set()
+    values = np.zeros((len(texts), len(vocab)), dtype=np.float32)
+    for row_index, text in enumerate(texts):
+        for token in segment_feature_tokens(text):
+            if token in blocked or any(part in blocked for part in token.split("_")):
+                continue
+            if token in vocab:
+                values[row_index, int(vocab[token])] += 1.0
+    return values
+
+
+def event_binding_head_blocked_tokens(head: str) -> set[str]:
+    if head == "color":
+        return set(SHAPE_WORDS)
+    if head == "shape":
+        return set(COLOR_WORDS)
+    return set()
 
 
 def bag_features(prompts: list[str], vocab: dict[str, int]) -> np.ndarray:
@@ -544,6 +586,259 @@ def parser_resistant_axis_summary(profile: str, axis: str, seed: int) -> dict[st
     }
 
 
+def code_fields_from_bound_events(events: list[dict[str, int]], focus: int, caps: dict[str, int]) -> dict[str, int]:
+    focus_events = [event for event in events if int(event["object_index"]) == int(focus)]
+    position_events = sorted([(int(event["time"]), int(event["pos"])) for event in focus_events if int(event["pos"]) >= 0])
+    commit_time = position_events[len(position_events) // 2][0] if position_events else 0
+    pos_at_commit = [pos for time_value, pos in position_events if int(time_value) == int(commit_time)]
+    residual = int(pos_at_commit[0] if pos_at_commit else (position_events[-1][1] if position_events else 0))
+    velocity = 0
+    if len(position_events) >= 2:
+        first_time, first_pos = position_events[0]
+        last_time, last_pos = position_events[-1]
+        velocity = int(round(float(last_pos - first_pos) / float(max(1, last_time - first_time))))
+        velocity = int(max(-int(caps["max_speed"]), min(int(caps["max_speed"]), velocity)))
+    color = int(first_known(focus_events, "color", 0))
+    shape = int(first_known(focus_events, "shape", 0))
+    fields = {
+        "address": int(color * int(caps["n_shapes"]) + shape),
+        "schema": int(velocity + int(caps["max_speed"])),
+        "residual": int(residual),
+        "action": 0,
+        "provenance": int(commit_time),
+    }
+    fields["action"] = int(visible_source_action(fields, caps))
+    return fields
+
+
+def event_binding_code_fields(prompt: str, caps: dict[str, int]) -> dict[str, int]:
+    events, focus = natural_events_from_prompt(prompt)
+    return code_fields_from_bound_events(events, focus, caps)
+
+
+def answer_event_binding_prompt(prompt: str, profile: str = "smoke") -> str:
+    caps = profile_caps(profile)
+    fields = event_binding_code_fields(prompt, caps)
+    state = {
+        "color": int(int(fields["address"]) // int(caps["n_shapes"])),
+        "shape": int(int(fields["address"]) % int(caps["n_shapes"])),
+        "pos": int(fields["residual"]),
+        "vel": int(int(fields["schema"]) - int(caps["max_speed"])),
+    }
+    return f"answer action_{int(fields['action'])} color_{int(state['color'])} shape_{int(state['shape'])} pos_{int(state['pos'])} vel_{int(state['vel'])}"
+
+
+def event_binding_results(records: list[dict[str, Any]], caps: dict[str, int], seed: int, state_mode: str = "normal") -> list[dict[str, float]]:
+    prompts = randomized_prompts_for_records(records, seed)
+    fields = [event_binding_code_fields(prompt, caps) for prompt in prompts]
+    if state_mode == "zero":
+        fields = [
+            {
+                "address": 0,
+                "schema": int(caps["max_speed"]),
+                "residual": 0,
+                "action": 0,
+                "provenance": 0,
+            }
+            for _ in fields
+        ]
+    elif state_mode == "shuffle" and len(fields) > 1:
+        fields = fields[-1:] + fields[:-1]
+    return [evaluate_fields(fields[index], record, caps) for index, record in enumerate(records)]
+
+
+def event_binding_training_tables(records: list[dict[str, Any]], seed: int, caps: dict[str, int]) -> dict[str, Any]:
+    segment_texts: list[str] = []
+    event_labels: list[int] = []
+    slot_labels: list[int] = []
+    time_labels: list[int] = []
+    color_labels: list[int] = []
+    shape_labels: list[int] = []
+    pos_labels: list[int] = []
+    query_texts: list[str] = []
+    query_labels: list[int] = []
+    for index, record in enumerate(records):
+        segments, query = randomized_record_parts(record, seed + index * 104_729)
+        query_texts.append(query)
+        query_labels.append(int(record["model_input"]["query"]["focus_local_index"]))
+        for text, event in segments:
+            segment_texts.append(text)
+            event_labels.append(int(event is not None))
+            if event is None:
+                slot_labels.append(0)
+                time_labels.append(0)
+                color_labels.append(int(caps["n_colors"]))
+                shape_labels.append(int(caps["n_shapes"]))
+                pos_labels.append(int(caps["track_length"]))
+            else:
+                slot_labels.append(int(event["object_index"]))
+                time_labels.append(int(event["time"]))
+                color_labels.append(int(event["color"]) if int(event["color"]) >= 0 else int(caps["n_colors"]))
+                shape_labels.append(int(event["shape"]) if int(event["shape"]) >= 0 else int(caps["n_shapes"]))
+                pos_labels.append(int(event["pos"]) if int(event["pos"]) >= 0 else int(caps["track_length"]))
+    return {
+        "segment_texts": segment_texts,
+        "event_labels": np.asarray(event_labels, dtype=np.int64),
+        "slot_labels": np.asarray(slot_labels, dtype=np.int64),
+        "time_labels": np.asarray(time_labels, dtype=np.int64),
+        "color_labels": np.asarray(color_labels, dtype=np.int64),
+        "shape_labels": np.asarray(shape_labels, dtype=np.int64),
+        "pos_labels": np.asarray(pos_labels, dtype=np.int64),
+        "query_texts": query_texts,
+        "query_labels": np.asarray(query_labels, dtype=np.int64),
+    }
+
+
+def train_event_binding_segment_model(records: list[dict[str, Any]], caps: dict[str, int], seed: int) -> dict[str, Any]:
+    import torch
+    import torch.nn as nn
+    import torch.nn.functional as functional
+
+    tables = event_binding_training_tables(records, seed, caps)
+    vocab = build_segment_vocab(list(tables["segment_texts"]) + list(tables["query_texts"]))
+    segment_inputs = {key: torch.tensor(segment_features(tables["segment_texts"], vocab, event_binding_head_blocked_tokens(key)), dtype=torch.float32) for key in ("event", "slot", "time", "color", "shape", "pos")}
+    x_queries = torch.tensor(segment_features(tables["query_texts"], vocab), dtype=torch.float32)
+    labels = {key: torch.tensor(tables[f"{key}_labels"], dtype=torch.long) for key in ("event", "slot", "time", "color", "shape", "pos")}
+    y_query = torch.tensor(tables["query_labels"], dtype=torch.long)
+    torch.manual_seed(int(seed))
+    feature_count = int(len(vocab))
+    heads = nn.ModuleDict(
+        {
+            "event": nn.Linear(feature_count, 2),
+            "slot": nn.Linear(feature_count, int(caps["n_active"])),
+            "time": nn.Linear(feature_count, int(caps["seq_len"])),
+            "color": nn.Linear(feature_count, int(caps["n_colors"]) + 1),
+            "shape": nn.Linear(feature_count, int(caps["n_shapes"]) + 1),
+            "pos": nn.Linear(feature_count, int(caps["track_length"]) + 1),
+            "query": nn.Linear(feature_count, int(caps["n_active"])),
+        }
+    )
+    optimizer = torch.optim.Adam(heads.parameters(), lr=0.04)
+    losses = []
+    event_mask = labels["event"] == 1
+    for _ in range(min(int(EPOCHS), 120)):
+        optimizer.zero_grad(set_to_none=True)
+        loss = functional.cross_entropy(heads["event"](segment_inputs["event"]), labels["event"])
+        loss = loss + sum(functional.cross_entropy(heads[key](segment_inputs[key][event_mask]), labels[key][event_mask]) for key in ("slot", "time", "color", "shape", "pos"))
+        loss = loss + functional.cross_entropy(heads["query"](x_queries), y_query)
+        loss.backward()
+        optimizer.step()
+        losses.append(float(loss.detach().cpu().item()))
+    return {
+        "vocab": vocab,
+        "heads": heads,
+        "parameter_count": int(sum(parameter.numel() for parameter in heads.parameters())),
+        "train_loss_start": float(losses[0]) if losses else 0.0,
+        "train_loss_final": float(losses[-1]) if losses else 0.0,
+    }
+
+
+def predict_trainable_event_binding(records: list[dict[str, Any]], learned: dict[str, Any], caps: dict[str, int], seed: int, state_mode: str = "normal") -> list[dict[str, float]]:
+    import torch
+
+    prompts = randomized_prompts_for_records(records, seed)
+    segment_groups: list[list[str]] = []
+    query_texts: list[str] = []
+    flat_segments: list[str] = []
+    for prompt in prompts:
+        parts = [segment.strip() for segment in prompt.split("|") if segment.strip()]
+        event_segments = parts[:-1]
+        segment_groups.append(event_segments)
+        flat_segments.extend(event_segments)
+        query_texts.append(parts[-1] if parts else "")
+    segment_inputs = {key: torch.tensor(segment_features(flat_segments, learned["vocab"], event_binding_head_blocked_tokens(key)), dtype=torch.float32) for key in ("event", "slot", "time", "color", "shape", "pos")}
+    x_queries = torch.tensor(segment_features(query_texts, learned["vocab"]), dtype=torch.float32)
+    heads = learned["heads"]
+    heads.eval()
+    with torch.no_grad():
+        if flat_segments:
+            pred = {key: heads[key](segment_inputs[key]).argmax(dim=-1).cpu().numpy().astype(int) for key in ("event", "slot", "time", "color", "shape", "pos")}
+        else:
+            pred = {key: np.asarray([], dtype=int) for key in ("event", "slot", "time", "color", "shape", "pos")}
+        query_pred = heads["query"](x_queries).argmax(dim=-1).cpu().numpy().astype(int) if query_texts else np.asarray([], dtype=int)
+    fields_list = []
+    cursor = 0
+    for record_index, segments in enumerate(segment_groups):
+        events = []
+        for _ in segments:
+            if int(pred["event"][cursor]) == 1:
+                events.append(
+                    {
+                        "time": int(pred["time"][cursor]),
+                        "object_index": int(pred["slot"][cursor]),
+                        "color": int(pred["color"][cursor]) if int(pred["color"][cursor]) < int(caps["n_colors"]) else -1,
+                        "shape": int(pred["shape"][cursor]) if int(pred["shape"][cursor]) < int(caps["n_shapes"]) else -1,
+                        "pos": int(pred["pos"][cursor]) if int(pred["pos"][cursor]) < int(caps["track_length"]) else -1,
+                        "observed": 1,
+                    }
+                )
+            cursor += 1
+        fields_list.append(code_fields_from_bound_events(events, int(query_pred[record_index]), caps))
+    if state_mode == "zero":
+        fields_list = [{"address": 0, "schema": int(caps["max_speed"]), "residual": 0, "action": 0, "provenance": 0} for _ in fields_list]
+    elif state_mode == "shuffle" and len(fields_list) > 1:
+        fields_list = fields_list[-1:] + fields_list[:-1]
+    return [evaluate_fields(fields_list[index], record, caps) for index, record in enumerate(records)]
+
+
+def event_binding_axis_summary(profile: str, axis: str, seed: int) -> dict[str, Any]:
+    caps = profile_caps(profile)
+    dataset = build_factor_heldout_distributed_dataset(profile, seed, TRAIN_EPISODES, VAL_EPISODES, TEST_EPISODES, key=axis)
+    for row in dataset:
+        row["factor_holdout_bucket"] = factor_holdout_bucket_for_key(row, caps, axis)
+    train_records = split_records(dataset, "train")
+    test_records = split_records(dataset, "test")
+    learned = train_event_binding_segment_model(train_records, caps, seed + 503)
+    test_results = event_binding_results(test_records, caps, seed + 401, "normal")
+    zero_results = event_binding_results(test_records, caps, seed + 401, "zero")
+    shuffle_results = event_binding_results(test_records, caps, seed + 401, "shuffle")
+    trainable_results = predict_trainable_event_binding(test_records, learned, caps, seed + 401, "normal")
+    trainable_zero_results = predict_trainable_event_binding(test_records, learned, caps, seed + 401, "zero")
+    trainable_shuffle_results = predict_trainable_event_binding(test_records, learned, caps, seed + 401, "shuffle")
+    matched_sparse_results = [matched_budget_sparse_read_result(row, caps) for row in test_records]
+    uncapped_sparse_results = [distributed_evidence_sparse_read_result(row, caps, max_records=32) for row in test_records]
+    field_floor = min(
+        mean_metric(test_results, "color_success"),
+        mean_metric(test_results, "shape_success"),
+        mean_metric(test_results, "pos_success"),
+        mean_metric(test_results, "vel_success"),
+        mean_metric(test_results, "provenance_success"),
+    )
+    trainable_field_floor = min(
+        mean_metric(trainable_results, "color_success"),
+        mean_metric(trainable_results, "shape_success"),
+        mean_metric(trainable_results, "pos_success"),
+        mean_metric(trainable_results, "vel_success"),
+        mean_metric(trainable_results, "provenance_success"),
+    )
+    return {
+        "joint": mean_metric(test_results, "joint_success"),
+        "state": mean_metric(test_results, "state_success"),
+        "action": mean_metric(test_results, "action_success"),
+        "field_floor": float(field_floor),
+        "zero_joint": mean_metric(zero_results, "joint_success"),
+        "shuffle_joint": mean_metric(shuffle_results, "joint_success"),
+        "trainable_joint": mean_metric(trainable_results, "joint_success"),
+        "trainable_state": mean_metric(trainable_results, "state_success"),
+        "trainable_action": mean_metric(trainable_results, "action_success"),
+        "trainable_field_floor": float(trainable_field_floor),
+        "trainable_zero_joint": mean_metric(trainable_zero_results, "joint_success"),
+        "trainable_shuffle_joint": mean_metric(trainable_shuffle_results, "joint_success"),
+        "trainable_parameter_count": float(learned["parameter_count"]),
+        "trainable_loss_start": float(learned["train_loss_start"]),
+        "trainable_loss_final": float(learned["train_loss_final"]),
+        "matched_sparse_joint": mean_metric(matched_sparse_results, "joint_correct"),
+        "uncapped_sparse_joint": mean_metric(uncapped_sparse_results, "joint_correct"),
+        "rule_cost_score": float(parser_schema_cost_bits(caps) * 17),
+        "rule_bits": float(parser_schema_cost_bits(caps)),
+        "accounted_bits": float(parser_schema_cost_bits(caps) + learned_code_bits(caps)),
+        "learned_bits": float(learned_code_bits(caps)),
+        "matched_sparse_bits": mean_metric(matched_sparse_results, "bits_committed"),
+        "prompt": randomized_record_prompt(test_records[0], seed + 401) if test_records else "",
+        "response": answer_event_binding_prompt(randomized_record_prompt(test_records[0], seed + 401), profile) if test_records else "",
+    }
+
+
 def mean_metric(results: list[dict[str, Any]], key: str) -> float:
     return float(np.mean([float(row[key]) for row in results])) if results else 0.0
 
@@ -699,12 +994,97 @@ def build_parser_resistant_summary(profile: str, seed: int = SEED) -> dict[str, 
     }
 
 
+def build_event_binding_foundation_summary(profile: str, seed: int = SEED) -> dict[str, Any]:
+    runs = []
+    for axis_index, axis in enumerate(AXES):
+        for seed_index in range(int(SEED_COUNT)):
+            runs.append(event_binding_axis_summary(profile, axis, seed + axis_index * 10_003 + seed_index * 1_009))
+    joints = [float(row["joint"]) for row in runs]
+    states = [float(row["state"]) for row in runs]
+    actions = [float(row["action"]) for row in runs]
+    field_floors = [float(row["field_floor"]) for row in runs]
+    zero_joints = [float(row["zero_joint"]) for row in runs]
+    shuffle_joints = [float(row["shuffle_joint"]) for row in runs]
+    trainable_joints = [float(row["trainable_joint"]) for row in runs]
+    trainable_states = [float(row["trainable_state"]) for row in runs]
+    trainable_actions = [float(row["trainable_action"]) for row in runs]
+    trainable_field_floors = [float(row["trainable_field_floor"]) for row in runs]
+    trainable_zero_joints = [float(row["trainable_zero_joint"]) for row in runs]
+    trainable_shuffle_joints = [float(row["trainable_shuffle_joint"]) for row in runs]
+    trainable_parameter_counts = [float(row["trainable_parameter_count"]) for row in runs]
+    trainable_loss_starts = [float(row["trainable_loss_start"]) for row in runs]
+    trainable_loss_finals = [float(row["trainable_loss_final"]) for row in runs]
+    matched_sparse = [float(row["matched_sparse_joint"]) for row in runs]
+    uncapped_sparse = [float(row["uncapped_sparse_joint"]) for row in runs]
+    rule_scores = [float(row["rule_cost_score"]) for row in runs]
+    rule_bits = [float(row["rule_bits"]) for row in runs]
+    accounted_bits = [float(row["accounted_bits"]) for row in runs]
+    committed_bits = [float(row["learned_bits"]) for row in runs]
+    sparse_bits = [float(row["matched_sparse_bits"]) for row in runs]
+    useful_density = [joints[index] / max(accounted_bits[index], 1e-9) for index in range(len(runs))]
+    trainable_useful_density = [trainable_joints[index] / max(accounted_bits[index], 1e-9) for index in range(len(runs))]
+    sparse_density = [matched_sparse[index] / max(sparse_bits[index], 1e-9) for index in range(len(runs))]
+    baseline_pass = float(int(runs and min(joints) >= 0.95 and min(field_floors) >= 0.95 and max(matched_sparse) == 0.0 and max(zero_joints) < min(joints) and max(shuffle_joints) < min(joints) and max(rule_scores) < 10_000))
+    engineering_pass = float(int(runs and baseline_pass == 1.0 and min(trainable_joints) >= 0.95 and min(trainable_states) >= 0.95 and min(trainable_actions) >= 0.95 and min(trainable_field_floors) >= 0.95 and max(trainable_zero_joints) < min(trainable_joints) and max(trainable_shuffle_joints) < min(trainable_joints) and max(trainable_parameter_counts) < 10_000))
+    return {
+        "event_binding_foundation_evaluated": 1.0,
+        "event_binding_parser_baseline_reported": 1.0,
+        "event_binding_trainable_encoder_reported": 1.0,
+        "event_binding_local_mechanism_authorized": 1.0,
+        "event_binding_full_model_authorized": 0.0,
+        "event_binding_paid_compute_authorized": 0.0,
+        "event_binding_arbitrary_chat_authorized": 0.0,
+        "event_binding_prefix_dependency_removed": 1.0,
+        "event_binding_template_family_count": float(EVENT_TEMPLATE_COUNT),
+        "event_binding_query_template_family_count": float(QUERY_TEMPLATE_COUNT),
+        "event_binding_axis_count": int(len(AXES)),
+        "event_binding_seed_count": int(SEED_COUNT),
+        "event_binding_run_count": int(len(runs)),
+        "event_binding_total_train_record_count": int(len(runs) * int(TRAIN_EPISODES)),
+        "event_binding_total_validation_record_count": int(len(runs) * int(VAL_EPISODES)),
+        "event_binding_total_test_record_count": int(len(runs) * int(TEST_EPISODES)),
+        "event_binding_rule_cost_score_max": float(max(rule_scores) if rule_scores else 0.0),
+        "event_binding_test_joint_success_min": float(min(joints) if joints else 0.0),
+        "event_binding_test_state_success_min": float(min(states) if states else 0.0),
+        "event_binding_test_action_success_min": float(min(actions) if actions else 0.0),
+        "event_binding_field_accuracy_floor": float(min(field_floors) if field_floors else 0.0),
+        "event_binding_trainable_segment_joint_success_min": float(min(trainable_joints) if trainable_joints else 0.0),
+        "event_binding_trainable_segment_state_success_min": float(min(trainable_states) if trainable_states else 0.0),
+        "event_binding_trainable_segment_action_success_min": float(min(trainable_actions) if trainable_actions else 0.0),
+        "event_binding_trainable_segment_field_accuracy_floor": float(min(trainable_field_floors) if trainable_field_floors else 0.0),
+        "event_binding_trainable_segment_zero_state_joint_success_max": float(max(trainable_zero_joints) if trainable_zero_joints else 0.0),
+        "event_binding_trainable_segment_shuffle_joint_success_max": float(max(trainable_shuffle_joints) if trainable_shuffle_joints else 0.0),
+        "event_binding_trainable_segment_parameter_count_max": float(max(trainable_parameter_counts) if trainable_parameter_counts else 0.0),
+        "event_binding_trainable_loss_start_mean": float(np.mean(trainable_loss_starts)) if trainable_loss_starts else 0.0,
+        "event_binding_trainable_loss_final_mean": float(np.mean(trainable_loss_finals)) if trainable_loss_finals else 0.0,
+        "event_binding_zero_state_joint_success_max": float(max(zero_joints) if zero_joints else 0.0),
+        "event_binding_state_shuffle_joint_success_max": float(max(shuffle_joints) if shuffle_joints else 0.0),
+        "event_binding_matched_sparse_joint_success_max": float(max(matched_sparse) if matched_sparse else 0.0),
+        "event_binding_uncapped_sparse_joint_success_min": float(min(uncapped_sparse) if uncapped_sparse else 0.0),
+        "event_binding_committed_bits_max": float(max(committed_bits) if committed_bits else 0.0),
+        "event_binding_rule_schema_cost_bits": float(max(rule_bits) if rule_bits else 0.0),
+        "event_binding_accounted_bits_max": float(max(accounted_bits) if accounted_bits else 0.0),
+        "event_binding_matched_sparse_bits_min": float(min(sparse_bits) if sparse_bits else 0.0),
+        "event_binding_useful_operation_success_per_committed_bit_min": float(min(useful_density) if useful_density else 0.0),
+        "event_binding_trainable_useful_operation_success_per_accounted_bit_min": float(min(trainable_useful_density) if trainable_useful_density else 0.0),
+        "event_binding_matched_sparse_operation_success_per_committed_bit_max": float(max(sparse_density) if sparse_density else 0.0),
+        "event_binding_useful_state_density_advantage_min": float(min([useful_density[index] - sparse_density[index] for index in range(len(useful_density))]) if useful_density else 0.0),
+        "event_binding_trainable_useful_state_density_advantage_min": float(min([trainable_useful_density[index] - sparse_density[index] for index in range(len(trainable_useful_density))]) if trainable_useful_density else 0.0),
+        "event_binding_parser_supported_foundation_pass": float(baseline_pass),
+        "event_binding_engineering_pass": float(engineering_pass),
+        "event_binding_claim_downgraded_to_parser_supported_foundation": float(1.0 - engineering_pass),
+        "event_binding_example_prompt": str(runs[0]["prompt"]) if runs else "",
+        "event_binding_example_response": str(runs[0]["response"]) if runs else "",
+    }
+
+
 def main() -> int:
     profile = infer_profile()
     started = time.perf_counter()
     started_at = utc_now_iso()
     summary = build_summary(profile)
     summary.update(build_parser_resistant_summary(profile))
+    summary.update(build_event_binding_foundation_summary(profile))
     output_dir = output_dir_for(SCRIPT_PATH)
     output_dir.mkdir(parents=True, exist_ok=True)
     metrics_path = output_dir / "language_grounded_state_density_mirror_metrics.json"

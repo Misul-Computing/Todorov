@@ -10,7 +10,9 @@ test type: local symbolic-language state-density bridge for constrained message-
 
 this does not make the model generally conversational. it proves only that a constrained generated-language message can feed the local state-density mechanism and produce a constrained answer under exact controls.
 
-the parser-resistant extension is now implemented and negative. when stable `time_`, `slot_`, `color_`, `shape_`, and `pos_` prefixes are removed, prompt templates are randomized, event order is shuffled, irrelevant clauses are injected, and the learned encoder is restricted to a bounded local state from token counts, the learned path does not preserve the operation. the result demotes the current positive claim to a structured symbolic-message bridge rather than a parser-resistant language-grounded memory result.
+the parser-resistant learned token-count extension is implemented and negative. when stable `time_`, `slot_`, `color_`, `shape_`, and `pos_` prefixes are removed, prompt templates are randomized, event order is shuffled, irrelevant clauses are injected, and the learned encoder is restricted to a bounded local state from token counts, the learned path does not preserve the operation. that result demotes the learned-token-count claim.
+
+the follow-up event-binding parser baseline keeps the randomized message surface but preserves event segments before committing a bounded local state. it reaches 1.0 minimum joint/state/action success across the same four heldout axes and two smoke seeds, emits a constrained answer, and collapses under zero-state or shuffled-state controls. it also charges 37 parser/schema bits in addition to the 19 state bits. the typed trainable segment binder then learns event fields from randomized event segments with 8,856 parameters and clears the local engineering gate at minimum heldout joint/state/action success 0.9583333333333334. this is a constrained grounded typed local-state responder, not arbitrary chat, and not solved compression.
 
 ## implemented surface
 
@@ -28,6 +30,9 @@ the parser-resistant extension is now implemented and negative. when stable `tim
 - parser-resistant prompt form removes the stable prefix tokens and uses four event template families plus four query template families
 - parser-resistant learned text encoder uses no handcrafted field extraction, commits through a bounded local state, and reports zero-state plus shuffled-state ablations
 - parser-resistant result is negative: the learned text encoder has minimum test joint success 0.0 and engineering pass 0.0, while uncapped sparse read remains 1.0
+- event-binding parser baseline keeps randomized prompts, removed stable prefixes, shuffled order, irrelevant clauses, and bounded local-state commitment
+- event-binding parser-supported result is positive as a baseline: minimum test joint/state/action success 1.0, 19 state bits plus 37 parser/schema bits for 56 accounted bits, matched-budget sparse read 0.0 at 20 bits, uncapped sparse read 1.0, zero-state joint max 0.0, shuffled-state joint max 0.020833333333333332, and parser-supported foundation pass 1.0
+- typed trainable event-binding result is positive as a local foundation gate: 8,856 parameters, minimum test joint/state/action success 0.9583333333333334, field floor 0.9583333333333334, zero-state joint max 0.0, shuffled-state joint max 0.020833333333333332, and engineering pass 1.0
 
 ## commands
 
@@ -36,9 +41,21 @@ commands run on 2026-05-07:
 - `python -m pytest tests/test_language_grounded_state_density_mirror.py tests/test_simulation_suite.py::test_suite_registry_contract -q`
 - result: 4 passed, known numpy-on-windows warning, pytest cache warning
 - `python -m pytest tests/test_language_grounded_state_density_mirror.py tests/test_compression_under_bit_budget_mirror.py tests/test_simulation_suite.py::test_suite_registry_contract -q`
-- result: 35 passed, known numpy-on-windows warning
+- result: 37 passed, known numpy-on-windows warning; the typed event-binding gate makes this focused suite slow on windows
 - `python -m pytest tests/test_language_grounded_state_density_mirror.py -q`
-- result: 5 passed, known numpy-on-windows warning
+- result: 7 passed, known numpy-on-windows warning
+- `python -m pytest tests/test_language_grounded_state_density_mirror.py::test_event_binding_foundation_clears_randomized_local_state_gate -q`
+- result: 1 passed, known numpy-on-windows warning
+- `python -m pytest tests/test_language_grounded_state_density_mirror.py::test_event_binding_foundation_clears_randomized_local_state_gate tests/test_language_grounded_state_density_mirror.py::test_event_binding_responder_uses_bounded_state_for_coherent_answer -q`
+- result: 2 passed, known numpy-on-windows warning
+- `python -m pytest tests/test_language_grounded_state_density_mirror.py tests/test_simulation_suite.py::test_suite_registry_contract -q`
+- result: 8 passed, known numpy-on-windows warning
+- `python neuroloc\simulations\suite_runner.py --simulation language_grounded_state_density_mirror --profile smoke --output-root codex_local_output\suite_lgsd_event_binding --timeout 600`
+- result: suite completed 1/1 passed
+- `python neuroloc\simulations\suite_runner.py --simulation language_grounded_state_density_mirror --profile smoke --output-root codex_local_output\suite_lgsd_event_binding_typed --timeout 900`
+- result: suite completed 1/1 passed
+- `python -m pytest --collect-only -q`
+- result: 346 tests collected, known numpy-on-windows warning
 - `python -m pytest tests/test_simulation_suite.py::test_suite_registry_contract -q`
 - result: 1 passed, known numpy-on-windows warning
 - `python neuroloc\simulations\suite_runner.py --simulation language_grounded_state_density_mirror --profile smoke --output-root codex_local_output\suite_lgsd_parser_resistant --timeout 300`
@@ -112,6 +129,53 @@ commands run on 2026-05-07:
 - engineering pass: 0.0
 - claim downgraded to structured bridge: 1.0
 
+## event-binding local-state foundation output
+
+- foundation evaluated: 1.0
+- parser baseline reported: 1.0
+- trainable encoder reported: 1.0
+- local mechanism authorized: 1.0
+- full model authorized: 0.0
+- paid compute authorized: 0.0
+- arbitrary chat authorized: 0.0
+- stable prefix dependency removed: 1.0
+- event template families: 4
+- query template families: 4
+- axis count: 4
+- seed count: 2
+- run count: 8
+- total train records: 16,384
+- total validation records: 768
+- total test records: 768
+- maximum rule cost score: 629
+- committed state bits: 19
+- parser/schema cost bits: 37
+- accounted bits: 56
+- minimum test joint success: 1.0
+- minimum test state success: 1.0
+- minimum test action success: 1.0
+- field accuracy floor: 1.0
+- zero-state joint success max: 0.0
+- shuffled-state joint success max: 0.020833333333333332
+- matched-budget sparse read joint success max: 0.0
+- matched-budget sparse read bits: 20
+- uncapped sparse read joint success min: 1.0
+- useful operation success per accounted bit: 0.017857142857142856
+- useful state density advantage after parser/schema cost: 0.017857142857142856
+- parser-supported foundation pass: 1.0
+- trainable segment parameter count: 8,856
+- trainable segment minimum joint success: 0.9583333333333334
+- trainable segment minimum state success: 0.9583333333333334
+- trainable segment minimum action success: 0.9583333333333334
+- trainable segment field accuracy floor: 0.9583333333333334
+- trainable segment zero-state joint success max: 0.0
+- trainable segment shuffled-state joint success max: 0.020833333333333332
+- trainable segment loss mean: 12.421865701675415 to 0.07196207623928785
+- trainable useful operation success per accounted bit: 0.01711309523809524
+- trainable useful state density advantage after parser/schema cost: 0.01711309523809524
+- trainable engineering pass: 1.0
+- claim downgraded to parser-supported foundation: 0.0
+
 ## example constrained exchange
 
 prompt:
@@ -128,9 +192,9 @@ answer action_3 color_0 shape_1 pos_4 vel_1
 
 ## interpretation
 
-the first bag-of-words attempt failed because flat token counts destroyed the time-slot relations. the accepted bridge uses a structured message parser that preserves event, slot, time, and observed-field structure from the generated text. the parser-resistant extension confirms that this is not a minor limitation: a token-count learned encoder with a bounded local state fails completely on the randomized prompt surface. the current positive result must therefore be read as a structured symbolic-message bridge.
+the first bag-of-words attempt failed because flat token counts destroyed the time-slot relations. the accepted bridge uses a structured message parser that preserves event, slot, time, and observed-field structure from the generated text. the parser-resistant learned token-count extension confirms that this is not a minor limitation: a token-count learned encoder with a bounded local state fails completely on the randomized prompt surface.
 
-the next proof target is a learned sequence or event-binding encoder that reduces hand shaping without hiding parser/schema cost. it must preserve the same local-state bottleneck, matched-budget sparse read, uncapped sparse read, zero-state ablation, shuffled-state ablation, useful-state-density metric, and arbitrary-chat denial.
+the event-binding foundation is the first repair baseline and the first typed trainable local-state responder on the randomized symbolic-message surface. it does not return to the stable prefix parser, and it does not use arbitrary future state; it binds randomized event segments into a compact local state and answers from that state. the trainable segment binder passes because field-specific typed heads prevent the heldout color-shape recombination shortcut that broke unconstrained shared learners. the next proof target is memory update, replay, imagination, provenance over longer grounded dialogue, and stricter learned binding without hiding parser/schema cost.
 
 this is a bridge toward message-response training, not evidence that arbitrary chat works. it is also not proof of the full storage/compression thesis.
 
