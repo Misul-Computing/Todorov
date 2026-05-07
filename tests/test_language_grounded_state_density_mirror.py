@@ -1,8 +1,11 @@
 from neuroloc.simulations.memory.language_grounded_state_density_mirror import (
     answer_text,
     build_summary,
+    build_parser_resistant_summary,
     parse_prompt,
+    randomized_record_prompt,
     record_prompt,
+    tokenize_randomized_prompt,
     vectorize_message_fields,
 )
 from neuroloc.simulations.memory.compression_under_bit_budget_mirror import build_factor_heldout_distributed_dataset, profile_caps
@@ -55,3 +58,44 @@ def test_language_grounded_state_density_clears_constrained_message_gate() -> No
     assert summary["language_grounded_engineering_pass"] == 1.0
     assert str(summary["language_grounded_example_prompt"]).startswith("observations ")
     assert str(summary["language_grounded_example_response"]).startswith("answer action_")
+
+
+def test_parser_resistant_prompt_removes_stable_prefix_dependency() -> None:
+    dataset = build_factor_heldout_distributed_dataset("smoke", seed=73, train_episodes=2, val_episodes=1, test_episodes=1)
+    prompt_a = randomized_record_prompt(dataset[0], seed=11)
+    prompt_b = randomized_record_prompt(dataset[0], seed=11)
+    prompt_c = randomized_record_prompt(dataset[0], seed=12)
+    tokens = tokenize_randomized_prompt(prompt_a)
+    assert prompt_a == prompt_b
+    assert prompt_a != prompt_c
+    assert tokens
+    assert "time_" not in prompt_a
+    assert "slot_" not in prompt_a
+    assert "color_" not in prompt_a
+    assert "shape_" not in prompt_a
+    assert "pos_" not in prompt_a
+    assert "question action_for" not in prompt_a
+
+
+def test_parser_resistant_local_state_gate_reports_controls() -> None:
+    summary = build_parser_resistant_summary("smoke", seed=91)
+    assert summary["parser_resistant_gate_evaluated"] == 1.0
+    assert summary["parser_resistant_local_model_authorized"] == 1.0
+    assert summary["parser_resistant_full_model_authorized"] == 0.0
+    assert summary["parser_resistant_paid_compute_authorized"] == 0.0
+    assert summary["parser_resistant_arbitrary_chat_authorized"] == 0.0
+    assert summary["parser_resistant_template_family_count"] >= 3
+    assert summary["parser_resistant_prefix_dependency_removed"] == 1.0
+    assert summary["parser_resistant_deterministic_parser_reported"] == 1.0
+    assert summary["parser_resistant_learned_text_encoder_reported"] == 1.0
+    assert summary["parser_resistant_local_state_ablation_reported"] == 1.0
+    assert summary["parser_resistant_test_joint_success_min"] == 0.0
+    assert summary["parser_resistant_test_state_success_min"] == 0.0
+    assert summary["parser_resistant_matched_sparse_joint_success_max"] == 0.0
+    assert summary["parser_resistant_uncapped_sparse_joint_success_min"] >= 0.95
+    assert summary["parser_resistant_state_shuffle_joint_success_max"] <= summary["parser_resistant_test_joint_success_min"]
+    assert summary["parser_resistant_zero_state_joint_success_max"] <= summary["parser_resistant_test_joint_success_min"]
+    assert summary["parser_resistant_learned_committed_bits_max"] == 19.0
+    assert summary["parser_resistant_parser_schema_cost_bits"] == 37.0
+    assert summary["parser_resistant_engineering_pass"] == 0.0
+    assert summary["parser_resistant_claim_downgraded_to_structured_bridge"] == 1.0

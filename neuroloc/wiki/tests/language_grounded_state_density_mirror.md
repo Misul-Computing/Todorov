@@ -10,6 +10,8 @@ test type: local symbolic-language state-density bridge for constrained message-
 
 this does not make the model generally conversational. it proves only that a constrained generated-language message can feed the local state-density mechanism and produce a constrained answer under exact controls.
 
+the parser-resistant extension is now implemented and negative. when stable `time_`, `slot_`, `color_`, `shape_`, and `pos_` prefixes are removed, prompt templates are randomized, event order is shuffled, irrelevant clauses are injected, and the learned encoder is restricted to a bounded local state from token counts, the learned path does not preserve the operation. the result demotes the current positive claim to a structured symbolic-message bridge rather than a parser-resistant language-grounded memory result.
+
 ## implemented surface
 
 - generated prompt form: `observations ... question action_for slot_n`
@@ -23,6 +25,9 @@ this does not make the model generally conversational. it proves only that a con
 - 3,847 maximum trainable parameters
 - 19 committed learned bits
 - matched sparse read is measured on the same generated-record contracts used to produce the language prompts, and remains a zero-success compact-budget control
+- parser-resistant prompt form removes the stable prefix tokens and uses four event template families plus four query template families
+- parser-resistant learned text encoder uses no handcrafted field extraction, commits through a bounded local state, and reports zero-state plus shuffled-state ablations
+- parser-resistant result is negative: the learned text encoder has minimum test joint success 0.0 and engineering pass 0.0, while uncapped sparse read remains 1.0
 
 ## commands
 
@@ -31,7 +36,13 @@ commands run on 2026-05-07:
 - `python -m pytest tests/test_language_grounded_state_density_mirror.py tests/test_simulation_suite.py::test_suite_registry_contract -q`
 - result: 4 passed, known numpy-on-windows warning, pytest cache warning
 - `python -m pytest tests/test_language_grounded_state_density_mirror.py tests/test_compression_under_bit_budget_mirror.py tests/test_simulation_suite.py::test_suite_registry_contract -q`
-- result: 33 passed, known numpy-on-windows warning, pytest cache warning
+- result: 35 passed, known numpy-on-windows warning
+- `python -m pytest tests/test_language_grounded_state_density_mirror.py -q`
+- result: 5 passed, known numpy-on-windows warning
+- `python -m pytest tests/test_simulation_suite.py::test_suite_registry_contract -q`
+- result: 1 passed, known numpy-on-windows warning
+- `python neuroloc\simulations\suite_runner.py --simulation language_grounded_state_density_mirror --profile smoke --output-root codex_local_output\suite_lgsd_parser_resistant --timeout 300`
+- result: suite completed 1/1 passed
 - `$env:PYTHONPYCACHEPREFIX='C:\Users\deyan\Projects\todorov\codex_local_output\pycache'; python -m py_compile neuroloc\simulations\memory\language_grounded_state_density_mirror.py neuroloc\simulations\suite_registry.py tests\test_language_grounded_state_density_mirror.py`
 - result: passed
 - `python neuroloc\simulations\suite_runner.py --simulation language_grounded_state_density_mirror --profile smoke --output-root codex_local_output\suite_lgsd --timeout 300`
@@ -72,6 +83,35 @@ commands run on 2026-05-07:
 - useful state density advantage: 0.05263157894736842
 - engineering pass: 1.0
 
+## parser-resistant gate output
+
+- gate evaluated: 1.0
+- local model authorized: 1.0
+- full model authorized: 0.0
+- paid compute authorized: 0.0
+- arbitrary chat authorized: 0.0
+- event template families: 4
+- query template families: 4
+- stable prefix dependency removed: 1.0
+- learned text encoder reported: 1.0
+- deterministic parser reported: 1.0
+- local-state ablation reported: 1.0
+- total train records: 16,384
+- total test records: 768
+- maximum parameter count: 1,779
+- learned committed bits: 19
+- parser/schema cost bits reported: 37
+- minimum learned test joint success: 0.0
+- minimum learned test state success: 0.0
+- minimum learned action success: 0.13541666666666666
+- field accuracy floor: 0.052083333333333336
+- matched-budget sparse read joint success max: 0.0
+- uncapped sparse read joint success min: 1.0
+- zero-state joint success max: 0.0
+- shuffled-state joint success max: 0.0
+- engineering pass: 0.0
+- claim downgraded to structured bridge: 1.0
+
 ## example constrained exchange
 
 prompt:
@@ -88,7 +128,9 @@ answer action_3 color_0 shape_1 pos_4 vel_1
 
 ## interpretation
 
-the first bag-of-words attempt failed because flat token counts destroyed the time-slot relations. the accepted bridge uses a structured message parser that preserves event, slot, time, and observed-field structure from the generated text. this is still hand-shaped and constrained. the next proof target is to reduce that hand shaping while preserving the useful-state-density gate.
+the first bag-of-words attempt failed because flat token counts destroyed the time-slot relations. the accepted bridge uses a structured message parser that preserves event, slot, time, and observed-field structure from the generated text. the parser-resistant extension confirms that this is not a minor limitation: a token-count learned encoder with a bounded local state fails completely on the randomized prompt surface. the current positive result must therefore be read as a structured symbolic-message bridge.
+
+the next proof target is a learned sequence or event-binding encoder that reduces hand shaping without hiding parser/schema cost. it must preserve the same local-state bottleneck, matched-budget sparse read, uncapped sparse read, zero-state ablation, shuffled-state ablation, useful-state-density metric, and arbitrary-chat denial.
 
 this is a bridge toward message-response training, not evidence that arbitrary chat works. it is also not proof of the full storage/compression thesis.
 
@@ -96,6 +138,7 @@ this is a bridge toward message-response training, not evidence that arbitrary c
 
 - [[compression_under_bit_budget_mirror]]
 - [[../synthesis/neural_model_tiny_mirror_contract_compression_under_bit_budget]]
+- [[../synthesis/neural_model_paper_spine]]
 - [[../synthesis/neural_model_lane_operation_preserving_compression]]
 - [[../synthesis/neural_model_lane_trainability_evaluation]]
 - [[../PROJECT_PLAN]]
