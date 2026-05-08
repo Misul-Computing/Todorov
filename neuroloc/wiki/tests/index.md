@@ -60,6 +60,7 @@ each test page should include:
 - [[tests/language_grounded_state_density_mirror|language grounded state density mirror]] -- constrained generated-language message-response bridge for the useful-state-density local surface
 - [[tests/local_v1_language_model|local v1 language model]] -- first dataset-grounded local v1 state-first language responder with constrained update, replay, and branch-state controls
 - [[tests/local_10k_chat_model|local 10k chat model]] -- first integrated 10k local constrained chat surface with grounded response, refusal, update, short-term context, replay, and branch-state controls
+- [[tests/local_foundation_neural_model|local foundation neural model]] -- first under-10k foundation surface with context, working memory, episodic memory, long-term memory, replay, branch state, and a replaceable codec boundary
 - [[tests/correction_field_trained_prediction_results|correction-field trained-prediction results]] -- trained-predictor correction-field sim; memory_capacity_delta=0 at every quality
 - [[tests/multi_resolution_head_split_results|multi-resolution head split results]] -- fast/medium/slow heads with surprise gates; rare-class recall improves
 - [[tests/thinking_loop_prototype_results|thinking-loop prototype results]] -- recurrent hidden-state refinement pilot on modular arithmetic
@@ -82,5 +83,6 @@ each test page should include:
 - [[tests/language_grounded_state_density_mirror]]
 - [[tests/local_v1_language_model]]
 - [[tests/local_10k_chat_model]]
+- [[tests/local_foundation_neural_model]]
 - [[synthesis/phase1_evaluation_surface_for_neural_models]]
 - [[synthesis/synthetic_shared_world_bridge]]

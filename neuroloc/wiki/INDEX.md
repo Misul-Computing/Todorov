@@ -2,7 +2,7 @@
 
 status: current (as of 2026-05-08).
 
-update note: [[tests/compression_under_bit_budget_mirror]] now includes the first tiny distributed local learned model, a factor-heldout local falsification gate, a factorized structured local codec, and a 10k-scale local data-heavy robustness gate. [[tests/language_grounded_state_density_mirror]] now adds the first constrained generated-language message-response bridge, a negative parser-resistant learned token-count gate, a parser-supported event-binding baseline, and a typed trainable event-binding local-state pass. [[tests/local_v1_language_model]] adds the first dataset-grounded local v1 language-state gate. [[tests/local_10k_chat_model]] is now the current integrated 10k local constrained chat surface: 7,968 parameters, 32 local dataset-derived records, grounded response success 0.96875, unknown refusal success 1.0, route-disabled grounded success 0.03125, shuffled-route grounded success 0.0, memory update success 1.0, short-term context success 1.0, targeted replay success 1.0, branch-state success 1.0, final dialogue joint success 1.0, command-line prompt mode, and suite pass. this is useful-state-density evidence on symbolic and dataset-record surfaces plus a constrained grounded chat foundation, not arbitrary chat, open-ended imagination, full-scale neural-model v1, or solved compression. the immediate no-paid work is larger local dataset ingestion, longer grounded dialogue, provenance-preserving rewrites, factor-heldout query forms, fair sparse-read baselines, and stronger learned binding, not paid compute or full-model expansion.
+update note: [[tests/compression_under_bit_budget_mirror]] now includes the first tiny distributed local learned model, a factor-heldout local falsification gate, a factorized structured local codec, and a 10k-scale local data-heavy robustness gate. [[tests/language_grounded_state_density_mirror]] now adds the first constrained generated-language message-response bridge, a negative parser-resistant learned token-count gate, a parser-supported event-binding baseline, and a typed trainable event-binding local-state pass. [[tests/local_v1_language_model]] adds the first dataset-grounded local v1 language-state gate. [[tests/local_10k_chat_model]] adds the first integrated 10k local constrained chat surface. [[tests/local_foundation_neural_model]] is now the current architecture-boundary foundation surface: 5,560 parameters, 24 local dataset-derived records, 62 accounted bits, grounded response success 1.0, unknown refusal success 1.0, route-disabled grounded success 0.041666666666666664, shuffled-route grounded success 0.0, codec-disabled grounded success 0.0, replay-disabled success 0.0, branch-disabled success 0.0, action/update/context/replay/branch/final dialogue metrics at 1.0, and explicit context, working memory, episodic memory, long-term memory, replay buffer, branch memory, and replaceable codec boundary. this is useful-state-density evidence on symbolic and dataset-record surfaces plus a constrained grounded foundation architecture, not arbitrary chat, open-ended imagination, full-scale neural-model v1, or solved compression. the immediate no-paid work is larger local dataset ingestion, factor-heldout query forms, stronger state ablations, fair sparse-read baselines, and a learned codec only after the simple boundary is stable, not paid compute or full-model expansion.
 
 this is the flat reference catalog of every article in the wiki, grouped
 by topic within each top-level directory. for guided navigation, start
@@ -30,6 +30,7 @@ at [[start_here]]. for the rules that govern every article below, see
 - [[tests/language_grounded_state_density_mirror]] — constrained generated-language message-response bridge for the useful-state-density surface
 - [[tests/local_v1_language_model]] — first dataset-grounded local v1 state-first language responder
 - [[tests/local_10k_chat_model]] — first integrated 10k local constrained chat surface
+- [[tests/local_foundation_neural_model]] — first under-10k foundation surface with explicit memory compartments and replaceable codec boundary
 - [[synthesis/neural_model_lane_cellular_state_storage]] — biology-led local-state research lane
 - [[synthesis/neural_model_lane_operation_preserving_compression]] — operation-preserving compression research lane
 - [[synthesis/content_routed_sparse_read_prior]] — subq / selective sparse attention prior-art boundary and content-routed sparse-read baseline requirement
@@ -505,6 +506,7 @@ frozen evidence records, one per paid run:
 - tests/language_grounded_state_density_mirror.md -- constrained generated-language message-response bridge for the useful-state-density surface
 - tests/local_v1_language_model.md -- first dataset-grounded local v1 state-first language responder
 - tests/local_10k_chat_model.md -- first integrated 10k local constrained chat surface
+- tests/local_foundation_neural_model.md -- first under-10k foundation surface with explicit memory compartments and replaceable codec boundary
 
 ### supporting prototype note (1)
 - tests/aesthetic_logger_prototype.md -- frozen prototype note for the phase 6a logging module; not counted as an evidence record
@@ -518,7 +520,7 @@ frozen evidence records, one per paid run:
 - simulations/neuromodulation/ (1 script: dopamine_rpe)
 - simulations/lateral_inhibition/ (1 script: wta_dynamics)
 - simulations/oscillations/ (1 script: gamma_ping)
-- simulations/memory/ (24 scripts: pattern_completion, capacity_scaling, imagination_recombination, asymmetric_outer_product_recall, correction_field_capacity, correction_field_trained_prediction, multi_resolution_head_split, slot_buffer_capacity, slot_surprise_writes, slot_integration, contextual_recall_world, slot_key_interference_sweep, multi_association_recall, delayed_cue_world, episodic_separation_completion, episodic_replay_reuse, contextual_gate_routing, nm_hard_symbolic_test_material, eligibility_gated_local_commit, oracle_compression_analysis, compression_under_bit_budget_mirror, language_grounded_state_density_mirror, local_v1_language_model, local_10k_chat_model)
+- simulations/memory/ (25 scripts: pattern_completion, capacity_scaling, imagination_recombination, asymmetric_outer_product_recall, correction_field_capacity, correction_field_trained_prediction, multi_resolution_head_split, slot_buffer_capacity, slot_surprise_writes, slot_integration, contextual_recall_world, slot_key_interference_sweep, multi_association_recall, delayed_cue_world, episodic_separation_completion, episodic_replay_reuse, contextual_gate_routing, nm_hard_symbolic_test_material, eligibility_gated_local_commit, oracle_compression_analysis, compression_under_bit_budget_mirror, language_grounded_state_density_mirror, local_v1_language_model, local_10k_chat_model, local_foundation_neural_model)
 - simulations/attention/ (1 script: biased_competition)
 - simulations/dendritic/ (1 script: multicompartment_neuron)
 - simulations/energy/ (1 script: energy_comparison)
@@ -618,6 +620,7 @@ frozen evidence records, one per paid run:
 - [[tests/language_grounded_state_density_mirror]]
 - [[tests/local_v1_language_model]]
 - [[tests/local_10k_chat_model]]
+- [[tests/local_foundation_neural_model]]
 - [[synthesis/neural_model_lane_cellular_state_storage]]
 - [[synthesis/neural_model_lane_operation_preserving_compression]]
 - [[synthesis/neural_model_lane_memory_replay_imagination]]

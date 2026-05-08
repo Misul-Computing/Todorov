@@ -23,7 +23,7 @@ the claim is conditional: this lane matters only if targeted routing, replay rew
 - [[neural_model_dossier_replay_rewrite]] defines replay as rewrite and recompression.
 - [[world_models_imagination_and_planning]] translates latent rollout and world-model work into the project frame.
 - [[synthetic_shared_world_bridge]] defines the exact-state phase-2 bridge for embodied worlds.
-- [[tests/local_v1_language_model]] documents the first constrained local v1 update, targeted replay, random-replay, and branch-state rehearsal gate. [[tests/local_10k_chat_model]] extends that surface into command-line grounded chat with update, short-term context, targeted replay, and bounded branch-state rehearsal. these are dataset-record state-routing gates, not open-ended imagination.
+- [[tests/local_v1_language_model]] documents the first constrained local v1 update, targeted replay, random-replay, and branch-state rehearsal gate. [[tests/local_10k_chat_model]] extends that surface into command-line grounded chat with update, short-term context, targeted replay, and bounded branch-state rehearsal. [[tests/local_foundation_neural_model]] makes replay buffer and branch memory first-class compartments behind a simple memory-object codec boundary. these are dataset-record state-routing gates, not open-ended imagination.
 
 ## proof gates
 
@@ -50,7 +50,7 @@ the claim is conditional: this lane matters only if targeted routing, replay rew
 
 ## next action
 
-harden the local 10k update/replay/branch-state loop with larger local dataset ingestion, longer grounded dialogue, provenance-preserving rewrites, factor-heldout query forms, state-shuffle and zero-state chat ablations, and fair sparse-read baselines before expanding to embodied 3d tasks.
+harden the foundation update/replay/branch-state loop in [[tests/local_foundation_neural_model]] with larger local dataset ingestion, factor-heldout query forms, zero-working-memory controls, zero-long-term-memory controls, shuffled-code controls, branch reconstruction checks, and fair sparse-read baselines before expanding to embodied 3d tasks.
 
 ## see also
 
@@ -68,5 +68,6 @@ harden the local 10k update/replay/branch-state loop with larger local dataset i
 - [[neural_model_dossier_replay_rewrite]]
 - [[tests/local_v1_language_model]]
 - [[tests/local_10k_chat_model]]
+- [[tests/local_foundation_neural_model]]
 - [[world_models_imagination_and_planning]]
 - [[synthetic_shared_world_bridge]]

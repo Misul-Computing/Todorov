@@ -67,6 +67,7 @@ the result does not prove broad language competence. it does not learn open-ende
 
 harden this surface before any paid compute or full integration:
 
+- keep [[local_foundation_neural_model]] as the current architecture-boundary successor
 - larger local dataset ingestion
 - factor-heldout query forms
 - provenance-preserving rewrite tests
@@ -76,6 +77,7 @@ harden this surface before any paid compute or full integration:
 
 ## see also
 
+- [[local_foundation_neural_model]]
 - [[local_v1_language_model]]
 - [[language_grounded_state_density_mirror]]
 - [[compression_under_bit_budget_mirror]]
