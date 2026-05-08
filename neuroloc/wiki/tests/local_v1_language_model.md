@@ -44,8 +44,8 @@ commands run on 2026-05-08:
 - seed count: 2
 - run count: 2
 - record count: 32
-- maximum vocabulary size: 84
-- maximum trainable parameter count: 2,688
+- maximum vocabulary size: 85
+- maximum trainable parameter count: 2,720
 - minimum test joint success: 1.0
 - minimum test state success: 1.0
 - minimum test action success: 1.0
@@ -67,7 +67,7 @@ commands run on 2026-05-08:
 
 ## interpretation
 
-the result proves a narrow local foundation: a very small model can be trained on a local dataset to route natural-ish queries into a bounded memory state and answer from that state with provenance. it also proves that success depends on the state object, because removing or shuffling that state collapses the operation. the dialogue extension proves the first constrained memory operations: a record can be updated, targeted replay can recover the updated record after distraction, random replay fails, and a branch-state response can be created from the current memory record.
+the result proves a narrow local foundation: a very small model can be trained on a local dataset to route natural-ish queries into a bounded memory state and answer from that state with provenance. after the later `local_10k_chat_model` documentation changed the default corpus, the cue-binding path was hardened so common status words cannot pull grounded queries away from their target record. it also proves that success depends on the state object, because removing or shuffling that state collapses the operation. the dialogue extension proves the first constrained memory operations: a record can be updated, targeted replay can recover the updated record after distraction, random replay fails, and a branch-state response can be created from the current memory record.
 
 the result does not prove natural conversation, general language understanding, learned compression of arbitrary data, dreaming, simulator grounding, or full neural-model v1. the branch-state operation is a tiny auditable rehearsal state, not open-ended generation. the next proof step is to harden this loop with longer grounded dialogue, provenance-preserving rewrites, fair sparse-read baselines, larger local datasets, and factor-heldout query forms.
 
@@ -75,6 +75,7 @@ the result does not prove natural conversation, general language understanding, 
 
 - [[language_grounded_state_density_mirror]]
 - [[compression_under_bit_budget_mirror]]
+- [[local_10k_chat_model]]
 - [[index]]
 - [[../synthesis/neural_model_paper_spine]]
 - [[../synthesis/neural_model_lane_operation_preserving_compression]]

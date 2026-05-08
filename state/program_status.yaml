@@ -1,14 +1,14 @@
 project: todorov
 canonical_plan: neuroloc/wiki/PROJECT_PLAN.md
 current_phase: neural_model_master_plan_research_phase
-current_step: local_v1_dataset_grounded_language_state_gate_no_paid_compute
-status: "2026_05_08_local_v1_dataset_grounded_language_state_gate_clears_smoke_contract"
+current_step: local_10k_integrated_constrained_chat_model_no_paid_compute
+status: "2026_05_08_local_10k_chat_model_clears_smoke_contract"
 last_updated: "2026-05-08"
-tests_passing: 41
-total_tests: 41
-test_collection_total: 350
-test_surface: language_grounded_state_density_mirror_compression_mirror_and_registry_checks
-test_status_note: "2026-05-08 focused validation added a dataset-grounded local v1 language-state gate after the typed event-binding local-state foundation. targeted validation now covers the local v1 tests, language/compression mirror tests, and registry contract. the new local v1 gate trains a 2,688-parameter state-first router over 32 dataset-derived memory records rather than a next-token decoder, reaches minimum joint/state/action/provenance success 1.0, zero-state joint success 0.0, shuffled-state joint success 0.0, 28 accounted bits, useful operation success per accounted bit 0.03571428571428571, and engineering pass 1.0. its first dialogue loop reports memory update success 1.0, targeted replay success 1.0, random replay success 0.0, branch-state success 1.0, final dialogue joint success 1.0, zero-state dialogue joint success 0.0, and dialogue engineering pass 1.0. this is a constrained dataset-grounded local responder, not arbitrary chat, not solved storage/compression, not open-ended imagination, not full-model work, and not paid-compute authorization. the prior typed event-binding segment binder remains the randomized symbolic-message foundation at 8,856 parameters, minimum test joint/state/action success 0.9583333333333334, field floor 0.9583333333333334, zero-state joint max 0.0, shuffled-state joint max 0.020833333333333332, train loss mean 12.421865701675415 to 0.07196207623928785, engineering pass 1.0, and parser-supported downgrade 0.0."
+tests_passing: 45
+total_tests: 45
+test_collection_total: 354
+test_surface: local_10k_chat_model_local_v1_language_state_language_grounded_compression_mirror_and_registry_checks
+test_status_note: "2026-05-08 focused validation added the integrated local_10k_chat_model after the dataset-grounded local v1 language-state gate. the new 10k chat surface trains a 7,968-parameter state-first router over 32 dataset-derived memory records rather than a next-token decoder, exposes command-line chat, refuses unknown prompts, updates memory records, carries short-term dialogue state, performs targeted replay, and creates bounded branch-state rehearsal. smoke metrics: 61 accounted bits, grounded response success 0.96875, unknown refusal success 1.0, route-disabled grounded success 0.03125, shuffled-route grounded success 0.0, memory update success 1.0, short-term context success 1.0, targeted replay success 1.0, branch-state success 1.0, final dialogue joint success 1.0, and engineering pass 1.0. this is a constrained grounded local chat foundation, not arbitrary chat, not solved storage/compression, not open-ended imagination, not full-scale language competence, not full-model work, and not paid-compute authorization."
 related_work_update: "2026-05-06 subq / selective sparse attention public material recorded at neuroloc/wiki/synthesis/content_routed_sparse_read_prior.md. validates content-dependent sparse read and functional context as prior-art pressure, does not prove memory-object compression, and adds content-routed sparse read over verbatim context as a future baseline where fair. no paid compute authorized."
 related_work_pressure_matrix: "2026-05-06 six-lane literature pass consolidated at neuroloc/wiki/synthesis/neural_model_related_work_pressure_matrix.md. external work covers local state, fast weights, differentiable memory, sparse routing, task-relative compression, context compression, replay, world models, simulator gates, and oracle evaluation methods. remaining project edge is a compound proof of learned operation-preserving memory objects under exact controls. no paid compute authorized."
 critical_fix: "god_machine.py step logger hardcoded dict dropped 40+ probe metrics, fixed class-wide via merge loop and smoke-test disk round-trip guard; bcm train/eval path divergence fixed by aligning recurrent path to running_state_norm; running_state_norm now training-only mutation; 17 prosecutor findings F1-F17 all fixed"
@@ -432,8 +432,8 @@ local_v1_language_model_surface:
   seed_count: 2
   run_count: 2
   record_count_min: 32
-  vocab_size_max: 84
-  trainable_parameter_count_max: 2688
+  vocab_size_max: 85
+  trainable_parameter_count_max: 2720
   test_joint_success_min: 1.0
   test_state_success_min: 1.0
   test_action_success_min: 1.0
@@ -453,6 +453,38 @@ local_v1_language_model_surface:
   dialogue_zero_state_joint_success_max: 0.0
   dialogue_engineering_pass: 1.0
   next_code_target: local_v1_longer_dialogue_provenance_rewrite_factor_heldout_query_and_sparse_read_controls
+local_10k_chat_model_surface:
+  phase: neural_model_master_plan_research_phase
+  description: "first integrated laptop-only 10k constrained chat model gate. trains a compact state-first router over dataset-derived memory records, then answers from bounded memory state rather than next-token decoding. exposes command-line prompt and stdin chat modes; supports unknown-prompt refusal, memory update, short-term dialogue state, targeted replay, and bounded branch-state rehearsal. this is constrained local chat foundation evidence only: not arbitrary chat, not solved storage/compression, not open-ended imagination, not full-scale language competence, not full neural-model v1, and not paid-compute authorization."
+  family: local_10k_constrained_chat_responder
+  script: neuroloc/simulations/memory/local_10k_chat_model.py
+  tests: tests/test_local_10k_chat_model.py
+  result_card: neuroloc/wiki/tests/local_10k_chat_model.md
+  suite: compression_mirror
+  local_model_authorized: true
+  full_model_authorized: false
+  paid_compute_authorized: false
+  arbitrary_chat_authorized: false
+  state_first_training_used: true
+  next_token_training_used: false
+  command_line_chat_supported: true
+  seed_count: 2
+  run_count: 2
+  record_count_min: 32
+  trainable_parameter_count_max: 7968
+  accounted_bits_max: 61.0
+  grounded_response_success_min: 0.96875
+  unknown_refusal_success_min: 1.0
+  route_disabled_grounded_success_max: 0.03125
+  route_shuffled_grounded_success_max: 0.0
+  memory_update_success_min: 1.0
+  short_term_context_success_min: 1.0
+  targeted_replay_success_min: 1.0
+  branch_state_success_min: 1.0
+  final_dialogue_joint_success_min: 1.0
+  engineering_pass: 1.0
+  claim_downgraded_to_constrained_responder: 0.0
+  next_code_target: local_10k_larger_local_dataset_longer_dialogue_provenance_rewrite_factor_heldout_query_state_ablation_and_sparse_read_controls
 god_run_v2_results:
   phase: neural_machine
   description: "god_machine.py re-run with all 17 F + 14 G prosecutor fixes; F1 math corrected (torch.exp instead of torch.sigmoid of logsigmoid); all probe metrics now in jsonl"
@@ -517,4 +549,4 @@ latest_run_results:
   git_sha: f27b81c
   config_hash: 4e3f02be249cc069
   run_card: neuroloc/wiki/tests/run3_cognition_phase1_results.md
-next_action: "chapter 1 remains review-ready in pdf_curriculum/chapters/ch_01_what_a_number_means/ after the 2026-04-23 math correction pass; chapter 2 remains outline-only awaiting approval in pdf_curriculum/chapters/ch_02_how_things_change/ch_02_outline.md. the oracle compression frontier split, first family-specific learned-codec proof package, tiny local mirror contract, local baseline/guard surface, first negative learned-codec smoke result, source-diagnostic result, repaired source-observability contract, content-routed sparse-read baseline, matched-budget sparse-read control, distributed-evidence probe, tiny distributed local learned model, factor-heldout falsification gate, factorized structured local codec, 10k-scale local data-heavy robustness gate, constrained language-grounded state-density bridge, parser-resistant local-state gate, event-binding parser-supported foundation, typed trainable event-binding local-state pass, and first dataset-grounded local v1 language-state gate are implemented. the local v1 gate trains a 2,688-parameter state-first router over 32 dataset-derived memory records, answers from bounded state rather than next-token decoding, reaches minimum joint/state/action/provenance success 1.0, collapses under zero-state and shuffled-state controls, and now includes constrained memory update, targeted replay, random-replay failure, and branch-state rehearsal controls. arbitrary chat is still unauthorized and compression/storage is still unsolved. the approved neural-model work should next harden this local v1 responder with longer grounded dialogue, provenance-preserving rewrites, factor-heldout query forms, larger local dataset ingestion, and fair sparse-read baselines before any full model integration, simulator commitment, intervention preset, kaggle, h200, pod, or paid run."
+next_action: "chapter 1 remains review-ready in pdf_curriculum/chapters/ch_01_what_a_number_means/ after the 2026-04-23 math correction pass; chapter 2 remains outline-only awaiting approval in pdf_curriculum/chapters/ch_02_how_things_change/ch_02_outline.md. the oracle compression frontier split, first family-specific learned-codec proof package, tiny local mirror contract, local baseline/guard surface, first negative learned-codec smoke result, source-diagnostic result, repaired source-observability contract, content-routed sparse-read baseline, matched-budget sparse-read control, distributed-evidence probe, tiny distributed local learned model, factor-heldout falsification gate, factorized structured local codec, 10k-scale local data-heavy robustness gate, constrained language-grounded state-density bridge, parser-resistant local-state gate, event-binding parser-supported foundation, typed trainable event-binding local-state pass, first dataset-grounded local v1 language-state gate, and integrated local 10k constrained chat gate are implemented. the local 10k chat gate trains a 7,968-parameter state-first router over 32 dataset-derived memory records, answers from bounded state rather than next-token decoding, exposes command-line chat, refuses unknown prompts, updates memory, carries short-term dialogue state, performs targeted replay, and creates bounded branch-state rehearsal; route-disabled and shuffled-route controls now collapse grounded response. arbitrary chat is still unauthorized and compression/storage is still unsolved. the approved neural-model work should next harden this local 10k responder with larger local dataset ingestion, longer grounded dialogue, provenance-preserving rewrites, factor-heldout query forms, state-shuffle and zero-state chat ablations, and fair sparse-read or verbatim-memory baselines before any full model integration, simulator commitment, intervention preset, kaggle, h200, pod, or paid run."

@@ -196,11 +196,12 @@ the first bag-of-words attempt failed because flat token counts destroyed the ti
 
 the event-binding foundation is the first repair baseline and the first typed trainable local-state responder on the randomized symbolic-message surface. it does not return to the stable prefix parser, and it does not use arbitrary future state; it binds randomized event segments into a compact local state and answers from that state. the trainable segment binder passes because field-specific typed heads prevent the heldout color-shape recombination shortcut that broke unconstrained shared learners. the next proof target is memory update, replay, imagination, provenance over longer grounded dialogue, and stricter learned binding without hiding parser/schema cost.
 
-this is a bridge toward message-response training, not evidence that arbitrary chat works. it is also not proof of the full storage/compression thesis.
+this is a bridge toward message-response training, not evidence that arbitrary chat works. the next local chat surface is [[local_10k_chat_model]], which adds command-line grounded chat, refusal, update, short-term context, replay, and branch-state controls while remaining constrained to dataset-derived memory records. it is also not proof of the full storage/compression thesis.
 
 ## see also
 
 - [[local_v1_language_model]]
+- [[local_10k_chat_model]]
 - [[compression_under_bit_budget_mirror]]
 - [[../synthesis/neural_model_tiny_mirror_contract_compression_under_bit_budget]]
 - [[../synthesis/neural_model_paper_spine]]

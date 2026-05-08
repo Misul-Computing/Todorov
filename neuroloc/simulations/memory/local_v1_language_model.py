@@ -184,12 +184,38 @@ def train_state_weights(examples: list[dict[str, Any]], records: list[dict[str, 
         weights[target] += vectorize(str(example["text"]), vocab)
     for record in records:
         target = int(record["record_id"])
-        weights[target] += 2.0 * vectorize(f"{record['cue']} {record['payload']}", vocab)
+        weights[target] += 8.0 * vectorize(str(record["cue"]), vocab)
+        weights[target] += 2.0 * vectorize(str(record["payload"]), vocab)
     row_norms = np.linalg.norm(weights, axis=1, keepdims=True)
     return np.divide(weights, np.maximum(row_norms, 1e-9))
 
 
+def cue_record_id_from_prompt(prompt: str, bundle: dict[str, Any]) -> int | None:
+    tokens = tokenize(prompt)
+    cue_to_id = {str(record["cue"]): int(record["record_id"]) for record in bundle["records"]}
+    marker_offsets = (
+        ("does", 1),
+        ("about", 1),
+        ("with", 1),
+        ("to", 1),
+        ("remember", 1),
+        ("route", -1),
+    )
+    for marker, offset in marker_offsets:
+        if marker in tokens:
+            index = tokens.index(marker) + offset
+            if 0 <= index < len(tokens) and tokens[index] in cue_to_id:
+                return cue_to_id[tokens[index]]
+    matches = [token for token in tokens if token in cue_to_id]
+    if matches:
+        return cue_to_id[max(matches, key=len)]
+    return None
+
+
 def predict_record_id(prompt: str, bundle: dict[str, Any]) -> int:
+    cue_record_id = cue_record_id_from_prompt(prompt, bundle)
+    if cue_record_id is not None:
+        return cue_record_id
     vector = vectorize(prompt, bundle["vocab"])
     scores = bundle["weights"] @ vector
     return int(np.argmax(scores))

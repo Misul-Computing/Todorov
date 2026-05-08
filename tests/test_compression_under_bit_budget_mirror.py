@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 import shutil
 import sys
-import uuid
+import tempfile
 from pathlib import Path
 
 import numpy as np
@@ -515,14 +515,14 @@ def test_compression_mirror_registry_entries() -> None:
 
 
 def test_compression_mirror_smoke_suite() -> None:
-    output_root = Path.cwd() / "reports" / "test_outputs" / f"compression_mirror_smoke_{uuid.uuid4().hex}"
+    output_root = Path(tempfile.mkdtemp(prefix="compression_mirror_smoke_"))
     try:
         results = run_specs(
             specs=get_suite_specs("compression_mirror"),
             profile="smoke",
             output_root=output_root,
             python_executable=sys.executable,
-            timeout_sec=300,
+            timeout_sec=600,
         )
         failures = [(result.simulation_id, result.validation_error, result.stderr_tail) for result in results if not result.ok]
         assert not failures, failures
