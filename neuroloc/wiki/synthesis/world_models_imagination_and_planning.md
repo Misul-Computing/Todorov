@@ -51,3 +51,4 @@ future backlog theory should treat imagination as a state-space operation. that 
 - [[beyond_next_token_for_neural_models]]
 - [[state_action_memory_architecture_direction]]
 - [[canonical_visual_narratives_world_models]]
+- [[mistakes/local_foundation_lookup_scaffold_category_error]]

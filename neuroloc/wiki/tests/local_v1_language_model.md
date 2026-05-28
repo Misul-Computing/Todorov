@@ -2,20 +2,20 @@
 
 status: current (as of 2026-05-08).
 
-test type: local dataset-grounded state-first language responder gate
+test type: demoted local dataset-grounded state-router scaffold
 
 ## summary
 
-`local_v1_language_model` is the first laptop-only local v1 responder surface. it trains a tiny state router over dataset-derived memory records, then answers from the predicted bounded state object rather than from a next-token decoder. it also adds the first local dialogue loop for memory update, targeted replay, and branch-state rehearsal under zero-state and random-replay controls.
+`local_v1_language_model` is now demoted to a constrained state-router scaffold. it trains a tiny router over dataset-derived records, then answers from the predicted bounded record object rather than from a next-token decoder. it also adds a local dialogue loop for record update, targeted retrieval, and branch-copy rehearsal under zero-state and random-replay controls.
 
-this is not arbitrary chat. it is not solved compression. it is not full model integration. it is a constrained dataset-grounded responder that tests whether a small local model can learn language-to-memory-state routing and preserve state, action, and provenance under zero-state and shuffled-state controls.
+this is not arbitrary chat, not solved compression, not replay, not imagination, not brain-like memory, and not full model integration. it is a constrained dataset-grounded responder that tests whether a small local model can learn prompt-to-record-state routing and preserve state, action, and provenance under zero-state and shuffled-state controls.
 
 ## implemented surface
 
 - source dataset: local text records extracted from project documents by default, with test injection of explicit source texts
 - training objective: state-first cue-to-record binding, not next-token prediction
 - response form: `v1 answer: <cue> links to <payload>. source record_<n>.`
-- state object: selected record id plus cue, payload, action-equivalent payload, update state, replay target, branch state, and provenance
+- state object: selected record id plus cue, payload, action-equivalent payload, update state, retrieval target, branch-copy state, and provenance
 - controls: zero-state answer collapse, shuffled-state answer degradation, and random-replay failure
 - local parameter budget: less than 10,000 trainable routing weights
 - output artifact: `neuroloc/output/simulation_runs/memory/local_v1_language_model/local_v1_language_model_metrics.json`
@@ -58,24 +58,25 @@ commands run on 2026-05-08:
 - engineering pass: 1.0
 - dialogue gate evaluated: 1.0
 - memory update success min: 1.0
-- targeted replay success min: 1.0
+- legacy targeted-replay metric, now interpreted as targeted retrieval success min: 1.0
 - random replay success max: 0.0
-- branch-state success min: 1.0
+- legacy branch-state metric, now interpreted as branch-copy success min: 1.0
 - dialogue final joint success min: 1.0
 - dialogue zero-state joint success max: 0.0
 - dialogue engineering pass: 1.0
 
 ## interpretation
 
-the result proves a narrow local foundation: a very small model can be trained on a local dataset to route natural-ish queries into a bounded memory state and answer from that state with provenance. after the later `local_10k_chat_model` documentation changed the default corpus, the cue-binding path was hardened so common status words cannot pull grounded queries away from their target record. it also proves that success depends on the state object, because removing or shuffling that state collapses the operation. the dialogue extension proves the first constrained memory operations: a record can be updated, targeted replay can recover the updated record after distraction, random replay fails, and a branch-state response can be created from the current memory record.
+the result proves a narrow scaffold: a very small model can be trained on a local dataset to route natural-ish queries into a bounded record state and answer from that state with provenance. after the later `local_10k_chat_model` documentation changed the default corpus, the cue-binding path was hardened so common status words cannot pull grounded queries away from their target record. it also proves that success depends on the state object, because removing or shuffling that state collapses the operation. the dialogue extension proves constrained record operations: a record can be updated, targeted retrieval can recover the updated record after distraction, random retrieval fails, and a branch-copy response can be created from the current record.
 
-the result does not prove natural conversation, general language understanding, learned compression of arbitrary data, dreaming, simulator grounding, or full neural-model v1. the branch-state operation is a tiny auditable rehearsal state, not open-ended generation. the next proof step is to harden this loop with longer grounded dialogue, provenance-preserving rewrites, fair sparse-read baselines, larger local datasets, and factor-heldout query forms.
+the result does not prove natural conversation, general language understanding, learned compression of arbitrary data, dreaming, simulator grounding, replay, imagination, memory, or full neural-model v1. the corrected interpretation is recorded in [[../mistakes/local_foundation_lookup_scaffold_category_error]]. the next proof step is a real local v1 architecture contract before more code.
 
 ## see also
 
 - [[language_grounded_state_density_mirror]]
 - [[compression_under_bit_budget_mirror]]
 - [[local_10k_chat_model]]
+- [[../mistakes/local_foundation_lookup_scaffold_category_error]]
 - [[index]]
 - [[../synthesis/neural_model_paper_spine]]
 - [[../synthesis/neural_model_lane_operation_preserving_compression]]

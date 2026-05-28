@@ -1,14 +1,36 @@
 project: todorov
 canonical_plan: neuroloc/wiki/PROJECT_PLAN.md
-current_phase: neural_model_master_plan_research_phase
-current_step: local_foundation_neural_model_architecture_boundary_no_paid_compute
-status: "2026_05_08_local_foundation_neural_model_clears_smoke_contract"
-last_updated: "2026-05-08"
-tests_passing: 49
-total_tests: 49
-test_collection_total: 358
-test_surface: local_foundation_neural_model_local_10k_chat_model_local_v1_language_state_language_grounded_compression_mirror_and_registry_checks
-test_status_note: "2026-05-08 focused validation added local_foundation_neural_model after the integrated local_10k_chat_model. the new foundation surface trains a 5,560-parameter state-first router over encoded memory objects rather than a next-token decoder. it exposes context state, working memory, episodic memory, long-term memory, replay buffer, branch memory, and the replaceable schema_residual_identity_v0 codec boundary. smoke metrics: 24 records, 62 accounted bits, grounded response success 1.0, unknown refusal success 1.0, route-disabled grounded success 0.041666666666666664, shuffled-route grounded success 0.0, codec-disabled grounded success 0.0, replay-disabled success 0.0, branch-disabled success 0.0, action success 1.0, memory update success 1.0, context success 1.0, targeted replay success 1.0, branch-state success 1.0, final dialogue joint success 1.0, all memory-surface use metrics 1.0, and engineering pass 1.0. focused regression covers local_foundation_neural_model, local_10k_chat_model, local_v1_language_model, language_grounded_state_density_mirror, compression_under_bit_budget_mirror, and registry contract: 49 passed, known numpy-on-windows warning. this is a constrained grounded foundation architecture with a simple codec boundary, not arbitrary chat, not solved storage/compression, not open-ended imagination, not full-scale language competence, not full-model work, and not paid-compute authorization."
+current_phase: neural_model_margin_adapter_update_product_present_high_density_unsolved
+current_step: beat_executable_same_block_scan_or_replace_token_signature_retrieval
+status: "2026_05_13_margin_recompression_adapter_passes_five_local_gates"
+last_updated: "2026-05-13"
+tests_passing: 7
+total_tests: 7
+test_collection_total: 447
+test_surface: local_100k_margin_recompression_adapter
+test_status_note: "2026-05-13 local_100k_margin_recompression_adapter passes focused pytest, registry contract, smoke, and hard as the current paper-ready local model-state adapter/update product. hard result: 4096 source-heldout exact answers, 0 train facts, 4 source domains, 6596 maximum host parameters, compressed payload carried inside torch module state, transformer_surface_pass 1.0, recurrent_surface_pass 1.0, public_baseline_stack_pass 1.0, multi_domain_pass 1.0, source_holdout_pass 1.0, large_margin_over_mph_pass 1.0, paraphrase_or_update_pass 1.0, exact answer success 1.0, paraphrase-stable answer success 1.0, random-label twin success 0.0, controls collapse 1.0, wrong/unanswerable/partial-overlap/marker-injection false-hit rates 0.0, trainable_recompression_update_success 1.0, update_controller_disabled_success 0.0, adapter_state_dict_preload_success 0.0, adapter_state_dict_reload_success 1.0, 262336 block payload bits, 32768 decoder bits, 40 model header bits, 4096 parser contract bits, 295144 strict accounted bits, 299240 paper-surface accounted bits, 1048576 useful retrievable bits, adapter strict multiplier 22.732738950163952x, paper-surface strict multiplier 22.421639537059313x, strongest static public baseline multiplier 16.641752137599937x, executable content-scan multiplier 22.73766839237796x, strict 600x pass 0.0, breakthrough authorization 0.0. target remains unsolved because this uses token-signature handles rather than learned semantic recall or implicit base-weight storage, and the executable same-block content-scan diagnostic is still slightly stronger."
+compression_research_corpus:
+  status: "2026-05-13 margin recompression adapter product documented under neuroloc/compression"
+  root: neuroloc/compression
+  index: neuroloc/compression/README.md
+  in_repo_attempts: neuroloc/compression/attempts/in_repo_attempts.md
+  modern_related_work: neuroloc/compression/literature/modern_memory_and_compression.md
+  theory_limits: neuroloc/compression/literature/theory_limits.md
+  open_source_baselines: neuroloc/compression/benchmarks/open_source_baselines.md
+  baseline_stack: neuroloc/compression/benchmarks/baseline_stack.md
+  first_candidate: neuroloc/compression/candidates/non_row_product_spec.md
+  implemented_product: neuroloc/wiki/tests/local_100k_margin_recompression_adapter.md
+  strongest_product: neuroloc/wiki/tests/local_100k_margin_recompression_adapter.md
+  previous_product: neuroloc/wiki/tests/local_100k_paper_ready_adapter_benchmark.md
+  latest_mistake: neuroloc/wiki/mistakes/paper_ready_adapter_source_holdout_overlap.md
+  next_probe: beat_executable_same_block_scan_or_replace_token_signature_retrieval
+  target_to_beat_strict_multiplier: 22.73766839237796
+  latest_product_strict_multiplier: 22.732738950163952
+  latest_product_paper_surface_multiplier: 22.421639537059313
+  latest_product_pass: 1.0
+  latest_breakthrough_authorized: 0.0
+  forbidden_path: learned_dictionary_plus_per_fact_residual_rows
+  required_random_label_twin_collapse: 1.0
 related_work_update: "2026-05-06 subq / selective sparse attention public material recorded at neuroloc/wiki/synthesis/content_routed_sparse_read_prior.md. validates content-dependent sparse read and functional context as prior-art pressure, does not prove memory-object compression, and adds content-routed sparse read over verbatim context as a future baseline where fair. no paid compute authorized."
 related_work_pressure_matrix: "2026-05-06 six-lane literature pass consolidated at neuroloc/wiki/synthesis/neural_model_related_work_pressure_matrix.md. external work covers local state, fast weights, differentiable memory, sparse routing, task-relative compression, context compression, replay, world models, simulator gates, and oracle evaluation methods. remaining project edge is a compound proof of learned operation-preserving memory objects under exact controls. no paid compute authorized."
 critical_fix: "god_machine.py step logger hardcoded dict dropped 40+ probe metrics, fixed class-wide via merge loop and smoke-test disk round-trip guard; bcm train/eval path divergence fixed by aligning recurrent path to running_state_norm; running_state_norm now training-only mutation; 17 prosecutor findings F1-F17 all fixed"
@@ -416,7 +438,7 @@ language_grounded_state_density_mirror_surface:
   paid_compute_authorized: false
 local_v1_language_model_surface:
   phase: neural_model_master_plan_research_phase
-  description: "first laptop-only dataset-grounded local v1 language-state gate. trains a tiny state-first router over dataset-derived memory records, then answers from the selected bounded memory state rather than from a next-token decoder. includes constrained memory update, targeted replay, random-replay failure, and branch-state rehearsal controls. this is constrained local responder evidence only: not arbitrary chat, not solved storage/compression, not open-ended imagination, not full neural-model v1, and not paid-compute authorization."
+  description: "demoted scaffold: laptop-only dataset-grounded state router over dataset-derived records. it answers from a selected bounded record state and includes constrained update, targeted retrieval, random-replay failure, and branch-copy rehearsal controls. this is constrained responder plumbing only, not memory, replay, imagination, compression, chat, language competence, full neural-model v1, or paid-compute authorization."
   family: local_v1_language_state_responder
   script: neuroloc/simulations/memory/local_v1_language_model.py
   tests: tests/test_local_v1_language_model.py
@@ -455,7 +477,7 @@ local_v1_language_model_surface:
   next_code_target: local_v1_longer_dialogue_provenance_rewrite_factor_heldout_query_and_sparse_read_controls
 local_10k_chat_model_surface:
   phase: neural_model_master_plan_research_phase
-  description: "first integrated laptop-only 10k constrained chat model gate. trains a compact state-first router over dataset-derived memory records, then answers from bounded memory state rather than next-token decoding. exposes command-line prompt and stdin chat modes; supports unknown-prompt refusal, memory update, short-term dialogue state, targeted replay, and bounded branch-state rehearsal. this is constrained local chat foundation evidence only: not arbitrary chat, not solved storage/compression, not open-ended imagination, not full-scale language competence, not full neural-model v1, and not paid-compute authorization."
+  description: "demoted scaffold: integrated laptop-only under-10k constrained responder over dataset-derived records. it exposes command-line prompt and stdin modes, refusal, record update, short-term state, targeted retrieval, and branch-copy rehearsal. it is a command-line harness, not a chat model, memory system, replay system, imagination system, compression result, full neural-model v1, or paid-compute authorization."
   family: local_10k_constrained_chat_responder
   script: neuroloc/simulations/memory/local_10k_chat_model.py
   tests: tests/test_local_10k_chat_model.py
@@ -487,7 +509,7 @@ local_10k_chat_model_surface:
   next_code_target: local_10k_larger_local_dataset_longer_dialogue_provenance_rewrite_factor_heldout_query_state_ablation_and_sparse_read_controls
 local_foundation_neural_model_surface:
   phase: neural_model_master_plan_research_phase
-  description: "first under-10k architecture-boundary foundation gate. trains a compact state-first router over encoded memory objects, then answers from codec-decoded memory state rather than next-token decoding. exposes context state, working memory, episodic memory, long-term memory, replay buffer, branch memory, and a replaceable schema_residual_identity_v0 codec boundary. this is constrained foundation architecture evidence only: not arbitrary chat, not solved storage/compression, not open-ended imagination, not full-scale language competence, not full neural-model v1, and not paid-compute authorization."
+  description: "demoted scaffold: under-10k record-routing and compartment-boundary harness. it trains a compact route table over encoded record objects and answers from the identity codec boundary. the working/episodic/long-term/replay/branch names are target compartments, not achieved biological mechanisms. this is not memory, replay, imagination, compression, chat, language competence, full neural-model v1, or paid-compute authorization."
   family: local_foundation_neural_model
   script: neuroloc/simulations/memory/local_foundation_neural_model.py
   tests: tests/test_local_foundation_neural_model.py
@@ -528,7 +550,7 @@ local_foundation_neural_model_surface:
   branch_memory_used_min: 1.0
   engineering_pass: 1.0
   claim_downgraded_to_foundation_surface: 0.0
-  next_code_target: local_foundation_larger_dataset_factor_heldout_query_zero_memory_shuffled_code_sparse_read_and_learned_codec_after_boundary_stability
+  next_code_target: real_local_v1_architecture_contract_before_more_code
 god_run_v2_results:
   phase: neural_machine
   description: "god_machine.py re-run with all 17 F + 14 G prosecutor fixes; F1 math corrected (torch.exp instead of torch.sigmoid of logsigmoid); all probe metrics now in jsonl"
@@ -593,4 +615,4 @@ latest_run_results:
   git_sha: f27b81c
   config_hash: 4e3f02be249cc069
   run_card: neuroloc/wiki/tests/run3_cognition_phase1_results.md
-next_action: "chapter 1 remains review-ready in pdf_curriculum/chapters/ch_01_what_a_number_means/ after the 2026-04-23 math correction pass; chapter 2 remains outline-only awaiting approval in pdf_curriculum/chapters/ch_02_how_things_change/ch_02_outline.md. the oracle compression frontier split, first family-specific learned-codec proof package, tiny local mirror contract, local baseline/guard surface, first negative learned-codec smoke result, source-diagnostic result, repaired source-observability contract, content-routed sparse-read baseline, matched-budget sparse-read control, distributed-evidence probe, tiny distributed local learned model, factor-heldout falsification gate, factorized structured local codec, 10k-scale local data-heavy robustness gate, constrained language-grounded state-density bridge, parser-resistant local-state gate, event-binding parser-supported foundation, typed trainable event-binding local-state pass, first dataset-grounded local v1 language-state gate, integrated local 10k constrained chat gate, and local foundation neural-model architecture-boundary gate are implemented. the local foundation gate trains a 5,560-parameter state-first router over encoded memory objects, answers from codec-decoded memory state rather than next-token decoding, exposes context state, working memory, episodic memory, long-term memory, replay buffer, branch memory, and a replaceable simple codec boundary; route-disabled, shuffled-route, and codec-disabled controls now collapse grounded response. arbitrary chat is still unauthorized and compression/storage is still unsolved. the approved neural-model work should next harden this foundation with larger local dataset ingestion, factor-heldout query forms, zero-working-memory, zero-long-term-memory, shuffled-code, and fair sparse-read or verbatim-memory baselines before any learned codec, full model integration, simulator commitment, intervention preset, kaggle, h200, pod, or paid run."
+next_action: "use the margin recompression adapter in neuroloc/wiki/tests/local_100k_margin_recompression_adapter.md as the current model-state adapter/update product baseline, then either beat the executable same-block content-scan diagnostic at 22.73766839237796x or replace token-signature routing with learned semantic retrieval without losing the 22.421639537059313x paper-surface product line. require train/test key split, concrete source path/hash/ngram holdout counts, no formula-generated labels, no seed oracle, no table-backed values, random-label control, shuffled-question/value/provenance collapse, wrong-question, unanswerable-question, partial-overlap, and marker-injection false-hit controls, write/read/parser/decoder/adapter/update-disabled paths, transformer and recurrent/state host reload, minimal-perfect-hash plus payload, executable content scan, sparse-read, product-key, memory-layer, lora-style adapter storage, qlora-style adapter storage, model-editing, hdc/sdm, verbatim, charged corpus-codec, source-block, content-addressed, llm-facing qa, weight-carried qa, and paper-ready adapter baselines, and explicit accounting for every stored bit. do not authorize paid compute, h200, kaggle, pod, external simulator transfer, arbitrary chat, biological neuron-density proof, strict breakthrough promotion, or broad full-model integration from this local result."

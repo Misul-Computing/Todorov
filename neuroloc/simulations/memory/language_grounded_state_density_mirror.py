@@ -52,7 +52,7 @@ AXES = ("color_shape_pair_band", "color_velocity_pair_band", "shape_velocity_pai
 SLOT_WORDS = ("ada", "bex", "cato", "dima", "evan", "fara", "goro", "hema")
 COLOR_WORDS = ("crimson", "amber", "teal", "violet", "olive", "silver", "indigo", "coral")
 SHAPE_WORDS = ("cube", "ring", "pyramid", "sphere", "prism", "wedge", "cone", "bar")
-NUMBER_WORDS = ("zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty")
+NUMBER_WORDS = ("zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty", "twentyone", "twentytwo", "twentythree", "twentyfour", "twentyfive", "twentysix", "twentyseven", "twentyeight", "twentynine", "thirty")
 EVENT_TEMPLATE_COUNT = 4
 QUERY_TEMPLATE_COUNT = 4
 
@@ -498,7 +498,7 @@ def train_parser_resistant_model(train_records: list[dict[str, Any]], caps: dict
     modules = nn.ModuleDict({"encoder": encoder, "heads": heads})
     optimizer = torch.optim.Adam(modules.parameters(), lr=0.03)
     losses = []
-    for _ in range(min(int(EPOCHS), 120)):
+    for _ in range(int(EPOCHS)):
         optimizer.zero_grad(set_to_none=True)
         state = encoder(x_train)
         loss = sum(functional.cross_entropy(heads[key](state), y_train[key]) for key in heads)

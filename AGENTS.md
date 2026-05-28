@@ -2,14 +2,15 @@
 
 This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
 
-# single plan rule (2026-04-23)
+# single plan rule (2026-05-08)
 
-`neuroloc/wiki/PROJECT_PLAN.md` is the one canonical plan and session-start
-state file. every new session reads this file after AGENTS.md and treats it as
-the current recovery point for both the curriculum lane and the paused research
-backlog.
+`neuroloc/wiki/PROJECT_PLAN.md` is the only canonical project plan to follow.
+every new session reads this file after AGENTS.md and treats it as the binding
+recovery point for the whole project.
 
-other state files are subordinate, not competing plans:
+other files are subordinate evidence, logs, handoffs, mirrors, or procedure
+docs. they are not competing plans and cannot override
+`neuroloc/wiki/PROJECT_PLAN.md`:
 
 - `~/.claude/plans/compressed-dancing-haven.md` is the detailed curriculum
   specification and chapter-production protocol.
@@ -17,11 +18,56 @@ other state files are subordinate, not competing plans:
 - `state/program_status.yaml` is structured run/status data.
 - `docs/STATUS_BOARD.md` is a per-run/status-board summary.
 - `reports/` contains read-only reports and recovery dossiers.
+- `neuroloc/wiki/OPERATING_DIRECTIVE.md` is the binding workflow directive for
+  wiki and state-file edits, not a competing scientific plan.
 
-when these files disagree, resolve the disagreement into
-`neuroloc/wiki/PROJECT_PLAN.md` first, then sync the subordinate file only if
-the current task actually touches that surface. do not require future sessions
-to read every subordinate file just to recover the project state.
+when any document disagrees with the project direction, repair
+`neuroloc/wiki/PROJECT_PLAN.md` first. sync a subordinate file only when the
+current task directly touches that surface. do not require future sessions to
+reconcile multiple plan-like files before recovering the project state.
+
+# researcher workflow and evidence logging (2026-05-08)
+
+every task starts from `neuroloc/wiki/PROJECT_PLAN.md`, then inspects the
+current code and docs before acting. no claim is established by memory,
+conversation, a prior summary, or a runnable scaffold alone. every claim remains
+unproved until checked against code, tests, wiki evidence, controls, and the
+canonical plan.
+
+agents must think outside the box, but every proposed idea must be grounded in
+math, biology or ml evidence, a falsifiable test, controls, telemetry, and a
+kill condition. creative hypotheses are welcome only when they become testable
+mechanism claims.
+
+simplicity beats everything else, but it is never easy. prefer the simplest
+mechanism that can honestly pass the gate, then do the hard work required to
+prove it is not a shortcut, hidden table, side channel, or category error.
+
+roadblocks, novel mechanisms, ambiguous failures, and scientific uncertainty
+require focused research or review agents before implementation continues. the
+resulting evidence must be written to the wiki surface that owns it, then folded
+into `neuroloc/wiki/PROJECT_PLAN.md` when it changes project direction.
+
+tests run, exact results, mistakes, roadblocks, decisions, and evidence
+locations must be recorded in the correct place: `neuroloc/wiki/tests/` for
+test records, `neuroloc/wiki/mistakes/` for mistakes, synthesis pages for
+research decisions, and the append-only update history in
+`neuroloc/wiki/PROJECT_PLAN.md` for canonical direction changes.
+
+when deyan sets a `/goal`, treat it as a delivered-product objective unless
+he explicitly says the goal is only planning, brainstorming, or research. do
+not mark a goal complete for a literature survey, map, plan, scaffold, or
+documentation corpus alone when the requested object is a working artifact.
+the goal remains active until code, tests, simulations, metrics, and canonical
+documentation prove a product or until deyan explicitly changes or cancels the
+goal. documented failures are required evidence, not a stopping condition; if
+one path fails, write the mistake or boundary record and continue to the next
+best path until the goal ends in a positive tested result.
+
+scaffolds, harnesses, diagnostics, baselines, and real model components must be
+labelled separately. violating this workflow is a blocking scientific error:
+progress cannot be claimed until the workflow failure is corrected and
+documented.
 
 # neural model research/test-material phase (2026-04-23)
 
@@ -29,7 +75,91 @@ to read every subordinate file just to recover the project state.
 
 chapter 1 remains review-ready after the 2026-04-23 math correction pass, and chapter 2 remains outline-only awaiting approval. this does not authorize chapter 2 research, architecture execution, paid compute, h200, kaggle, or pod work.
 
-the first hard symbolic test-material package is implemented as the `hard_symbolic_nm` suite. it covers belief-state formation, associative recall, correlated-key interference, delayed use, episodic reuse, context-gated routing, compression under bit budget, replay/rewrite, iterative rollout, and imagination/recombination. the next executable target is a tiny trainable neural-model mirror on the same latent worlds as the symbolic battery, not the full paid model path.
+the first hard symbolic test-material package is implemented as the `hard_symbolic_nm` suite. it covers belief-state formation, associative recall, correlated-key interference, delayed use, episodic reuse, context-gated routing, compression under bit budget, replay/rewrite, iterative rollout, and imagination/recombination. the current next action is governed only by `neuroloc/wiki/PROJECT_PLAN.md`; as of 2026-05-09, deyan has explicitly reactivated local code and simulation work and raised the active local target to 100k parameters for coherence. the active path is compression-first local implementation toward an actual 100k-parameter model, with wiki-grounded evidence, controls, telemetry, and documentation before any stronger claim.
+
+# category-error guardrails (2026-05-08)
+
+the 2026-05-08 local responder/foundation artifacts exposed a serious
+category error: a routed record table, copied branch record, or command-line
+template responder must never be presented as a working neural model, chat
+model, imagination system, compression result, or brain-like memory system.
+future agents must enforce the distinctions below before writing code, docs,
+status summaries, or user-facing claims.
+
+**scaffold naming rule.** until the required proof gate passes, use only
+`scaffold`, `harness`, `diagnostic`, `surface`, `router`, or `baseline`.
+do not call an artifact `v1`, `foundation neural model`, `chat model`,
+`imagination`, `dreaming`, `memory`, or `compression` unless it satisfies
+the corresponding gate below. filenames may retain historical names, but new
+text must state that those names are legacy labels when they overclaim.
+
+**memory gate.** record lookup, table routing, nearest-record selection, or
+copying a stored payload is not memory in the project sense. a memory claim
+requires learned write and read over internal state, partial-cue retrieval,
+interference/forgetting behavior, provenance, and controls against no-memory,
+recency-only, shuffled-address, sparse-read, and verbatim-store baselines.
+
+**imagination gate.** copying a retrieved record into a branch object, adding
+a branch label, or rendering a template is not imagination. an imagination
+claim requires learned latent branch rollout or recombination, a dynamics or
+world-state transition, branch-local uncertainty/provenance, and evidence that
+the branch improves hard-case action, reconstruction, or counterfactual
+prediction more than easy cases. controls must include no-branch, shuffled-
+branch, wrong-dynamics, matched-compute, and random-branch baselines.
+
+**replay gate.** returning a previously selected record is not replay. replay
+requires delayed reactivation that changes future recall, compression,
+rewrite quality, interference, or action success. it must beat random replay
+and no-replay under matched compute while preserving provenance.
+
+**compression gate.** fewer visible fields or a hand-coded schema boundary is
+not compression. compression requires fewer accounted bits at matched
+operation success against fair sparse-read and verbatim baselines, with
+decoder/schema/parser costs either charged or explicitly fixed across methods.
+retaining a decoded raw payload cache, residual table, source block, seed
+oracle, or reconstruction row while charging only a compressed stream is false
+compression unless the retained surface is charged in strict bits. the
+2026-05-12 source-block raw-cache mistake at
+`neuroloc/wiki/mistakes/source_block_codec_raw_cache_category_error.md` is the
+blocking precedent: future codecs must prove the read path uses the charged
+compressed representation or a charged decoder state.
+
+**high-density knowledge gate.** structured, planned, formula-generated, or
+hand-designed fact families are not evidence for the high-density
+knowledge-compression target. if values, provenance, labels, or answers are
+recoverable because the agent chose a compact generator, schema, deterministic
+rule, template, seed, or preplanned relation, the result is formula compression
+or a boundary artifact, not knowledge compression. the required target is
+unstructured or unknown-structure knowledge: no hand-designed answer formula,
+no schema-generated labels, no hidden lookup table, no per-fact committed rows,
+no uncharged side channel, and no template leakage. any discovered structure
+must be learned from data under held-out controls, charged in the accounting,
+and tested against random-label entropy controls, sparse read, verbatim
+storage, and product-key-style memory. the 2026-05-09 schema-density cell
+mistake at
+`neuroloc/wiki/mistakes/schema_density_cell_structured_target_category_error.md`
+is the blocking precedent: do not repeat it. the 2026-05-12 learned
+unknown-structure residual-row defeat at
+`neuroloc/wiki/mistakes/learned_unknown_structure_residual_table_defeat.md`
+is the second blocking precedent: a learned dictionary plus per-fact residual
+table is not the requested high-density knowledge-compression cell.
+
+**chat and language gate.** a command-line prompt surface over bounded records
+is not a chat model. a chat-model claim requires learned language generation
+or learned response composition over held-out dialogue, not fixed templates or
+record rendering. otherwise call it a constrained responder or command-line
+harness.
+
+**v1 gate.** `v1` is reserved for a coherent neural architecture with learned
+internal dynamics, not a local proof scaffold. a v1 candidate must specify the
+architecture contract first: state variables, write/read dynamics, replay,
+imagination, action/answer decoding, training objective, controls, telemetry,
+and kill conditions.
+
+every new run card or status update for local scaffolds must include a
+category check with: implemented operation, strongest baseline, what failed,
+what is not proved, and why the artifact is not being promoted to the neural
+model claim.
 
 # teaching curriculum package (2026-04-17; preserved after 2026-04-23)
 
@@ -51,15 +181,19 @@ the curriculum specifies 36 chapters across 6 phases (math fundamentals, biology
 
 6. **the private curriculum plan is detailed protocol, not a second project plan.** the master curriculum specification at `~/.claude/plans/compressed-dancing-haven.md` must stay detailed and current when chapter status or curriculum protocol changes, but `neuroloc/wiki/PROJECT_PLAN.md` remains the single session-start plan. if they diverge, fix `PROJECT_PLAN.md` first, then sync the curriculum plan so it agrees on curriculum detail.
 
-# what this is
+# historical architecture background
 
-todorov is a proof that biological neural computation principles -- ternary
-spikes, adaptive thresholds, recurrent state accumulation -- can outperform
-standard transformers at matched scale, not despite the biological constraints
-but because of them.
+the text below records the old todorov architecture theory as historical
+background. it is evidence for why the project moved, not the live design
+identity and not the current model being built. the active architecture is the
+neural model defined by `neuroloc/wiki/PROJECT_PLAN.md`; as of 2026-05-09 the
+next step is local compression-first implementation and simulation toward an
+actual 100k-parameter model.
 
-todorov is a single architecture built on one mathematical object: the
-Compressed Rotational Bilinear Recurrence (CRBR). every layer instantiates:
+the old architecture attempted to express biological neural computation
+principles -- ternary spikes, adaptive thresholds, recurrent state accumulation
+-- through one mathematical object, the Compressed Rotational Bilinear
+Recurrence (CRBR). every layer instantiated:
 
     z_t = Q(R(B(C(x_t), C(h_{t-1}))))
 
@@ -305,8 +439,8 @@ src/             library code. source of truth. do NOT modify during experiment 
 notebooks/autoresearch/train.py   sole file modified during experiment loops
 scripts/         kaggle_exec.py (push runs), evaluate_gates.py, autoresearch_loop.md
 tests/           repo test suite and focused nm regression batteries
-state/           program_status.yaml is authoritative
-docs/            STATUS_BOARD.md is authoritative
+state/           program_status.yaml is a subordinate structured status mirror
+docs/            STATUS_BOARD.md is a subordinate status-board mirror
 pdf_curriculum/  active teaching pdf curriculum production
 knowledge/       published research and prior findings (read before acting)
 neuroloc/        biological grounding wiki + neural machine spec
@@ -570,9 +704,10 @@ what to update after each run:
 - architecture rules: add any new rules learned from the run
 - kaggle section: update if compute backend changes for phase 5
 
-if AGENTS.md and the actual project state ever disagree, the project state
-(state/program_status.yaml, docs/STATUS_BOARD.md) is authoritative. update
-AGENTS.md to match, not the other way around.
+if AGENTS.md and the project direction ever disagree,
+`neuroloc/wiki/PROJECT_PLAN.md` is authoritative. repair the plan first if it
+is wrong, then update AGENTS.md or subordinate status mirrors only when the
+current task directly touches them.
 
 # read order for new sessions
 

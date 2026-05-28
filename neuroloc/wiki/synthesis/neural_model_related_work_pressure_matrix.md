@@ -1,6 +1,6 @@
 # neural model related-work pressure matrix
 
-status: current (as of 2026-05-08).
+status: current (as of 2026-05-09).
 
 ## role
 
@@ -30,11 +30,15 @@ a learned compact memory-object code that preserves retrieval, action, reconstru
 
 that is the narrow paper edge. it is conditional. it remains unproved.
 
+the 2026-05-09 local results sharpen this boundary rather than relaxing it. [[tests/local_100k_full_nm]] is accepted only as a local full small nm candidate on a synthetic exact-state bridge. [[tests/local_100k_high_density_cell]] clears the params-only 600x high-density line, but the strict params-plus-committed-state line fails by a wide margin, so the public claim cannot be "600x knowledge compression" yet. the next compression claim must reduce charged state, not merely hide a table behind a small controller.
+
 ## what this changes
 
 the project should not argue from novelty by component. nearly every component has prior art. the claim must be compound and proof-gated.
 
-the next local code target is now sharpened by the implemented sparse-read baseline, the external demotion decision, the first tiny distributed local learned result, the 10k-scale factorized local gate, the first constrained generated-language bridge, the negative parser-resistant token-count gate, the typed trainable event-binding local-state pass, the first dataset-grounded local v1 responder, the first integrated 10k constrained chat responder, and the first under-10k foundation responder with explicit memory compartments and codec boundary. the original source-pair `compression_under_bit_budget` mirror is a source-selection diagnostic, not compression evidence. matched-budget sparse read and a distributed-evidence probe are implemented. a 25,975-parameter local model passes the distributed-evidence slice at 19 bits, a 9,792-parameter factorized structured local codec clears four heldout factor axes across three smoke seeds at 19 bits, a 3,847-parameter language-grounded bridge clears generated text observations and constrained text answers across four heldout axes and two smoke seeds, an 8,856-parameter typed trainable event binder clears randomized symbolic-message event binding at minimum heldout joint/state/action success 0.9583333333333334, a 2,720-parameter local v1 state router clears dataset-memory, update, targeted replay, random-replay, branch-state, zero-state, and shuffled-state controls, a 7,968-parameter local 10k chat responder clears grounded chat with route-disabled and shuffled-route controls, and a 5,560-parameter foundation responder clears grounded answer, action, update, context, replay, branch, route-disabled, shuffled-route, codec-disabled, replay-disabled, and branch-disabled controls. these are local useful-state-density and architecture-boundary gates, not solved compression and not arbitrary chat. the next target is larger local data ingestion, factor-heldout query forms, stronger memory ablations, fair sparse-read baselines, and stronger learned binding rather than claim expansion.
+the next local code target is now sharpened by the implemented sparse-read baseline, the external demotion decision, the first tiny distributed local learned result, the 10k-scale factorized local gate, the first constrained generated-language bridge, the negative parser-resistant token-count gate, the typed trainable event-binding local-state pass, the accepted [[tests/local_100k_full_nm]] local candidate, and the partial [[tests/local_100k_high_density_cell]] high-density result. the local v1, local 10k, and local foundation artifacts are demoted scaffolds after [[mistakes/local_foundation_lookup_scaffold_category_error]]. the original source-pair `compression_under_bit_budget` mirror is a source-selection diagnostic, not compression evidence. matched-budget sparse read and a distributed-evidence probe are implemented. a 25,975-parameter local model passes the distributed-evidence slice at 19 bits, a 9,792-parameter factorized structured local codec clears four heldout factor axes across three smoke seeds at 19 bits, a 3,847-parameter language-grounded bridge clears generated text observations and constrained text answers across four heldout axes and two smoke seeds, an 8,856-parameter typed trainable event binder clears randomized symbolic-message event binding at minimum heldout joint/state/action success 0.9583333333333334, and the current 100k full local candidate compresses the 3d exact-state baseline from 51 to 44 accounted bits. the high-density cell proves the accounting problem is now explicit: params-only density can look dramatic while strict charged-state density remains far below the 600x target.
+
+bounded recurrent and state-space models, high-dimensional vector-symbolic systems, latent array architectures, and slot-object systems should now be treated as pressure families for the next strict-density attempt. they do not authorize the claim by analogy, but they supply useful baselines and design constraints: finite recurrent state, content-addressed compression, compositional binding, and object-centric factorization must all be compared against explicit state charging.
 
 the next research standard has changed in code as well as prose. the first content-routed sparse-read baseline over verbatim records is now implemented for `compression_under_bit_budget`; it solves the repaired source-pair smoke task from two legal records but exceeds the compact-code budget. matched-budget sparse read fails, and the distributed-evidence probe now requires four legal fragments for uncapped sparse read while still failing under the matched budget.
 
@@ -357,7 +361,7 @@ related sources include:
 
 ## immediate next steps
 
-1. harden the foundation responder after it cleared grounded response, refusal, action, update, context, targeted replay, branch-state, route-disabled collapse, shuffled-route collapse, codec-disabled collapse, replay-disabled collapse, and branch-disabled collapse. keep the work local and test larger local datasets, factor-heldout query forms, zero-working-memory controls, zero-long-term-memory controls, shuffled-code controls, fair sparse-read baselines, and stronger storage-in-local-state formulations before any broader claim.
+1. write the real local v1 architecture contract before more implementation. it must define learned state variables, write/read dynamics, replay, imagination as latent rollout, action and answer decoding, training objective, controls, telemetry, and kill conditions.
 2. extend the sparse-read baseline to other relevant symbolic/mirror families only after the local proof-package decision is clear.
 3. add the oracle ladder and fieldwise failure-localization tree to every future mirror result.
 4. define the tagged eligibility buffer with sparse consolidation as the next cellular/local-state proof package candidate, not as model code.
@@ -368,6 +372,7 @@ related sources include:
 
 - [[PROJECT_PLAN]]
 - [[content_routed_sparse_read_prior]]
+- [[high_density_neuron_cell_related_work_pressure_matrix]]
 - [[neural_model_compression_stack]]
 - [[neural_model_lane_cellular_state_storage]]
 - [[neural_model_lane_operation_preserving_compression]]
@@ -384,5 +389,10 @@ related sources include:
 - [[tests/local_v1_language_model]]
 - [[tests/local_10k_chat_model]]
 - [[tests/local_foundation_neural_model]]
+- [[tests/local_100k_full_nm]]
+- [[tests/local_100k_high_density_cell]]
+- [[mistakes/local_foundation_lookup_scaffold_category_error]]
+- [[mistakes/local_100k_full_nm_soft_code_false_pass]]
+- [[mistakes/local_100k_high_density_cell_strict_600x_not_met]]
 - [[phase1_evaluation_surface_for_neural_models]]
 - [[synthetic_shared_world_bridge]]

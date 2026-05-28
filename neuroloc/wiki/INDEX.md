@@ -2,7 +2,7 @@
 
 status: current (as of 2026-05-08).
 
-update note: [[tests/compression_under_bit_budget_mirror]] now includes the first tiny distributed local learned model, a factor-heldout local falsification gate, a factorized structured local codec, and a 10k-scale local data-heavy robustness gate. [[tests/language_grounded_state_density_mirror]] now adds the first constrained generated-language message-response bridge, a negative parser-resistant learned token-count gate, a parser-supported event-binding baseline, and a typed trainable event-binding local-state pass. [[tests/local_v1_language_model]] adds the first dataset-grounded local v1 language-state gate. [[tests/local_10k_chat_model]] adds the first integrated 10k local constrained chat surface. [[tests/local_foundation_neural_model]] is now the current architecture-boundary foundation surface: 5,560 parameters, 24 local dataset-derived records, 62 accounted bits, grounded response success 1.0, unknown refusal success 1.0, route-disabled grounded success 0.041666666666666664, shuffled-route grounded success 0.0, codec-disabled grounded success 0.0, replay-disabled success 0.0, branch-disabled success 0.0, action/update/context/replay/branch/final dialogue metrics at 1.0, and explicit context, working memory, episodic memory, long-term memory, replay buffer, branch memory, and replaceable codec boundary. this is useful-state-density evidence on symbolic and dataset-record surfaces plus a constrained grounded foundation architecture, not arbitrary chat, open-ended imagination, full-scale neural-model v1, or solved compression. the immediate no-paid work is larger local dataset ingestion, factor-heldout query forms, stronger state ablations, fair sparse-read baselines, and a learned codec only after the simple boundary is stable, not paid compute or full-model expansion.
+update note: [[tests/compression_under_bit_budget_mirror]] now includes the first tiny distributed local learned model, a factor-heldout local falsification gate, a factorized structured local codec, and a 10k-scale local data-heavy robustness gate. [[tests/language_grounded_state_density_mirror]] now adds the first constrained generated-language message-response bridge, a negative parser-resistant learned token-count gate, a parser-supported event-binding baseline, and a typed trainable event-binding local-state pass. [[tests/local_v1_language_model]], [[tests/local_10k_chat_model]], and [[tests/local_foundation_neural_model]] are demoted scaffolds after [[mistakes/local_foundation_lookup_scaffold_category_error]]. they remain useful for local record-routing and compartment-boundary evidence, but they do not prove memory, replay, imagination, compression, chat, language competence, or neural-model v1. the immediate no-paid work is a real local v1 architecture contract before more implementation.
 
 this is the flat reference catalog of every article in the wiki, grouped
 by topic within each top-level directory. for guided navigation, start
@@ -28,9 +28,10 @@ at [[start_here]]. for the rules that govern every article below, see
 - [[synthesis/neural_model_tiny_mirror_contract_compression_under_bit_budget]] — implementation contract for the first tiny local learned-codec mirror
 - [[tests/compression_under_bit_budget_mirror]] — local dataset, guard, baseline, sparse-read, matched-budget, distributed-evidence, tiny local learned model, learned-codec, source-diagnostic, and telemetry surface for the first compression mirror
 - [[tests/language_grounded_state_density_mirror]] — constrained generated-language message-response bridge for the useful-state-density surface
-- [[tests/local_v1_language_model]] — first dataset-grounded local v1 state-first language responder
-- [[tests/local_10k_chat_model]] — first integrated 10k local constrained chat surface
-- [[tests/local_foundation_neural_model]] — first under-10k foundation surface with explicit memory compartments and replaceable codec boundary
+- [[tests/local_v1_language_model]] — demoted dataset-grounded state-router scaffold
+- [[tests/local_10k_chat_model]] — demoted under-10k constrained responder scaffold
+- [[tests/local_foundation_neural_model]] — demoted record-routing and compartment-boundary scaffold
+- [[mistakes/local_foundation_lookup_scaffold_category_error]] — category-error map and hard demotion record
 - [[synthesis/neural_model_lane_cellular_state_storage]] — biology-led local-state research lane
 - [[synthesis/neural_model_lane_operation_preserving_compression]] — operation-preserving compression research lane
 - [[synthesis/content_routed_sparse_read_prior]] — subq / selective sparse attention prior-art boundary and content-routed sparse-read baseline requirement
@@ -504,9 +505,9 @@ frozen evidence records, one per paid run:
 ### local mirror surfaces (3)
 - tests/compression_under_bit_budget_mirror.md -- first local dataset, forbidden-input guard, baseline-control, learned-codec, source-diagnostic, bit-accounting, and telemetry surface for the accepted compression_under_bit_budget family
 - tests/language_grounded_state_density_mirror.md -- constrained generated-language message-response bridge for the useful-state-density surface
-- tests/local_v1_language_model.md -- first dataset-grounded local v1 state-first language responder
-- tests/local_10k_chat_model.md -- first integrated 10k local constrained chat surface
-- tests/local_foundation_neural_model.md -- first under-10k foundation surface with explicit memory compartments and replaceable codec boundary
+- tests/local_v1_language_model.md -- demoted dataset-grounded state-router scaffold
+- tests/local_10k_chat_model.md -- demoted under-10k constrained responder scaffold
+- tests/local_foundation_neural_model.md -- demoted record-routing and compartment-boundary scaffold
 
 ### supporting prototype note (1)
 - tests/aesthetic_logger_prototype.md -- frozen prototype note for the phase 6a logging module; not counted as an evidence record
@@ -621,6 +622,7 @@ frozen evidence records, one per paid run:
 - [[tests/local_v1_language_model]]
 - [[tests/local_10k_chat_model]]
 - [[tests/local_foundation_neural_model]]
+- [[mistakes/local_foundation_lookup_scaffold_category_error]]
 - [[synthesis/neural_model_lane_cellular_state_storage]]
 - [[synthesis/neural_model_lane_operation_preserving_compression]]
 - [[synthesis/neural_model_lane_memory_replay_imagination]]
