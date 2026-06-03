@@ -2,6 +2,42 @@
 
 This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
 
+# think before you act (the cost-before-build gate) (2026-06-02)
+
+before any build, paid-compute run, or multi-hour effort, stop and spend the
+cheap minutes. this gate is not overhead; skipping it is how money and time get
+burned. it overrides momentum and urgency: "never stop" and a deadline do not
+waive it. the strategic check is the value, not a delay before the value.
+
+answer these before committing, out loud:
+
+1. is this already known or solved? check the literature and the project's own
+   docs/analysis. if the thing exists (a published mechanism, an existing
+   implementation), reimplementing it from scratch produces no novelty and
+   maximizes self-inflicted bugs. stand on the existing implementation instead.
+2. what is the actual deliverable, and is this the lowest-risk path to it? name
+   the path you are NOT taking and why.
+3. does it need paid compute or a deadline at all, or is it a cpu afternoon?
+4. if the goal is "novel," name the specific new mechanism or empirical claim
+   first. "build X" where X is already known is not a path to novelty.
+5. a real-money or paid-compute spend is a decision, not a default. state the
+   cost and the expected value before launching. if the expected value does not
+   justify the spend, say so and do not launch.
+
+surface the BIG tradeoff, not just the small ones. debating implementation
+options (a vs b) is worthless if the whole target is mis-scoped. holding this
+line under user pressure is the job, not a deviation from it.
+
+cautionary record (v0.1, 2026-06-02): ~$35 of paid h200 compute and a full
+session were spent reimplementing a known mechanism (candidate E, a titans- /
+deltanet-style fast-weight memory) from scratch under a deadline. that it was a
+known, non-novel mechanism was available at hour zero from the project's own
+analysis. every bug was self-inflicted; the working result (attention solves
+induction) was trivial; the negative result was uninterpretable because
+published versions of the same mechanism do retrieve. a 5-minute
+grounding-and-scope check would have reframed or cancelled the effort. do not
+repeat this.
+
 # single plan rule (2026-05-08)
 
 `neuroloc/wiki/PROJECT_PLAN.md` is the only canonical project plan to follow.
