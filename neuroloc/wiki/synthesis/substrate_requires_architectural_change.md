@@ -1,6 +1,6 @@
 # substrate requires architectural change: six paid runs, zero retrieval, one discriminating corpus
 
-status: current (as of 2026-04-27).
+status: current (as of 2026-06-02).
 
 ## the observation
 
@@ -173,6 +173,17 @@ each is a substantial architectural commitment. rank them by cpu
 simulation cost only after the oracle-compression and tiny-mirror
 preparation lane has produced a selected hypothesis.
 
+implementation note (2026-06-02): the test-time gradient / descent-memory
+variant of candidate E was implemented and tested at toy scale on a personal
+runpod h200 (deyan-authorized architecture reactivation). it was numerically
+stabilizable (nlms-normalized inner update + bounded inner learning rate +
+hard state-norm clamp) but retrieval stayed at chance on mqar - stable is not
+trained. a 4-layer attention baseline solved passkey/induction at exact_acc
+1.000. this narrows candidate E's failure to "the write/read loop does not
+become content-addressable under sgd," not "the memory is unstable." details:
+`wiki/tests/v0_1_descent_memory_toy_results.md` and
+`wiki/synthesis/descent_memory_intervention.md`.
+
 ## paid-run status under the current master-plan phase
 
 no paid run is authorised from this article. A-E are paused backlog
@@ -214,4 +225,7 @@ they also inherit lane research, mechanism-dossier, oracle-compression, and tiny
 - `wiki/PROJECT_PLAN.md` — the canonical project state
 - `neuroloc/data/cognition_corpus.py` — the corpus generator used in run 3
 - `neuroloc/model/god_machine.py` — the architecture implementation
+- `wiki/tests/v0_1_descent_memory_toy_results.md` — toy implementation of candidate E (2026-06-02)
+- `wiki/synthesis/descent_memory_intervention.md` — mechanism, stabilization, interpretation
+- `wiki/mistakes/descent_memory_v0_1_bugs.md` — bugs caught during the candidate E implementation
 - `wiki/OPERATING_DIRECTIVE.md` — rules governing this article

@@ -2,6 +2,10 @@
 
 canonical persistent project state lives in `neuroloc/wiki/PROJECT_PLAN.md`. that file is updated whenever the project state changes (a run starts, a run completes, a hypothesis is added or falsified, the experimental method changes, a new project term enters the glossary, a prior research question is answered). this status board is a per-run summary; PROJECT_PLAN.md is the structural plan and the entry point for any new agent picking up the project.
 
+## architecture-track v0.1 session complete (2026-06-02)
+
+deyan reactivated the old todorov architecture track for a one-session v0.1 (user-authorized, overriding the no-paid-compute state) on a personal runpod h200. a clean, test-gated descent-memory codebase was built from scratch (git branch `v0.1`, `v01/`). controlled toy result: the recurrent descent memory (candidate E) was made numerically stable but learns at chance on mqar; the linear delta control is also at chance; a 4-layer attention model solves passkey/induction at exact_acc 1.000 (n=100, wilson 95% lower bound 0.963). seven implementation bugs were caught by the sanity gates and telemetry. no 100m run. run card `neuroloc/wiki/tests/v0_1_descent_memory_toy_results.md`; synthesis `neuroloc/wiki/synthesis/descent_memory_intervention.md`; bugs `neuroloc/wiki/mistakes/descent_memory_v0_1_bugs.md`. this is a user-authorized architecture side-session; the compression-lane phase below remains the prior documented workstream.
+
 ## current phase: neural model margin adapter/update product present, high-density knowledge compression unsolved (2026-05-13)
 
 **the active scientific object is the neural model.** the old todorov architecture and prior paid runs are historical evidence about failed substrates and trainability, not the live design identity. the canonical project surface is now the single master plan at `neuroloc/wiki/PROJECT_PLAN.md`: a biology-led, proof-gated neural world-memory model program organized as a flagship paper plus gated side-paper candidates and six research lanes.
