@@ -25,6 +25,8 @@ class MemoryConfig:
     lr_bias: float = 0.0
     momentum_bias: float = 0.0
     out_gate_bias: float = 0.0
+    affect: float = 0.0
+    affect_mode: str = "surprise"
     l2_norm_keys: bool = True
     conv_kernel: int = 4
     state_clamp: float = 100.0
@@ -84,6 +86,13 @@ class DescentMemory(nn.Module):
         q, k, v, beta, lam, mu = self._project(x)
         dev = x.device
         H, dk, dv, dh = self.H, self.dk, self.dv, self.dh
+        affect = self.cfg.affect
+        mode = self.cfg.affect_mode
+        gperm = torch.Generator().manual_seed(0) if mode in ("shuffle", "noise", "noise_token") else None
+        s_sum = torch.zeros((), device=dev)
+        g_sum = torch.zeros((), device=dev)
+        s_run = torch.zeros(B, H, device=dev)
+        s_cnt = 0
         if self.cfg.mode == "linear":
             W = torch.zeros(B, H, dv, dk, device=dev, dtype=torch.float32)
             Mm = torch.zeros_like(W)
@@ -95,6 +104,25 @@ class DescentMemory(nn.Module):
                 mt = mu[:, t][..., None, None]
                 pred = torch.einsum("bhvk,bhk->bhv", W, kt)
                 e = pred - vt
+                if affect > 0.0:
+                    enorm = e.norm(dim=-1)
+                    s = (enorm / (enorm + vt.norm(dim=-1) + 1e-6)).detach()
+                    if mode == "shuffle":
+                        s = s[torch.randperm(B, generator=gperm)]
+                    elif mode == "noise":
+                        s = torch.rand(B, H, generator=gperm)
+                    elif mode == "noise_token":
+                        s = torch.rand(B, 1, generator=gperm).expand(B, H)
+                    if mode == "surprise_batchnorm":
+                        rel = s / (s.mean(dim=0, keepdim=True) + 1e-6)
+                    else:
+                        s_run = s_run + s
+                        s_cnt += 1
+                        rel = s / (s_run / s_cnt + 1e-6)
+                    gain = (1.0 - affect + affect * rel)[..., None, None]
+                    bt = bt * gain
+                    s_sum = s_sum + s.mean()
+                    g_sum = g_sum + gain.mean()
                 gW = torch.einsum("bhv,bhk->bhvk", e, kt)
                 Mm = mt * Mm + gW
                 W = (1.0 - lt) * W - bt * Mm
@@ -117,6 +145,25 @@ class DescentMemory(nn.Module):
                 h = _silu(a)
                 pred = torch.einsum("bhvp,bhp->bhv", W2, h)
                 e = pred - vt
+                if affect > 0.0:
+                    enorm = e.norm(dim=-1)
+                    s = (enorm / (enorm + vt.norm(dim=-1) + 1e-6)).detach()
+                    if mode == "shuffle":
+                        s = s[torch.randperm(B, generator=gperm)]
+                    elif mode == "noise":
+                        s = torch.rand(B, H, generator=gperm)
+                    elif mode == "noise_token":
+                        s = torch.rand(B, 1, generator=gperm).expand(B, H)
+                    if mode == "surprise_batchnorm":
+                        rel = s / (s.mean(dim=0, keepdim=True) + 1e-6)
+                    else:
+                        s_run = s_run + s
+                        s_cnt += 1
+                        rel = s / (s_run / s_cnt + 1e-6)
+                    gain = (1.0 - affect + affect * rel)[..., None, None]
+                    bt = bt * gain
+                    s_sum = s_sum + s.mean()
+                    g_sum = g_sum + gain.mean()
                 gW2 = torch.einsum("bhv,bhp->bhvp", e, h) / ((h * h).sum(-1)[..., None, None] + 1.0)
                 back = torch.einsum("bhvp,bhv->bhp", W2, e)
                 da = back * _dsilu(a)
@@ -140,6 +187,8 @@ class DescentMemory(nn.Module):
             "mu": mu.detach().mean(),
             "out_gate": gate.detach().mean(),
             "state_norm": state_norm,
+            "surprise": (s_sum / T).detach(),
+            "write_gain": (g_sum / T).detach(),
         }
         o = (o * gate).reshape(B, T, H * dv)
         return self.out_proj(o)

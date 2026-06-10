@@ -95,6 +95,8 @@ class ModelConfig:
     use_spikes: bool = False
     forget_bias: float = -6.0
     out_gate_bias: float = 0.0
+    affect: float = 0.0
+    affect_mode: str = "surprise"
     tie_embeddings: bool = True
 
     def resolved_kinds(self):
@@ -113,7 +115,8 @@ class Block(nn.Module):
             self.mixer = DescentMemory(MemoryConfig(
                 d_model=cfg.d_model, n_heads=cfg.mem_heads, d_head=cfg.mem_head_dim,
                 mode=cfg.mem_mode, d_hidden=cfg.mem_hidden,
-                forget_bias=cfg.forget_bias, out_gate_bias=cfg.out_gate_bias))
+                forget_bias=cfg.forget_bias, out_gate_bias=cfg.out_gate_bias,
+                affect=cfg.affect, affect_mode=cfg.affect_mode))
         elif kind == "attn":
             self.mixer = CausalAttention(cfg.d_model, cfg.n_heads)
         else:
@@ -153,7 +156,7 @@ class SequenceModel(nn.Module):
         elif isinstance(m, nn.Embedding):
             nn.init.normal_(m.weight, mean=0.0, std=0.02)
 
-    def forward(self, idx, targets=None, loss_mask=None):
+    def forward(self, idx, targets=None, loss_mask=None, return_hidden=False):
         x = self.embed(idx)
         for blk in self.blocks:
             x = blk(x)
@@ -168,6 +171,8 @@ class SequenceModel(nn.Module):
                 loss = (ll * m).sum() / m.sum().clamp_min(1.0)
             else:
                 loss = ll.mean()
+        if return_hidden:
+            return logits, loss, x
         return logits, loss
 
     def num_params(self, non_embedding=False):
