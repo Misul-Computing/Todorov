@@ -1,6 +1,6 @@
 # substrate requires architectural change: six paid runs, zero retrieval, one discriminating corpus
 
-status: current (as of 2026-06-02).
+status: current (as of 2026-06-10).
 
 ## the observation
 
@@ -176,7 +176,7 @@ preparation lane has produced a selected hypothesis.
 implementation note (2026-06-02): the test-time gradient / descent-memory
 variant of candidate E was implemented and tested at toy scale on a personal
 runpod h200 (deyan-authorized architecture reactivation). it was numerically
-stabilizable (nlms-normalized inner update + bounded inner learning rate +
+stabilizable (input-norm-regularized inner update + bounded inner learning rate +
 hard state-norm clamp) but retrieval stayed at chance on mqar - stable is not
 trained. a 4-layer attention baseline solved passkey/induction at exact_acc
 1.000. this narrows candidate E's failure to "the write/read loop does not
@@ -204,8 +204,10 @@ here would feed the lane gates, not bypass them.
 
 **outcome (2026-06-10): executed on cpu and falsified.** true surprise is at chance under the
 own-history normaliser and under exact budget matching; the shuffled-surprise control, not the
-treatment, ignited retrieval. candidate F is retired. full arm table and verdict in the frozen
-run card. the control's anomaly is promoted to candidate G below.
+treatment, ignited retrieval. candidate F is retired. note the executed gain used the causal
+running-mean normalisation recorded in the run card's pre-execution amendment, not the
+`2 * s` form quoted above from the original pre-registration. full arm table and verdict in
+the frozen run card. the control's anomaly is promoted to candidate G below.
 
 ### G. stochastic write gain (backlog, pre-registration required)
 

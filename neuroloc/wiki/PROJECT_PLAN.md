@@ -1,6 +1,6 @@
 # project_plan
 
-status: current (as of 2026-06-02).
+status: current (as of 2026-06-10).
 
 this file is the canonical, persistent project state. any agent picking up the project starts here. updating this file is a hard rule with prosecutor enforcement (see `CLAUDE.md` and the rule section at the bottom of this file).
 

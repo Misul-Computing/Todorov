@@ -108,11 +108,11 @@ class DescentMemory(nn.Module):
                     enorm = e.norm(dim=-1)
                     s = (enorm / (enorm + vt.norm(dim=-1) + 1e-6)).detach()
                     if mode == "shuffle":
-                        s = s[torch.randperm(B, generator=gperm)]
+                        s = s[torch.randperm(B, generator=gperm).to(dev)]
                     elif mode == "noise":
-                        s = torch.rand(B, H, generator=gperm)
+                        s = torch.rand(B, H, generator=gperm).to(dev)
                     elif mode == "noise_token":
-                        s = torch.rand(B, 1, generator=gperm).expand(B, H)
+                        s = torch.rand(B, 1, generator=gperm).to(dev).expand(B, H).contiguous()
                     if mode == "surprise_batchnorm":
                         rel = s / (s.mean(dim=0, keepdim=True) + 1e-6)
                     else:
@@ -149,11 +149,11 @@ class DescentMemory(nn.Module):
                     enorm = e.norm(dim=-1)
                     s = (enorm / (enorm + vt.norm(dim=-1) + 1e-6)).detach()
                     if mode == "shuffle":
-                        s = s[torch.randperm(B, generator=gperm)]
+                        s = s[torch.randperm(B, generator=gperm).to(dev)]
                     elif mode == "noise":
-                        s = torch.rand(B, H, generator=gperm)
+                        s = torch.rand(B, H, generator=gperm).to(dev)
                     elif mode == "noise_token":
-                        s = torch.rand(B, 1, generator=gperm).expand(B, H)
+                        s = torch.rand(B, 1, generator=gperm).to(dev).expand(B, H).contiguous()
                     if mode == "surprise_batchnorm":
                         rel = s / (s.mean(dim=0, keepdim=True) + 1e-6)
                     else:
@@ -187,8 +187,8 @@ class DescentMemory(nn.Module):
             "mu": mu.detach().mean(),
             "out_gate": gate.detach().mean(),
             "state_norm": state_norm,
-            "surprise": (s_sum / T).detach(),
-            "write_gain": (g_sum / T).detach(),
+            "surprise": (s_sum / T).detach() if affect > 0.0 else torch.full((), float("nan"), device=dev),
+            "write_gain": (g_sum / T).detach() if affect > 0.0 else torch.full((), float("nan"), device=dev),
         }
         o = (o * gate).reshape(B, T, H * dv)
         return self.out_proj(o)

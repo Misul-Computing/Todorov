@@ -1,6 +1,6 @@
 # descent memory: a test-time gradient intervention (toy result, 2026-06-02)
 
-status: current (as of 2026-06-02).
+status: current (as of 2026-06-10).
 
 this article records the first implementation and toy-scale test of a "descent memory" - the
 test-time gradient / fast-weight family listed as candidate E in
@@ -31,7 +31,7 @@ a naive test-time gradient memory diverges under an adversarial outer optimizer:
 drives the unbounded inner learning rate and near-zero forget into a within-sequence runaway
 (observed state_norm 12 -> 3e6 -> 4e8). three changes make it stable for any learned parameters:
 
-1. nlms-normalized inner update: divide each layer's gradient by its input's squared norm + 1.0
+1. input-norm-regularized inner update: divide each layer's gradient by its input's squared norm + 1.0
    (regularized normalized least-mean-squares); stable for inner lr < 2, robust when features are
    small.
 2. bounded inner learning rate: sigmoid (in [0,1]), not softplus (unbounded).

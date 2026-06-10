@@ -267,8 +267,44 @@ steps; full sweep in `v01/feel_tests.md` (capacity context section).
    stochastic write gating in fast-weight and test-time-learning memories, because the
    mechanism may already be known.
 
+## correction (2026-06-10)
+
+appended on the freeze date after the first prosecutor pass on this card, per the frozen-article
+correction rule in `wiki/OPERATING_DIRECTIVE.md`. no measured number changes; the following
+clarifies five points in the text above.
+
+1. confidence-interval granularity. every wilson interval quoted in the results list except the
+   noise arm's is the log's `ci=` field, which is the wilson 95% interval on `exact_acc` over
+   n = 100 sequences. the noise arm's interval (~0.073-0.131) is a hand-computed wilson 95%
+   interval on `token_acc` 0.098 over the 400 masked query tokens, a different quantity at a
+   different granularity; that arm's logged exact-acc interval is (0.000, 0.037), identical in
+   kind to the other arms'. the noise arm's lift claim rests on the token-level interval
+   clearing the 0.0435 token chance floor, with the caveat that the 400 query tokens are not
+   fully independent (4 per sequence).
+2. the `exact ~ token^4` consistency check: 0.557^4 = 0.096 versus observed 0.110. with
+   exact_acc = 11/100 the binomial standard error is ~0.031, so the gap is within one standard
+   error. "matching" in the results text means consistent at that precision, not numerically
+   equal.
+3. gate ordering. three gates (`loss_at_init`, `retention_floor`, `overfit_one_batch`) run
+   pre-flight and block training; `causal_no_future_leak` necessarily runs on each trained arm
+   (it validates the trained model) and is a post-training validity check, not a pre-flight
+   gate. it passed with max_diff = 0.0 for every arm, so no counted number is affected. the
+   harness now tags any arm whose causal check fails as invalid in its printed output.
+4. the lifecycle note near the top of this card describes the pre-execution policy and is
+   retained as evidence of the protocol followed; the banner is the operative state.
+5. reproduction. the arm registry in `v01/quick_affect_test.py` now contains every documented
+   arm, including `surprise_half` (affect 0.5) and `noisetoken`, and the default `--arms`
+   covers all eight. the seed-0 400-step rows reproduce with the default invocation; the other
+   rows with `--arms shuffle --steps 1200`, `--arms shuffle --seed 1`, and
+   `--arms noisetoken --seed 1`. the affect=0.5 and shuffle rows of the first run were produced
+   by an intermediate, uncommitted version of the harness with the same arm configurations
+   hardcoded; the committed registry reproduces those configurations going forward. telemetry
+   note: arms with `affect = 0` (control, no-write) report `surprise` and `write_gain` as
+   non-measurements; the harness originally printed them as 0.000 and now prints nan.
+
 ## see also
 
+- `v01/feel_tests.md` — capacity context and the cpu bench this experiment ran beside
 - `wiki/synthesis/descent_memory_intervention.md` — the candidate E substrate this builds on
 - `wiki/synthesis/substrate_requires_architectural_change.md` — the A-F candidate list
 - `wiki/tests/v0_1_descent_memory_toy_results.md` — the v0.1 toy run this extends (one-way, see note)

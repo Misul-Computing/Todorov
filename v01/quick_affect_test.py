@@ -24,6 +24,7 @@ def make_fn(vocab, n_pairs, n_queries, seed):
 
 ARMS = {
     "control": (0.0, "surprise", False),
+    "surprise_half": (0.5, "surprise", False),
     "surprise": (1.0, "surprise", False),
     "shuffle": (1.0, "shuffle", False),
     "noise": (1.0, "noise", False),
@@ -56,7 +57,7 @@ def run_gates(args):
     g_ret = sanity.retention_floor_check(model, mk, 8, "cpu", seq)
     g_fit = sanity.overfit_one_batch(model, mk, 8, "cpu", steps=300,
                                      target=0.5 * math.log(args.vocab))
-    print(f"gates: loss_at_init={g_init['loss']:.3f}/{g_init['expected']:.3f} ok={g_init['ok']}  "
+    print(f"gates(affect=1.0 surprise cfg): loss_at_init={g_init['loss']:.3f}/{g_init['expected']:.3f} ok={g_init['ok']}  "
           f"retention={g_ret['retention_floor']:.3f} ok={g_ret['ok']}  "
           f"overfit_final={g_fit['final_loss']:.3f} ok={g_fit['ok']}", flush=True)
     return g_init["ok"] and g_ret["ok"] and g_fit["ok"]
@@ -117,7 +118,7 @@ def main():
     ap.add_argument("--eval_every", type=int, default=0)
     ap.add_argument("--probe_len", type=int, default=16)
     ap.add_argument("--seed", type=int, default=0)
-    ap.add_argument("--arms", default="control,surprise,shuffle,noise,batchnorm,nowrite")
+    ap.add_argument("--arms", default="control,surprise_half,surprise,shuffle,noise,noisetoken,batchnorm,nowrite")
     args = ap.parse_args()
 
     t0 = time.time()
@@ -132,7 +133,7 @@ def main():
         ta = time.time()
         ev, loss, leak, stats = run_arm(name, args)
         dt = time.time() - ta
-        tag = f"{name:10s}"
+        tag = f"{name:10s}" if leak["ok"] else f"INVALID(causal) {name}"
         print(f"{tag}  exact_acc={ev['exact_acc']:.3f} "
               f"token_acc={ev['token_acc']:.3f} ci=({ev['wilson_lo']:.3f},{ev['wilson_hi']:.3f}) "
               f"final_loss={loss:.3f} causal_ok={leak['ok']} (max_diff={leak['max_diff']:.1e}) "

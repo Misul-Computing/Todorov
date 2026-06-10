@@ -35,7 +35,8 @@ recall (what was at position p):
 
 count (how many bumps total, 0..6):
 
-- blind  acc 0.29, fake acc 0.34, real acc 1.00.
+- blind  acc 0.29, fake acc 0.34, real acc 1.00. (acc here is token accuracy on the single
+  masked count position, which for this task equals per-sequence accuracy.)
 
 both verified by the fake-touch control: the identical-but-garbage sense gives no lift, so
 the gain comes from the felt content, not from extra tokens or a leak.
@@ -136,7 +137,10 @@ garbage sense is correctly ignored.
 - no transfer yet: every answer was directly trained. it does not show that a sense helps
   answer questions it was never trained on, or learn other tasks faster.
 - nothing about consciousness or agi. this is foundational plumbing plus a verified bench.
-- single seed per task at toy scale on the linear memory only.
+- toy scale throughout. single seed for the recall, count, robustness, transfer, and hard
+  tests; 3 seeds for the pretraining curves; the capacity sweep is single seed. the feel bench
+  runs on the linear matrix memory; the affect experiment (wiki run card) runs on the mlp
+  descent memory.
 
 ## next
 
