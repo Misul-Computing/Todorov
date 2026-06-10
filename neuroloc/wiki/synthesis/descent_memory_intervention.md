@@ -70,9 +70,22 @@ for mqar; auxiliary retrieval loss on post-query positions; warm-start from hand
 key-value pairs to separate read-side vs write-side learning; or a differentiable key-value table
 with hard attention at train time.
 
+one write-side direction is pre-registered as candidate F: route the inner loop's own prediction
+error (the surprise `||pred - v||`) into the write gain, a three-factor / affect gate, so plasticity
+concentrates on surprising associations. mechanism, controls, and kill conditions in
+`wiki/tests/affect_gated_write_cpu_experiment.md`.
+
+executed 2026-06-10 and falsified: surprise content is inert on the write side (at chance under
+own-history normalisation and under exact budget matching). the shuffled-surprise control,
+however, ignited the first sgd-trained non-chance retrieval on this substrate (mqar exact 0.360 /
+token 0.785 at 1200 steps, seed 0; seed-sensitive, not yet a recipe). the anomaly is promoted to
+candidate G (stochastic write gain, backlog) in
+`wiki/synthesis/substrate_requires_architectural_change.md`; full numbers in the frozen run card.
+
 ## see also
 
 - `wiki/tests/v0_1_descent_memory_toy_results.md` — the run card with full numbers
 - `wiki/mistakes/descent_memory_v0_1_bugs.md` — the seven bugs caught during implementation
-- `wiki/synthesis/substrate_requires_architectural_change.md` — candidate E and the A-E list
+- `wiki/synthesis/substrate_requires_architectural_change.md` — candidate E and the A-F list
+- `wiki/tests/affect_gated_write_cpu_experiment.md` — candidate F, the affect-gated write pre-registration
 - `wiki/synthesis/training_objective_vs_architectural_goal.md` — the prior corpus-pivot diagnosis
