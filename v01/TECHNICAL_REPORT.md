@@ -56,7 +56,7 @@ lam = sigmoid(.), momentum mu = sigmoid(.), produced by a single linear map; out
 sigmoid(.) initialized open. keys and queries are l2-normalized.
 
 numerical stabilization (the load-bearing part for the mlp mode):
-- nlms-normalized inner update: each layer's gradient is divided by its input's squared norm
+- input-norm-regularized inner update: each layer's gradient is divided by its input's squared norm
   plus 1.0 (regularized normalized least-mean-squares), making the inner update stable for
   beta < 2 and robust when features are small.
 - bounded inner learning rate: beta is sigmoid (bounded), not softplus (unbounded), so the
@@ -117,10 +117,10 @@ run: linear control (mqar, 3000 steps).
 
 run: descent memory v1/v2 (mqar). dead mlp init (bug 3): state_norm 0.000; token_acc chance.
 
-run: descent memory v3 (mqar, nlms eps=1e-4). state_norm 12 (step 250) -> 3.0e6 (step 500) ->
+run: descent memory v3 (mqar, inner-update eps=1e-4). state_norm 12 (step 250) -> 3.0e6 (step 500) ->
   4.0e8 (step 750); token_acc chance. the inner recurrence diverged within the sequence.
 
-run: descent memory v4 (mqar, nlms eps=1.0 + bounded beta + hard clamp 100). state_norm
+run: descent memory v4 (mqar, inner-update eps=1.0 + bounded beta + hard clamp 100). state_norm
   bounded at ~11-15; no nan, no crash; but token_acc stayed at chance (0.011-0.015) and the
   masked loss stayed flat at the alphabet prior (~4.16). conclusion: the stabilized recurrent
   memory is numerically healthy but does not learn to retrieve mqar at this scale.
@@ -173,12 +173,12 @@ bug 4 - save_ckpt NameError.
   fix: core.state_dict().
   lesson: never blind-replace_all across a function signature; it silently renames parameters.
 
-bug 5 - nlms epsilon too small.
+bug 5 - inner-update normalization epsilon too small.
   symptom: the selftest overfit produced nan, aborting the run, even though a prior local check
   passed.
-  cause: nlms eps=1e-4 blows up when the hidden features are near zero (dividing by ~1e-4). the
+  cause: normalization eps=1e-4 blows up when the hidden features are near zero (dividing by ~1e-4). the
   prior local check used a different config and a fixed-batch overfit, so it missed it.
-  fix: damped nlms with eps=1.0.
+  fix: damped normalization with eps=1.0.
   lesson: a verification that does not replicate the exact failing configuration gives false
   confidence.
 
