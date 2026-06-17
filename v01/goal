@@ -1,0 +1,57 @@
+todorov v0.1 - goal
+
+owner: deyan todorov, eptesicus laboratories
+date: 2026-06-02
+compute: single nvidia h200 (143 gb), torch 2.8.0+cu128, runpod
+provenance: synthesized by the autonomous agent from the session contract because no ./goal
+file was present on the pod at kickoff. this is the working source of truth until deyan
+overrides it.
+
+mission
+ship a working <=100m parameter v0.1 of the todorov architecture and obtain a defensible,
+paper-worthy result on at least one benchmark for eptesicus laboratories.
+
+the deliverable cannot fail. success is "a working, documented v0.1 on the board," with the
+attention-forward hybrid (path c) as a guaranteed floor. the science (does path b work) may
+legitimately fail; the deliverable may not.
+
+direction
+path b (primary): replace the linear recurrent associative memory that produced 0% passkey
+across all prior runs with a descent memory - a test-time gradient-written fast-weight memory.
+per token the memory weights take one gradient step, with data-dependent learning rate,
+momentum, and forget gate, on a per-token associative loss ||m(k)-v||^2; read is m(q). the
+existing delta-rule matrix memory is the linear special case and serves as the control.
+
+path c (floor): attention-forward hybrid where compressed attention is the retriever and the
+recurrent memory is an efficiency channel. guarantees a working model.
+
+naming: the component is named functionally (descent memory) in all code and docs, never by a
+published technique name.
+
+decision gate (hard, wall-clock)
+at t+3h from toy kickoff, decide b vs c and do not revisit:
+- b passes only if all three hold: (1) descent-memory treatment reaches >=10% passkey on the
+  clean toy, (2) the linear-delta control stays near 0, (3) telemetry confirms the memory is
+  written and read (state norm grows, gates open).
+- otherwise switch to c and spend the remaining time making c a solid working v0.1.
+
+paper-worthy target (contingent on b)
+matched-parameter competitiveness or sota on an associative-recall / long-context benchmark:
+mqar primary, passkey at length, and a byte-lm bpb number on enwik8/text8 as supporting
+evidence. report honestly against published baselines at matched params. no cherry-picking, no
+eval retuning to manufacture a number.
+
+non-negotiable discipline
+- always-on code checker: after every change run the relevant pytest; bake karpathy sanity
+  gates into training (loss-at-init ~= ln(vocab), overfit-one-batch to ~0, causal/no-future-leak
+  assertion, decode-batch-to-text inspection, eval-leakage assertion). these guard against the
+  model silently training on the wrong thing.
+- one pure-torch path everywhere (no fla/triton) so cpu and gpu run identical code; kills the
+  train/eval divergence class.
+- explicit safe memory retention; assert it at config resolution (no state-evaporation class).
+- all metrics round-tripped to disk (no hardcoded log dict); outputs saved continuously to
+  /workspace/v01/runs/<ts>/.
+- prosecutor (feature-dev:code-reviewer) clean before any scale run.
+- full audit trail: commits at each gate, append-only decision log, updated state files.
+
+time budget: ~7-8 hours, autonomous, no human in the loop.

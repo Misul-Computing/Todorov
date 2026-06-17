@@ -322,6 +322,7 @@ surface. the two should not be conflated.
 - [[tests/index]]
 - [[PROJECT_PLAN]]
 - [[tests/run3_cognition_phase1_results]]
+- [[tests/affect_gated_write_cpu_experiment]] — candidate F pre-registration that maps into this battery's associative-recall surface
 
 ## references
 

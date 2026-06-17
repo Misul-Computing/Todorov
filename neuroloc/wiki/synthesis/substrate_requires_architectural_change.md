@@ -1,6 +1,6 @@
 # substrate requires architectural change: six paid runs, zero retrieval, one discriminating corpus
 
-status: current (as of 2026-04-27).
+status: current (as of 2026-06-10).
 
 ## the observation
 
@@ -173,6 +173,60 @@ each is a substantial architectural commitment. rank them by cpu
 simulation cost only after the oracle-compression and tiny-mirror
 preparation lane has produced a selected hypothesis.
 
+implementation note (2026-06-02): the test-time gradient / descent-memory
+variant of candidate E was implemented and tested at toy scale on a personal
+runpod h200 (deyan-authorized architecture reactivation). it was numerically
+stabilizable (input-norm-regularized inner update + bounded inner learning rate +
+hard state-norm clamp) but retrieval stayed at chance on mqar - stable is not
+trained. a 4-layer attention baseline solved passkey/induction at exact_acc
+1.000. this narrows candidate E's failure to "the write/read loop does not
+become content-addressable under sgd," not "the memory is unstable." details:
+`wiki/tests/v0_1_descent_memory_toy_results.md` and
+`wiki/synthesis/descent_memory_intervention.md`.
+
+### F. affect-gated write (surprise-modulated plasticity)
+
+a cpu-only candidate added 2026-06-08, extending candidate E rather than replacing it. the descent
+memory already computes a per-token inner-loop prediction error `e = pred - v`; its magnitude is a
+surprise signal that currently shapes the write direction (the gradient) but not the write gain
+(`beta`). candidate F routes that surprise into the gain, `beta_eff = beta * (1 - affect + affect *
+2 * s)` with `s = ||e|| / (||e|| + ||v|| + eps)`, so plasticity concentrates on surprising
+associations and is suppressed where the memory already predicts the value. this is the three-factor
+rule `delta_w = eta * f(pre, post) * M` with `M` set to surprise (`wiki/mechanisms/three_factor_learning.md`),
+and precision-weighting of the internal prediction error in predictive-coding terms. it attacks the
+write side that the v0.1 masked loss left unsupervised, which is distinct from output-side precision
+weighting (already maxed in v0.1 and still at chance). the `affect = 0` arm reproduces v0.1 exactly,
+giving a clean control; a shuffled-surprise arm separates the surprise content from a reshaped
+learning rate. it is a single-file change to the toy harness with the same numerical-stability
+guards as candidate E. pre-registration with full controls, telemetry, and kill conditions:
+`wiki/tests/affect_gated_write_cpu_experiment.md`. no paid execution is authorised; a cpu signal
+here would feed the lane gates, not bypass them.
+
+**outcome (2026-06-10): executed on cpu and falsified.** true surprise is at chance under the
+own-history normaliser and under exact budget matching; the shuffled-surprise control, not the
+treatment, ignited retrieval. candidate F is retired. note the executed gain used the causal
+running-mean normalisation recorded in the run card's pre-execution amendment, not the
+`2 * s` form quoted above from the original pre-registration. full arm table and verdict in
+the frozen run card. the control's anomaly is promoted to candidate G below.
+
+### G. stochastic write gain (backlog, pre-registration required)
+
+derived 2026-06-10 from candidate F's shuffled-surprise control arm. a content-free, roughly
+unit-budget, structured variation of the write gain trained the mlp descent memory to mqar
+exact 0.360 / token 0.785 (1200 steps, seed 0, n=100) — the first non-chance retrieval learned
+by sgd on a recurrent memory substrate in this project, verified memory-mediated and causally
+clean. it is an existence proof, not a recipe: ignition failed at seed 1 (the shuffled gain's
+budget is endogenous and turned into net write suppression there), and uniform head-iid or
+token-correlated noise does not reproduce the magnitude at matched init and data. open
+variables: gain distribution shape, endogenous ramp-in (gain variance that grows as the model's
+surprise distribution spreads), population coupling, temporal correlation of the gain trace.
+status: backlog. before any further arms, candidate G needs its own pre-registration (ignition
+statistics across seeds, one variable per arm) and a literature check on stochastic write
+gating in fast-weight / test-time-learning memories — if the mechanism is already known, stand
+on the published version instead of rediscovering it (the cost-before-build gate in `CLAUDE.md`).
+evidence: `wiki/tests/affect_gated_write_cpu_experiment.md` (results section) and
+`v01/feel_tests.md` (capacity context section).
+
 ## paid-run status under the current master-plan phase
 
 no paid run is authorised from this article. A-E are paused backlog
@@ -214,4 +268,8 @@ they also inherit lane research, mechanism-dossier, oracle-compression, and tiny
 - `wiki/PROJECT_PLAN.md` — the canonical project state
 - `neuroloc/data/cognition_corpus.py` — the corpus generator used in run 3
 - `neuroloc/model/god_machine.py` — the architecture implementation
+- `wiki/tests/v0_1_descent_memory_toy_results.md` — toy implementation of candidate E (2026-06-02)
+- `wiki/synthesis/descent_memory_intervention.md` — mechanism, stabilization, interpretation
+- `wiki/mistakes/descent_memory_v0_1_bugs.md` — bugs caught during the candidate E implementation
+- `wiki/tests/affect_gated_write_cpu_experiment.md` — candidate F, the affect-gated write pre-registration
 - `wiki/OPERATING_DIRECTIVE.md` — rules governing this article

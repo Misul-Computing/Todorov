@@ -179,6 +179,7 @@
   },
   "active": "94ff5ce434ff2166",
   "lastOpenFiles": [
+    "tests/index.md",
     "knowledge/papers.md",
     "tests/run2_slot_memory_first_launch_results.md",
     "tests/run1_baseline_noerasure_results.md",
@@ -203,7 +204,6 @@
     "knowledge/ternary_spikes.md",
     "Home.md",
     "synthesis/recurrence_vs_feedforward.md",
-    "synthesis/sparsity_from_biology_to_ternary_spikes.md",
-    "synthesis/timescale_separation.md"
+    "synthesis/sparsity_from_biology_to_ternary_spikes.md"
   ]
 }

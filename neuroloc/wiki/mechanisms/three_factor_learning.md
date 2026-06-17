@@ -102,6 +102,7 @@ however, three-factor rules represent a potential path for replacing the STE in 
 
 ## see also
 
+- `wiki/tests/affect_gated_write_cpu_experiment.md` — a project use of the third-factor rule: surprise as the modulatory signal gating the descent memory's write
 - [[hebbian_learning]]
 - [[stdp]]
 - [[dopamine_system]]

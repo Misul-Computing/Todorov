@@ -1,0 +1,10 @@
+*.pt
+*.log
+runs/
+__pycache__/
+.pytest_cache/
+.pathC2_started
+.pathC3_started
+.treat_v3_launched
+.treat_v4_launched
+.launched

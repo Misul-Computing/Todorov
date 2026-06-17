@@ -196,3 +196,4 @@ the strongest argument AGAINST adding predictive coding: Millidge et al. (2022) 
 - [[predictive_coding_vs_next_token]]
 - [[plasticity_to_matrix_memory_delta_rule]]
 - [[sparse_coding_to_ternary_spikes]]
+- `wiki/tests/affect_gated_write_cpu_experiment.md` — precision-weighting the internal prediction error: surprise gates the descent memory's write (candidate F)
