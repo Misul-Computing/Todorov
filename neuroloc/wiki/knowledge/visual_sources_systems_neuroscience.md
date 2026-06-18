@@ -2,7 +2,7 @@
 
 status: current (as of 2026-04-23).
 
-visual-source registry for systems-neuroscience figures that should be redrawn locally for the wiki and curriculum.
+visual-source registry for systems-neuroscience figures that should be redrawn locally for the wiki.
 
 ## figure specs
 

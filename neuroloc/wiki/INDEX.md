@@ -177,13 +177,12 @@ reasoning documents. one is superseded, fifty-one are current.
   cellular and molecular mechanisms most plausibly reusable as control
   or memory primitives.
 - [[synthesis/canonical_visual_narratives_neuroscience]] — canonical
-  neuroscience visuals selected for stable reuse in the wiki and the
-  curriculum.
+  neuroscience visuals selected for stable reuse in the wiki.
 - [[synthesis/canonical_visual_narratives_mind_and_memory]] — canonical
   visuals for indexing, replay, and mind-structure narratives.
 - [[synthesis/canonical_visual_narratives_world_models]] — canonical
   visuals for latent-world, planning, and beyond-autoregression stories.
-- [[synthesis/visual_grammar_for_wiki_and_curriculum]] — the visual
+- [[synthesis/visual_grammar]] — the visual
   style guide for locally recreated diagrams and figures.
 - [[synthesis/slot_memory_design]] — slot memory substrate design
   and its paid-run empirical status (now three paid runs deep)
@@ -364,7 +363,7 @@ frozen evidence records, one per paid run:
 - synthesis/neural_model_lane_memory_replay_imagination.md -- lane for write/read routing, interference, replay rewrite, and imagination as latent rollout and recombination
 - synthesis/neural_model_lane_3d_world_physics.md -- exact-state embodied 3d world and physics lane, including simulator-selection criteria and world-grounded language
 - synthesis/neural_model_lane_trainability_evaluation.md -- trainability and evaluation lane for hard symbolic gates, oracle controls, tiny mirror, telemetry, confidence intervals, and failure localization
-- synthesis/neural_model_lane_project_operations.md -- project operations lane for single-plan governance, side-paper gates, archive policy, prosecutor requirements, and curriculum support
+- synthesis/neural_model_lane_project_operations.md -- project operations lane for single-plan governance, side-paper gates, archive policy, and prosecutor requirements
 - synthesis/neural_model_paper_spine.md -- future paper spine for the neural-model paper: conditional thesis, proof obligations, section map, novelty side-track rule, and load-bearing links
 - synthesis/oracle_compression_analysis_plan.md -- compression-lane proof plan for oracle compression bounds across the hard symbolic worlds
 - synthesis/oracle_compression_frontier_split.md -- family-level split from the first oracle compression result; ranks accepted and weak frontier families and the first narrow learned-codec proof-package candidate
@@ -398,7 +397,7 @@ frozen evidence records, one per paid run:
 - synthesis/canonical_visual_narratives_neuroscience.md -- curated first-batch neuroscience visuals
 - synthesis/canonical_visual_narratives_mind_and_memory.md -- curated first-batch memory and mind visuals
 - synthesis/canonical_visual_narratives_world_models.md -- curated first-batch world-model visuals
-- synthesis/visual_grammar_for_wiki_and_curriculum.md -- visual-asset and diagram-style rules for the wiki and curriculum
+- synthesis/visual_grammar.md -- visual-asset and diagram-style rules for the wiki
 - synthesis/slot_memory_design.md -- softmax addressing over prototype keys, surprise-gated lru writes, output gate; substrate for run2_slot_memory and run3_cognition_phase1
 - synthesis/correction_field_memory.md -- prediction-residual value storage; memory_capacity_delta=0 falsified by trained-prediction sim
 - synthesis/compression_beyond_quantization.md -- six-mechanism compound compression thesis
@@ -409,7 +408,7 @@ frozen evidence records, one per paid run:
 - synthesis/compression_and_bottlenecks.md -- DG pattern separation, hippocampal indexing, consolidation pipeline, capacity limits as features
 - synthesis/recurrence_vs_feedforward.md -- canonical microcircuit recurrence, attractor dynamics, error correction, matrix-memory vs mamba3 comparison
 
-## bridge (28 articles: 25 current + 3 legacy-title redirects)
+## bridge (27 articles: 24 current + 3 legacy-title redirects)
 - bridge/neuron_models_to_atmn.md -- ATMN: no leak, batch reset, proposed fix
 - bridge/sparse_coding_to_ternary_spikes.md -- 41% vs cortical 2-10%, STE constraint
 - bridge/population_coding_to_spike_health.md -- MI, CKA, firing rate as population metrics
@@ -423,7 +422,7 @@ frozen evidence records, one per paid run:
 - bridge/energy_efficiency_to_ternary_spikes.md -- 354x per-op correct, <1% system-level
 - bridge/biological_attention_to_compressed_attention.md -- different operations, beta is the closest analog
 - bridge/dendritic_computation_to_swiglu.md -- single-branch vs 30-50 branches
-- bridge/development_to_training_schedule.md -- training-schedule analogies, not the teaching curriculum
+- bridge/development_to_training_schedule.md -- training-schedule analogies, not a teaching curriculum
 - bridge/spatial_computation_to_pga.md -- weak to nonexistent connection
 - bridge/global_workspace_to_residual_stream.md -- shared bus, not global workspace
 - bridge/positional_encoding_to_rope.md -- theta phase precession, grid cell phase, tonotopy to RoPE rotation
@@ -434,7 +433,6 @@ frozen evidence records, one per paid run:
 - bridge/replay_to_offline_credit_assignment.md -- replay translated into offline credit assignment and reuse logic
 - bridge/synchrony_to_dynamic_routing.md -- synchrony and coherence translated into dynamic routing implications
 - bridge/visuals_to_phase1_nm_tests.md -- visual narratives translated into state-plus-action phase-1 test design
-- bridge/visuals_to_curriculum_chapters.md -- the first-batch visual program mapped into the curriculum chapter sequence
 
 ### legacy-title redirects
 - bridge/plasticity_to_kda_delta_rule.md -- superseded redirect to `bridge/plasticity_to_matrix_memory_delta_rule.md`
@@ -562,7 +560,7 @@ frozen evidence records, one per paid run:
 
 ## statistics
 - total mechanism articles: 61
-- total bridge notes: 28 (25 current + 3 legacy-title redirects)
+- total bridge notes: 27 (24 current + 3 legacy-title redirects)
 - total synthesis articles: 52
 - total test markdown files: 30
 - total entity notes: 33

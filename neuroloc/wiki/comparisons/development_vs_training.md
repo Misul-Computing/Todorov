@@ -168,7 +168,7 @@ the one exception: if todorov encounters optimization difficulties at 300m+ scal
 
 - [[development_to_training_schedule]] -- bridge article on training-schedule analogies and concrete proposed changes
 - [[critical_periods]] -- biological mechanism behind the comparison
-- [[PROJECT_PLAN]] -- authoritative current project state and curriculum pivot
+- [[PROJECT_PLAN]] -- authoritative current project state
 
 ## key references
 

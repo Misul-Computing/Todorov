@@ -50,7 +50,7 @@ curated research shelf for systems and computational neuroscience with an archit
 ## what this shelf is for
 
 - grounding new synthesis on replay, routing, and recurrence
-- feeding the curriculum chapters on circuits, cortex, hippocampus, and consolidation
+- feeding the wiki articles on circuits, cortex, hippocampus, and consolidation
 - informing backlog theory without pretending that any one systems-neuroscience account is already the project's final architecture
 
 ## see also

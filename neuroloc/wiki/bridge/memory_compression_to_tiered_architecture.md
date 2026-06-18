@@ -338,7 +338,7 @@ the estimated total implementation effort is approximately 3-6 months of focused
 
 ## recommendation
 
-do not treat this bridge as the next immediate implementation item. the active lane is the neural-machine architecture program (approach a), and the teaching curriculum is backlog. this page should be read as a phase-6+ architecture sketch rather than a launch recipe, to be picked up once the program reaches its compression tier.
+do not treat this bridge as the next immediate implementation item. the active lane is the neural-machine architecture program (approach a). this page should be read as a phase-6+ architecture sketch rather than a launch recipe, to be picked up once the program reaches its compression tier.
 
 1. first, resume from the implemented phase-1 battery and the remaining model-side neural-model evaluation gaps.
 2. second, validate smaller compression components cpu-first. the correction-field result already showed that residual values do not raise matrix-memory capacity on their own, so a full tiered build should not be the first thing retried.
