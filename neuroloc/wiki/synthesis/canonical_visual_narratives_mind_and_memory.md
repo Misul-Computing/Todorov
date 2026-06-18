@@ -22,14 +22,12 @@ they give the cleanest picture of:
 
 ## where they should be used
 
-- curriculum chapters on hippocampus and consolidation
 - synthesis pages on working memory, imagination, and world models
 
 ## see also
 
 - [[visual_sources_cognitive_architecture]]
 - [[visuals_to_phase1_nm_tests]]
-- [[visuals_to_curriculum_chapters]]
 - [[working_memory_as_controlled_access]]
 - [[world_models_imagination_and_planning]]
-- [[visual_grammar_for_wiki_and_curriculum]]
+- [[visual_grammar]]

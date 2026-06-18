@@ -77,8 +77,8 @@ the new research pass makes the bridge easier to define cleanly:
   imagination and planning as latent rollout rather than text production
 - [[beyond_next_token_for_neural_models]] and
   [[dreamer_muzero_jepa_titans]] give the external-ai comparison frame
-- [[visuals_to_phase1_nm_tests]] and [[visuals_to_curriculum_chapters]]
-  translate the first visual batch into testing and teaching use
+- [[visuals_to_phase1_nm_tests]]
+  translates the first visual batch into testing use
 - [[canonical_visual_narratives_world_models]] carries the first stable
   world-model visual set
 
@@ -193,7 +193,6 @@ forcing a separate reasoning benchmark later.
 - [[neural_model_lane_3d_world_physics]]
 - [[dreamer_muzero_jepa_titans]]
 - [[canonical_visual_narratives_world_models]]
-- [[visuals_to_curriculum_chapters]]
 - [[training_objective_vs_architectural_goal]]
 - [[substrate_requires_architectural_change]]
 - [[slot_memory_design]]

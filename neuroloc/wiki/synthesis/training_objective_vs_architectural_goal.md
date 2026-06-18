@@ -223,8 +223,8 @@ configuration the project has been using.
 note (2026-04-21 / 2026-04-22): this article remains the evidence chain
 for why corpus-only fixes were necessary to test and then insufficient
 to solve the retrieval problem. the current backlog method is broader
-than passkey on a cognition corpus alone. when the architecture track
-resumes after the curriculum, candidates first clear the cpu phase-1
+than passkey on a cognition corpus alone. when an architecture intervention
+is selected, candidates first clear the cpu phase-1
 battery in `wiki/synthesis/phase1_evaluation_surface_for_neural_models.md`
 and then extend through the shared latent-world bridge in
 `wiki/synthesis/synthetic_shared_world_bridge.md`.

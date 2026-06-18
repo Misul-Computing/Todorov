@@ -49,7 +49,7 @@ curated research shelf on the structure of mind with an architecture-first bias.
 
 - grounding synthesis pages on working memory, attention, and imagination
 - clarifying which mind-architecture terms are useful to engineers and which are not
-- supporting curriculum chapters on cortex, hippocampus, consolidation, and later world-model topics
+- supporting wiki articles on cortex, hippocampus, consolidation, and later world-model topics
 
 ## see also
 

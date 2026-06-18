@@ -1,10 +1,10 @@
-# visual grammar for wiki and curriculum
+# visual grammar for the wiki
 
 status: current (as of 2026-04-23).
 
 ## purpose
 
-the project needs one consistent visual language for the wiki and the curriculum. without that, visuals become isolated decorations rather than reusable explanatory assets.
+the project needs one consistent visual language for the wiki. without that, visuals become isolated decorations rather than reusable explanatory assets.
 
 ## rules
 

@@ -2,7 +2,7 @@
 
 status: current (as of 2026-04-23).
 
-this page selects the neuroscience visuals that should become the stable visual spine for the wiki and curriculum.
+this page selects the neuroscience visuals that should become the stable visual spine for the wiki.
 
 ## selected first-batch visuals
 
@@ -26,14 +26,12 @@ they cover the highest-leverage narrative arc:
 
 ## where they should be used
 
-- curriculum chapters on circuits, cortex, predictive coding, and compartmental neurons
 - synthesis pages on routing, primitives, and cellular computation
 
 ## see also
 
 - [[visual_sources_systems_neuroscience]]
 - [[visuals_to_phase1_nm_tests]]
-- [[visuals_to_curriculum_chapters]]
-- [[visual_grammar_for_wiki_and_curriculum]]
+- [[visual_grammar]]
 - [[cellular_molecular_computational_primitives]]
 - [[attention_as_precision_and_routing]]

@@ -54,7 +54,7 @@ curated research shelf for ai architectures that do not reduce the whole system 
 
 - grounding the external-ai side of the backlog
 - keeping project-native component naming separate from imported external architecture names
-- supporting future curriculum chapters on world models, associative memory, and paper implementation
+- supporting wiki articles on world models, associative memory, and paper implementation
 
 ## see also
 

@@ -2,7 +2,7 @@
 
 status: current (as of 2026-04-17).
 
-**naming note (2026-04-17)**: "KDA" / "Kimi Delta Attention" is an external paper name (Moonshot AI, October 2025). per the project's naming rule, the project's own component with the same mathematical form (asymmetric outer-product state with per-step decay and optional write-side erasure) is called **`matrix memory`** — see glossary in `wiki/PROJECT_PLAN.md`. this article is preserved as an explanation of the external paper the project drew from; it is NOT a description of the project's own current architecture. curriculum chapters ch. 29 and ch. 36 cover the mathematical operation under its project-native name.
+**naming note (2026-04-17)**: "KDA" / "Kimi Delta Attention" is an external paper name (Moonshot AI, October 2025). per the project's naming rule, the project's own component with the same mathematical form (asymmetric outer-product state with per-step decay and optional write-side erasure) is called **`matrix memory`** — see glossary in `wiki/PROJECT_PLAN.md`. this article is preserved as an explanation of the external paper the project drew from; it is NOT a description of the project's own current architecture.
 
 Source paper: "Kimi Linear: An Expressive, Efficient Attention Architecture"
 ArXiv ID: 2510.26692

@@ -24,14 +24,12 @@ they answer two different questions cleanly:
 
 - synthesis pages on beyond-next-token design
 - comparison pages on external architecture families
-- later curriculum chapters on modern world models and paper implementation
 
 ## see also
 
 - [[visual_sources_beyond_autoregression]]
 - [[visuals_to_phase1_nm_tests]]
-- [[visuals_to_curriculum_chapters]]
 - [[architectures_beyond_next_token_research]]
 - [[beyond_next_token_for_neural_models]]
 - [[dreamer_muzero_jepa_titans]]
-- [[visual_grammar_for_wiki_and_curriculum]]
+- [[visual_grammar]]

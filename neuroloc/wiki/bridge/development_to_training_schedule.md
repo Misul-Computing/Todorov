@@ -2,7 +2,7 @@
 
 status: current (as of 2026-06-18).
 
-this article is about model-training sequencing and staged optimization in the architecture track, which is the project's active lane (the neural-machine architecture program, approach a). it is not about the teaching PDF curriculum, which is preserved as backlog.
+this article is about model-training sequencing and staged optimization in the architecture track, which is the project's active lane (the neural-machine architecture program, approach a). it is not about a teaching curriculum.
 
 ## the biological mechanism
 
@@ -180,7 +180,7 @@ this is a SINGLE CHANGE (spike scheduling) that can be validated in one run at 6
 
 - [[critical_periods]] -- the biological mechanism this bridge is testing
 - [[development_vs_training]] -- comparison article for the same broad theme
-- [[PROJECT_PLAN]] -- authoritative current project state and the curriculum pivot
+- [[PROJECT_PLAN]] -- authoritative current project state
 
 ## key references
 

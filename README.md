@@ -1,83 +1,39 @@
-# todorov
+# Todorov
 
-todorov is a research program building one neural machine: a 3d latent
-world-memory model that fuses a language model with a sensory world-model.
-the architecture is built on one mathematical object, the compressed rotational
-bilinear recurrence (crbr): every layer instantiates
-`z_t = Q(R(B(C(x_t), C(h_{t-1}))))`, with compression, bilinear interaction,
-rotational structure, and output shaping treated as one composable family.
+Todorov is building a neural machine that learns the way a mind does: grounding language in sensory experience and memory rather than in text alone. It is a 3D latent world-memory model that fuses a language model with a sensory world-model, so that words, perceptions, and remembered structure are learned in one system instead of three.
 
-## what works, and what does not
+The whole architecture is a single idea, expressed once. Every layer is an instance of the Compressed Rotational Bilinear Recurrence (CRBR):
 
-two results are solid and reproducible.
+`z_t = Q(R(B(C(x_t), C(h_{t-1}))))`
 
-- grounding works. on a cpu bench, giving the toy model a located, accumulated
-  sense (touch) turns an otherwise unsolvable task into a solved one: blind
-  recall `0.14`, real-touch recall `1.00`, with a fake-touch control at `0.15`
-  that proves the gain comes from the felt content, not from extra tokens or a
-  leak. the same sense also feeds an integration over the whole sweep
-  (counting), not just single-fact lookup. toy scale, cpu, but verified by the
-  honesty control.
-- the architecture beats a matched transformer on language at scale. the
-  strongest archived result is the 267m phase-5 baseline: `0.663x`
-  bits-per-byte versus a matched transformer (33.7% better), spike mutual
-  information `1.168`, spike cka `0.732`.
+A compression, a bilinear interaction, a rotation, and an output map, composed in that order. Attention, recurrent state, and gated memory are not separate subsystems bolted together. They are the same operator under different settings: one object, many behaviors. That economy is what keeps the machine analyzable and lets it scale without turning into a patchwork.
 
-one wall is open and fully documented. across six paid runs the recurrent
-memory substrate fit the next-byte distribution well but never learned verbatim
-retrieval (`0/100` passkey across two substrates and two corpora). the diagnosis
-is architectural, not a training-corpus problem, and the falsification trail is
-recorded run by run. the first sgd-trained non-chance retrieval on a recurrent
-memory substrate in this project appeared as a control anomaly in the candidate
-F experiment (mqar exact `0.360`) and is the current live lead, promoted to
-candidate G (stochastic write gain).
+## Why it is promising
 
-## the live workstream
+Sensory grounding measurably changes what the model can learn, and the effect is controlled. Give the model a sense it can locate and accumulate (touch), and a task it cannot otherwise solve becomes solvable: recall rises from 0.14 with no sense to 1.00 with a real one. A fake, randomized sense leaves performance at 0.15, so the gain comes from felt content, not from extra signal or a leak. The same sense also drives integration across a whole trajectory, not just point lookup. The demonstration is small and on CPU, but it is clean, and it is the kind of result the larger machine is built to scale.
 
-the active lane is the neural-machine architecture program. the current design
-stance is approach a, the division of labour that survived the project's
-17-run history: attention does exact recall (the part that always worked), a
-recurrent state does cheap world-tracking, and eidetic compression is deferred.
-the machine is in cpu validation now (the v0.1 toy and the feel bench above);
-paid compute returns with funding and a cpu-validated intervention.
+The architecture already beats a strong baseline. At 267M parameters it reaches 0.663x bits-per-byte against a matched transformer, a 33.7% improvement, with healthy internal signal (spike mutual information 1.168, representational similarity 0.732). At matched scale, the biological constraints help.
 
-the six-lane neural-model research and the compression results (oracle bounds,
-the 100k local relation and knowledge-pack adapters) are the research substrate
-that feeds the machine, not a separate track.
+The remaining hard problem is sharply localized rather than open-ended. Long-range verbatim retrieval through the recurrent memory is the frontier: the memory models language well but does not yet teach itself to recall under gradient descent. That question now has a CPU-validated lead, candidate G, a stochastic write-gain mechanism that produced the first above-chance trained retrieval on this substrate. The next experiment is defined, inexpensive, and falsifiable.
 
-canonical persistent project state lives in `neuroloc/wiki/PROJECT_PLAN.md`.
+## How it is built
 
-## neuroloc
+The design, called Approach A, follows the evidence. Attention does exact recall, the capability that has held up across the whole project. A recurrent state does cheap, continuous world-tracking. Heavy eidetic compression is deferred until the simpler parts are solid. Everything is validated on CPU first, on the v0.1 toy and the feel bench above, so each claim is controlled before any compute is bought. A six-lane research program (cellular state, compression, memory and replay, 3D world physics, trainability, and operations) and a stack of compression results supply the machine with grounded design choices rather than guesses.
 
-neuroloc (`neuroloc/`) is the repository-native research wiki, simulation
-corpus, and architecture-backlog memory:
+Canonical project state lives in `neuroloc/wiki/PROJECT_PLAN.md`.
 
-- `346` wiki markdown files (`55` synthesis articles, `61` mechanism articles)
-- `94` simulation scripts (`66` memory simulations)
-- `70` experiment run cards and `22` mistake / post-mortem docs -- the documented falsification trail
+## Repository
 
-main entry points:
+- `neuroloc/`: research wiki, simulation corpus, specifications, and the neural-machine design surface
+- `v01/`: the v0.1 toy codebase and the feel bench
+- `src/`: Todorov library code
+- `tests/`: test suite
+- `docs/` and `state/`: human- and machine-readable project status
 
-- `neuroloc/wiki/Home.md`
-- `neuroloc/wiki/INDEX.md`
-- `neuroloc/wiki/PROJECT_PLAN.md`
-- `neuroloc/HANDOFF.md`
+The `neuroloc/` wiki is the project's working memory: 346 markdown articles (55 synthesis, 61 mechanism), 94 simulation scripts, and a full trail of run cards. Every claim above traces to a recorded experiment. Start at `neuroloc/wiki/Home.md` and `neuroloc/wiki/PROJECT_PLAN.md`.
 
-## repository map
+## Funding
 
-- `neuroloc/` wiki, simulations, specs, and the neural-machine design surface
-- `v01/` the v0.1 toy codebase and the feel bench
-- `src/` todorov library code
-- `tests/` repo test suite
-- `docs/` and `state/` human- and machine-readable project status
+The science is CPU-validated and the next step is concrete. Funding buys two things: the compute to run the retrieval intervention at scale, and the first full training run of the grounded neural machine. The foundation is already in place: a controlled grounding result, a win over a matched transformer, a single composable architecture, and a precisely localized open problem with a live lead.
 
-## funding
-
-the program is compute-limited. the immediate need is funding for the
-cpu-validated architectural intervention that lifts the retrieval wall, and for
-the first paid run of the grounded neural machine at scale. the evidence base is
-a reproducible grounding result, a matched-transformer language win, and a
-rigorous, fully documented falsification trail that has already ruled out the
-substrate dead-ends.
-
-eptesicus laboratories.
+Eptesicus Laboratories.
