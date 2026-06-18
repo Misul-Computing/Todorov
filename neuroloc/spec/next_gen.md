@@ -14,7 +14,6 @@ the current reality is:
 
 - the neural-machine architecture program (approach a) is the active lane, in cpu validation
 - paid compute is gated on funding plus a cpu-validated intervention
-- the teaching curriculum is backlog
 - the architecture cpu surface: the v0.1 toy and feel bench in `v01/`,
   `biology_phase1` -> latent-world deliberation -> model-side neural-model evaluation
 
@@ -25,7 +24,6 @@ for current project state and backlog framing, read:
 1. `neuroloc/wiki/PROJECT_PLAN.md`
 2. `neuroloc/spec/blueprint.md`
 3. `neuroloc/HANDOFF.md`
-4. `pdf_curriculum/index/curriculum_status.md`
 
 ## what remains useful here
 

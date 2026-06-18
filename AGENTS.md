@@ -48,9 +48,6 @@ other files are subordinate evidence, logs, handoffs, mirrors, or procedure
 docs. they are not competing plans and cannot override
 `neuroloc/wiki/PROJECT_PLAN.md`:
 
-- `~/.claude/plans/compressed-dancing-haven.md` is the detailed curriculum
-  specification and chapter-production protocol.
-- `pdf_curriculum/index/curriculum_status.md` is a lightweight curriculum index.
 - `state/program_status.yaml` is structured run/status data.
 - `docs/STATUS_BOARD.md` is a per-run/status-board summary.
 - `reports/` contains read-only reports and recovery dossiers.
@@ -107,9 +104,9 @@ documented.
 
 # active lane: neural-machine architecture program (2026-06-18)
 
-**the active scientific object is the neural model: one neural machine, a 3d latent world-memory model (approach a: attention does exact recall, a recurrent state does cheap world-tracking, eidetic compression deferred).** it is in cpu validation now (the v0.1 toy in `v01/` and the feel bench). the dossier discipline still holds: every proposed local-neuron, memory, addressing, interference, compression, reconstruction, replay, rollout, and trainability mechanism must have a concise mechanism dossier (`neuroloc/wiki/synthesis/neural_model_research_test_material_plan.md`) before any new model code or intervention preset, but the lane is now active local implementation, not preparation-only. the six-lane neural-model research and the compression-product line are the research substrate that feeds the machine; the teaching curriculum is backlog.
+**the active scientific object is the neural model: one neural machine, a 3d latent world-memory model (approach a: attention does exact recall, a recurrent state does cheap world-tracking, eidetic compression deferred).** it is in cpu validation now (the v0.1 toy in `v01/` and the feel bench). the dossier discipline still holds: every proposed local-neuron, memory, addressing, interference, compression, reconstruction, replay, rollout, and trainability mechanism must have a concise mechanism dossier (`neuroloc/wiki/synthesis/neural_model_research_test_material_plan.md`) before any new model code or intervention preset, but the lane is now active local implementation, not preparation-only. the six-lane neural-model research and the compression-product line are the research substrate that feeds the machine.
 
-chapter 1 remains review-ready and chapter 2 outline-only in the backlog curriculum. cpu architecture and simulation work is the active lane; paid compute, h200, kaggle, and pod work remain gated on funding plus a cpu-validated intervention and explicit deyan authorization.
+cpu architecture and simulation work is the active lane; paid compute, h200, kaggle, and pod work remain gated on funding plus a cpu-validated intervention and explicit deyan authorization.
 
 the first hard symbolic test-material package is implemented as the `hard_symbolic_nm` suite. it covers belief-state formation, associative recall, correlated-key interference, delayed use, episodic reuse, context-gated routing, compression under bit budget, replay/rewrite, iterative rollout, and imagination/recombination. the current next action is governed only by `neuroloc/wiki/PROJECT_PLAN.md`; as of 2026-05-09, deyan has explicitly reactivated local code and simulation work and raised the active local target to 100k parameters for coherence. the architecture program (approach a) is the active path, with compression-first local implementation toward a 100k-parameter model as its substrate, wiki-grounded with controls, telemetry, and documentation before any stronger claim.
 
@@ -197,26 +194,6 @@ category check with: implemented operation, strongest baseline, what failed,
 what is not proved, and why the artifact is not being promoted to the neural
 model claim.
 
-# teaching curriculum package (2026-04-17; preserved after 2026-04-23)
-
-**the teaching PDF curriculum remains preserved and reviewable** in the plan file at `~/.claude/plans/compressed-dancing-haven.md`, but it is backlog, not the active lane. the active lane is the neural-machine architecture program (approach a; see the active-lane section above). paid compute is gated on funding plus a cpu-validated intervention. candidate G (stochastic write gain) is the current live lead from the A-E intervention list in `neuroloc/wiki/synthesis/substrate_requires_architectural_change.md`.
-
-the curriculum specifies 36 chapters across 6 phases (math fundamentals, biology fundamentals, brain computation, ML math, advanced architectures and compression, paper implementation) at 20-25 pages per chapter in English LaTeX, produced with parallel research agents and prosecutor validation. full detail in the plan file and in `neuroloc/wiki/PROJECT_PLAN.md` section "pivot to teaching curriculum" + section "curriculum track".
-
-**curriculum rules** (apply when editing curriculum material):
-
-1. **paid compute is gated on funding plus a cpu-validated intervention.** the pod stays stopped during cpu work. paid compute returns only after an architectural intervention has been selected and cleared its cpu controls (dossier-driven test material, a tiny trainable mirror, telemetry, prosecutor-clean docs, one explicit selected hypothesis) and is explicitly authorised by deyan.
-
-2. **published-technique names are restricted.** "MLA", "KDA", "Hopfield", "Hebbian", "STDP", "BCM", "k-WTA", "ternary spike" and other named published techniques are permitted in curriculum chapters (and in wiki/code going forward) ONLY when (a) quoting an external source or (b) naming an external paper's architecture (e.g., "in Ramsauer 2020, the architecture is called 'modern Hopfield networks'"). the project's own components are always named by what they do mathematically or by the project glossary terms: `matrix memory` (the asymmetric outer-product state with decay and optional write-side erasure), `compressed attention` (the low-rank projected dot-product attention with rotary positional encoding), `slot memory`, `output gate`, `surprise ratio`, etc. every chapter's research output and draft passes a naming-compliance prosecutor.
-
-3. **per-chapter research method**: launch many parallel research agents across the unrestricted source inventory (wiki + cited papers + classical textbooks + online resources + reference implementations + recent papers). follow with prosecutor agents that validate research for factual accuracy, internal consistency, completeness, naming compliance, and pedagogical coverage before drafting begins. zero-findings rule applies to both the research-validation prosecutor and the draft-validation prosecutor.
-
-4. **writing voice**: English prose in the pedagogical voice of `/Projects/dzipobel` adapted from Bulgarian. second-person imperative when teaching, short declarative sentences, explicit warnings for anti-misconception points, worked examples inline, zero emojis, zero AI attribution.
-
-5. **user executes chapter production**. any agent working on this project during the curriculum era produces outlines, research gather, drafts, and compilations; the user approves outlines before research begins and approves drafts before finalization.
-
-6. **the private curriculum plan is detailed protocol, not a second project plan.** the master curriculum specification at `~/.claude/plans/compressed-dancing-haven.md` must stay detailed and current when chapter status or curriculum protocol changes, but `neuroloc/wiki/PROJECT_PLAN.md` remains the single session-start plan. if they diverge, fix `PROJECT_PLAN.md` first, then sync the curriculum plan so it agrees on curriculum detail.
-
 # historical architecture background
 
 the text below records the old todorov architecture theory as historical
@@ -257,8 +234,7 @@ the full unified theory is in knowledge/unified_theory.md. the four families
 everything is C, B, R, or Q. everything composes.
 
 the active scientific lane is the neural-machine architecture program
-(approach a), in cpu validation now. the teaching curriculum in `pdf_curriculum/`
-is review-ready and preserved as backlog. `neuroloc/spec/blueprint.md` is the
+(approach a), in cpu validation now. `neuroloc/spec/blueprint.md` is the
 neural-machine design target the architecture program builds toward. paid
 training resumes only with funding and a cpu-validated architectural
 intervention, explicitly authorised by deyan.
@@ -395,7 +371,7 @@ before you convince yourself you can skip a step.
 phases 0-3 are complete. phase 4 (multimodal) is skipped at this scale.
 
 these sequencing notes are preserved for when the architecture backlog resumes.
-they are NOT an authorization to run architecture work during the curriculum.
+they gate the paid phase-5/5a/5b and neural-machine run sequence, which remain backlog behind funding plus a cpu-validated intervention.
 
 phase 5 sequencing is mandatory only when the backlog is explicitly reactivated:
 1. phase 5 baseline: 300m params with current simple spikes (replicate phase 1)
@@ -476,7 +452,6 @@ scripts/         kaggle_exec.py (push runs), evaluate_gates.py, autoresearch_loo
 tests/           repo test suite and focused nm regression batteries
 state/           program_status.yaml is a subordinate structured status mirror
 docs/            STATUS_BOARD.md is a subordinate status-board mirror
-pdf_curriculum/  backlog teaching pdf curriculum
 knowledge/       published research and prior findings (read before acting)
 neuroloc/        biological grounding wiki + neural machine spec
   spec/blueprint.md           paused neural-machine backlog design target
@@ -754,8 +729,6 @@ minimum recovery path:
 task-specific reads after that:
 
 - read `neuroloc/wiki/OPERATING_DIRECTIVE.md` before wiki or state edits
-- read `~/.claude/plans/compressed-dancing-haven.md` only for detailed curriculum protocol or chapter-production work
-- read `pdf_curriculum/index/curriculum_status.md` only for lightweight chapter package paths
 - read `state/program_status.yaml` or `docs/STATUS_BOARD.md` only when checking structured run/status details
 - read `eara.yaml`, `program.md`, and `scripts/autoresearch_loop.md` only if the architecture loop is explicitly reactivated
 - read `knowledge/`, `neuroloc/wiki/knowledge/`, `neuroloc/wiki/synthesis/`, and `neuroloc/wiki/bridge/` files relevant to the current research question

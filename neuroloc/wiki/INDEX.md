@@ -94,7 +94,7 @@ reasoning documents. one is superseded, fifty-one are current.
   confidence intervals, and failure localization.
 - [[synthesis/neural_model_lane_project_operations]] — the lane for
   single-plan governance, private-until-proved policy, prosecutor
-  requirements, curriculum support, archive policy, and paper registry.
+  requirements, archive policy, and paper registry.
 - [[synthesis/neural_model_paper_spine]] — the current paper-spine layer:
   conditional thesis, proof obligations, section map, not-proved-yet list,
   and load-bearing links for the neural-model paper direction.
@@ -196,29 +196,6 @@ reasoning documents. one is superseded, fifty-one are current.
 - [[synthesis/sparsity_from_biology_to_ternary_spikes]] — firing-rate analyses
 - [[synthesis/timescale_separation]] — matrix memory / mamba / compressed-attention timescale split
 - [[synthesis/linear_attention_retrieval_wall]] — superseded. retained for evidence continuity.
-
-## teaching curriculum (2026-04-17, preserved package)
-
-**the teaching PDF curriculum remains preserved and reviewable** in the plan file at `~/.claude/plans/compressed-dancing-haven.md`, but it is backlog, not the active lane. the active lane is the neural-machine architecture program (approach a); the neural-model master-plan research and the compression results are its substrate. paid compute is gated on funding plus a cpu-validated intervention. the curriculum specifies 36 chapters across 6 phases at 20-25 pages per chapter in English LaTeX:
-
-- phase 1 (ch. 1-8): foundations of math — numbers, change, accumulation, vectors, matrices, multi-dimensional change, probability, information
-- phase 2 (ch. 9-14): foundations of biology — cells, electricity, action potentials, synapses, compartmental neurons, circuits
-- phase 3 (ch. 15-20): computation in the brain — what neurons compute, population coding, plasticity, cortex, hippocampus, consolidation
-- phase 4 (ch. 21-26): math for machine learning — loss, gradient descent, backpropagation, neural networks, recurrence, attention
-- phase 5 (ch. 27-32): advanced architectures and compression — associative memory, modern Hopfield, fast-weight memory, sparse/quantized coding, generative memory, the six-mechanism compression thesis
-- phase 6 (ch. 33-36): paper implementation — how to read a paper, modern Hopfield from Ramsauer 2020, Titans from the paper, the project's slot memory from scratch
-
-per-chapter production protocol: outline -> user approval -> parallel research agents (wiki + cited papers + classical textbooks + online resources + reference implementations + recent papers) -> prosecutor agents validate research -> latex draft -> prosecutor on draft -> user review -> revision -> finalized pdf -> next chapter. naming rule: published-technique names only when quoting external sources or naming external paper's architectures; the project's own components use the glossary terms (`matrix memory`, `compressed attention`, `slot memory`, `output gate`, `surprise ratio`). full detail in the plan file and in `PROJECT_PLAN.md` section "curriculum track".
-
-backlog note: when the architecture track resumes, it no longer starts
-from a blank "define the battery" state. the starting point is the
-cellular/local-state gap map, the first cellular mechanism dossier, then
-oracle compression bounds where relevant, then the approved neural-model
-research/test-material plan, the implemented symbolic `biology_phase1`
-battery summarized in
-`synthesis/phase1_evaluation_surface_for_neural_models.md`, and only after
-those gates any model-side parity harness or synthetic shared-world
-extension in `synthesis/synthetic_shared_world_bridge.md`.
 
 ## paid-run cards (tests/, historical context only)
 

@@ -307,8 +307,8 @@ both failure modes are the strongest current review findings from
 god_run_v2 and motivate the current run ordering.
 
 **historical run block**: the run ordering below is preserved as the
-pre-curriculum paid-run plan. it is not currently authorised while the
-curriculum is active.
+pre-curriculum paid-run plan. it is not currently authorised; paid compute is
+gated on funding plus a cpu-validated intervention.
 
 **run 1 (baseline dense)**: use `god_machine.py` with preset
 `run1_baseline_noerasure`: dense keys, dense values, and no delta

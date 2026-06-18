@@ -13,7 +13,6 @@ the current program state is:
 
 - the neural-machine architecture program (approach a) is the active lane, in cpu validation
 - paid compute is gated on funding plus a cpu-validated intervention
-- the teaching curriculum is backlog
 - phase 1 for the neural model is state-and-action-first
 - the architecture cpu surface starts from the implemented `biology_phase1` battery, then
   latent-world deliberation, then model-side neural-model evaluation

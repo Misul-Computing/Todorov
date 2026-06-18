@@ -5,8 +5,7 @@ project.
 
 the active project lane is the neural-machine architecture program (approach a),
 in cpu validation. neuroloc is its reference material, simulation infrastructure,
-and architecture-backlog memory; the teaching pdf curriculum in `pdf_curriculum/`
-is preserved as backlog.
+and architecture-backlog memory.
 
 canonical persistent project state lives in `neuroloc/wiki/PROJECT_PLAN.md`.
 
@@ -14,7 +13,6 @@ canonical persistent project state lives in `neuroloc/wiki/PROJECT_PLAN.md`.
 
 - the neural-machine architecture program (approach a) is the active lane, in cpu validation (the v0.1 toy and feel bench in `v01/`)
 - candidate F closed negative; candidate G (stochastic write gain) is the current live lead
-- the teaching curriculum is backlog: chapter 1 review-ready, chapter 2 outline-only in `pdf_curriculum/`
 - paid compute is gated on funding plus a cpu-validated intervention
 - the architecture cpu surface includes the implemented `biology_phase1` battery, latent-world deliberation, and model-side neural-model evaluation
 
@@ -45,7 +43,6 @@ neuroloc/
 2. `neuroloc/wiki/OPERATING_DIRECTIVE.md`
 3. `neuroloc/HANDOFF.md`
 4. `neuroloc/wiki/Home.md`
-5. `pdf_curriculum/index/curriculum_status.md`
 
 ## note on history
 

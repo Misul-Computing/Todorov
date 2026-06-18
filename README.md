@@ -43,9 +43,7 @@ paid compute returns with funding and a cpu-validated intervention.
 
 the six-lane neural-model research and the compression results (oracle bounds,
 the 100k local relation and knowledge-pack adapters) are the research substrate
-that feeds the machine, not a separate track. the teaching curriculum in
-`pdf_curriculum/` is preserved and reviewable but is backlog, not the active
-lane.
+that feeds the machine, not a separate track.
 
 canonical persistent project state lives in `neuroloc/wiki/PROJECT_PLAN.md`.
 
@@ -71,7 +69,6 @@ main entry points:
 - `v01/` the v0.1 toy codebase and the feel bench
 - `src/` todorov library code
 - `tests/` repo test suite
-- `pdf_curriculum/` preserved teaching curriculum (backlog)
 - `docs/` and `state/` human- and machine-readable project status
 
 ## funding
