@@ -10,7 +10,7 @@ instructions were pre-pivot and are no longer the active project framing.
 the active project lane is the neural-machine architecture program (approach a),
 in cpu validation -- not a paid architecture run. simulation work directly
 supports it (the cpu-first neural-model evaluation surface and the v0.1 / feel
-bench in `v01/`). the teaching curriculum is backlog.
+bench in `v01/`).
 
 if you are asked to work on simulations, the current goal is:
 
@@ -25,9 +25,8 @@ if you are asked to work on simulations, the current goal is:
 2. `neuroloc/wiki/OPERATING_DIRECTIVE.md`
 3. `docs/STATUS_BOARD.md`
 4. `state/program_status.yaml`
-5. `pdf_curriculum/index/curriculum_status.md`
-6. `neuroloc/simulations/suite_registry.py`
-7. `neuroloc/HANDOFF.md`
+5. `neuroloc/simulations/suite_registry.py`
+6. `neuroloc/HANDOFF.md`
 
 ## current simulation surface
 
@@ -53,6 +52,6 @@ the architecture cpu surface includes:
 ## execution rules
 
 - no paid compute work unless the user explicitly reactivates the backlog
-- no kaggle push planning by default during the curriculum cycle
+- no kaggle push planning by default; paid compute is gated on funding plus a cpu-validated intervention
 - use subagents for research and review when available
 - for wiki-linked simulation findings, update the wiki only under the operating directive

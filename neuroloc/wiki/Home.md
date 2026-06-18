@@ -1,12 +1,10 @@
 # eptesicus laboratories research wiki
 
-status: current (as of 2026-06-18, active lane reframed to the neural-machine architecture program; the teaching curriculum moved to backlog).
+status: current (as of 2026-06-18, active lane set to the neural-machine architecture program).
 
 ## active workstream: neural-machine architecture program
 
-the active lane is the neural-machine architecture program (approach a: attention does exact recall, a recurrent state does cheap world-tracking, eidetic compression deferred). it is in cpu validation now -- the v0.1 toy (`v01/`) and the feel bench, where a located, accumulated touch sense turns an otherwise unsolvable task solved (blind 0.14, real-touch 1.00, fake-touch 0.15 control). candidate F (affect-gated write) closed negative; its shuffled-surprise control is the live anomaly, promoted to candidate G (stochastic write gain). the six-lane neural-model research and the compression results are the research substrate that feeds the machine. the teaching PDF curriculum (`~/.claude/plans/compressed-dancing-haven.md`) is preserved and reviewable but is backlog; see `INDEX.md` section "teaching curriculum" for the chapter list. paid compute is gated on funding plus a cpu-validated intervention.
-
-![curriculum scale summary](assets/statistics/s2_curriculum_scale_summary.svg)
+the active lane is the neural-machine architecture program (approach a: attention does exact recall, a recurrent state does cheap world-tracking, eidetic compression deferred). it is in cpu validation now -- the v0.1 toy (`v01/`) and the feel bench, where a located, accumulated touch sense turns an otherwise unsolvable task solved (blind 0.14, real-touch 1.00, fake-touch 0.15 control). candidate F (affect-gated write) closed negative; its shuffled-surprise control is the live anomaly, promoted to candidate G (stochastic write gain). the six-lane neural-model research and the compression results are the research substrate that feeds the machine. paid compute is gated on funding plus a cpu-validated intervention.
 
 ## neuroloc -- biological neural computation
 
@@ -14,7 +12,7 @@ the neuroloc wiki maps brain computation mechanisms to todorov's CRBR framework.
 
 the architecture program is no longer described only as "pick the next paid run." the wiki records a broader cpu-first method: phase 1 is judged by state + action, not next-token prediction alone, and the implemented symbolic `biology_phase1` battery is part of the active cpu-validation surface.
 
-the 2026-04-23 research pass added a second layer on top of that backlog method: new literature shelves, new synthesis pages on replay, routing, world models, and multi-timescale computation, plus a first batch of recreated visuals that can be reused in both the wiki and the teaching curriculum.
+the 2026-04-23 research pass added a second layer on top of that backlog method: new literature shelves, new synthesis pages on replay, routing, world models, and multi-timescale computation, plus a first batch of recreated visuals that can be reused in the wiki.
 
 ![wiki catalog structure summary](assets/statistics/s5_wiki_catalog_structure.svg)
 

@@ -26,14 +26,12 @@ as of 2026-06-18:
   write gain) is the current live lead
 - the six-lane neural-model research and the compression-product line are the
   research substrate that feeds the machine
-- the teaching curriculum is preserved as backlog (chapter 1 review-ready,
-  chapter 2 outline-only)
 - paid compute is gated on funding plus a cpu-validated intervention
 
 neuroloc roles:
 
 - canonical architecture memory
-- research corpus for the machine and for curriculum chapters (backlog)
+- research corpus for the machine
 - simulation surface for cpu validation
 - repo-native llm wiki substrate
 
@@ -57,8 +55,7 @@ neuroloc roles:
 3. `docs/STATUS_BOARD.md`
 4. `state/program_status.yaml`
 5. `neuroloc/spec/blueprint.md`
-6. `pdf_curriculum/index/curriculum_status.md` (backlog)
-7. this file
+6. this file
 
 ## what is current in neuroloc
 
@@ -74,7 +71,7 @@ older neuroloc documents may still describe:
 - the pre-pivot paid-run plan
 - fineweb or next-token-first evaluation framing
 - obsolete wiki and simulation counts
-- the curriculum or the compression-research phase as the active lane
+- the compression-research phase as the active lane
 
 when you see a conflict, trust the canonical files at the top of this handoff.
 

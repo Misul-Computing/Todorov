@@ -8,7 +8,6 @@ and architecture-backlog memory for todorov.
 neuroloc currently serves four jobs:
 
 - it preserves the canonical architecture history and the retrieval-failure diagnosis
-- it holds the source corpus for the curriculum, preserved as backlog
 - it holds the cpu simulation surface for future backlog validation
 - it provides the wiki structure for llm-maintained project memory
 
@@ -28,8 +27,7 @@ is the live anomaly, promoted to candidate G (stochastic write gain).
 the six paid neural-machine runs ended with consecutive 0% passkey across two
 substrates and two corpora; that retrieval wall is the documented problem the
 architecture program exists to lift. the six-lane neural-model research and the
-compression results are the research substrate that feeds the machine. the
-teaching curriculum is preserved and reviewable but is backlog.
+compression results are the research substrate that feeds the machine.
 
 paid compute is gated on funding and a cpu-validated intervention; cpu work is
 the current mode.
@@ -85,7 +83,6 @@ that gap well enough to fix it later.
 1. `neuroloc/wiki/PROJECT_PLAN.md`
 2. `neuroloc/wiki/OPERATING_DIRECTIVE.md`
 3. `neuroloc/HANDOFF.md`
-4. `pdf_curriculum/index/curriculum_status.md`
 
 ## constraints
 
