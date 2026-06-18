@@ -36,4 +36,4 @@ The `neuroloc/` wiki is the project's working memory: 346 markdown articles (55 
 
 The science is CPU-validated and the next step is concrete. Funding buys two things: the compute to run the retrieval intervention at scale, and the first full training run of the grounded neural machine. The foundation is already in place: a controlled grounding result, a win over a matched transformer, a single composable architecture, and a precisely localized open problem with a live lead.
 
-Eptesicus Laboratories.
+## Misul Computing.
