@@ -1,6 +1,6 @@
 # neuroloc index
 
-status: current (as of 2026-05-08).
+status: current (as of 2026-06-18).
 
 update note: [[tests/compression_under_bit_budget_mirror]] now includes the first tiny distributed local learned model, a factor-heldout local falsification gate, a factorized structured local codec, and a 10k-scale local data-heavy robustness gate. [[tests/language_grounded_state_density_mirror]] now adds the first constrained generated-language message-response bridge, a negative parser-resistant learned token-count gate, a parser-supported event-binding baseline, and a typed trainable event-binding local-state pass. [[tests/local_v1_language_model]], [[tests/local_10k_chat_model]], and [[tests/local_foundation_neural_model]] are demoted scaffolds after [[mistakes/local_foundation_lookup_scaffold_category_error]]. they remain useful for local record-routing and compartment-boundary evidence, but they do not prove memory, replay, imagination, compression, chat, language competence, or neural-model v1. the immediate no-paid work is a real local v1 architecture contract before more implementation.
 
@@ -125,7 +125,7 @@ reasoning documents. one is superseded, fifty-one are current.
   executed as run3 and returned 0%, which triggered the next article
   above. supersedes `linear_attention_retrieval_wall`.
 - [[synthesis/phase1_evaluation_surface_for_neural_models]] — the
-  current cpu-first evaluation method for the backlog track. defines
+  current cpu-first evaluation method for the architecture track. defines
   phase 1 as state + action rather than next-token prediction and
   records the implemented `biology_phase1` symbolic battery now wired
   into `phase1_nm`.
@@ -199,7 +199,7 @@ reasoning documents. one is superseded, fifty-one are current.
 
 ## teaching curriculum (2026-04-17, preserved package)
 
-**the teaching PDF curriculum remains preserved and reviewable** in the plan file at `~/.claude/plans/compressed-dancing-haven.md`. after the 2026-04-26 master-plan decision, the current scientific planning lane is the neural-model master-plan research phase, not immediate curriculum production and not architecture execution. paid compute is paused indefinitely. the curriculum specifies 36 chapters across 6 phases at 20-25 pages per chapter in English LaTeX:
+**the teaching PDF curriculum remains preserved and reviewable** in the plan file at `~/.claude/plans/compressed-dancing-haven.md`, but it is backlog, not the active lane. the active lane is the neural-machine architecture program (approach a); the neural-model master-plan research and the compression results are its substrate. paid compute is gated on funding plus a cpu-validated intervention. the curriculum specifies 36 chapters across 6 phases at 20-25 pages per chapter in English LaTeX:
 
 - phase 1 (ch. 1-8): foundations of math — numbers, change, accumulation, vectors, matrices, multi-dimensional change, probability, information
 - phase 2 (ch. 9-14): foundations of biology — cells, electricity, action potentials, synapses, compartmental neurons, circuits

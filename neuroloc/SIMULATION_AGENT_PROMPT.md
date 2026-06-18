@@ -7,9 +7,10 @@ instructions were pre-pivot and are no longer the active project framing.
 
 ## current mission
 
-the active project lane is the teaching pdf curriculum, not a paid architecture
-run. simulation work is backlog support only unless the user explicitly asks
-for it.
+the active project lane is the neural-machine architecture program (approach a),
+in cpu validation -- not a paid architecture run. simulation work directly
+supports it (the cpu-first neural-model evaluation surface and the v0.1 / feel
+bench in `v01/`). the teaching curriculum is backlog.
 
 if you are asked to work on simulations, the current goal is:
 
@@ -30,12 +31,12 @@ if you are asked to work on simulations, the current goal is:
 
 ## current simulation surface
 
-- `45` simulation scripts total
-- `17` memory simulation scripts
+- `94` simulation scripts total
+- `66` memory simulation scripts
 - dedicated `biology_phase1` suite
 - broader `phase1_nm` suite
 
-the backlog restart point is:
+the architecture cpu surface includes:
 
 - implemented `biology_phase1`
 - remaining latent-world deliberation probe

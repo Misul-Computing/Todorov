@@ -1,6 +1,6 @@
 # bridge: memory compression to tiered architecture
 
-status: current (as of 2026-04-23).
+status: current (as of 2026-06-18).
 
 this page is the architecture-translation layer for the compression cluster. it assumes the six-mechanism thesis argued in `synthesis/compression_beyond_quantization.md` and turns that thesis into one explicit five-tier candidate design. the literature shelf remains `knowledge/generative_memory_research.md`.
 
@@ -338,7 +338,7 @@ the estimated total implementation effort is approximately 3-6 months of focused
 
 ## recommendation
 
-do not treat this bridge as the next immediate implementation item. as of 2026-04-23 the active workstream is the teaching curriculum, and the architecture backlog is paused. when that backlog resumes, this page should be read as a phase-6+ architecture sketch rather than a launch recipe.
+do not treat this bridge as the next immediate implementation item. the active lane is the neural-machine architecture program (approach a), and the teaching curriculum is backlog. this page should be read as a phase-6+ architecture sketch rather than a launch recipe, to be picked up once the program reaches its compression tier.
 
 1. first, resume from the implemented phase-1 battery and the remaining model-side neural-model evaluation gaps.
 2. second, validate smaller compression components cpu-first. the correction-field result already showed that residual values do not raise matrix-memory capacity on their own, so a full tiered build should not be the first thing retried.
