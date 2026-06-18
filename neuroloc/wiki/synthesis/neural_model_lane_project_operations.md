@@ -1,12 +1,12 @@
 # neural model lane: project infrastructure, curriculum, and paper operations
 
-status: current (as of 2026-04-26).
+status: current (as of 2026-06-18).
 
 ## thesis
 
 the project needs one canonical plan, gated side-paper handling, private-until-proved policy, prosecutor-clean documentation, and explicit archive discipline. `PROJECT_PLAN.md` is the single session-start plan. subordinate state files summarize or specialize it; they do not compete with it.
 
-the curriculum is preserved as a support lane. old architecture execution is historical evidence, not the active identity.
+the curriculum is preserved as backlog. the neural-machine architecture program (approach a) is the active identity; the prior paid runs are the historical evidence that shaped its division of labour.
 
 ## ranked unknowns
 

@@ -1,6 +1,6 @@
 # substrate requires architectural change: six paid runs, zero retrieval, one discriminating corpus
 
-status: current (as of 2026-06-10).
+status: current (as of 2026-06-18).
 
 ## the observation
 
@@ -229,8 +229,10 @@ evidence: `wiki/tests/affect_gated_write_cpu_experiment.md` (results section) an
 
 ## paid-run status under the current master-plan phase
 
-no paid run is authorised from this article. A-E are paused backlog
-candidates, not the current work queue. another paid run on the current
+no paid run is authorised from this article. the architecture program is
+the active lane (cpu) and candidate G (stochastic write gain) is the current
+live lead, while A-E remain candidate interventions pending cpu pre-registration.
+another paid run on the current
 slot substrate with only hyperparameter changes remains predicted to
 be scientifically weak because it would not answer the paper-spine
 question: what operation-preserving compression bounds exist before

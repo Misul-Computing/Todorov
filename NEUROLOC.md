@@ -8,7 +8,7 @@ and architecture-backlog memory for todorov.
 neuroloc currently serves four jobs:
 
 - it preserves the canonical architecture history and the retrieval-failure diagnosis
-- it acts as the source corpus for curriculum research and drafting
+- it holds the source corpus for the curriculum, preserved as backlog
 - it holds the cpu simulation surface for future backlog validation
 - it provides the wiki structure for llm-maintained project memory
 
@@ -17,26 +17,33 @@ the canonical persistent project state is
 
 ## current state
 
-the last paid neural-machine branch ended with six consecutive 0% passkey
-results across two substrates and two corpora. that branch is paused.
-the current backlog restart point is:
+the active lane is the neural-machine architecture program (approach a:
+attention does recall, recurrent state does cheap world-tracking, eidetic
+compression deferred). it is in cpu validation now: the v0.1 toy (`v01/`) and
+the feel bench, where a located, accumulated touch sense turns an otherwise
+unsolvable task solved (blind 0.14, real-touch 1.00, fake-touch 0.15 control).
+candidate F (affect-gated write) closed negative; its shuffled-surprise control
+is the live anomaly, promoted to candidate G (stochastic write gain).
 
-- the implemented `biology_phase1` simulation battery
-- the remaining latent-world deliberation probe
-- the model-side neural-model evaluation surface
+the six paid neural-machine runs ended with consecutive 0% passkey across two
+substrates and two corpora; that retrieval wall is the documented problem the
+architecture program exists to lift. the six-lane neural-model research and the
+compression results are the research substrate that feeds the machine. the
+teaching curriculum is preserved and reviewable but is backlog.
 
-no paid compute is authorised while the curriculum is active.
+paid compute is gated on funding and a cpu-validated intervention; cpu work is
+the current mode.
 
 ## current neuroloc surface
 
-- `216` wiki markdown files
+- `346` wiki markdown files
 - `61` mechanism articles
-- `19` bridge documents
-- `13` comparison articles
-- `13` synthesis articles
-- `22` wiki test records
-- `45` simulation scripts
-- `17` memory simulation scripts
+- `28` bridge documents
+- `15` comparison articles
+- `55` synthesis articles
+- `70` wiki test records
+- `94` simulation scripts
+- `66` memory simulation scripts
 
 main entry points:
 

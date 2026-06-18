@@ -3,19 +3,20 @@
 this directory is the research memory and simulation substrate for the todorov
 project.
 
-the active project lane is not a neuroloc experiment run. it is the teaching
-pdf curriculum in `pdf_curriculum/`. neuroloc remains active as reference
-material, simulation infrastructure, and backlog state.
+the active project lane is the neural-machine architecture program (approach a),
+in cpu validation. neuroloc is its reference material, simulation infrastructure,
+and architecture-backlog memory; the teaching pdf curriculum in `pdf_curriculum/`
+is preserved as backlog.
 
 canonical persistent project state lives in `neuroloc/wiki/PROJECT_PLAN.md`.
 
 ## current status
 
-- curriculum is the only active lane
-- chapter 1 is review-ready in `pdf_curriculum/chapters/ch_01_what_a_number_means/`
-- chapter 2 is outline-only in `pdf_curriculum/chapters/ch_02_how_things_change/`
-- no paid compute is authorised during this curriculum cycle
-- the architecture backlog resumes later from the implemented `biology_phase1` battery plus the remaining latent-world deliberation and model-side evaluation gaps
+- the neural-machine architecture program (approach a) is the active lane, in cpu validation (the v0.1 toy and feel bench in `v01/`)
+- candidate F closed negative; candidate G (stochastic write gain) is the current live lead
+- the teaching curriculum is backlog: chapter 1 review-ready, chapter 2 outline-only in `pdf_curriculum/`
+- paid compute is gated on funding plus a cpu-validated intervention
+- the architecture cpu surface includes the implemented `biology_phase1` battery, latent-world deliberation, and model-side neural-model evaluation
 
 ## structure
 
@@ -33,10 +34,10 @@ neuroloc/
 
 ## current counts
 
-- `216` wiki markdown files
-- `13` synthesis articles
-- `45` simulation scripts
-- `17` memory simulation scripts
+- `346` wiki markdown files
+- `55` synthesis articles
+- `94` simulation scripts
+- `66` memory simulation scripts
 
 ## entry points
 

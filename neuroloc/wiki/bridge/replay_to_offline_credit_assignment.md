@@ -1,6 +1,6 @@
 # bridge: replay to offline credit assignment
 
-status: current (as of 2026-04-23).
+status: current (as of 2026-06-18).
 
 ## translation
 
@@ -15,7 +15,7 @@ that is closer to offline credit assignment and consolidation than to a passive 
 
 - replay should be treated as a design axis in future memory theories
 - evaluation should include reuse or replay benefit, not only raw recall
-- offline or delayed refinement belongs in the backlog theory even while paid compute is paused
+- offline or delayed refinement belongs in the backlog theory even while paid compute is gated on funding plus a cpu-validated intervention
 
 ## see also
 

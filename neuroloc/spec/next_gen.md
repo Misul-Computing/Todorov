@@ -12,11 +12,11 @@ it is no longer the live next-step document.
 
 the current reality is:
 
-- curriculum chapter production is the only active lane
-- paid compute is paused indefinitely
-- the architecture backlog resumes only after curriculum completion
-- the restart point is `biology_phase1` -> latent-world deliberation ->
-  model-side neural-model evaluation
+- the neural-machine architecture program (approach a) is the active lane, in cpu validation
+- paid compute is gated on funding plus a cpu-validated intervention
+- the teaching curriculum is backlog
+- the architecture cpu surface: the v0.1 toy and feel bench in `v01/`,
+  `biology_phase1` -> latent-world deliberation -> model-side neural-model evaluation
 
 ## use instead
 

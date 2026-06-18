@@ -1,18 +1,18 @@
 # eptesicus laboratories research wiki
 
-status: current (as of 2026-04-23, curriculum pivot retained, the research-swarm synthesis and first visual program added, and the naming/history cleanup applied).
+status: current (as of 2026-06-18, active lane reframed to the neural-machine architecture program; the teaching curriculum moved to backlog).
 
-## active workstream: teaching curriculum
+## active workstream: neural-machine architecture program
 
-as of 2026-04-22 the project's active workstream is the teaching PDF curriculum specified at `~/.claude/plans/compressed-dancing-haven.md`. paid compute remains paused indefinitely. 36 chapters across 6 phases (math fundamentals, biology fundamentals, brain computation, ML math, advanced architectures and compression, paper implementation) at 20-25 pages per chapter. see `INDEX.md` section "teaching curriculum" and `PROJECT_PLAN.md` section "curriculum track" for the chapter list and production protocol.
+the active lane is the neural-machine architecture program (approach a: attention does exact recall, a recurrent state does cheap world-tracking, eidetic compression deferred). it is in cpu validation now -- the v0.1 toy (`v01/`) and the feel bench, where a located, accumulated touch sense turns an otherwise unsolvable task solved (blind 0.14, real-touch 1.00, fake-touch 0.15 control). candidate F (affect-gated write) closed negative; its shuffled-surprise control is the live anomaly, promoted to candidate G (stochastic write gain). the six-lane neural-model research and the compression results are the research substrate that feeds the machine. the teaching PDF curriculum (`~/.claude/plans/compressed-dancing-haven.md`) is preserved and reviewable but is backlog; see `INDEX.md` section "teaching curriculum" for the chapter list. paid compute is gated on funding plus a cpu-validated intervention.
 
 ![curriculum scale summary](assets/statistics/s2_curriculum_scale_summary.svg)
 
 ## neuroloc -- biological neural computation
 
-the neuroloc wiki maps brain computation mechanisms to todorov's CRBR framework. 61 mechanism articles, 28 bridge documents (25 current + 3 legacy-title redirects), 24 synthesis articles, 15 comparisons (14 current + 1 legacy-title redirect), 33 entity notes, 20 test records, 1 supporting prototype note, 1 historical series landing page, 2 mistake docs, 49 knowledge articles, and 7 concept articles.
+the neuroloc wiki maps brain computation mechanisms to todorov's CRBR framework. 61 mechanism articles, 28 bridge documents, 55 synthesis articles, 15 comparison articles, 33 entity notes, 70 test records, 22 mistake docs, 49 knowledge articles, and 7 concept articles.
 
-the architecture backlog is no longer described only as "pick the next paid run." the wiki now records a broader cpu-first method: phase 1 is judged by state + action, not next-token prediction alone, and the implemented symbolic `biology_phase1` battery is the starting point when the architecture track resumes after the curriculum.
+the architecture program is no longer described only as "pick the next paid run." the wiki records a broader cpu-first method: phase 1 is judged by state + action, not next-token prediction alone, and the implemented symbolic `biology_phase1` battery is part of the active cpu-validation surface.
 
 the 2026-04-23 research pass added a second layer on top of that backlog method: new literature shelves, new synthesis pages on replay, routing, world models, and multi-timescale computation, plus a first batch of recreated visuals that can be reused in both the wiki and the teaching curriculum.
 
@@ -68,7 +68,7 @@ role split:
 - [[phase1_evaluation_surface_for_neural_models|phase 1 battery]] -- recognition, recollection, interference resistance, delayed use, episodic reuse, and later iterative reasoning, with state/action/joint-success metrics
 - [[synthetic_shared_world_bridge|phase 2 bridge]] -- extend the same latent-world tests into symbolic + image + toy-audio views of one exact hidden state
 - [[state_action_memory_architecture_direction|state-action memory direction]] -- the current architecture-level translation of the new research cluster
-- [[substrate_requires_architectural_change|architectural interventions]] -- the ranked A-E candidate list that remains in the backlog while the curriculum is active
+- [[substrate_requires_architectural_change|architectural interventions]] -- the ranked A-E candidate list; candidate G (stochastic write gain) is the current live lead
 
 ### new research shelves and visual narratives
 - [[systems_neuroscience_research|systems neuroscience research]]

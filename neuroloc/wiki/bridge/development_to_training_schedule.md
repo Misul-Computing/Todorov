@@ -1,8 +1,8 @@
 # bridge: development to model training schedule
 
-status: current (as of 2026-04-22).
+status: current (as of 2026-06-18).
 
-this article is about model-training sequencing and staged optimization in the architecture track. it is not about the teaching PDF curriculum that became the project's active workstream on 2026-04-17.
+this article is about model-training sequencing and staged optimization in the architecture track, which is the project's active lane (the neural-machine architecture program, approach a). it is not about the teaching PDF curriculum, which is preserved as backlog.
 
 ## the biological mechanism
 

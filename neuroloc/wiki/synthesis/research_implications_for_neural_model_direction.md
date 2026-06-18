@@ -1,6 +1,6 @@
 # research implications for neural model direction
 
-status: current (as of 2026-04-26).
+status: current (as of 2026-06-18).
 
 ## headline
 
@@ -40,7 +40,7 @@ this research pass does not reactivate experiments. it does sharpen the backlog.
 
 ## effect on canonical project state
 
-the master-plan research phase is now the active scientific surface. the curriculum remains preserved as a support lane. the architecture backlog becomes clearer, not more urgent. no result here authorizes paid compute. what changes is the theory base the backlog will restart from later.
+the neural-machine architecture program (approach a) is now the active lane, with the master-plan research serving as its substrate. the curriculum remains preserved as backlog. no result here authorizes paid compute. what changes is the theory base the program draws on.
 
 ## see also
 

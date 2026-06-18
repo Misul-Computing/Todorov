@@ -1,6 +1,6 @@
 # start here
 
-status: definitional. last fact-checked 2026-04-23.
+status: definitional. last fact-checked 2026-06-18.
 
 ## what is neuroloc
 
@@ -66,7 +66,7 @@ the newer 2026-04-23 research pass adds a second lesson on top of that adversari
 - branch-local or compartment-local computation
 - latent state-action models as the strongest external-ai comparison frame
 
-that cluster is now recorded in the new synthesis and bridge pages, and it is the right place to look when the architecture backlog resumes after the curriculum.
+that cluster is now recorded in the new synthesis and bridge pages, and it is the right place to look for the active architecture program (approach a).
 
 ## see also
 
