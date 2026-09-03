@@ -28,13 +28,13 @@ def run_arm(touch, noise, args):
     cfg = ModelConfig(vocab_size=vocab, d_model=args.d_model, n_layers=args.layers,
                       n_heads=4, mem_mode=args.mode, mem_heads=4, mem_head_dim=args.head_dim,
                       mem_hidden=args.head_dim, forget_bias=-6.0, affect=0.0)
-    model = SequenceModel(cfg)
+    model = SequenceModel(cfg).to("mps")
     mk = make_fn(touch, noise, args)
     opt = torch.optim.AdamW(model.parameters(), lr=args.lr, betas=(0.9, 0.95), weight_decay=0.01)
     model.train()
     last_loss = float("nan")
     for step in range(1, args.steps + 1):
-        inp, tgt, mask = mk(args.batch, "cpu")
+        inp, tgt, mask = mk(args.batch, "mps")
         opt.zero_grad(set_to_none=True)
         _, loss = model(inp, tgt, mask)
         loss.backward()
@@ -42,10 +42,10 @@ def run_arm(touch, noise, args):
         opt.step()
         last_loss = float(loss.item())
         if args.eval_every > 0 and step % args.eval_every == 0:
-            ie = evals.eval_task(model, mk, 64, args.batch, "cpu")
+            ie = evals.eval_task(model, mk, 64, args.batch, "mps")
             print(f"  touch={touch} noise={noise} step {step} loss {last_loss:.3f} acc {ie['token_acc']:.3f}", flush=True)
-    ev = evals.eval_task(model, mk, args.eval_trials, args.batch, "cpu")
-    leak = sanity.causal_no_future_leak(model, vocab, 4, args.probe_len, "cpu")
+    ev = evals.eval_task(model, mk, args.eval_trials, args.batch, "mps")
+    leak = sanity.causal_no_future_leak(model, vocab, 4, args.probe_len, "mps")
     return ev, last_loss, leak
 
 

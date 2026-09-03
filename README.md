@@ -1,50 +1,76 @@
 # Todorov
 
-Todorov is building a neural machine that learns the way a mind does: grounding language in sensory experience and memory rather than in text alone. It is a 3D latent world-memory model that fuses a language model with a sensory world-model, so that words, perceptions, and remembered structure are learned in one system instead of three.
+Todorov is a research program for one neural machine that learns language,
+world state, and action in a shared latent process. The current architecture
+separates three jobs that earlier versions blurred together:
 
-The whole architecture is a single idea, expressed once. Every layer is an instance of the Compressed Rotational Bilinear Recurrence (CRBR):
+- Routed selected-set attention is the candidate for exact nonlocal recall.
+- Recurrent state handles cheap within-sequence world tracking.
+- Token-local feature mixing transforms each position without owning recall or
+  state.
 
-`z_t = Q(R(B(C(x_t), C(h_{t-1}))))`
+The smallest current composition uses Transformerov as the tested host and
+recurrent path, Monodratic as the routed recall candidate, and a published
+nested-reciprocal feature mixer as an optional feed-forward candidate. Karkasov
+contributes only a later training protocol for separately released specialists
+and zero-gate docking. Laplace is outside the architecture.
 
-A compression, a bilinear interaction, a rotation, and an output map, composed in that order. Attention, recurrent state, and gated memory are not separate subsystems bolted together. They are the same operator under different settings: one object, many behaviors. That economy is what keeps the machine analyzable and lets it scale without turning into a patchwork.
+These are evidence-bounded roles, not a merged implementation. A later local
+session defined a Todorov-owned complementary-learning-systems trainer for the
+Apple M5 Pro. Its fast private state, frozen-trunk specialist, byte-level
+FineWeb-Edu stream, and local evidence are recorded in
+`neuroloc/wiki/tests/todorov_cls_macbook_session_202608.md`. The trainer and
+its generated artifacts remain local and are not part of this public source
+push. No paid compute or broad model claim is authorized by that session.
 
-## Why it is promising
+## Evidence boundary
 
-Sensory grounding measurably changes what the model can learn, and the effect is controlled. Give the model a sense it can locate and accumulate (touch), and a task it cannot otherwise solve becomes solvable: recall rises from 0.14 with no sense to 1.00 with a real one. A fake, randomized sense leaves performance at 0.15, so the gain comes from felt content, not from extra signal or a leak. The same sense also drives integration across a whole trajectory, not just point lookup. The demonstration is small and on CPU, but it is clean, and it is the kind of result the larger machine is built to scale.
+Transformerov has bounded recurrent counting and symbolic sensor-channel
+necessity results.
+Monodratic has component tests, associative-recall results, and a small host
+integration proof. Neither result establishes the combined model. Karkasov's
+phase is incomplete and its current replacement comparison is negative. The
+nested-reciprocal feature mixer comes from published work and has no local
+Todorov result.
 
-The architecture already beats a strong baseline. At 267M parameters it reaches 0.663x bits-per-byte against a matched transformer, a 33.7% improvement, with healthy internal signal (spike mutual information 1.168, representational similarity 0.732). At matched scale, the biological constraints help.
+The first combined proof must require successful routed recall and recurrent
+tracking in one matched CPU package. Disabling either module must break only
+its assigned job, and dense attention must remain an explicit control rather
+than a hidden fallback. Feature-mixer and specialist-training experiments come
+later and change one variable at a time.
 
-The remaining hard problem is sharply localized rather than open-ended. Long-range verbatim retrieval through the recurrent memory is the frontier: the memory models language well but does not yet teach itself to recall under gradient descent. That question now has a CPU-validated lead, candidate G, a stochastic write-gain mechanism that produced the first above-chance trained retrieval on this substrate. The next experiment is defined, inexpensive, and falsifiable.
-
-## How it is built
-
-The design, called Approach A, follows the evidence. Attention does exact recall, the capability that has held up across the whole project. A recurrent state does cheap, continuous world-tracking. Heavy eidetic compression is deferred until the simpler parts are solid. Everything is validated on CPU first, on the v0.1 toy and the feel bench above, so each claim is controlled before any compute is bought. A six-lane research program (cellular state, compression, memory and replay, 3D world physics, trainability, and operations) and a stack of compression results supply the machine with grounded design choices rather than guesses.
-
-Canonical project state lives in `neuroloc/wiki/PROJECT_PLAN.md`.
+The canonical state is `neuroloc/wiki/PROJECT_PLAN.md`. The architecture
+contract is `neuroloc/wiki/synthesis/modular_neural_model_stack.md`, and the
+feature-mixer proof package is
+`neuroloc/wiki/synthesis/neural_model_dossier_nested_reciprocal_feature_mixer.md`.
 
 ## Repository
 
-- `neuroloc/`: research wiki, simulation corpus, specifications, and the neural-machine design surface
-- `v01/`: the v0.1 toy codebase and the feel bench
-- `src/`: Todorov library code
-- `quant/`: data-free weight quantization research for transformer LLMs
-- `tests/`: test suite
-- `docs/` and `state/`: human- and machine-readable project status
+- `neuroloc/` contains the research wiki, proof packages, simulations, and
+  historical evidence.
+- `v01/` contains the local architecture toy and feel-bench work.
+- `src/` contains the legacy library source.
+- `tests/` contains repository tests.
+- `docs/` and `state/` mirror the canonical project status.
+- `quant/` is a separate weight-quantization research workstream.
 
-The `neuroloc/` wiki is the project's working memory: 346 markdown articles (55 synthesis, 61 mechanism), 94 simulation scripts, and a full trail of run cards. Every claim above traces to a recorded experiment. Start at `neuroloc/wiki/Home.md` and `neuroloc/wiki/PROJECT_PLAN.md`.
+Start with `neuroloc/wiki/PROJECT_PLAN.md`, then
+`neuroloc/wiki/OPERATING_DIRECTIVE.md`, then `neuroloc/HANDOFF.md`.
 
-## Weight quantization workstream
+## Historical architecture
 
-`quant/` is a separate research thread on data-free post-training weight quantization for transformer language models. It runs independently of the neural-machine program and is validated on Qwen2.5 and Qwen3 models on CPU, Kaggle T4, and a rented RTX PRO 6000.
+Older documents describe the compressed rotational bilinear recurrence and a
+compression-first local path as the active design. Those records explain prior
+experiments but do not override the current modular contract.
 
-The positive results: E8 lattice vector quantization (8D, two-stage RVQ) reaches 2.1% degradation at 4.125 bpw on Qwen3-4B, below a 5% target, and a per-tensor bit-width picker beats uniform quantization at equal average budget on both perplexity and reasoning. Block-wise fine-tuning of LayerNorm and bias parameters recovers a real but modest share of the residual gap on top of E8.
+## Local trainer boundary
 
-The negative result is documented and explained: sub-1-bit post-training quantization (1.5B at 0.1 BPW matching a 1B FP16 model) fails by several orders of magnitude, and the bit-budget math shows why. The information deficit is structural; recovering it requires quantization-aware training, not a better PTQ scheme. Cross-layer redundancy probes confirm the weights carry no exploitable redundancy at the scale a 100x compression target would need.
+The August 2026 CLS trainer session used local MLX Metal on an Apple M5 Pro.
+The working `train/` directory contains copied trainer code, generated
+checkpoints, datasets, and result files. It is intentionally excluded from
+the public repository commit because it contains local scratch material and
+large generated artifacts. The public evidence summary does not replace a
+reproducible trainer release.
 
-The full timeline, results tables, and file inventory are in `quant/docs/STATUS.md`, `quant/docs/CHANGELOG.md`, and `quant/docs/BIT_BUDGET_ANALYSIS.md`. The package lives in `quant/quant/`, with reproduction and attack scripts at the `quant/` root and unit tests in `quant/tests/`.
-
-## Funding
-
-The science is CPU-validated and the next step is concrete. Funding buys two things: the compute to run the retrieval intervention at scale, and the first full training run of the grounded neural machine. The foundation is already in place: a controlled grounding result, a win over a matched transformer, a single composable architecture, and a precisely localized open problem with a live lead.
-
-## Misul Computing.
+Paid compute remains separately gated by CPU evidence, review, cost, expected
+value, and explicit authorization.

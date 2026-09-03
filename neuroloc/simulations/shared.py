@@ -170,9 +170,9 @@ def utc_now_iso() -> str:
 def find_project_root(path: Path) -> Path:
     resolved = path.resolve()
     for candidate in [resolved] + list(resolved.parents):
-        if (candidate / "CLAUDE.md").exists() and (candidate / "requirements.txt").exists():
+        if ((candidate / "AGENTS.md").is_file() or (candidate / "CLAUDE.md").is_file()) and (candidate / "requirements.txt").is_file():
             return candidate
-    return resolved.parent
+    return resolved if resolved.is_dir() else resolved.parent
 
 
 def relative_to_root(path: Path, root: Path) -> str:

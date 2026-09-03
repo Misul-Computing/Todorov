@@ -1,0 +1,1 @@
+{"evidence_paths":["run/source_manifest.json"],"inputs":{"expected":true},"name":"packed_index_parity","outputs":{"actual":true,"max_error":null,"pass":true,"tolerance":null},"run_id":"mlx-m5pro-20260726-2","schema_version":"todorov.cpu-witness.1","scope":"pinned_source_adapter"}

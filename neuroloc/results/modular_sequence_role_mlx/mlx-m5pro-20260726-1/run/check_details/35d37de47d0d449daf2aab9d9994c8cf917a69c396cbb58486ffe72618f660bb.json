@@ -1,0 +1,1 @@
+{"evidence_paths":["run/source_manifest.json"],"inputs":{"expected":1.4e-06},"name":"transformerov_numerical_selfcheck","outputs":{"actual":1.3113021850585938e-06,"max_error":1.3113021850585938e-06,"pass":true,"tolerance":1.4e-06},"run_id":"mlx-m5pro-20260726-1","schema_version":"todorov.cpu-witness.1","scope":"chunk_64"}

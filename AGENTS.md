@@ -102,13 +102,102 @@ labelled separately. violating this workflow is a blocking scientific error:
 progress cannot be claimed until the workflow failure is corrected and
 documented.
 
-# active lane: neural-machine architecture program (2026-06-18)
+# Preserved modular neural-machine lane (2026-07-14)
 
-**the active scientific object is the neural model: one neural machine, a 3d latent world-memory model (approach a: attention does exact recall, a recurrent state does cheap world-tracking, eidetic compression deferred).** it is in cpu validation now (the v0.1 toy in `v01/` and the feel bench). the dossier discipline still holds: every proposed local-neuron, memory, addressing, interference, compression, reconstruction, replay, rollout, and trainability mechanism must have a concise mechanism dossier (`neuroloc/wiki/synthesis/neural_model_research_test_material_plan.md`) before any new model code or intervention preset, but the lane is now active local implementation, not preparation-only. the six-lane neural-model research and the compression-product line are the research substrate that feeds the machine.
+**The July modular architecture remains preserved evidence: one neural machine, a 3D latent world-memory model.** Its contract assigns routed selected-set attention as the candidate for exact recall, recurrent world tracking, and token-local feature mixing to separate modules with separate proof boundaries. No current experiment is authorized. The current deliverable is publication of the documented local CLS session. The dossier discipline still holds for any explicitly resumed work: every proposed local-neuron, memory, addressing, interference, compression, reconstruction, replay, rollout, feature-mixing, and trainability mechanism must have a concise mechanism dossier before model code or an intervention preset.
 
-cpu architecture and simulation work is the active lane; paid compute, h200, kaggle, and pod work remain gated on funding plus a cpu-validated intervention and explicit deyan authorization.
+Preserved stop boundary, 2026-07-26: Deyan stopped the session before attempt 4.
+No attempt-4 run root or claim training exists. A final clean-claim order
+contract synchronization was interrupted after changing the machine-readable
+payload and before synchronizing its digest constants. The stopped payload
+hashes to `8c7825f69fd27a7f3653c2e3bfab8673f3bb13d9f543fecd4a6aa9b97a4868ab`;
+launch constants still bind
+`fc3c7130a7ed21043e7081b09eb9265711417a22e84eb5356e6a2402e75a2553`.
+The stopped bytes are unverified, four active attestations are stale, and no
+launch is permitted. Recover from
+`docs/MLX_SESSION_STOP_HANDOFF_2026-07-26.md`.
 
-the first hard symbolic test-material package is implemented as the `hard_symbolic_nm` suite. it covers belief-state formation, associative recall, correlated-key interference, delayed use, episodic reuse, context-gated routing, compression under bit budget, replay/rewrite, iterative rollout, and imagination/recombination. the current next action is governed only by `neuroloc/wiki/PROJECT_PLAN.md`; as of 2026-05-09, deyan has explicitly reactivated local code and simulation work and raised the active local target to 100k parameters for coherence. the architecture program (approach a) is the active path, with compression-first local implementation toward a 100k-parameter model as its substrate, wiki-grounded with controls, telemetry, and documentation before any stronger claim.
+The theory, outline, and documentation milestone is delivered and closed.
+The nine-file compiled-MLX scaffold and harness were implemented, and the last
+settled attempt-3 verification reported `834 passed, 2 skipped` in `214.05`
+seconds. A later pre-interruption modular surface reported `844 passed, 2
+skipped` in `220.75` seconds before the stopped payload edit. Neither result
+certifies the stopped bytes. Governed
+attempt `mlx-m5pro-20260726-1` aborted before pilot update one. Governed
+attempt `mlx-m5pro-20260726-2` reached durable attempted counters of `132`
+pilot updates and `292,864` positions, then aborted without publishing
+`run/pilot.json`. Governed attempt `mlx-m5pro-20260726-3` passed the current
+preflight and its child executed all `132` pilot updates, but a stale in-flight
+resource row recorded zeroed exited-child telemetry, terminal sampling failed,
+and abort finalization published neither `run/pilot.json` nor `ABORTED.json`.
+No attempt establishes a contract-valid completed pilot or any claim training.
+The terminal-sampler and abort-timeline classes were repaired with deterministic
+regressions. If Deyan explicitly resumes the July MLX lane, the ordered gates
+are literal-zero complete-surface review, four fresh attestations, the full
+pretraining assertions, and only then a new governed pilot. Local claim
+training may begin only if every gate passes and the complete-package
+projection is at most `1,200` seconds. Paid compute, H200, Kaggle, and pod work
+remain unauthorized.
+
+The first hard symbolic test-material package is implemented as the `hard_symbolic_nm` suite. It covers belief-state formation, associative recall, correlated-key interference, delayed use, episodic reuse, context-gated routing, compression under bit budget, replay/rewrite, iterative rollout, and imagination/recombination. The prior compression-first 100k path and Candidate G retrieval work remain evidence and backlog. Only `neuroloc/wiki/PROJECT_PLAN.md` defines direction when Deyan explicitly resumes an experiment.
+
+# Latest local CLS session (2026-08-13)
+
+The latest recorded local session defined a Todorov-owned
+complementary-learning-systems trainer on an Apple M5 Pro using MLX Metal and
+byte-level FineWeb-Edu. It uses a private gated-delta fast path and a
+frozen-trunk specialist behind a zero-initialized scalar gate. The local
+session record is `neuroloc/wiki/tests/todorov_cls_macbook_session_202608.md`.
+
+The session produced small fit, language, role, routing, and specialist
+snapshots, but did not establish a general CLS, memory, imagination, chat, or
+1B-parity claim. It did not resume July MLX attempt 4 or authorize paid
+compute. The local `train/` directory contains scratch trainer code, data,
+checkpoints, and results and is excluded from the public repository push.
+
+# Modular continuation rules (2026-07-14)
+
+Todorov owns the model identity and proof standard. Transformerov is the latest
+tested host and recurrent world-state evidence. Monodratic supplies the routed
+selected-set attention candidate that replaces an attention mixer and must
+still prove exact recall after routing. The nested-reciprocal feature mixer from
+the published CoFrGeNet feed-forward component is an unvalidated Monodratic
+addition. Karkasov supplies only a candidate protocol for separate specialist
+training and zero-gate docking. Laplace is outside the architecture.
+
+Do not merge these repositories wholesale and do not inherit a claim across a
+module boundary. Transformerov's recurrent results do not validate Monodratic
+routing. Monodratic's component and wiring proofs do not validate a combined
+trained model. Karkasov's current replacement result is negative. The
+published feature mixer is known prior art and has no local validation.
+
+The target Transformerov and Monodratic seam uses a
+`[batch, time, width] -> delta` contract. The host owns normalization and
+residual addition. The routed and feature mixers have no persistent state. The
+tested recurrent mixer updates state within the supplied sequence and returns
+a delta; it has no established external carry-state interface. Disabling one
+module must never activate another. Dense attention is a named control, not a
+hidden fallback.
+
+The first combined CPU gate must require successful routed exact recall and
+recurrent world tracking in the same matched task package. Each role needs a
+causal knockout, matched random and local controls, telemetry, confidence
+intervals, and at least three seeds for a training claim. Feature-mixer work
+begins only from the dossier at
+`neuroloc/wiki/synthesis/neural_model_dossier_nested_reciprocal_feature_mixer.md`
+and changes no attention, routing, cache, or recurrent-state code.
+
+If separate specialist training is tested, freeze a versioned anchor, publish
+immutable specialist hashes, dock through identity-initialized bridges behind
+zero scalar gates, train only bridge and gate parameters during docking, and
+verify frozen hashes before and after. Compare with matched end-to-end and
+specialist controls and charge failed attempts, optimizer state, artifacts,
+operations, memory, and wall time across releases.
+
+The canonical architecture contract is
+`neuroloc/wiki/synthesis/modular_neural_model_stack.md`. No implementation,
+training run, dependency, or paid compute follows merely from documenting the
+contract.
 
 # category-error guardrails (2026-05-08)
 
@@ -268,7 +357,9 @@ difference between science and guessing. follow it literally.
 zero comments in code. no inline, no block, no docstrings, no TODOs.
 zero emojis. anywhere. code, docs, commits, prints, logs, filenames.
 zero AI attribution. no Co-authored-by. no "written with AI." sole author: Deyan Todorov.
-lowercase in all docs, commits, and readme. no tables in readme.
+Use professional sentence case in docs, commits, and the README. Existing
+lowercase historical records do not need a style-only rewrite. Do not use
+tables in the README.
 
 fix absolutely every single thing the prosecutor flags. no exceptions. no
 cherry-picking. P0, P1, P2, P3, "minor," "nit," "stylistic," "worth tracking
@@ -324,7 +415,7 @@ must carry as its first non-heading line, the migration policy for the
 pre-existing wiki articles that do not yet have banners, the bidirectional
 cross-reference rule, the append-only rule for mistakes and update_history
 sections, the prosecutor protocol on wiki changes, the run-card location
-rule (`wiki/tests/` canonical), and the rules for handling disagreement
+rule (`neuroloc/wiki/tests/` canonical), and the rules for handling disagreement
 between the agent and the user. read it before any wiki work. the
 directive itself is append-only at its update_history section.
 
@@ -456,9 +547,10 @@ knowledge/       published research and prior findings (read before acting)
 neuroloc/        biological grounding wiki + neural machine spec
   spec/blueprint.md           paused neural-machine backlog design target
   spec/implementation_plan.md archived pre-pivot implementation sketch
-  wiki/                       346 markdown files (obsidian)
-  simulations/                94 python validation scripts
+  wiki/                       357 markdown files present
+  simulations/                96 python validation scripts
   results/                    experiment registry
+train/              local-only CLS trainer, data, checkpoints, and results; excluded from public pushes
 
 # critical files
 
@@ -580,6 +672,13 @@ metaphor from wiki/knowledge/imagination_computation_research.md that
 suggested image generation, but the model is byte-level text with no vision
 capability. fix: renamed to run_delta_state_structure_probe.
 
+Bug-history path correction (2026-07-14): Root-relative `wiki/...` paths in
+the append-only entries above resolve under `neuroloc/wiki/...`. In particular,
+the retained mistake and research references resolve to
+`neuroloc/wiki/mistakes/run2_slot_memory_fla_silent_fall_through.md` and
+`neuroloc/wiki/knowledge/imagination_computation_research.md`. The original
+entries remain unchanged as evidence.
+
 # results summary
 
 phase 1: bpb 0.84x (16% better than transformer). mi 1.275 (29x gerhard).
@@ -700,6 +799,15 @@ active no-paid-compute path is the neural-model research/test-material plan:
 mechanism dossiers, explicit test material, symbolic verification, a tiny
 trainable mirror, one-mechanism cpu controls, telemetry, prosecutor-clean docs,
 and only then a selected paid hypothesis.
+
+Results-summary correction (2026-07-14): Run 2 directly measured the output
+gate at `0.018` throughout training. Run 3 did not persist output-gate
+telemetry, so the claim that it stayed at `0.018` in run 3 is an inference from
+the unchanged regime, not an observation. Root-relative `wiki/...` paths in
+the append-only results above resolve under `neuroloc/wiki/...`; the preserved
+run-3 card is
+`neuroloc/wiki/tests/run3_cognition_phase1_results.md`. The current project
+direction remains exclusively in `neuroloc/wiki/PROJECT_PLAN.md`.
 
 # keeping this file current
 

@@ -1,0 +1,1 @@
+{"evidence_paths":["run/environment.json","run/source_manifest.json"],"inputs":{"expected":"Device(gpu, 0)"},"name":"mlx_metal_device","outputs":{"actual":"Device(gpu, 0)","max_error":null,"pass":true,"tolerance":null},"run_id":"mlx-m5pro-20260726-2","schema_version":"todorov.cpu-witness.1","scope":"trained_backend"}

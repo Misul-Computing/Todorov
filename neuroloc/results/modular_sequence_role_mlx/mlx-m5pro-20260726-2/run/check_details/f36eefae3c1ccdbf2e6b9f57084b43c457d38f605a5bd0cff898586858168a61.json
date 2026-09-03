@@ -1,0 +1,1 @@
+{"evidence_paths":["run/sentinels/selected_attention_oracle_payload.json"],"inputs":{"expected":1e-05},"name":"selected_attention_oracle","outputs":{"actual":5.960464477539063e-08,"max_error":5.960464477539063e-08,"pass":true,"tolerance":1e-05},"run_id":"mlx-m5pro-20260726-2","schema_version":"todorov.cpu-witness.1","scope":"global_sentinel"}

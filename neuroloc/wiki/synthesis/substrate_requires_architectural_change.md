@@ -1,6 +1,12 @@
 # substrate requires architectural change: six paid runs, zero retrieval, one discriminating corpus
 
-status: current (as of 2026-06-18).
+status: superseded by [[modular_neural_model_stack]]. retained for evidence continuity.
+
+The negative run evidence and intervention analyses below remain valid within
+their recorded scope. Candidate G is retained backlog evidence, not the current
+CPU lead. `PROJECT_PLAN.md` controls project direction; the modular stack
+controls architecture composition only. Any CPU implementation or training
+requires explicit authorization.
 
 ## the observation
 
@@ -65,7 +71,7 @@ it is not fitting the retrieval pattern. the slot output gate is
 believed to have stayed near its near-closed initialisation (gate_init=-4,
 sigmoid(-4)≈0.018) throughout run 3, consistent with run 2's measured
 mean gate of 0.018 at every step across its 4000 steps (see
-`wiki/tests/run2_slot_memory_retention_fixed_results.md`), but run 3's
+`neuroloc/wiki/tests/run2_slot_memory_retention_fixed_results.md`), but run 3's
 per-step gate telemetry was not persisted before the pod was stopped,
 so this claim rests on inference from the flat loss curve and from the
 unchanged preset rather than on a direct run-3 measurement. the loss
@@ -118,7 +124,15 @@ missing telemetry.
 
 ## paused intervention candidates
 
-these intervention candidates remain useful historical backlog structure, ordered by cost and risk. they are not authorised for code changes or paid execution in the current master-plan phase. the next active work is symbolic/oracle test material for [[neural_model_dossier_eligibility_gated_local_commit]], followed by oracle compression analysis over the hard symbolic worlds and then a tiny trainable mirror only if the oracle ratios justify it.
+These intervention candidates remain useful historical backlog structure,
+ordered by cost and risk. They are not authorized for code changes or paid
+execution. The documentation prosecutor cycle recorded in `PROJECT_PLAN.md` is
+closed with zero findings. This intervention list remains historical evidence.
+No current experiment is authorized; the current deliverable is documentation
+publication. If Deyan explicitly resumes the July MLX lane, use the canonical
+plan and stop handoff to recover the exact stopped bytes before any action.
+The symbolic/oracle sequence previously named here is retained evidence, not
+current project direction.
 
 ### A. open the output gate at init
 
@@ -181,8 +195,8 @@ hard state-norm clamp) but retrieval stayed at chance on mqar - stable is not
 trained. a 4-layer attention baseline solved passkey/induction at exact_acc
 1.000. this narrows candidate E's failure to "the write/read loop does not
 become content-addressable under sgd," not "the memory is unstable." details:
-`wiki/tests/v0_1_descent_memory_toy_results.md` and
-`wiki/synthesis/descent_memory_intervention.md`.
+`neuroloc/wiki/tests/v0_1_descent_memory_toy_results.md` and
+`neuroloc/wiki/synthesis/descent_memory_intervention.md`.
 
 ### F. affect-gated write (surprise-modulated plasticity)
 
@@ -192,14 +206,14 @@ surprise signal that currently shapes the write direction (the gradient) but not
 (`beta`). candidate F routes that surprise into the gain, `beta_eff = beta * (1 - affect + affect *
 2 * s)` with `s = ||e|| / (||e|| + ||v|| + eps)`, so plasticity concentrates on surprising
 associations and is suppressed where the memory already predicts the value. this is the three-factor
-rule `delta_w = eta * f(pre, post) * M` with `M` set to surprise (`wiki/mechanisms/three_factor_learning.md`),
+rule `delta_w = eta * f(pre, post) * M` with `M` set to surprise (`neuroloc/wiki/mechanisms/three_factor_learning.md`),
 and precision-weighting of the internal prediction error in predictive-coding terms. it attacks the
 write side that the v0.1 masked loss left unsupervised, which is distinct from output-side precision
 weighting (already maxed in v0.1 and still at chance). the `affect = 0` arm reproduces v0.1 exactly,
 giving a clean control; a shuffled-surprise arm separates the surprise content from a reshaped
 learning rate. it is a single-file change to the toy harness with the same numerical-stability
 guards as candidate E. pre-registration with full controls, telemetry, and kill conditions:
-`wiki/tests/affect_gated_write_cpu_experiment.md`. no paid execution is authorised; a cpu signal
+`neuroloc/wiki/tests/affect_gated_write_cpu_experiment.md`. no paid execution is authorised; a cpu signal
 here would feed the lane gates, not bypass them.
 
 **outcome (2026-06-10): executed on cpu and falsified.** true surprise is at chance under the
@@ -223,55 +237,56 @@ surprise distribution spreads), population coupling, temporal correlation of the
 status: backlog. before any further arms, candidate G needs its own pre-registration (ignition
 statistics across seeds, one variable per arm) and a literature check on stochastic write
 gating in fast-weight / test-time-learning memories — if the mechanism is already known, stand
-on the published version instead of rediscovering it (the cost-before-build gate in `CLAUDE.md`).
-evidence: `wiki/tests/affect_gated_write_cpu_experiment.md` (results section) and
+on the published version instead of rediscovering it (the cost-before-build gate in `AGENTS.md`).
+evidence: `neuroloc/wiki/tests/affect_gated_write_cpu_experiment.md` (results section) and
 `v01/feel_tests.md` (capacity context section).
 
-## paid-run status under the current master-plan phase
+## Paid-run status after the modular reframe
 
-no paid run is authorised from this article. the architecture program is
-the active lane (cpu) and candidate G (stochastic write gain) is the current
-live lead, while A-E remain candidate interventions pending cpu pre-registration.
-another paid run on the current
-slot substrate with only hyperparameter changes remains predicted to
-be scientifically weak because it would not answer the paper-spine
-question: what operation-preserving compression bounds exist before
-training?
+No paid run, CPU implementation, or training run is authorized by this
+article. Candidate G and interventions A-E remain backlog evidence. Another
+paid run on the current slot substrate with only hyperparameter changes remains
+predicted to be scientifically weak.
 
-paid compute can return only after the current canonical gate is met:
-lane research, mechanism dossiers, dossier-driven test material, oracle compression analysis where relevant, a tiny trainable mirror, cpu controls,
-telemetry, prosecutor-clean docs, and one selected hypothesis.
+The older lane research, mechanism-dossier, test-material, oracle-analysis,
+tiny-mirror, control, and telemetry requirements remain supporting proof
+requirements. They are not authorization. Current paid-compute gates live in
+`PROJECT_PLAN.md` and `AGENTS.md`: a CPU-validated intervention, complete
+controls and telemetry, prosecutor-clean evidence, stated cost and expected
+value, and explicit authorization from Deyan.
 
 note (2026-04-21 / 2026-04-25): the project's backlog method widened
 after this article. when the architecture track resumes, A-E
 candidates are no longer judged by passkey alone.
 they must first clear the broader cpu battery in
-`wiki/synthesis/phase1_evaluation_surface_for_neural_models.md`,
+`neuroloc/wiki/synthesis/phase1_evaluation_surface_for_neural_models.md`,
 including explicit trainability controls and state/action metrics.
 passkey at 256 remains necessary, but now as a smoke test inside that
 larger battery. after the master-plan refactor and cellular-state gap map,
 they also inherit lane research, mechanism-dossier, oracle-compression, and tiny-mirror gates before any paid path.
 
-## see also
+## See also
 
+- [[modular_neural_model_stack]] — Current composition contract and repository rework map
 - [[neural_model_paper_spine]] — paper-spine layer that treats this article as negative empirical motivation
 - [[cellular_state_storage_gap_map]] — first biology-led lane gap map that precedes code
 - [[neural_model_dossier_eligibility_gated_local_commit]] — first cellular mechanism dossier for delayed write permission plus bounded output exposure
 - [[oracle_compression_analysis_plan]] — next no-paid proof step before trained compression or architecture work
 - [[neural_model_lane_trainability_evaluation]] — lane that localizes learned-write, learned-read, gate, address, and decoder failure before paid work
-- `wiki/tests/run3_cognition_phase1_results.md` — the run card for this observation
-- `wiki/synthesis/training_objective_vs_architectural_goal.md` — the prior analysis whose predicted discriminant this run executed
-- `wiki/synthesis/slot_memory_design.md` — the substrate design itself
-- `wiki/synthesis/phase1_evaluation_surface_for_neural_models.md` — the current external-synthesis article for the cpu-first battery that should replace passkey-only thinking
-- `wiki/synthesis/synthetic_shared_world_bridge.md` — the phase-2 bridge that keeps multimodality tied to one latent world instead of a bolt-on stack
-- [[indexed_reconstruction_compression]] — current compact-handle plus reconstruction direction after the cellular, capacity, compression, and evaluation-gap pass
-- `wiki/synthesis/linear_attention_retrieval_wall.md` — the original matrix-memory diagnosis (already marked superseded)
-- `wiki/tests/run2_slot_memory_retention_fixed_results.md` — the prior paid run with same substrate + retention on fineweb
-- `wiki/PROJECT_PLAN.md` — the canonical project state
+- `neuroloc/wiki/tests/run3_cognition_phase1_results.md` — the run card for this observation
+- `neuroloc/wiki/synthesis/training_objective_vs_architectural_goal.md` — the prior analysis whose predicted discriminant this run executed
+- `neuroloc/wiki/synthesis/slot_memory_design.md` — the substrate design itself
+- `neuroloc/wiki/synthesis/phase1_evaluation_surface_for_neural_models.md` — the retained CPU-first battery for any later authorized architecture work
+- `neuroloc/wiki/synthesis/synthetic_shared_world_bridge.md` — the retained phase-2 rule that keeps any later multimodal work tied to one latent world
+- [[indexed_reconstruction_compression]] — retained compact-handle plus reconstruction direction in the compression backlog
+- `neuroloc/wiki/synthesis/linear_attention_retrieval_wall.md` — the original matrix-memory diagnosis (already marked superseded)
+- `neuroloc/wiki/tests/run2_slot_memory_retention_fixed_results.md` — the prior paid run with same substrate + retention on fineweb
+- `neuroloc/wiki/PROJECT_PLAN.md` — the canonical project state
 - `neuroloc/data/cognition_corpus.py` — the corpus generator used in run 3
 - `neuroloc/model/god_machine.py` — the architecture implementation
-- `wiki/tests/v0_1_descent_memory_toy_results.md` — toy implementation of candidate E (2026-06-02)
-- `wiki/synthesis/descent_memory_intervention.md` — mechanism, stabilization, interpretation
-- `wiki/mistakes/descent_memory_v0_1_bugs.md` — bugs caught during the candidate E implementation
-- `wiki/tests/affect_gated_write_cpu_experiment.md` — candidate F, the affect-gated write pre-registration
-- `wiki/OPERATING_DIRECTIVE.md` — rules governing this article
+- `neuroloc/wiki/tests/v0_1_descent_memory_toy_results.md` — toy implementation of candidate E (2026-06-02)
+- `neuroloc/wiki/tests/candidate_g_reproduction_m5pro.md` — local Apple Silicon reproduction and seed-sweep evidence for Candidate G
+- `neuroloc/wiki/synthesis/descent_memory_intervention.md` — mechanism, stabilization, interpretation
+- `neuroloc/wiki/mistakes/descent_memory_v0_1_bugs.md` — bugs caught during the candidate E implementation
+- `neuroloc/wiki/tests/affect_gated_write_cpu_experiment.md` — candidate F, the affect-gated write pre-registration
+- `neuroloc/wiki/OPERATING_DIRECTIVE.md` — rules governing this article

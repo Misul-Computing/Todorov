@@ -29,6 +29,8 @@ ARMS = {
     "shuffle": (1.0, "shuffle", False),
     "noise": (1.0, "noise", False),
     "noisetoken": (1.0, "noise_token", False),
+    "smooth": (1.0, "smooth_noise", False),
+    "smoothtoken": (1.0, "smooth_noise_token", False),
     "batchnorm": (1.0, "surprise_batchnorm", False),
     "nowrite": (0.0, "surprise", True),
 }
@@ -52,10 +54,10 @@ def run_gates(args):
     torch.manual_seed(args.seed)
     mk = make_fn(args.vocab, args.n_pairs, args.n_queries, args.seed + 1)
     seq = 2 * args.n_pairs + 2 * args.n_queries
-    model = SequenceModel(arm_cfg(1.0, "surprise", args))
-    g_init = sanity.loss_at_init(model, mk, args.batch, "cpu", args.vocab)
-    g_ret = sanity.retention_floor_check(model, mk, 8, "cpu", seq)
-    g_fit = sanity.overfit_one_batch(model, mk, 8, "cpu", steps=300,
+    model = SequenceModel(arm_cfg(1.0, "surprise", args)).to(args.device)
+    g_init = sanity.loss_at_init(model, mk, args.batch, args.device, args.vocab)
+    g_ret = sanity.retention_floor_check(model, mk, 8, args.device, seq)
+    g_fit = sanity.overfit_one_batch(model, mk, 8, args.device, steps=300,
                                      target=0.5 * math.log(args.vocab))
     print(f"gates(affect=1.0 surprise cfg): loss_at_init={g_init['loss']:.3f}/{g_init['expected']:.3f} ok={g_init['ok']}  "
           f"retention={g_ret['retention_floor']:.3f} ok={g_ret['ok']}  "
@@ -67,7 +69,7 @@ def run_arm(name, args):
     affect, mode, no_write = ARMS[name]
     torch.manual_seed(args.seed)
     cfg = arm_cfg(affect, mode, args)
-    model = SequenceModel(cfg)
+    model = SequenceModel(cfg).to(args.device)
     if no_write:
         pin_no_write(model)
     mk = make_fn(args.vocab, args.n_pairs, args.n_queries, args.seed + 1)
@@ -75,7 +77,7 @@ def run_arm(name, args):
     model.train()
     last_loss = float("nan")
     for step in range(1, args.steps + 1):
-        inp, tgt, mask = mk(args.batch, "cpu")
+        inp, tgt, mask = mk(args.batch, args.device)
         opt.zero_grad(set_to_none=True)
         _, loss = model(inp, tgt, mask)
         loss.backward()
@@ -85,13 +87,13 @@ def run_arm(name, args):
             pin_no_write(model)
         last_loss = float(loss.item())
         if args.eval_every > 0 and step % args.eval_every == 0:
-            ie = evals.eval_task(model, mk, 64, args.batch, "cpu")
+            ie = evals.eval_task(model, mk, 64, args.batch, args.device)
             print(f"  {name} step {step} loss {last_loss:.3f} "
                   f"exact {ie['exact_acc']:.3f} token {ie['token_acc']:.3f}", flush=True)
-    ev = evals.eval_task(model, mk, args.eval_trials, args.batch, "cpu")
-    leak = sanity.causal_no_future_leak(model, args.vocab, 4, args.probe_len, "cpu")
+    ev = evals.eval_task(model, mk, args.eval_trials, args.batch, args.device)
+    leak = sanity.causal_no_future_leak(model, args.vocab, 4, args.probe_len, args.device)
     with torch.no_grad():
-        inp, _, _ = mk(8, "cpu")
+        inp, _, _ = mk(8, args.device)
         model(inp)
     stats = {}
     for blk in model.blocks:
@@ -118,6 +120,7 @@ def main():
     ap.add_argument("--eval_every", type=int, default=0)
     ap.add_argument("--probe_len", type=int, default=16)
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--device", default="mps")
     ap.add_argument("--arms", default="control,surprise_half,surprise,shuffle,noise,noisetoken,batchnorm,nowrite")
     args = ap.parse_args()
 

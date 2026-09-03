@@ -1,21 +1,27 @@
 # neural machine specification
 
-see also: `neuroloc/wiki/PROJECT_PLAN.md` is the canonical persistent project state. that file holds the current run, current question, hypothesis under test, decision rules, prior runs index, open research questions, and project glossary. this blueprint covers the design intent and feature definitions; PROJECT_PLAN.md covers what is being run right now and what we have learned. update both when the project state changes.
+Status: historical design intent and backlog. This is not canonical project
+state.
+
+`neuroloc/wiki/PROJECT_PLAN.md` is the only canonical project state.
+`neuroloc/wiki/synthesis/modular_neural_model_stack.md` defines the current
+composition contract and repository rework map. This blueprint preserves
+earlier design intent and proof obligations; project-state changes do not
+require updating it.
 
 ## status banner (2026-04-17, updated after the sixth paid run)
 
-six paid runs have produced 0% passkey at 256 tokens: god_run (2026-04-11), god_run_v2 (2026-04-12), run1_baseline_noerasure (2026-04-14), run2_slot_memory (2026-04-15, first launch with broken inherited retention), run2_slot_memory_retention_fixed (2026-04-15, second launch with `alpha_log_mean=5.0` explicit and FLA active), and run3_cognition_phase1 (2026-04-17, synthetic cognition corpus with 50% passkey / 30% kv recall / 20% copy). the sixth run trained cleanly to best val_bpb 6.3519 in 72 min on h200 on `neuroloc/data/cognition_corpus.py`, but val_bpb plateaued at the alphabet prior from step 150 and never descended. partial eval before user halted pod reported passkey 0/100 at both 256 and 1024. this run executed the discriminant proposed in `wiki/synthesis/training_objective_vs_architectural_goal.md`: a corpus where retrieval is explicit 50% of training. the article predicted that if phase one produced zero passkey on synthetic data, the substrate could not be trained by sgd at this configuration and the architecture needed deeper changes. phase one produced zero passkey. the architecture-cannot-be-trained-by-sgd branch fires. diagnosis is no longer "training objective mismatch" (the prior-banner hypothesis) but "this substrate does not learn retrieval under sgd with these initialisations and this loss, even when the loss directly rewards retrieval". analysis at `wiki/synthesis/substrate_requires_architectural_change.md` ranking five candidate architectural interventions: (A) output gate init 0 instead of -4, (B) auxiliary retrieval loss on marker-following positions, (C) orthogonal prototype key init, (D) warm start from hand-placed addresses, (E) substrate replacement (titans / larimar / differentiable kv table). run card at `neuroloc/wiki/tests/run3_cognition_phase1_results.md`.
+six paid runs have produced 0% passkey at 256 tokens: god_run (2026-04-11), god_run_v2 (2026-04-12), run1_baseline_noerasure (2026-04-14), run2_slot_memory (2026-04-15, first launch with broken inherited retention), run2_slot_memory_retention_fixed (2026-04-15, second launch with `alpha_log_mean=5.0` explicit and FLA active), and run3_cognition_phase1 (2026-04-17, synthetic cognition corpus with 50% passkey / 30% kv recall / 20% copy). the sixth run trained cleanly to best val_bpb 6.3519 in 72 min on h200 on `neuroloc/data/cognition_corpus.py`, but val_bpb plateaued at the alphabet prior from step 150 and never descended. partial eval before user halted pod reported passkey 0/100 at both 256 and 1024. this run executed the discriminant proposed in `neuroloc/wiki/synthesis/training_objective_vs_architectural_goal.md`: a corpus where retrieval is explicit 50% of training. the article predicted that if phase one produced zero passkey on synthetic data, the substrate could not be trained by sgd at this configuration and the architecture needed deeper changes. phase one produced zero passkey. the architecture-cannot-be-trained-by-sgd branch fires. diagnosis is no longer "training objective mismatch" (the prior-banner hypothesis) but "this substrate does not learn retrieval under sgd with these initialisations and this loss, even when the loss directly rewards retrieval". analysis at `neuroloc/wiki/synthesis/substrate_requires_architectural_change.md` ranking five candidate architectural interventions: (A) output gate init 0 instead of -4, (B) auxiliary retrieval loss on marker-following positions, (C) orthogonal prototype key init, (D) warm start from hand-placed addresses, (E) substrate replacement (titans / larimar / differentiable kv table). run card at `neuroloc/wiki/tests/run3_cognition_phase1_results.md`.
 
-new hard rule: every preset must explicitly override `alpha_log_mean`. enforced structurally by `_assert_preset_retention_safe` in `neuroloc/model/god_machine.py`, which raises at `_resolve_preset` for any preset with DELTA or SLOT layers that does not override the field. FLA hard rule: `god_machine.py` now asserts at preset resolution that any preset requesting FLA actually has the package installed (`_assert_fla_available_if_requested`), with an NM_FORCE_NO_FLA env escape hatch for the CPU smoke suite; this removes the run2-first-launch silent-fall-through failure mode. additional outstanding rule: no next paid run is authorised with only hyperparameter tweaks on the current slot substrate; see `wiki/synthesis/substrate_requires_architectural_change.md` for the allowed interventions and the cpu-simulation gate that must precede substrate-replacement runs.
+new hard rule: every preset must explicitly override `alpha_log_mean`. enforced structurally by `_assert_preset_retention_safe` in `neuroloc/model/god_machine.py`, which raises at `_resolve_preset` for any preset with DELTA or SLOT layers that does not override the field. FLA hard rule: `god_machine.py` now asserts at preset resolution that any preset requesting FLA actually has the package installed (`_assert_fla_available_if_requested`), with an NM_FORCE_NO_FLA env escape hatch for the CPU smoke suite; this removes the run2-first-launch silent-fall-through failure mode. additional outstanding rule: no next paid run is authorised with only hyperparameter tweaks on the current slot substrate; see `neuroloc/wiki/synthesis/substrate_requires_architectural_change.md` for the allowed interventions and the cpu-simulation gate that must precede substrate-replacement runs.
 
 ## context
 
-todorov proved that biological computation math outperforms standard
-approaches at matched scale (33.7% better at 267M parameters). neuroloc
-mapped 61 biological mechanisms, validated 5 bridge interventions, and
-identified which principles are genuine vs superficial. this spec defines
-what comes next: a unified neural machine that implements the validated
-math as one operation, not a collection of named modules.
+This historical blueprint was motivated by an incomplete 267M KDA+MLA probe
+that reported a 0.663x bits-per-byte ratio against its Transformer control. The
+probe omitted the recurrent layer family and does not validate the current
+modular target. Neuroloc catalogued biological mechanisms and bridge
+hypotheses; it did not validate five bridge interventions.
 
 this is not a language model. it is a general-purpose neural computation
 engine that recognizes, remembers, predicts, and imagines.
@@ -274,10 +280,10 @@ solution is NOT a separate MLA module but a MODE of the same operation:
 ## implementation sequencing (mandatory -- do NOT bundle)
 
 each feature is validated in isolation before combination. this follows
-the phase 5 sequencing protocol from CLAUDE.md. **the ordering below has
+the phase 5 sequencing protocol now retained in `AGENTS.md`. **the ordering below has
 been revised on 2026-04-12 after god_run_v2's 0% passkey confirmed that
 the prior ordering (k-WTA on both keys AND values) destroys verbatim
-memory. see `neuroloc/output/god_run_v2/run_card.md` for the 8 external review findings.**
+memory. see `neuroloc/wiki/tests/god_run_v2_results.md` for the 8 external review findings.**
 
 > **superseded 2026-04-17**: the run ordering below was the working plan
 > as of god_run_v2 (2026-04-12). since then, `run1_baseline_noerasure`
@@ -285,26 +291,25 @@ memory. see `neuroloc/output/god_run_v2/run_card.md` for the 8 external review f
 > `run2_slot_memory_retention_fixed` (2026-04-15), and
 > `run3_cognition_phase1` (2026-04-17) were all executed, all returning
 > 0/100 passkey at 256. the slot-memory design in
-> `wiki/synthesis/slot_memory_design.md` superseded the dense-matrix
+> `neuroloc/wiki/synthesis/slot_memory_design.md` superseded the dense-matrix
 > sequencing below; the architectural-intervention analysis in
-> `wiki/synthesis/substrate_requires_architectural_change.md` then
-> supersedes that in turn. the current authoritative next-run protocol
-> lives in `wiki/PROJECT_PLAN.md` (experimental method and decision
-> rules) and the current ranked intervention list lives in
-> `substrate_requires_architectural_change.md`. the remainder of this
-> section is retained for evidence continuity and is not the plan of
-> record for the next paid launch.
+> `neuroloc/wiki/synthesis/substrate_requires_architectural_change.md` then
+> supersedes that in turn. The only current project direction lives in
+> `neuroloc/wiki/PROJECT_PLAN.md`; the intervention ranking in
+> `neuroloc/wiki/synthesis/substrate_requires_architectural_change.md` is
+> retained evidence and backlog. The remainder of this section is retained
+> for evidence continuity and is not the plan of record for any launch.
 
-**current working rule (post-god_run_v2)**: keys stay dense in the
-current run ordering. k-WTA, sparsification, and any form of
+**Historical working rule (post-god_run_v2)**: keys stayed dense in that
+run ordering. k-WTA, sparsification, and any form of
 address-space truncation are deferred to the value side until isolation
 runs say otherwise. a 20%-sparse key in a 64-dim head carries
 ~13 effective dimensions, which drops Hopfield interference-free capacity
 from ~9 patterns to ~2 patterns per head. delta rule erasure with sparse
 keys also reads only the 13 surviving dimensions of the state, leaving
 "ghost" content in the zeroed dimensions that accumulates and interferes.
-both failure modes are the strongest current review findings from
-god_run_v2 and motivate the current run ordering.
+both failure modes were the strongest review findings from god_run_v2 and
+motivated that historical run ordering.
 
 **historical run block**: the run ordering below is preserved as the
 pre-curriculum paid-run plan. it is not currently authorised; paid compute is
@@ -341,7 +346,7 @@ because the base mechanism is genuinely insufficient.
 
 **run 2 (value-side compression, dense keys)**: the leading candidate
 for value compression is the correction-field design from
-`wiki/synthesis/correction_field_memory.md`. it replaces raw value storage
+`neuroloc/wiki/synthesis/correction_field_memory.md`. it replaces raw value storage
 with prediction-residual storage: values are projected from
 `r_t = h_t - f(h_{t-1})` instead of `h_t`, and writes are modulated by
 a surprise ratio. retrieval reconstructs as `prediction + correction`.
@@ -422,7 +427,7 @@ that failed.
 interpretation at the time: the compressed-attention + mlp path fit the next-byte
 distribution while the delta-rule memory never became content-addressable. this is the
 lossy-mechanism failure mode predicted by
-`wiki/synthesis/compression_beyond_quantization.md`. before the rerun, one confounder
+`neuroloc/wiki/synthesis/compression_beyond_quantization.md`. before the rerun, one confounder
 remained: the BCM train/eval path divergence (prosecutor finding F1) meant the model was
 trained under one dynamical rule and evaluated under a different one for everything beyond
 the first chunk. that unresolved confound is why god_run_v2 was launched.
@@ -445,10 +450,10 @@ external review (2026-04-12) identified 8 candidate contributing mechanisms. the
 strongest are k-WTA on keys (destroys address space, drops per-head capacity from ~9
 patterns to ~2) and delta erasure with sparse keys (ghost content accumulates in zeroed
 dimensions). the six supporting review findings are listed in
-`neuroloc/output/god_run_v2/run_card.md` and inform the
+`neuroloc/wiki/tests/god_run_v2_results.md` and inform the
 revised run ordering below.
 
-see `neuroloc/output/god_run/run_card.md`, `neuroloc/output/god_run_v2/run_card.md`,
+see `neuroloc/wiki/tests/god_run_results.md`, `neuroloc/wiki/tests/god_run_v2_results.md`,
 and `neuroloc/wiki/tests/god_run_findings.md` for full detail.
 
 **run1_baseline_noerasure (2026-04-14)**: the "bundle off" baseline. 353m params on
@@ -461,7 +466,7 @@ falsified the "one of the bundle features is the killer" hypothesis at the subst
 the base matrix-memory substrate itself does not retrieve. inherited
 `alpha_log_mean=-0.5` from Config defaults, putting this run in the state-evaporation
 regime (alpha_eff=0.377 compounds to 10^-109 over 256 tokens). run card in
-`neuroloc/output/run1_baseline_noerasure/`.
+`neuroloc/wiki/tests/run1_baseline_noerasure_results.md`.
 
 **run2_slot_memory first launch and retention_fixed (2026-04-15)**: pivot to a slot-memory
 substrate — softmax addressing over 64 per-head prototype keys with surprise-gated
@@ -470,10 +475,10 @@ least-recently-used writes and an explicit output gate. FLA-accelerated via
 
 - first launch inherited `alpha_log_mean=-0.5` from Config defaults, reproducing the
   state-evaporation bug documented four days earlier in
-  `wiki/synthesis/linear_attention_retrieval_wall.md`. val_bpb 1.5107, passkey 0/100. the
+  `neuroloc/wiki/synthesis/linear_attention_retrieval_wall.md`. val_bpb 1.5107, passkey 0/100. the
   structural guard `_assert_preset_retention_safe` was added in commit `f0e1a9a` so the
   bug class is structurally closed. mistake doc:
-  `wiki/mistakes/run2_slot_memory_decay_copy_paste.md`.
+  `neuroloc/wiki/mistakes/run2_slot_memory_decay_copy_paste.md`.
 
 - second launch set `alpha_log_mean=5.0` explicitly (alpha_eff=0.9933, retention 0.18 at
   256 tokens). first launch attempt of this run lost 17 min to a silent fall-through to
@@ -488,7 +493,7 @@ least-recently-used writes and an explicit output gate. FLA-accelerated via
 with the retention fix and FLA actually active, the slot-substrate-under-SGD-on-fineweb
 question was answered: the mechanism that retrieves cleanly on cpu gates A and B did not
 retrieve after 4000 steps of LM training. the diagnosis reframed to the training objective
-being the obstacle, analysed in `wiki/synthesis/training_objective_vs_architectural_goal.md`.
+being the obstacle, analysed in `neuroloc/wiki/synthesis/training_objective_vs_architectural_goal.md`.
 
 **run3_cognition_phase1 (2026-04-17)**: discriminant test of the training-objective
 hypothesis. same slot substrate and retention as run2_slot_memory_retention_fixed, but
@@ -503,7 +508,7 @@ the substrate still did not learn it. this run executed the discriminant propose
 problem" and "the architecture cannot be trained"; the architecture-cannot-be-trained
 branch fires.
 
-post-run-3 analysis in `wiki/synthesis/substrate_requires_architectural_change.md`
+post-run-3 analysis in `neuroloc/wiki/synthesis/substrate_requires_architectural_change.md`
 catalogs five candidate architectural interventions ranked by cost: (A) open the output
 gate at init, (B) auxiliary retrieval loss on marker-following positions, (C) orthogonal
 prototype key init, (D) warm start from hand-placed addresses, (E) substrate replacement
@@ -511,4 +516,4 @@ prototype key init, (D) warm start from hand-placed addresses, (E) substrate rep
 single-file changes that can be bundled in one paid run; D-E require the cpu-simulation
 gate pattern that preceded slot memory. another paid run on the current substrate with
 no architectural change is strictly predicted to produce 0% passkey and is not authorised.
-run card: `wiki/tests/run3_cognition_phase1_results.md`.
+run card: `neuroloc/wiki/tests/run3_cognition_phase1_results.md`.

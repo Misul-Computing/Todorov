@@ -1,51 +1,59 @@
-# neuroloc
+# Neuroloc
 
-this directory is the research memory and simulation substrate for the todorov
-project.
+This directory is Todorov's research memory, proof-package corpus, simulation
+surface, and historical record.
 
-the active project lane is the neural-machine architecture program (approach a),
-in cpu validation. neuroloc is its reference material, simulation infrastructure,
-and architecture-backlog memory.
+Canonical project state lives in `neuroloc/wiki/PROJECT_PLAN.md`.
 
-canonical persistent project state lives in `neuroloc/wiki/PROJECT_PLAN.md`.
+## Current status
 
-## current status
+- The modular neural-machine architecture remains preserved scientific context.
+- Transformerov provides the tested host and recurrent path.
+- Monodratic provides the routed selected-set attention candidate and must
+  still prove exact recall after routing.
+- The nested-reciprocal feature mixer is an unvalidated token-local candidate.
+- Karkasov provides only a later specialist-training and docking protocol.
+- The theory, outline, and documentation milestone is delivered and closed.
+- The latest local direction is the CLS trainer recorded in
+  `neuroloc/wiki/tests/todorov_cls_macbook_session_202608.md`.
+- The local trainer and generated artifacts are excluded from the public source
+  push. Paid compute and broad model claims remain unauthorized.
 
-- the neural-machine architecture program (approach a) is the active lane, in cpu validation (the v0.1 toy and feel bench in `v01/`)
-- candidate F closed negative; candidate G (stochastic write gain) is the current live lead
-- paid compute is gated on funding plus a cpu-validated intervention
-- the architecture cpu surface includes the implemented `biology_phase1` battery, latent-world deliberation, and model-side neural-model evaluation
-
-## structure
+## Structure
 
 ```text
 neuroloc/
-  wiki/           canonical wiki and project state
-  simulations/    cpu-first biology and neural-model simulations
-  spec/           neural-machine design and backlog plans
+  compression/    separate compression research corpus
+  data/           local data builders
+  model/          model-side historical and evaluation surfaces
+  print/          print-oriented documents
   results/        historical experiment summaries
-  print/          print-oriented neuroloc documents
-  raw/            immutable source material
-  HANDOFF.md      operator handoff for neuroloc work
+  simulations/    cpu-first biology and neural-model simulations
+  spec/           design targets and backlog documents
+  wiki/           canonical plan and research articles
+  HANDOFF.md      operator pointer
   init.md         this file
 ```
 
-## current counts
+## Current counts
 
-- `346` wiki markdown files
-- `55` synthesis articles
-- `94` simulation scripts
-- `66` memory simulation scripts
+- `357` wiki Markdown files present
+- `58` synthesis articles
+- `75` wiki test records present
+- `26` mistake documents
+- `96` simulation scripts
+- `68` memory simulation scripts
 
-## entry points
+## Entry points
 
-1. `neuroloc/wiki/PROJECT_PLAN.md`
-2. `neuroloc/wiki/OPERATING_DIRECTIVE.md`
-3. `neuroloc/HANDOFF.md`
-4. `neuroloc/wiki/Home.md`
+1. `AGENTS.md`
+2. `neuroloc/wiki/PROJECT_PLAN.md`
+3. `neuroloc/wiki/OPERATING_DIRECTIVE.md`
+4. `neuroloc/HANDOFF.md`
 
-## note on history
+## History
 
-older neuroloc documents may describe the pre-pivot architecture phase in
-detail. keep them as historical record unless they are an overview or handoff
-surface that must match the current state.
+Older Neuroloc documents may present the compressed rotational bilinear
+recurrence, Candidate G, or a compression-first local model as current. Retain
+them as evidence unless they are an overview or handoff surface that must agree
+with the canonical plan.

@@ -1,0 +1,1 @@
+{"evidence_paths":["run/source_manifest.json"],"inputs":{"expected":0.0},"name":"internal_route_loss_parity","outputs":{"actual":0.0,"max_error":0.0,"pass":true,"tolerance":0.0},"run_id":"mlx-m5pro-20260726-1","schema_version":"todorov.cpu-witness.1","scope":"pinned_source_adapter"}

@@ -11,12 +11,73 @@ import json
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 from neuroloc.simulations.suite_registry import SIMULATION_SPECS, get_suite_specs
-from neuroloc.simulations.shared import build_run_record, default_output_dir, ensure_close_member, leak_tau_condition_name, output_dir_for, require_unit_interval_list, utc_now_iso, validate_metrics_file, write_json
+from neuroloc.simulations.shared import build_run_record, default_output_dir, ensure_close_member, find_project_root, leak_tau_condition_name, output_dir_for, require_unit_interval_list, utc_now_iso, validate_metrics_file, write_json
 from neuroloc.simulations.suite_registry import SimulationSpec
 from neuroloc.simulations.suite_runner import build_effective_env, canonical_env_key, normalize_env_overrides, parse_env_override, parse_env_overrides, resolve_output_root, run_simulation, run_specs, validate_simulation_output
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
+
+
+@pytest.mark.parametrize("marker", ["AGENTS.md", "CLAUDE.md"])
+def test_find_project_root_accepts_current_and_legacy_instruction_markers(tmp_path: Path, marker: str) -> None:
+    root = tmp_path / "repo"
+    script = root / "neuroloc" / "simulations" / "probe.py"
+    script.parent.mkdir(parents=True)
+    script.write_text("pass\n", encoding="utf-8")
+    (root / "requirements.txt").write_text("pytest\n", encoding="utf-8")
+    (root / marker).write_text("rules\n", encoding="utf-8")
+    assert find_project_root(script) == root
+
+
+def test_find_project_root_without_instruction_marker_falls_back_to_script_parent(tmp_path: Path) -> None:
+    script = tmp_path / "repo" / "neuroloc" / "simulations" / "probe.py"
+    script.parent.mkdir(parents=True)
+    script.write_text("pass\n", encoding="utf-8")
+    assert find_project_root(script) == script.parent
+
+
+@pytest.mark.parametrize("marker", ["AGENTS.md", "CLAUDE.md"])
+def test_find_project_root_requires_requirements_with_each_instruction_marker(tmp_path: Path, marker: str) -> None:
+    root = tmp_path / "repo"
+    script = root / "neuroloc" / "simulations" / "probe.py"
+    script.parent.mkdir(parents=True)
+    script.write_text("pass\n", encoding="utf-8")
+    (root / marker).write_text("rules\n", encoding="utf-8")
+    assert find_project_root(script) == script.parent
+
+
+def test_find_project_root_rejects_requirements_without_instruction_marker(tmp_path: Path) -> None:
+    root = tmp_path / "repo"
+    script = root / "neuroloc" / "simulations" / "probe.py"
+    script.parent.mkdir(parents=True)
+    script.write_text("pass\n", encoding="utf-8")
+    (root / "requirements.txt").write_text("pytest\n", encoding="utf-8")
+    assert find_project_root(script) == script.parent
+
+
+@pytest.mark.parametrize("directory_marker", ["AGENTS.md", "CLAUDE.md", "requirements.txt"])
+def test_find_project_root_rejects_directory_markers(tmp_path: Path, directory_marker: str) -> None:
+    root = tmp_path / "repo"
+    script = root / "neuroloc" / "simulations" / "probe.py"
+    script.parent.mkdir(parents=True)
+    script.write_text("pass\n", encoding="utf-8")
+    for marker in ("AGENTS.md", "requirements.txt"):
+        path = root / marker
+        if marker == directory_marker:
+            path.mkdir()
+        else:
+            path.write_text("rules\n", encoding="utf-8")
+    if directory_marker == "CLAUDE.md":
+        (root / "AGENTS.md").unlink()
+        (root / "CLAUDE.md").mkdir()
+    assert find_project_root(script) == script.parent
+
+
+def test_find_project_root_without_markers_preserves_directory_input(tmp_path: Path) -> None:
+    directory = tmp_path / "standalone"
+    directory.mkdir()
+    assert find_project_root(directory) == directory
 
 
 def require_metrics_path(result) -> Path:

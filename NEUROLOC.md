@@ -1,93 +1,79 @@
-# neuroloc
+# Neuroloc
 
-neuroloc is the repository-native neuroscience wiki, simulation corpus,
-and architecture-backlog memory for todorov.
+Neuroloc is Todorov's repository-native research wiki, proof-package corpus,
+simulation surface, and historical record.
 
-## current role
+## Current role
 
-neuroloc currently serves four jobs:
+The canonical project state is `neuroloc/wiki/PROJECT_PLAN.md`. The preserved
+architecture contract is the modular neural-machine stack recorded there:
 
-- it preserves the canonical architecture history and the retrieval-failure diagnosis
-- it holds the cpu simulation surface for future backlog validation
-- it provides the wiki structure for llm-maintained project memory
+- Transformerov supplies the tested host and recurrent world-state path.
+- Monodratic supplies the routed selected-set attention candidate and must
+  still prove exact recall after routing.
+- The nested-reciprocal feature mixer is an unvalidated token-local candidate.
+- Karkasov supplies a later candidate protocol for specialist training and
+  zero-gate docking.
 
-the canonical persistent project state is
-`neuroloc/wiki/PROJECT_PLAN.md`.
+The theory, outline, and documentation milestone is delivered and closed. The
+latest local direction is the Todorov-owned complementary-learning-systems
+trainer recorded in
+`neuroloc/wiki/tests/todorov_cls_macbook_session_202608.md`. Candidate G, the
+compression-first 100k path, and the older recurrent-retrieval program remain
+retained evidence and backlog. The local trainer and its generated artifacts
+are excluded from the public source push.
 
-## current state
+## Current surface
 
-the active lane is the neural-machine architecture program (approach a:
-attention does recall, recurrent state does cheap world-tracking, eidetic
-compression deferred). it is in cpu validation now: the v0.1 toy (`v01/`) and
-the feel bench, where a located, accumulated touch sense turns an otherwise
-unsolvable task solved (blind 0.14, real-touch 1.00, fake-touch 0.15 control).
-candidate F (affect-gated write) closed negative; its shuffled-surprise control
-is the live anomaly, promoted to candidate G (stochastic write gain).
-
-the six paid neural-machine runs ended with consecutive 0% passkey across two
-substrates and two corpora; that retrieval wall is the documented problem the
-architecture program exists to lift. the six-lane neural-model research and the
-compression results are the research substrate that feeds the machine.
-
-paid compute is gated on funding and a cpu-validated intervention; cpu work is
-the current mode.
-
-## current neuroloc surface
-
-- `346` wiki markdown files
+- `357` wiki Markdown files present
 - `61` mechanism articles
-- `28` bridge documents
+- `27` bridge documents
 - `15` comparison articles
-- `55` synthesis articles
-- `70` wiki test records
-- `94` simulation scripts
-- `66` memory simulation scripts
+- `58` synthesis articles
+- `75` wiki test records present
+- `26` mistake documents
+- `49` knowledge articles
+- `7` concept articles
+- `96` simulation scripts
+- `68` memory simulation scripts
 
-main entry points:
+Main entry points:
 
-- `neuroloc/wiki/Home.md`
-- `neuroloc/wiki/INDEX.md`
 - `neuroloc/wiki/PROJECT_PLAN.md`
 - `neuroloc/wiki/OPERATING_DIRECTIVE.md`
+- `neuroloc/wiki/Home.md`
+- `neuroloc/wiki/INDEX.md`
 - `neuroloc/HANDOFF.md`
 
-## what todorov is
+## Directory guide
 
-todorov is built around the compressed rotational bilinear recurrence:
+- `neuroloc/wiki/` contains the canonical plan and research articles.
+- `neuroloc/simulations/` contains CPU-first biological and neural-model probes.
+- `neuroloc/spec/` contains design targets and backlog documents.
+- `neuroloc/results/` contains historical experiment summaries.
+- `neuroloc/print/` contains print-oriented documents.
+- `neuroloc/compression/` contains the separate compression research corpus.
 
-`z_t = Q(R(B(C(x_t), C(h_{t-1}))))`
+## Historical boundary
 
-where:
+The compressed rotational bilinear recurrence, the Candidate G retrieval line,
+and the compression-first local model path remain part of the evidence trail.
+They do not override the July 2026 modular contract. Active claims must come
+from the canonical plan and must retain their tests, controls, telemetry, and
+kill conditions.
 
-- `c` is compression
-- `b` is bilinear interaction
-- `r` is rotational structure
-- `q` is output shaping or quantization
+## Read order
 
-the archived architecture results established that these constraints can beat
-matched transformers at scale. the later neural-machine work showed that good
-distribution fit did not imply trained retrieval. neuroloc exists to explain
-that gap well enough to fix it later.
+1. `AGENTS.md`
+2. `neuroloc/wiki/PROJECT_PLAN.md`
+3. `neuroloc/wiki/OPERATING_DIRECTIVE.md`
+4. `neuroloc/wiki/synthesis/modular_neural_model_stack.md`
+5. The task-specific evidence named by the plan
 
-## directory guide
+## Constraints
 
-- `neuroloc/wiki/` canonical research wiki and state articles
-- `neuroloc/simulations/` cpu-first biological and neural-model simulations
-- `neuroloc/spec/` neural-machine design documents and backlog plans
-- `neuroloc/results/` historical experiment summaries
-- `neuroloc/print/` print-oriented neuroloc documents
-- `neuroloc/raw/` immutable source material
-
-## what to read first
-
-1. `neuroloc/wiki/PROJECT_PLAN.md`
-2. `neuroloc/wiki/OPERATING_DIRECTIVE.md`
-3. `neuroloc/HANDOFF.md`
-
-## constraints
-
-- zero comments in code
-- zero emojis
-- zero ai attribution
-- lowercase in docs and commit text
-- use the wiki operating directive for any wiki or state change
+- Zero comments in code.
+- Zero emojis.
+- Zero AI attribution.
+- Professional sentence case in current documentation.
+- Follow the wiki operating directive for every wiki or state change.

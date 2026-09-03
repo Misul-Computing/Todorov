@@ -1,14 +1,14 @@
 # tests
 
-status: current (as of 2026-05-14).
+status: current (as of 2026-08-13).
 
 this folder records concrete simulations and experiments that were actually
 run, plus a small number of frozen supporting prototype notes that were
 directly attached to those runs or artifacts.
 
 the design and gating method for the architecture backlog now lives in
-`wiki/synthesis/phase1_evaluation_surface_for_neural_models.md` and
-`wiki/synthesis/synthetic_shared_world_bridge.md`. this index remains a
+`neuroloc/wiki/synthesis/phase1_evaluation_surface_for_neural_models.md` and
+`neuroloc/wiki/synthesis/synthetic_shared_world_bridge.md`. this index remains a
 catalog of executed evidence records and committed test-material artifacts,
 not a planning page. individual dated test records should be added here
 only after each simulation family is run and archived as its own evidence
@@ -37,6 +37,8 @@ each test page should include:
 - [[tests/run3_cognition_phase1_results]] -- sixth paid run (2026-04-17, 355M; synthetic cognition corpus 50% passkey / 30% kv recall / 20% copy; val_bpb plateaued at alphabet prior 6.3519 from step 150; passkey 0/100 at 256 and 1024; triggered substrate_requires_architectural_change.md)
 
 ### pilot experiments
+
+- [[tests/todorov_cls_macbook_session_202608|Todorov CLS MacBook session]] -- local MLX Metal trainer snapshot from 2026-08-12 to 2026-08-13; fit and small role probes recorded, 100M-class passkey and 1B parity claims not established, trainer artifacts excluded from the public push
 
 - [[tests/2026-04-07_pattern_completion_baseline|2026-04-07 pattern completion baseline]] -- ca3-like attractor baseline with shuffled-weight control, corruption/load/scaling sweeps, and machine-readable metrics
 - [[tests/2026-04-07_kwta_vs_threshold_pilot|2026-04-07 k-wta vs threshold pilot]] -- matched-sparsity bridge pilot showing stronger exact support recovery for k-wta at moderate noise and exact active-fraction control at higher noise
@@ -110,7 +112,7 @@ each test page should include:
 
 - [[tests/aesthetic_logger_prototype|aesthetic logger prototype]] -- frozen prototype note for the phase 6a logging module; not a live module-status page
 
-## see also
+## See also
 
 - [[PROJECT_PLAN]]
 - [[tests/hard_symbolic_nm_test_material]]
@@ -152,6 +154,7 @@ each test page should include:
 - [[tests/local_100k_zstd_trained_dictionary_baseline_audit]]
 - [[tests/local_100k_source_subtoken_qa_adapter]]
 - [[tests/local_100k_source_structure_qa_adapter]]
+- [[tests/todorov_cls_macbook_session_202608]]
 - [[tests/local_10k_chat_model]]
 - [[tests/local_foundation_neural_model]]
 - [[mistakes/local_foundation_lookup_scaffold_category_error]]

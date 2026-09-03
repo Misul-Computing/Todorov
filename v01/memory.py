@@ -88,10 +88,12 @@ class DescentMemory(nn.Module):
         H, dk, dv, dh = self.H, self.dk, self.dv, self.dh
         affect = self.cfg.affect
         mode = self.cfg.affect_mode
-        gperm = torch.Generator().manual_seed(0) if mode in ("shuffle", "noise", "noise_token") else None
+        gperm = torch.Generator().manual_seed(0) if mode in ("shuffle", "noise", "noise_token", "smooth_noise", "smooth_noise_token") else None
         s_sum = torch.zeros((), device=dev)
         g_sum = torch.zeros((), device=dev)
         s_run = torch.zeros(B, H, device=dev)
+        s_smooth = torch.zeros(B, H, device=dev)
+        s_smooth_tok = torch.zeros(B, 1, device=dev)
         s_cnt = 0
         if self.cfg.mode == "linear":
             W = torch.zeros(B, H, dv, dk, device=dev, dtype=torch.float32)
@@ -113,6 +115,12 @@ class DescentMemory(nn.Module):
                         s = torch.rand(B, H, generator=gperm).to(dev)
                     elif mode == "noise_token":
                         s = torch.rand(B, 1, generator=gperm).to(dev).expand(B, H).contiguous()
+                    elif mode == "smooth_noise":
+                        s_smooth = 0.7 * s_smooth + 0.3 * torch.rand(B, H, generator=gperm).to(dev)
+                        s = s_smooth
+                    elif mode == "smooth_noise_token":
+                        s_smooth_tok = 0.7 * s_smooth_tok + 0.3 * torch.rand(B, 1, generator=gperm).to(dev)
+                        s = s_smooth_tok.expand(B, H).contiguous()
                     if mode == "surprise_batchnorm":
                         rel = s / (s.mean(dim=0, keepdim=True) + 1e-6)
                     else:
@@ -154,6 +162,12 @@ class DescentMemory(nn.Module):
                         s = torch.rand(B, H, generator=gperm).to(dev)
                     elif mode == "noise_token":
                         s = torch.rand(B, 1, generator=gperm).to(dev).expand(B, H).contiguous()
+                    elif mode == "smooth_noise":
+                        s_smooth = 0.7 * s_smooth + 0.3 * torch.rand(B, H, generator=gperm).to(dev)
+                        s = s_smooth
+                    elif mode == "smooth_noise_token":
+                        s_smooth_tok = 0.7 * s_smooth_tok + 0.3 * torch.rand(B, 1, generator=gperm).to(dev)
+                        s = s_smooth_tok.expand(B, H).contiguous()
                     if mode == "surprise_batchnorm":
                         rel = s / (s.mean(dim=0, keepdim=True) + 1e-6)
                     else:

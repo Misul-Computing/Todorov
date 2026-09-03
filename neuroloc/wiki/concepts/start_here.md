@@ -1,83 +1,83 @@
-# start here
+# Start here
 
-status: definitional. last fact-checked 2026-06-18.
+status: definitional. last fact-checked 2026-08-13.
 
-## what is neuroloc
+## What Neuroloc is
 
-neuroloc is a computational neuroscience wiki built to support the design of brain-inspired neural architectures. it contains 61 mechanism articles, 28 bridge documents (25 current + 3 legacy-title redirects), 15 comparison analyses (14 current + 1 legacy-title redirect), 24 synthesis pages, 49 research shelves, and 33 entity notes. every article is written to be useful to engineers, not just neuroscientists.
+Neuroloc is a computational-neuroscience wiki and architecture evidence corpus.
+It contains 61 mechanism articles, 27 bridge documents, 15 comparison analyses,
+58 synthesis pages, 49 research shelves, 33 entity notes, 75 wiki test records, and
+26 mistake records. Its canonical plan separates current architecture decisions
+from retained historical evidence.
 
-## who this is for
+## Who this is for
 
-you are an ML engineer. you know transformers, attention, gradient descent, and linear algebra. you know nothing about neuroscience. you want to understand which biological principles can make neural architectures better -- and which are irrelevant distractions.
+This reading path assumes familiarity with machine learning, attention,
+gradient descent, and linear algebra. It introduces the neuroscience needed to
+evaluate which biological mechanisms are useful engineering constraints and
+which analogies do not survive scrutiny.
 
-## what you will learn
+## Current architecture orientation
 
-- how neurons compute: spikes, thresholds, membrane potentials, and why they matter for architecture design
-- how synapses learn: Hebbian learning, spike-timing-dependent plasticity, and their relationship to the delta rule and linear attention
-- how the brain encodes information: sparse coding, population coding, and the tradeoffs between sparsity and capacity
-- how the brain predicts: predictive coding, precision weighting, and how they differ from next-token prediction
-- how the brain organizes computation: cortical columns, excitatory-inhibitory balance, and the canonical microcircuit
-- where biological analogies help and where they mislead: 15 adversarial analyses that separate genuine insight from superficial resemblance
+Use [[Home]] as the landing page, [[INDEX]] as the flat catalog, and
+[[PROJECT_PLAN]] as the only canonical project state. The current architecture
+contract is [[synthesis/modular_neural_model_stack]]. The latest local trainer
+direction is recorded in [[tests/todorov_cls_macbook_session_202608]]. Older
+biological bridges, the compressed rotational bilinear recurrence, Candidate G,
+and the compression-first path remain evidence and backlog rather than the
+live plan.
 
-## how to read this wiki
+## Reading path
 
-use [[Home]] as the landing page, [[INDEX]] as the flat catalog, and this page as the guided reading path.
+Start with the introductory material:
 
-start with the introductory material:
+1. [[the_brain_in_one_page]] for the compressed neuroscience overview.
+2. [[neuroscience_for_ml_engineers]] for a deeper engineering-oriented primer.
+3. [[canonical_visual_narratives_neuroscience]] and
+   [[canonical_visual_narratives_mind_and_memory]] for the visual summaries.
 
-1. this page (you are here)
-2. [[the_brain_in_one_page]] -- the 80/20 overview of neuroscience for ML engineers
-3. [[neuroscience_for_ml_engineers]] -- deeper treatment of the concepts most relevant to architecture design
-4. [[canonical_visual_narratives_neuroscience]] and [[canonical_visual_narratives_mind_and_memory]] -- the fastest visual pass through the highest-leverage stories
+Then read the adversarial bridge documents:
 
-then read the bridge documents. these connect biological mechanisms to todorov code. each one asks "is this biological analogy real?" and gives an honest answer:
+4. [[plasticity_to_matrix_memory_delta_rule]] asks how far the matrix update
+   corresponds to Hebbian models.
+5. [[sparse_coding_to_ternary_spikes]] tests the sparse-coding analogy.
+6. [[energy_efficiency_to_ternary_spikes]] tests the energy claim.
+7. [[dendritic_computation_to_swiglu]] tests the dendritic-gating analogy.
+8. [[state_action_memory_architecture_direction]] records the earlier
+   state-action research direction as supporting evidence.
+9. [[synthesis/modular_neural_model_stack]] defines the present composition and
+   proof order.
 
-5. [[plasticity_to_matrix_memory_delta_rule]] -- is the matrix-memory delta rule Hebbian learning?
-6. [[sparse_coding_to_ternary_spikes]] -- are ternary spikes sparse coding?
-7. [[energy_efficiency_to_ternary_spikes]] -- do ternary spikes actually save energy?
-8. [[dendritic_computation_to_swiglu]] -- is SwiGLU analogous to dendritic gating?
-9. [[state_action_memory_architecture_direction]] -- what the newer research cluster changes about the backlog direction
-10. the remaining bridge documents in the [[INDEX]]
+Use [[glossary]] for unfamiliar terms and [[INDEX]] for the remaining mechanism,
+bridge, comparison, synthesis, knowledge, test, and mistake documents.
 
-then explore individual mechanism articles as needed. use the [[glossary]] when you encounter unfamiliar terms.
+## Main lesson from the biology audit
 
-## the key insight
+Most biological analogies in the historical Todorov architecture are partial:
 
-this wiki began as a search for biological justification of todorov's architecture. it found something more interesting: most biological analogies in todorov are superficial.
+- Three-value activations are not equivalent to cortical sparse coding.
+- The matrix update resembles Hebbian outer-product models but does not
+  establish that the brain performs the same key-value binding operation.
+- Layer normalization is not biological divisive normalization.
+- A residual stream is not a global workspace.
+- Complex rotation in a sequence model is not biological oscillatory
+  coordination.
+- Transformer layers are not cortical layers.
 
-the bridge and comparison work showed that:
+The useful outcome is narrower and more defensible: recurrent state,
+competition, adaptive thresholds, local gating, routing, replay, and
+multi-timescale dynamics can be tested as mathematical mechanisms without
+claiming literal biological identity.
 
-- ternary spikes are not sparse coding. cortical neurons fire at 1-5% rates. todorov spikes fire at 41%. the mechanism is useful but the analogy is weak.
-- the matrix-memory delta rule is not STDP. it uses an outer product (Hebbian), but there is no timing dependence, no asymmetric learning window, no causal inference.
-- LayerNorm is not divisive normalization. the mathematical form is similar but the computational role is different.
-- the residual stream is not a global workspace. it is a shared bus, not a selective broadcasting mechanism.
-- Mamba3 complex rotation is not oscillatory dynamics. it serves positional encoding, not temporal coordination.
-- cortical layers are not transformer layers. the connectivity, cell types, and computational roles are fundamentally different.
+## See also
 
-the architecture works not because it faithfully reproduces biology, but because the biological constraints it borrows -- ternary quantization, recurrent state accumulation, adaptive thresholds, outer-product associative memory -- are independently useful engineering choices.
-
-the one genuine biological correspondence: the outer-product associative memory in matrix memory (S_t = alpha * S_{t-1} + beta * k * v^T) genuinely mirrors Hebbian learning. the outer product k * v^T is the same operation the brain uses to bind key-value pairs in memory. this is not an analogy. it is the same math.
-
-the newer 2026-04-23 research pass adds a second lesson on top of that adversarial cleanup. once the superficial analogies are stripped away, the most interesting remaining directions are not "make it more brain-like" in general. they are more specific:
-
-- multi-timescale state
-- indexing plus replay
-- routing and gating as control primitives
-- branch-local or compartment-local computation
-- latent state-action models as the strongest external-ai comparison frame
-
-that cluster is now recorded in the new synthesis and bridge pages, and it is the right place to look for the active architecture program (approach a).
-
-## see also
-
-- [[Home]] -- landing page and current-workstream orientation
-- [[INDEX]] -- flat catalog of all wiki compartments
-- [[PROJECT_PLAN]] -- authoritative current state and decision rules
-- [[the_brain_in_one_page]] -- compressed neuroscience overview
-- [[neuroscience_for_ml_engineers]] -- deeper treatment for architecture designers
-- [[research_implications_for_neural_model_direction]] -- ranked summary of what the new research cluster changes
-- [[canonical_visual_narratives_neuroscience]] -- the neuroscience visual spine
-- [[canonical_visual_narratives_mind_and_memory]] -- the memory and indexing visual spine
-- [[mathematical_foundations]] -- the mathematical structures shared by neuroscience and ML
-- [[todorov_biology_map]] -- which todorov components map to which biological mechanisms
-- [[glossary]] -- every technical term in this wiki, defined in plain language
+- [[Home]]
+- [[INDEX]]
+- [[PROJECT_PLAN]]
+- [[synthesis/modular_neural_model_stack]]
+- [[the_brain_in_one_page]]
+- [[neuroscience_for_ml_engineers]]
+- [[research_implications_for_neural_model_direction]]
+- [[mathematical_foundations]]
+- [[todorov_biology_map]]
+- [[glossary]]

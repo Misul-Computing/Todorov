@@ -21,6 +21,13 @@ pdf_curriculum/**/*.aux
 pdf_curriculum/**/*.log
 pdf_curriculum/**/*.out
 .venv/
+.venv-feel/
+/train/
+/reviews/
+.cursor/
+.devin/
+.DS_Store
+.pytest_cache/
 .tmp_pytest*/
 .codex_pytest_tmp/
 codex_tmp*/

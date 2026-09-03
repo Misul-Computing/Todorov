@@ -1,12 +1,140 @@
-# status board
+# Status board
 
-canonical persistent project state lives in `neuroloc/wiki/PROJECT_PLAN.md`. that file is updated whenever the project state changes (a run starts, a run completes, a hypothesis is added or falsified, the experimental method changes, a new project term enters the glossary, a prior research question is answered). this status board is a per-run summary; PROJECT_PLAN.md is the structural plan and the entry point for any new agent picking up the project.
+Canonical persistent project state lives in `neuroloc/wiki/PROJECT_PLAN.md`.
+This status board is a subordinate human-readable mirror and historical run
+summary; it does not compete with the project plan.
 
-## active lane: neural-machine architecture program (2026-06-18)
+## Latest local session: CLS trainer (2026-08-12 to 2026-08-13)
 
-the live workstream is the neural-machine architecture program (approach a: attention does exact recall, a recurrent state does cheap world-tracking, eidetic compression deferred). it is in cpu validation now. results to date: the feel bench shows a located, accumulated touch sense turns an otherwise unsolvable cpu task solved (blind 0.14, real-touch 1.00, fake-touch 0.15 control; `v01/feel_tests.md`); the v0.1 toy has attention solving passkey/induction at exact_acc 1.000 while the recurrent memory is stable but trains at chance; candidate F (affect-gated write) closed negative, and its shuffled-surprise control is the live anomaly, promoted to candidate G (stochastic write gain), pre-registration plus literature check required before any arms. the six-lane neural-model research and the compression-product line (below) are the research substrate that feeds the machine, not a competing lane. paid compute is gated on funding plus a cpu-validated intervention; cpu work is the current mode.
+The latest documented direction is a Todorov-owned complementary-learning-
+systems trainer on an Apple M5 Pro using MLX Metal and byte-level FineWeb-Edu.
+The fast path adapts a private gated-delta state inside a sequence. The slow
+path is a versioned specialist trained against a frozen trunk and opened
+through a zero-initialized scalar gate. The first model pattern is
+`[attn, delta, delta, delta]` at sequence length `512`, attention window `128`,
+width `768`, `12` layers, `12` heads, and head width `64`.
 
-## candidate F (affect-gated write) closed negative on cpu (2026-06-10)
+The local registry reports a `1.73e-6` Metal kernel difference under a `1e-5`
+test bound, about `2.2 GB` peak memory for the sequence-512 fit probe, hybrid
+language snapshots below their dense controls, a toy role result of `0.953`
+versus `0.141` for the dense control and delta knockout, and a best isolated
+count result of `0.938` with the PHI path disabled. A joint 4.6M snapshot
+recorded passkey `1.00`, count `0.891`, feel `1.00`, and imagination `0.984`
+on `64` cases. The frozen Llama-3.2-1B 4-bit comparison remained ahead at
+`0.894` bits per byte versus `2.268` for the continued hybrid snapshot.
+
+These values are local session snapshots, not a general model claim. The
+`4.6M` joint snapshot remains the working object. PHI-on and PHI-off count
+differences require explicit frozen-path and knockout controls. Repeated
+100M-class gap-32 passkey attempts are not the next efficient probe.
+
+The trainer, generated data, checkpoints, and result registry remain local and
+are excluded from the public source push. The detailed evidence record is
+`neuroloc/wiki/tests/todorov_cls_macbook_session_202608.md`.
+
+## Preserved July MLX stop (2026-07-26)
+
+Stopped state: Deyan stopped the session before attempt 4. No attempt-4 run
+root or claim training exists. The final contract-order synchronization was
+interrupted after the machine-readable payload changed but before its digest
+constants and documentation settled. The payload currently hashes to
+`8c7825f69fd27a7f3653c2e3bfab8673f3bb13d9f543fecd4a6aa9b97a4868ab`;
+launch constants still bind
+`fc3c7130a7ed21043e7081b09eb9265711417a22e84eb5356e6a2402e75a2553`.
+The stopped bytes are unverified, active attestations are stale, and launch is
+blocked. See `docs/MLX_SESSION_STOP_HANDOFF_2026-07-26.md`.
+
+The preserved July workstream is the modular architecture contract in
+`neuroloc/wiki/synthesis/modular_neural_model_stack.md`. Transformerov supplies
+the tested host and recurrent world-state path. Monodratic supplies the routed
+selected-set attention candidate and must still prove exact recall after
+routing. `neuroloc/wiki/synthesis/neural_model_dossier_nested_reciprocal_feature_mixer.md`
+defines an unvalidated token-local candidate. Karkasov supplies only a later
+specialist-training and zero-gate docking protocol.
+
+The July session resumed the result-first local path on 2026-07-26. Three prelaunch bug
+classes were repaired with focused red-green tests: sampler stop no longer
+accepts an in-flight row after stop wins, the second claim swap sample is
+post-data and immediately pre-spawn, and the live claim sampler inherits the
+original post-`proceed` swap baseline. Final code-and-test-byte verification
+reported `811 passed, 2 skipped` in `188.97 s`.
+
+Governed attempt `mlx-m5pro-20260726-1` serialized `48` passing preflight
+records and then stopped after `1.216127125 s`, before update one, because
+duplicated parent validators expected stale execution aliases. The parent
+protocol is now fully single-sourced across every parent pilot identity and counter,
+including seed offsets and next-update selection. The focused MLX file reports
+`65 passed, 2 skipped`, and a complete pilot-message audit found no additional
+mismatch. The modular `812 passed, 2 skipped` result in `168.67 s` preceded
+the final reviewer-driven closure and is intermediate. Final unchanged
+code-and-test-byte modular verification then reported `812 passed, 2 skipped`
+in `170.27 s`, but third review exposed independent child seed arithmetic. The
+child now uses named seed constants bound to parent and preregistration; final
+unchanged code-and-test-byte modular verification reports `812 passed, 2
+skipped` in `166.42 s`.
+
+Four refreshed attestations admitted `mlx-m5pro-20260726-2`. It again
+serialized `48` passing records, and its durable ledger reached `132`
+attempted pilot updates and `292,864` attempted positions before the parent
+rejected correct preregistered one-element warmup timing lists. Peak resident
+memory was `1,966,882,816` bytes and swap growth was zero. Complete-surface
+review then invalidated both `48 / 48` classifications because mandatory
+parity surfaces were absent and hidden and sequence-delta errors exceeded the
+uncalibrated `1e-5`-only bound. It also proved the tail validator still accepted
+fabricated incomplete evidence. The prior focused MLX result at `66 passed, 2
+skipped` and complete modular result at `813 passed, 2 skipped` in `166.70 s`
+are therefore intermediate.
+
+The tail producer and consumer now bind exact fixture hashes, the complete
+`438,368`-byte evaluation fixture, current-model checkpoint lower bounds,
+selected-final clone state, engine-bound metadata, and observed scratch
+cleanup. Eight fresh Metal processes calibrated and froze complete forward and
+raw-gradient limits; two untouched held-out forward cases passed. Independent
+float64 semantic optimizer formulas and a priori bounds replaced the invalid
+exact cross-runtime optimizer requirement, and a different-gradient second
+update passed with nonzero carried moments. The full MLX regression file now
+reports `84 passed, 2 skipped`. Four fresh complete engine-to-parent checks
+passed on `Device(gpu, 0)` with parent worst-bound ratio
+`0.95367431640625`. Complete modular verification reports `832 passed, 2
+skipped` in `219.61 s`.
+
+Four literal-zero attestations then admitted governed attempt
+`mlx-m5pro-20260726-3`. Its current preflight passed, and its MLX child
+executed all `132` pilot updates and reported `292,864` attempted positions.
+An in-flight parent resource read captured the exited child with zero resident
+memory and zero CPU time while retaining an older active rung-two job. That
+stale row committed after lifecycle state changed. Terminal sampling failed,
+and hard-abort finalization then rejected the zeroed process as decreasing CPU
+time. The run published neither `run/pilot.json` nor `ABORTED.json`, created no
+training-start request, and began no claim work.
+
+The shared sampler was then changed to invalidate in-flight generations on every progress,
+job-clear, and child-exit mutation, rejects zeroed telemetry for a previously
+positive child, quiesces periodic sampling before a required final sample, and
+durably writes a parent-only terminal row. Legacy abort validation treats the
+attempt-3 zeroed child only as terminal disappearance and rejects PID
+reappearance. The full MLX file then reported `84 passed, 2 skipped`, focused
+CPU resource and abort verification reported `77 passed`, and the last settled
+attempt-3 modular verification reported `834 passed, 2 skipped` in `214.05 s`.
+A later pre-interruption modular surface reported `844 passed, 2 skipped` in
+`220.75 s` before the stopped payload edit. Neither result certifies the
+stopped bytes.
+
+If Deyan explicitly resumes the July MLX lane, the next ordered gates are
+literal-zero review of the stopped bytes, four fresh attestations, and the full
+pretraining assertion package before a new one-child compiled-MLX pilot may
+run. The pilot must project the unchanged complete package at no more than
+`1,200 s`; `600 s` remains the target. No training-start publication, claim
+model update, or optimizer update has occurred. Paid compute remains
+unauthorized. The focused record is
+`neuroloc/wiki/tests/modular_sequence_role_mlx_resumption_20260726.md`.
+
+Everything below is a prior status snapshot retained as evidence. Candidate G,
+the compression-first 100k line, and earlier paid-run proposals are not part of
+the current documentation deliverable. Historical wording is preserved unless
+a path or factual claim requires an explicit correction.
+
+## Prior Candidate F result: affect-gated write closed negative on CPU (2026-06-10)
 
 a cpu-only extension of the v0.1 track (no paid compute). the pre-registered candidate F — route the descent memory's inner-loop prediction-error magnitude (surprise) into the write gain — was executed on the v01/ mlp substrate on mqar and CLOSED NEGATIVE: true surprise is at chance under the own-history normaliser (affect 0.5 and 1.0) and under exact budget matching (realised write gain 1.000), so surprise content is inert on the write side. the falsification surfaced an anomaly: the shuffled-surprise control trained the descent memory to mqar exact 0.360 / token 0.785 (1200 steps, seed 0, n=100) — the first sgd-trained non-chance retrieval on a recurrent memory substrate in this project, verified memory-mediated (a pinned no-write baseline stays at chance) and causally clean (max_diff 0.0). it is an existence proof, not a recipe: ignition is seed-sensitive (chance at seed 1) and is not reproduced by uniform head-iid (token 0.098) or token-correlated (chance) write-gain noise at matched init/data. the anomaly is promoted to candidate G (stochastic write gain) in the backlog, gated behind its own cpu pre-registration and a literature check. supporting cpu context (bench `v01/feel_tests.md`): the linear matrix memory trains into partial mqar natively (exact 0.470 at 6 pairs / 400 steps; the cliff at 10 pairs is an optimization slope, not a hard capacity wall), a 4-layer attention reference stays at chance through 2000 steps, the feel-bench parity question settled positive at the count-query position, and feel-and-predict pretraining shows generic negative transfer. run card (frozen) `neuroloc/wiki/tests/affect_gated_write_cpu_experiment.md`; candidate F outcome and candidate G in `neuroloc/wiki/synthesis/substrate_requires_architectural_change.md`. the compression-lane phase below remains the prior documented default workstream.
 
@@ -28,15 +156,15 @@ the six-paid-run history is preserved below as evidence. older phase summaries s
 
 ## prior phase: neural machine research (neuroloc)
 
-## status: run3_cognition_phase1 complete (2026-04-17). val_bpb 6.3519 (plateaued at the alphabet prior from step 150 and never descended), passkey 0/100 at 256 and 1024 (partial eval — pod stopped by user before further eval). SIX paid runs all returning 0% passkey at 256 across two substrates (matrix and slot), two retention regimes (broken inherited and fixed alpha_log_mean=5.0), and now two corpora (fineweb-edu natural text and synthetic cognition). this run executed the discriminant proposed in `neuroloc/wiki/synthesis/training_objective_vs_architectural_goal.md`: a corpus where retrieval is explicit 50% of training. the article predicted that if phase one produced zero passkey on synthetic data, the substrate could not be trained by sgd at this configuration and the architecture needed deeper changes. phase one produced zero passkey. the architecture-cannot-be-trained-by-sgd branch fires. diagnosis is no longer "training objective mismatch" (that was the prior-run hypothesis) but "this substrate does not learn retrieval under sgd with these initialisations and this loss, even when the loss directly rewards retrieval". analysis at `neuroloc/wiki/synthesis/substrate_requires_architectural_change.md`, which ranks five candidate architectural interventions: (A) output gate init 0 instead of -4 (gate sigmoid(-4)=0.018 appears to be a fixed point of SGD, mean gate stayed at 0.018 through two paid runs), (B) auxiliary retrieval loss on marker-following positions at 10-100x weighting, (C) orthogonal prototype key init to break one-slot softmax collapse, (D) warm start from hand-placed key/value pairs, (E) substrate replacement. these are not accepted for paid compute and must not be bundled by default; the approved next work is the six-lane master-plan research phase and local proof gates. the current local compression mirror now includes source diagnostics, sparse-read baselines, matched-budget sparse read, distributed evidence, an ordinary-split tiny model sanity pass, a shared-trunk factor-heldout failure, and a 10k legal-input factorized structured gate across four factor axes. another paid run with no substrate changes is strictly predicted to produce 0% passkey and must not be authorised. run card at `neuroloc/wiki/tests/run3_cognition_phase1_results.md`.
+## status: run3_cognition_phase1 complete (2026-04-17). val_bpb 6.3519 (plateaued at the alphabet prior from step 150 and never descended), passkey 0/100 at 256 and 1024 (partial eval — pod stopped by user before further eval). SIX paid runs all returning 0% passkey at 256 across two substrates (matrix and slot), two retention regimes (broken inherited and fixed alpha_log_mean=5.0), and now two corpora (fineweb-edu natural text and synthetic cognition). this run executed the discriminant proposed in `neuroloc/wiki/synthesis/training_objective_vs_architectural_goal.md`: a corpus where retrieval is explicit 50% of training. the article predicted that if phase one produced zero passkey on synthetic data, the substrate could not be trained by sgd at this configuration and the architecture needed deeper changes. phase one produced zero passkey. the architecture-cannot-be-trained-by-sgd branch fires. diagnosis is no longer "training objective mismatch" (that was the prior-run hypothesis) but "this substrate does not learn retrieval under sgd with these initialisations and this loss, even when the loss directly rewards retrieval". analysis at `neuroloc/wiki/synthesis/substrate_requires_architectural_change.md`, which ranks five candidate architectural interventions: (A) output gate init 0 instead of -4 (gate sigmoid(-4)=0.018 appears to be a fixed point of SGD, mean gate stayed at 0.018 throughout run 2; run-3 gate telemetry was not persisted, so the same regime is inferred rather than observed), (B) auxiliary retrieval loss on marker-following positions at 10-100x weighting, (C) orthogonal prototype key init to break one-slot softmax collapse, (D) warm start from hand-placed key/value pairs, (E) substrate replacement. these are not accepted for paid compute and must not be bundled by default; the approved next work is the six-lane master-plan research phase and local proof gates. the current local compression mirror now includes source diagnostics, sparse-read baselines, matched-budget sparse read, distributed evidence, an ordinary-split tiny model sanity pass, a shared-trunk factor-heldout failure, and a 10k legal-input factorized structured gate across four factor axes. another paid run with no substrate changes is strictly predicted to produce 0% passkey and must not be authorised. run card at `neuroloc/wiki/tests/run3_cognition_phase1_results.md`.
 
 ## prior status: run2_slot_memory_retention_fixed complete (2026-04-15)
 
-val_bpb 1.4777, passkey 0/100 at 256 and 1024 (partial eval — pod stopped by user before passkey@4096 / selective_copy / structure_probe completed). FIVE paid runs all returning 0% passkey at 256 across two substrates (matrix and slot) and two retention regimes (broken inherited and fixed alpha_log_mean=5.0). diagnosis at that point: the language-modelling training objective on fineweb-edu does not exercise the memory substrate, so gradient descent collapses it to inactive (mean output gate stayed at 0.018 throughout the 4000-step run) and never learns to use it. cpu gates A and B prove the slot mechanism CAN retrieve when addresses are placed by hand. the proposed discriminant (synthetic cognition corpus) was run as run3_cognition_phase1 and produced the same 0%, superseding this hypothesis with the architectural-change one above. first launch attempt of run2 fell through to the python recurrent loop because `flash-linear-attention` was missing from the pod (now pinned in `requirements.txt` commit `edcfe5d`, mistake at `wiki/mistakes/run2_slot_memory_fla_silent_fall_through.md`). run card at `neuroloc/wiki/tests/run2_slot_memory_retention_fixed_results.md`. analysis at `neuroloc/wiki/synthesis/training_objective_vs_architectural_goal.md` (the article was updated 2026-04-17 with the run3 result; its reasoning structure is correct, its predicted discriminant came back negative).
+val_bpb 1.4777, passkey 0/100 at 256 and 1024 (partial eval — pod stopped by user before passkey@4096 / selective_copy / structure_probe completed). five paid runs all returning 0% passkey at 256 across two substrates (matrix and slot) and two retention regimes (broken inherited and fixed alpha_log_mean=5.0). diagnosis at that point: the language-modelling training objective on fineweb-edu does not exercise the memory substrate, so gradient descent collapses it to inactive (mean output gate stayed at 0.018 throughout the 4000-step run) and never learns to use it. cpu gates a and b prove the slot mechanism can retrieve when addresses are placed by hand. the proposed discriminant (synthetic cognition corpus) was run as run3_cognition_phase1 and produced the same 0%, superseding this hypothesis with the architectural-change one above. first launch attempt of run2 fell through to the python recurrent loop because `flash-linear-attention` was missing from the pod (now pinned in `requirements.txt` commit `edcfe5d`, mistake at `neuroloc/wiki/mistakes/run2_slot_memory_fla_silent_fall_through.md`). run card at `neuroloc/wiki/tests/run2_slot_memory_retention_fixed_results.md`. analysis at `neuroloc/wiki/synthesis/training_objective_vs_architectural_goal.md` (the article was updated 2026-04-17 with the run3 result; its reasoning structure is correct, its predicted discriminant came back negative).
 
 ## prior status: run2_slot_memory first launch (2026-04-15)
 
-val_bpb 1.5107, passkey 0/100 at every tested length. FOUR paid runs at 0% passkey before the retention-fix relaunch. run 2 first-launch failure was a SELF-INFLICTED CONFIG BUG — the slot preset inherited `alpha_log_mean=-0.5` from Config defaults, reproducing the exact state-evaporation failure mode documented in `wiki/synthesis/linear_attention_retrieval_wall.md` four days earlier by the same author who built the slot preset. mistake documented in `wiki/mistakes/run2_slot_memory_decay_copy_paste.md`. fix committed as `7abb781`. structural guard `_assert_preset_retention_safe` enforces explicit `alpha_log_mean` at config resolution so the bug class is impossible to reintroduce by silence.
+val_bpb 1.5107, passkey 0/100 at every tested length. four paid runs at 0% passkey before the retention-fix relaunch. run 2 first-launch failure was a self-inflicted config bug — the slot preset inherited `alpha_log_mean=-0.5` from config defaults, reproducing the exact state-evaporation failure mode documented in `neuroloc/wiki/synthesis/linear_attention_retrieval_wall.md` four days earlier by the same author who built the slot preset. mistake documented in `neuroloc/wiki/mistakes/run2_slot_memory_decay_copy_paste.md`. fix committed as `7abb781`. structural guard `_assert_preset_retention_safe` enforces explicit `alpha_log_mean` at config resolution so the bug class is impossible to reintroduce by silence.
 
 ## god_run_v2: god_machine.py re-run with all 17 F + 14 G prosecutor fixes (2026-04-12)
 
@@ -77,7 +205,7 @@ in the zeroed dimensions. 6 supporting review findings: imagination probe may cr
 gradient bypass that competes with the delta memory, BCM EMA half-life 69 steps may be too
 slow, multi-compartment SwiGLU may reduce effective width, PC head may add loss drag,
 FLA/recurrent numerical drift may compound during chunked eval, q/k normalization timing
-differs between paths. full detail in `neuroloc/output/god_run_v2/run_card.md`.
+differs between paths. preserved run card: `neuroloc/wiki/tests/god_run_v2_results.md`.
 
 **historical path forward proposed on 2026-04-12, superseded by later runs and the 2026-04-27 master-plan gate**:
 
@@ -126,7 +254,7 @@ norm but pairwise-orthogonal state that functions as noise, not content-addressa
 (bpb 1.395). the delta-rule memory state is noise. k-wta 20% + delta erasure + bcm alpha +
 imagination probe combined so that verbatim retrieval was destroyed while statistical
 distribution-fitting worked. this is exactly the lossy-mechanism failure mode that
-`wiki/synthesis/compression_beyond_quantization.md` predicts: preserved statistical fit,
+`neuroloc/wiki/synthesis/compression_beyond_quantization.md` predicts: preserved statistical fit,
 destroyed verbatim memory.
 
 **17 prosecutor findings F1-F17 applied before re-run:**
@@ -166,8 +294,8 @@ real MetricsLogger to a tempfile, reads it back via json.loads, and asserts ever
 feature's aux keys round-trip through disk. any future regression that drops metrics fails
 smoke test before launch. required_god_keys is derived programmatically from aux.
 
-artifacts: `neuroloc/output/god_run/` (eval_suite.json, metadata.json, stdout.log,
-metrics.jsonl, results.json). run card: `neuroloc/output/god_run/run_card.md`.
+the original local output directory was ephemeral. preserved run card:
+`neuroloc/wiki/tests/god_run_results.md`.
 
 **what happened next**: `god_run_v2` re-ran `god_machine.py` with all F1-F17 fixes and full
 telemetry. the result stayed at 0% retrieval, so this archived branch is closed; the live
@@ -190,8 +318,10 @@ h200, 267m params, kda+mla only (no mamba3). fla disabled (chunk_kda NaN at
 d_model=1024). mamba3 dropped (sequential scan ~15s/step at T=2048, not viable
 without parallel scan kernel).
 
-bpb 2.375, ratio 0.663x (33.7% better than transformer baseline at matched
-scale). spike health: mi=1.168, cka=0.732, fr=40.8%.
+Within this incomplete KDA+MLA probe, bpb was 2.375 and the ratio was 0.663x
+against its parameter-matched Transformer control. The run omitted Mamba3 and
+does not validate the full historical hybrid or the current modular target.
+Spike health was mi=1.168, cka=0.732, fr=40.8%.
 
 | gate             | threshold                    | run_010 result                  | status |
 |------------------|------------------------------|---------------------------------|--------|

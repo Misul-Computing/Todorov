@@ -1,0 +1,1 @@
+{"evidence_paths":["run/config_manifest.json","run/source_manifest.json"],"inputs":{"expected":true},"name":"mixer_abi_and_residual_ownership","outputs":{"actual":{"block_count":8,"finite":true,"residual_max_error":0.0},"max_error":null,"pass":true,"tolerance":null},"run_id":"mlx-m5pro-20260726-1","schema_version":"todorov.cpu-witness.1","scope":"pretraining_assertion"}

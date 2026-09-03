@@ -1,0 +1,1 @@
+{"evidence_paths":["run/config_manifest.json","run/source_manifest.json"],"inputs":{"expected":true},"name":"query_only_remote_route","outputs":{"actual":{"outside_query_all_minus_one":true,"query_routes":[[5,6],[0,5]]},"max_error":null,"pass":true,"tolerance":null},"run_id":"mlx-m5pro-20260726-2","schema_version":"todorov.cpu-witness.1","scope":"pretraining_assertion"}

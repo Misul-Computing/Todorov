@@ -1,20 +1,23 @@
-# neuroloc index
+# Neuroloc index
 
-status: current (as of 2026-06-18).
+status: current (as of 2026-08-13).
 
-update note: [[tests/compression_under_bit_budget_mirror]] now includes the first tiny distributed local learned model, a factor-heldout local falsification gate, a factorized structured local codec, and a 10k-scale local data-heavy robustness gate. [[tests/language_grounded_state_density_mirror]] now adds the first constrained generated-language message-response bridge, a negative parser-resistant learned token-count gate, a parser-supported event-binding baseline, and a typed trainable event-binding local-state pass. [[tests/local_v1_language_model]], [[tests/local_10k_chat_model]], and [[tests/local_foundation_neural_model]] are demoted scaffolds after [[mistakes/local_foundation_lookup_scaffold_category_error]]. they remain useful for local record-routing and compartment-boundary evidence, but they do not prove memory, replay, imagination, compression, chat, language competence, or neural-model v1. the immediate no-paid work is a real local v1 architecture contract before more implementation.
+Update note: [[synthesis/modular_neural_model_stack]] remains the modular architecture contract. [[tests/todorov_cls_macbook_session_202608]] records the latest local CLS trainer direction and its evidence boundary. [[synthesis/neural_model_dossier_nested_reciprocal_feature_mixer]] remains the proof package for the unvalidated token-local feature candidate. Prior local-model, Candidate G, compression, and July MLX paths remain evidence and backlog unless the canonical plan says otherwise.
 
-this is the flat reference catalog of every article in the wiki, grouped
-by topic within each top-level directory. for guided navigation, start
-at [[start_here]]. for the rules that govern every article below, see
-[[OPERATING_DIRECTIVE]]. for the canonical project state, see
-[[PROJECT_PLAN]].
+This is the flat reference catalog of every article in the wiki, grouped by
+topic within each top-level directory. For guided navigation, start at
+[[start_here]]. For the rules that govern every article below, see
+[[OPERATING_DIRECTIVE]]. For the canonical project state, see [[PROJECT_PLAN]].
+Catalog descriptions below retain their original wording unless their status
+or target has changed.
 
-## entry points for new readers
+## Entry points for new readers
 
-- [[Home]] — landing page and current-workstream orientation
-- [[concepts/start_here]] — guided onboarding path for new readers
-- [[PROJECT_PLAN]] — single canonical master plan and session-start state
+- [[Home]] — Landing page and current-workstream orientation
+- [[concepts/start_here]] — Guided onboarding path for new readers
+- [[PROJECT_PLAN]] — Single canonical master plan and session-start state
+- [[synthesis/modular_neural_model_stack]] — Current modular architecture contract and adoption sequence
+- [[synthesis/neural_model_dossier_nested_reciprocal_feature_mixer]] — External feature-mixer evidence boundary and future CPU gate
 - [[synthesis/neural_model_paper_spine]] — future paper spine and current research argument
 - [[synthesis/neural_model_related_work_pressure_matrix]] — 2026-05-06 multi-lane related-work pressure matrix and prior-art boundary
 - [[synthesis/oracle_compression_analysis_plan]] — compression-lane proof step for oracle bounds
@@ -31,6 +34,7 @@ at [[start_here]]. for the rules that govern every article below, see
 - [[tests/local_v1_language_model]] — demoted dataset-grounded state-router scaffold
 - [[tests/local_10k_chat_model]] — demoted under-10k constrained responder scaffold
 - [[tests/local_foundation_neural_model]] — demoted record-routing and compartment-boundary scaffold
+- [[tests/todorov_cls_macbook_session_202608]] — local CLS trainer session, results snapshot, and publication boundary
 - [[mistakes/local_foundation_lookup_scaffold_category_error]] — category-error map and hard demotion record
 - [[synthesis/neural_model_lane_cellular_state_storage]] — biology-led local-state research lane
 - [[synthesis/neural_model_lane_operation_preserving_compression]] — operation-preserving compression research lane
@@ -41,19 +45,26 @@ at [[start_here]]. for the rules that govern every article below, see
 - [[synthesis/neural_model_lane_project_operations]] — project operations and paper-governance lane
 - [[synthesis/research_implications_for_neural_model_direction]] — ranked summary of the 2026-04-23 research cluster
 - [[synthesis/neural_model_research_test_material_plan]] — approved no-paid-compute mechanism-dossier and test-material preparation plan
-- [[synthesis/indexed_reconstruction_compression]] — current compact-handle plus reconstruction compression direction
+- [[synthesis/indexed_reconstruction_compression]] — Retained compact-handle and reconstruction direction in the compression backlog
 - [[OPERATING_DIRECTIVE]] — binding rules for the wiki
 - [[concepts/the_brain_in_one_page]] — 80/20 bio overview
 - [[concepts/neuroscience_for_ml_engineers]] — neuroscience mapped to ML
 
-## navigation
+## Navigation
 
 - [[log]] — operation log: append-only running narrative of project activity
 
-## current project-state analyses (synthesis/)
+## Current project-state analyses (`synthesis/`)
 
-all 52 articles in `synthesis/` are the load-bearing project-level
-reasoning documents. one is superseded, fifty-one are current.
+The `synthesis/` directory contains 58 project-level reasoning documents with
+their own lifecycle banners. The two current modular entry points are listed
+first below; older entries retain their narrower evidence roles.
+
+- [[synthesis/modular_neural_model_stack]] — Current composition contract,
+  evidence ledger, target interface, and one-variable-at-a-time adoption order.
+- [[synthesis/neural_model_dossier_nested_reciprocal_feature_mixer]] —
+  Published reciprocal-ladder feature candidate, specification gaps, controls,
+  telemetry, and kill conditions.
 
 - [[synthesis/neural_model_related_work_pressure_matrix]] — the 2026-05-06
   multi-lane related-work consolidation. records what external work already
@@ -114,31 +125,27 @@ reasoning documents. one is superseded, fifty-one are current.
   mirror. defines splits, forbidden inputs, baselines, losses, telemetry,
   acceptance thresholds, and local-code boundaries.
 - [[synthesis/substrate_requires_architectural_change]] — the
-  post-run-3 analysis after the cognition corpus returned 0% passkey.
-  the canonical reference for why any future paid-resume path needs an
-  architectural intervention, not another training-corpus change.
-  ranks five candidate interventions (A-E). supersedes the "next paid
-  run needs a different corpus" stance in `training_objective_vs_architectural_goal`.
+  superseded post-run-3 analysis after the cognition corpus returned 0%
+  passkey. It remains negative-run and intervention evidence, not current
+  project authority. It superseded the "next paid run needs a different
+  corpus" stance in `training_objective_vs_architectural_goal`.
 - [[synthesis/training_objective_vs_architectural_goal]] — the
   root-cause analysis after five paid runs on fineweb-edu. reasoning
   structure intact; its proposed discriminant (cognition corpus) was
   executed as run3 and returned 0%, which triggered the next article
   above. supersedes `linear_attention_retrieval_wall`.
 - [[synthesis/phase1_evaluation_surface_for_neural_models]] — the
-  current cpu-first evaluation method for the architecture track. defines
-  phase 1 as state + action rather than next-token prediction and
-  records the implemented `biology_phase1` symbolic battery now wired
-  into `phase1_nm`.
-- [[synthesis/synthetic_shared_world_bridge]] — the current phase-2
-  extension rule. keeps image, audio, and later multimodal work tied
-  to one exact latent world instead of stacking separate benchmarks.
+  retained CPU-first evaluation method for any later authorized architecture
+  work. It defines phase 1 as state plus action rather than next-token
+  prediction and records the implemented `biology_phase1` symbolic battery.
+- [[synthesis/synthetic_shared_world_bridge]] — the retained phase-2
+  extension rule for any later authorized bridge. It keeps image, audio, and
+  later multimodal work tied to one exact latent world.
 - [[synthesis/research_implications_for_neural_model_direction]] — the
-  current ranked summary of what the 2026-04-23 research pass changes
-  for the backlog and what it explicitly does not authorize.
-- [[synthesis/indexed_reconstruction_compression]] — the current
-  compact-handle plus reconstruction direction after the source pass
-  on cellular state, synaptic capacity, compression, and model-native
-  evaluation gaps.
+  retained ranked summary of what the 2026-04-23 research pass changed and
+  what it explicitly did not authorize.
+- [[synthesis/indexed_reconstruction_compression]] — the retained
+  compact-handle plus reconstruction direction in the compression backlog.
 - [[synthesis/neural_model_research_test_material_plan]] — the approved
   no-paid-compute preparation plan requiring mechanism dossiers before
   metric code, model code, or intervention presets.
@@ -212,7 +219,11 @@ frozen evidence records, one per paid run:
 - [[mistakes/run2_slot_memory_decay_copy_paste]] — inherited retention bug
 - [[mistakes/run2_slot_memory_fla_silent_fall_through]] — FLA not installed silent slowdown
 
-## flat catalog — articles by topic (sums to 271 content articles; add 6 navigation/meta files plus tests/index.md for 278 total wiki markdown files on disk)
+## Historical flat catalog snapshot (2026-04-16)
+
+The catalog structure below began as a 278-file snapshot and was extended over
+time. Its embedded per-section counts are historical. The current delivered
+inventory appears in the statistics section near the end of this file.
 
 ## mechanisms (61 articles)
 
@@ -369,13 +380,13 @@ frozen evidence records, one per paid run:
 - synthesis/oracle_compression_frontier_split.md -- family-level split from the first oracle compression result; ranks accepted and weak frontier families and the first narrow learned-codec proof-package candidate
 - synthesis/neural_model_dossier_compression_under_bit_budget_codec.md -- first family-specific learned-codec proof package for the accepted compression_under_bit_budget frontier family
 - synthesis/neural_model_tiny_mirror_contract_compression_under_bit_budget.md -- implementation contract for the first tiny local learned-codec mirror on the accepted compression_under_bit_budget family
-- synthesis/substrate_requires_architectural_change.md -- post-run-3 analysis: six paid runs at 0% passkey across two substrates and two corpora trigger the architecture-cannot-be-trained branch; ranks five candidate interventions (output gate init, auxiliary retrieval loss, orthogonal key init, warm-start, substrate replacement)
+- synthesis/substrate_requires_architectural_change.md -- superseded post-run-3 analysis: six paid runs at 0% passkey across two substrates and two corpora triggered the architecture-cannot-be-trained branch; retains five candidate interventions as backlog evidence
 - synthesis/training_objective_vs_architectural_goal.md -- root-cause analysis after five paid runs: LM loss on fineweb-edu does not exercise the memory substrate. the proposed discriminant (cognition corpus) ran as run3 and returned 0%, which triggered the article above
-- synthesis/phase1_evaluation_surface_for_neural_models.md -- backlog evaluation method for neural models: recognition / belief state, associative recollection, interference resistance, delayed use, episodic reuse, iterative reasoning, with the currently implemented `biology_phase1` symbolic battery and trainability controls
-- synthesis/synthetic_shared_world_bridge.md -- phase-2 bridge method: one latent world, many renderers; extend phase 1 through symbolic + image + toy-audio views of the same exact state rather than a bolt-on modality stack
-- synthesis/research_implications_for_neural_model_direction.md -- ranked implication summary from the 2026-04-23 research pass: actionable now, simulation next, preserve for later, and too weak
+- synthesis/phase1_evaluation_surface_for_neural_models.md -- retained backlog evaluation method for neural models: recognition / belief state, associative recollection, interference resistance, delayed use, episodic reuse, iterative reasoning, with the implemented `biology_phase1` symbolic battery and trainability controls
+- synthesis/synthetic_shared_world_bridge.md -- retained phase-2 bridge rule: one latent world, many renderers; any later authorized extension keeps symbolic, image, and toy-audio views tied to the same exact state
+- synthesis/research_implications_for_neural_model_direction.md -- retained ranked implication summary from the 2026-04-23 research pass; it is evidence, not current project direction
 - synthesis/neural_model_compression_stack.md -- operation-preserving compression stack theory across cache, address, payload, episode, imagination, replay-rewrite, and world-state memory
-- synthesis/indexed_reconstruction_compression.md -- current compact-handle plus reconstruction compression direction; stores addresses, schema/residual codes, and replay-rewrite proof obligations instead of pursuing more raw bits per neuron
+- synthesis/indexed_reconstruction_compression.md -- retained compact-handle plus reconstruction direction in the compression backlog; stores addresses, schema/residual codes, and replay-rewrite proof obligations instead of pursuing more raw bits per neuron
 - synthesis/neural_model_research_test_material_plan.md -- approved no-paid-compute research/test-material plan requiring mechanism dossiers before metric code, model code, or intervention presets
 - synthesis/neural_model_dossier_eligibility_gated_local_commit.md -- first cellular mechanism dossier for delayed write permission plus bounded output exposure
 - synthesis/neural_model_symbolic_contract_eligibility_gated_local_commit.md -- symbolic/oracle contract for eligibility-gated local commit, with phase fields, controls, leakage checks, metrics, and implementation status
@@ -487,7 +498,11 @@ frozen evidence records, one per paid run:
 ### supporting prototype note (1)
 - tests/aesthetic_logger_prototype.md -- frozen prototype note for the phase 6a logging module; not counted as an evidence record
 
-## simulations (52 scripts total: 49 across 17 script-containing directories plus 3 root-level utilities)
+## Historical simulation inventory snapshot (2026-05-08)
+
+The directory lists below preserve the 52-script catalog as it stood on
+2026-05-08. They are not the current inventory. The current repository totals
+are recorded in the statistics section below.
 - simulations/single_neuron/ (3 scripts: lif_fi_curve leak-validation, adex_patterns, izhikevich_gallery)
 - simulations/plasticity/ (3 scripts: stdp_weight_evolution, homeostatic_scaling, bcm_alpha_pilot)
 - simulations/sparse_coding/ (2 scripts: sparse_coding_demo, hierarchical_ternary)
@@ -558,26 +573,29 @@ frozen evidence records, one per paid run:
 - knowledge/biological_vision_research.md -- curated research library on biological vision, retinal processing, center-surround receptive fields, ventral/dorsal streams, and visual cortex hierarchies
 - knowledge/generative_memory_research.md -- curated literature shelf on generative memory and structural compression: quantization ceilings, Dreamer V3, INRs, hypernetworks, Larimar, Memorizing Transformers, Titans, DeltaKV
 
-## statistics
-- total mechanism articles: 61
-- total bridge notes: 27 (24 current + 3 legacy-title redirects)
-- total synthesis articles: 52
-- total test markdown files: 30
-- total entity notes: 33
-- total comparison articles: 15 (14 current + 1 legacy-title redirect)
-- total concept articles: 7
-- total knowledge articles: 49
-- total mistake docs: 2
-- total supporting prototype notes: 1 (`tests/aesthetic_logger_prototype.md`)
-- total navigation / meta: 7 (INDEX.md, OPERATING_DIRECTIVE.md, PROJECT_PLAN.md, _audit_2026-04-16.md, Home.md, log.md, tests/index.md)
-- total simulations: 52 scripts across 17 script-containing directories plus 3 root-level utilities (shared.py, suite_registry.py, suite_runner.py)
-- last updated: 2026-05-08
+## Statistics
 
-## historical meta
+- Total wiki Markdown files present: 357
+- Total mechanism articles: 61
+- Total bridge notes: 27 (24 current and 3 legacy-title redirects)
+- Total synthesis articles: 58
+- Total wiki test Markdown files: 75
+- Total entity notes: 33
+- Total comparison articles: 15 (14 current and 1 legacy-title redirect)
+- Total concept articles: 7
+- Total knowledge articles: 49
+- Total mistake documents: 22
+- Total supporting prototype notes: 1 (`tests/aesthetic_logger_prototype.md`)
+- Total navigation and meta files: 7 (`INDEX.md`, `OPERATING_DIRECTIVE.md`, `PROJECT_PLAN.md`, `_audit_2026-04-16.md`, `Home.md`, `log.md`, and `tests/index.md`)
+- Total simulations: 96 scripts
+- Total memory simulations: 68 scripts
+- Last updated: 2026-08-13
+
+## Historical meta
 
 - [[_audit_2026-04-16]] — historical audit of the wiki state before the 2026-04-16 refactor
 
-## see also
+## See also
 
 - [[Home]]
 - [[PROJECT_PLAN]]

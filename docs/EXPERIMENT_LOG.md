@@ -1,4 +1,4 @@
-# Experiment Log
+# Experiment log
 
 historical note (2026-04-22): this log remains useful as archive, but the active project lane is now the teaching pdf curriculum. for current state, use `neuroloc/wiki/PROJECT_PLAN.md`, `docs/STATUS_BOARD.md`, `state/program_status.yaml`, and `pdf_curriculum/index/curriculum_status.md`.
 
@@ -651,3 +651,51 @@ benchmarks do not detect. whatever the re-run shows, god_run has produced the pr
 first empirical evidence on the compression_beyond_quantization thesis, and the project
 documentation is no longer "architecture paused" — it is "architecture under active
 empirical test, waiting on re-run."
+
+## Correction (2026-07-14)
+
+The final `NEXT` and cross-run comparison blocks above are historical, not
+current project direction. Root-relative `wiki/...` references in this
+append-only log resolve under `neuroloc/wiki/...`; specifically,
+`wiki/knowledge/imagination_computation_research.md` resolves to
+`neuroloc/wiki/knowledge/imagination_computation_research.md`. Current state
+and authorization live only in `neuroloc/wiki/PROJECT_PLAN.md`.
+
+## Correction (2026-07-14)
+
+The teaching curriculum was removed, and the modular neural-machine
+documentation lane is current. Use only `neuroloc/wiki/PROJECT_PLAN.md` for
+canonical state. The line above remains unchanged as historical evidence.
+
+## Local CLS trainer session (2026-08-12 to 2026-08-13)
+
+The local MacBook session defined a Todorov-owned complementary-learning-
+systems trainer using MLX Metal on an Apple M5 Pro and byte-level FineWeb-Edu.
+The fast path adapts private gated-delta state inside a sequence. The slow path
+is a versioned specialist trained against a frozen trunk and opened through a
+zero-initialized scalar gate. The first model pattern is
+`[attn, delta, delta, delta]` with sequence length `512`, attention window
+`128`, width `768`, `12` layers, `12` heads, and head width `64`.
+
+The local registry records a `1.73e-6` Metal chunkwise-versus-recurrent
+difference under a `1e-5` test bound, about `2.2 GB` peak memory for the
+sequence-512 fit probe, hybrid language snapshots below their dense controls,
+and a toy role result of `0.953` hybrid accuracy versus `0.141` for both the
+dense control and delta knockout. The best isolated count snapshot reached
+`0.938` with the PHI path disabled and `0.078` with both recall and delta
+knocked out. The joint 4.6M snapshot recorded passkey `1.00`, count `0.891`,
+feel `1.00`, and imagination `0.984` on `64` cases. The frozen
+Llama-3.2-1B 4-bit comparison remained ahead at `0.894` bits per byte versus
+`2.268` for the continued hybrid snapshot.
+
+The fit and small role probes are local evidence. They do not establish a
+general CLS, memory, imagination, chat, or parity claim. PHI-on and PHI-off
+count differences require explicit frozen-path and knockout controls. The
+4.6M joint snapshot remains the working object, and repeated 100M-class
+gap-32 passkey attempts are not the next efficient probe. No paid run or July
+MLX attempt-4 resume occurred in this session.
+
+The trainer, checkpoints, datasets, and result JSON files remain in the local
+`train/` directory. They are not part of the public source push. The canonical
+session record is
+`neuroloc/wiki/tests/todorov_cls_macbook_session_202608.md`.

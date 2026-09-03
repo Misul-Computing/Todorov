@@ -1,298 +1,222 @@
-# operating directive
+# Operating directive
 
-status: current (as of 2026-04-16).
+status: current (as of 2026-07-14).
 
-this file defines how the project maintains its wiki and state documentation.
-it is binding for every agent and human who touches the project. it
-supersedes any previous convention that contradicts it.
+This file defines how the project maintains its wiki and state documentation.
+It is binding for every agent and human who touches the project. It supersedes
+any previous convention that contradicts it.
 
-this directive is itself a living document; its own update_history section
-appends every revision.
+This directive is a living document. Its update-history section is append-only.
 
-## scope and authority
+## Scope and authority
 
-the directive governs:
+This directive governs:
 
-- every file under `neuroloc/wiki/`
-- the state files: `neuroloc/wiki/PROJECT_PLAN.md`, `state/program_status.yaml`, `docs/STATUS_BOARD.md`
-- the entry-point documents: `CLAUDE.md`, `neuroloc/HANDOFF.md`
-- the run cards and mistake docs
+- Every file under `neuroloc/wiki/`
+- `neuroloc/wiki/PROJECT_PLAN.md`, `state/program_status.yaml`, and
+  `docs/STATUS_BOARD.md`
+- `AGENTS.md` and `neuroloc/HANDOFF.md`
+- Run cards and mistake documents
 
-it does not govern:
+It does not govern:
 
-- python source files under `neuroloc/model/*.py` and `neuroloc/simulations/**/*.py` (the code's own rules are in `CLAUDE.md`)
-- external dependencies and packaging (`requirements.txt`, etc.)
-- the `neuroloc/output/` tree (gitignored local artifacts)
+- Python source under `neuroloc/model/*.py` and
+  `neuroloc/simulations/**/*.py`; code rules live in `AGENTS.md`
+- External dependencies and packaging
+- The gitignored `neuroloc/output/` tree
 
-markdown documentation files under `neuroloc/model/` (e.g. legacy run cards)
-are in scope for this directive. the exemption applies only to source code,
-not to documents that happen to live next to source code.
+Markdown files under `neuroloc/model/` remain in scope. The exemption applies
+only to source code.
 
-authority order when rules conflict:
+When rules conflict, use this order:
 
-1. the user's explicit written instruction
-2. for questions in the code domain: `CLAUDE.md` > this directive
-3. for questions in the wiki/state domain: this directive > `CLAUDE.md`
-4. individual wiki articles
-5. machine-generated summaries
+1. The user's explicit written instruction
+2. For code questions, `AGENTS.md` over this directive
+3. For wiki and state questions, this directive over `AGENTS.md`
+4. Individual wiki articles
+5. Machine-generated summaries
 
-the code vs wiki/state distinction is the same one used throughout this
-directive: wiki/state covers every file under `neuroloc/wiki/`, the state
-files (`PROJECT_PLAN.md`, `program_status.yaml`, `STATUS_BOARD.md`), the
-entry points (`CLAUDE.md`, `HANDOFF.md`), run cards, and mistake docs.
-code covers the python source tree. the user's instruction always overrides
-both.
+The user's explicit instruction always overrides both governing documents.
 
-## source-of-truth hierarchy
+## Source-of-truth hierarchy
 
-when two documents disagree, resolve in this order:
+Resolve document disagreements in this order:
 
-1. **code wins over docs.** if `god_machine.py` says `alpha_log_mean=5.0` and a wiki article says it's `-0.5`, the wiki article is stale. fix the article.
-2. **commit date wins.** when two wiki articles make incompatible claims, the one with the later commit takes precedence. the older article is either superseded (add banner and forward pointer) or still valid in a narrower scope (add scoping qualifier).
-3. **state files have named canonical roles:**
-   - `PROJECT_PLAN.md` is canonical for current project state, the current question under test, decision rules, and the append-only history.
-   - `program_status.yaml` is canonical for machine-readable state: `latest_run`, `latest_run_results`, `next_action`, `run_history`.
-   - `STATUS_BOARD.md` is canonical for human-readable status snapshots.
-   - `CLAUDE.md` is canonical for agent-facing rules and the run summary trail.
-4. **wiki articles are not canonical on their own.** they are the reasoning record. when a wiki claim needs to be authoritative for a decision, promote it to a decision rule in `PROJECT_PLAN.md` or a binding constraint in `CLAUDE.md`.
+1. **Code wins over documentation.** If implementation and prose disagree about
+   implemented behavior, repair the prose.
+2. **Later commit wins by default.** When wiki articles make incompatible
+   claims, the later commit takes precedence. Mark the older article as
+   superseded or narrow its scope. If the later commit is itself wrong, append
+   a correction rather than silently rewriting an append-only record.
+3. **State files have named roles.**
+   - `PROJECT_PLAN.md` is canonical for project state, the current question,
+     decision rules, and update history.
+   - `program_status.yaml` is the machine-readable mirror for `latest_run`,
+     `latest_run_results`, `next_action`, and `run_history`.
+   - `STATUS_BOARD.md` is the human-readable status mirror.
+   - `AGENTS.md` is canonical for agent-facing rules and the run-summary trail.
+4. **Wiki articles are reasoning records.** Promote a claim to
+   `PROJECT_PLAN.md` or `AGENTS.md` before treating it as binding.
 
-## article lifecycle
+## Article lifecycle
 
-every wiki article has exactly one of four lifecycle states:
+Every wiki article has exactly one lifecycle state.
 
 ### `current`
 
-the article's claims reflect the project's present understanding. it is
-the active reference for its topic. may be edited in place as the
-understanding evolves.
+The article reflects the present understanding and is the active reference for
+its topic. It may be edited as evidence changes.
 
-banner: `status: current (as of YYYY-MM-DD).`
+Banner: `status: current (as of YYYY-MM-DD).`
 
-eligible directories: `synthesis/`, `tests/`, `knowledge/`, `concepts/`, `mechanisms/`, `bridge/`, `comparisons/`, `entities/`.
+Eligible directories: `synthesis/`, `tests/`, `knowledge/`, `concepts/`,
+`mechanisms/`, `bridge/`, `comparisons/`, and `entities/`.
 
 ### `superseded by <link>`
 
-the article was current at one point but has been overtaken by a newer
-article that makes the opposing or more complete claim. the article is
-retained for evidence continuity but readers are redirected.
+A newer article has overtaken the article. Retain it for evidence continuity
+and point readers to the replacement.
 
-banner: `status: superseded by <path>. retained for evidence continuity.`
+Banner: `status: superseded by <path>. retained for evidence continuity.`
 
-the banner must be the first non-heading content after the title. the
-superseding article must carry a reverse link in its `see also` section
-pointing back at the superseded article.
+The superseding article must carry a reverse link in its final `See also`
+section.
 
 ### `historical context only`
 
-the article documents something that was true at a particular time (a
-run that happened, an experiment that was performed, a hypothesis that
-was considered). the underlying event does not change, but the
-interpretation may. these articles are not intended to be kept current;
-they are frozen evidence.
+The article records a completed event, run, or dated hypothesis. It is frozen
+evidence rather than a current interpretation.
 
-banner: `status: historical context only. frozen as of YYYY-MM-DD. do not edit.`
+Banner: `status: historical context only. frozen as of YYYY-MM-DD. do not edit.`
 
-eligible directories: `mistakes/`, `tests/` (run-specific entries).
+Eligible directories: `mistakes/` and run-specific entries under `tests/`.
 
-the only permitted edits to a `historical context only` article are:
+Only these edits are permitted:
 
-- typo / formatting fixes that do not change meaning
-- appending a `see also` forward pointer if the article is later superseded
-- appending a clarification at the bottom if the original content is factually wrong but must not be rewritten
+- Typographic or formatting fixes that do not change meaning
+- A final `See also` forward pointer
+- An appended factual correction
 
-the format for an appended correction is a new heading `## correction (YYYY-MM-DD)` at the bottom of the article (before `## see also`), containing the correcting text. a correction may be of any length. it must not edit any prior text; all prior text including the now-falsified claim is preserved as evidence. if the correction itself is later falsified, a new `## correction (YYYY-MM-DD)` heading is appended after the prior one, never replacing it. this is consistent with the append-only rule for the mistakes/ directory.
+Append a factual correction under `## Correction (YYYY-MM-DD)` immediately
+before the final `## See also` section. Never rewrite or delete the original
+claim. If the correction is later falsified, append another dated correction.
 
 ### `definitional`
 
-the article defines a term, a mechanism, an entity, or a concept. it
-changes only when the underlying definition changes (new evidence
-corrects a claim about a biological mechanism, a mathematical identity
-is revised, etc.). not intended to carry a commit-date banner because
-staleness is rare by construction.
+The article defines a term, mechanism, entity, or concept. It changes only when
+the underlying definition changes.
 
-banner: `status: definitional. last fact-checked YYYY-MM-DD.`
+Banner: `status: definitional. last fact-checked YYYY-MM-DD.`
 
-eligible directories: `concepts/`, `entities/`, `mechanisms/` (primary), `bridge/` (secondary).
+Eligible directories: `concepts/`, `entities/`, `mechanisms/`, and selected
+`bridge/` articles.
 
-## banner format (strict)
+## Banner format
 
-every article's first non-heading line must be the banner. acceptable
-formats:
+The lifecycle banner must be the first non-heading line. No prose may appear
+between the title and banner. The machine-readable banner remains lowercase
+even though current prose uses professional sentence case.
 
-```
-status: current (as of 2026-04-16).
-```
+## Migration policy
 
-```
-status: superseded by wiki/synthesis/training_objective_vs_architectural_goal.md. retained for evidence continuity.
-```
+Articles that predate the 2026-04-16 directive and have not been touched remain
+in a pre-migration state. A modification, scheduled refactor, or required
+reverse link triggers migration: the same change must add the correct banner
+and final `See also` section.
 
-```
-status: historical context only. frozen as of 2026-04-15. do not edit.
-```
+The migration order is `synthesis/`, `tests/`, `mistakes/`, `knowledge/`,
+`bridge/`, `comparisons/`, `concepts/`, `entities/`, then `mechanisms/`. Once
+migration completes, every referenced wiki article must satisfy the lifecycle
+format.
 
-```
-status: definitional. last fact-checked 2026-04-10.
-```
+## Append-only sections
 
-no other opening content is permitted above the banner except the article
-title. any article whose first non-heading line is not the banner fails
-the prosecutor on any wiki change TO THAT ARTICLE. see the migration
-policy section below for how banner enforcement works on pre-existing
-articles.
+Never edit prior entries in these surfaces:
 
-## migration policy for pre-existing articles
+- `PROJECT_PLAN.md` under `Update history`
+- `AGENTS.md` under `Results summary`, `Bug history`, `Phase sequencing`, and
+  `Architecture rules`
+- Every article under `mistakes/`
 
-at the time this directive was committed (2026-04-16), the wiki contained
-~200 articles without banners. a retroactive enforcement that declared
-every one of them a violation would produce a wall of findings on the
-first commit, making the prosecutor protocol unusable. the directive
-therefore defines a staged migration.
+Append corrections or clarifications. Do not launder evidence by silently
+rewriting a recorded mistake.
 
-**pre-migration state.** an article that existed before this directive
-and has not yet been touched is in the `pre-migration` state. it is
-assumed to be `current` in meaning but is not yet subject to banner
-enforcement. a prosecutor pass that does not touch a pre-migration
-article does not flag it for a missing banner.
+## Cross-references
 
-**migration trigger.** an article leaves pre-migration under any of these
-conditions:
+Every migrated article carries `## See also` as its last section. Use
+bidirectional links when one article supersedes another, cites another as
+load-bearing evidence, or pairs a paid-run card with a mistake record. Both
+sides of such a link belong in the same change.
 
-1. the article is modified in a commit for any reason. the same commit
-   must add the correct banner and `see also` section, or the prosecutor
-   fails.
-2. the scheduled refactor touches the article. the refactor (phase 2 of
-   the 2026-04-16 plan) walks the wiki directory by directory, adds
-   banners in bulk, and closes each directory with a prosecutor pass.
-3. a new article in the same directory references the pre-migration
-   article via `see also` and needs the reverse link. the reverse link
-   addition is a modification and triggers the rule.
+## Prosecutor protocol
 
-**scheduled migration completion.** the 2026-04-16 refactor is expected
-to complete the migration within a bounded number of sessions. until then,
-the directory-by-directory completion order is synthesis/ > tests/ >
-mistakes/ > knowledge/ > bridge/ > comparisons/ > concepts/ > entities/
-> mechanisms/. the refactor's progress is tracked in `PROJECT_PLAN.md`
-under the update_history section.
+Run the prosecutor on changes to:
 
-**post-migration enforcement.** once the refactor completes, the
-pre-migration state no longer exists. any article without a banner is a
-violation on any commit that references it, including an unmodified
-commit whose diff does not touch the article. the prosecutor's surface
-expands to the full wiki.
+- `neuroloc/wiki/synthesis/`, `neuroloc/wiki/mistakes/`, or `neuroloc/wiki/tests/`
+- `PROJECT_PLAN.md` or `OPERATING_DIRECTIVE.md`
+- `program_status.yaml`, `STATUS_BOARD.md`, or `AGENTS.md`
+- Paid-run cards
 
-## append-only sections
+The prosecutor must reach zero findings:
 
-the following sections are append-only. never edit prior entries; append
-a correction or clarification as a new entry instead.
+1. Review the complete changed surface with `feature-dev:code-reviewer`.
+2. Fix every finding, regardless of priority.
+3. Search for the entire bug class, not only the named instance.
+4. Re-run the reviewer.
+5. Repeat until it returns zero findings.
 
-- `PROJECT_PLAN.md` > `update history`
-- `CLAUDE.md` > `results summary`, `bug history`, `phase sequencing`, and the section headed by `# architecture rules`
-- every article under `mistakes/`
+An explicit written waiver from Deyan is the only alternative to a fix. Wiki
+changes outside the listed directories may skip review only when they do not
+alter a factual claim.
 
-the append-only rule prevents evidence laundering: a mistake recorded
-and later silently corrected is worse than a mistake recorded and later
-openly overruled. keep the trail.
+## Run cards
 
-## cross-references (bidirectional)
+Every paid run produces `neuroloc/wiki/tests/<run_name>_results.md` with a historical
+banner. The gitignored output tree is ephemeral; preserve the run card in the
+wiki when the result matters.
 
-every article must carry a `see also` section as its last section (before
-any references or glossary). entries under `see also` are links to other
-articles in the wiki that inform the current article's content.
+The run card cross-links any synthesis article informed by the result, any
+mistake document for that run, and the prior runs it compares against.
 
-bidirectional requirement:
+## File naming
 
-- when article A supersedes article B, both must link each other. A's
-  banner links to B (stated as "prior"); B's banner and `see also` both
-  link to A.
-- when article A cites article B as evidence, both must cross-link.
-- when article A is the run card for a paid run, and article B is the
-  mistake doc for that same run, both must cross-link.
+- Use lowercase words separated by underscores for ordinary article names.
+- Keep one article per claim or event.
+- Reserve capitalized top-level names for meta-documents such as
+  `PROJECT_PLAN.md`, `OPERATING_DIRECTIVE.md`, `INDEX.md`, `HANDOFF.md`, and
+  `AGENTS.md`.
 
-the prosecutor treats a one-way link as a finding. it is often caught by
-changing article A and forgetting to update article B. both sides of a
-link are part of the same commit.
+## Documentation style
 
-## prosecutor protocol on wiki changes
+Current prose uses professional sentence case. File names, lifecycle banners,
+and machine keys keep their established casing conventions. Lowercase
+historical records do not need a style-only rewrite; edit them only when their
+status, path, or factual content requires correction.
 
-the prosecutor runs on any commit that touches:
+## Disagreement handling
 
-- any file in `wiki/synthesis/`
-- any file in `wiki/mistakes/`
-- any file in `wiki/tests/`
-- `PROJECT_PLAN.md`
-- `OPERATING_DIRECTIVE.md` (this file)
-- any state file (`program_status.yaml`, `STATUS_BOARD.md`, `CLAUDE.md`)
-- the run cards in `wiki/tests/`
+The user's explicit written instruction wins. If an agent disagrees, it states
+the evidence and stops the disputed action until the user decides.
 
-the prosecutor cycles to zero findings. process:
+`AGENTS.md` wins on code rules. This directive wins on wiki and state rules.
+Use the stricter rule when a question spans both domains.
 
-1. commit the change
-2. launch `feature-dev:code-reviewer` with the commit hash and the list of changed files
-3. fix every finding the prosecutor reports (critical, important, minor — all of them, per the existing `CLAUDE.md` rule)
-4. commit the fixes
-5. re-run the prosecutor on the new commit
-6. repeat until zero findings
+Later commit wins by default. If the later commit is itself wrong, append a
+correction rather than silently rewriting an append-only record.
 
-wiki changes that do not touch the above directories (e.g., a typo fix
-in `entities/`, a citation update in `knowledge/`) may skip the
-prosecutor unless the change alters a factual claim. when in doubt, run
-the prosecutor.
+## Update history
 
-## run cards
-
-every paid run produces a run card. the canonical location is
-`wiki/tests/<run_name>_results.md`.
-
-the `neuroloc/output/` tree is gitignored. anything a run writes there
-is local and ephemeral. if a run's result is worth preserving, copy the
-key artifact (the run card) to `wiki/tests/`.
-
-the run card's banner is `status: historical context only. frozen as of <date>. do not edit.`
-
-the run card must cross-link to:
-
-- any synthesis article that was informed by the run's result
-- any mistake doc that covers a bug encountered during the run
-- the prior runs in the index that it compares against
-
-## file naming
-
-- lowercase with underscores: `training_objective_vs_architectural_goal.md`
-- one article per claim or event. do not mix "the substrate design" and "the paid run's result" in one file.
-- capitalised top-level files are reserved for meta-documents: `PROJECT_PLAN.md`, `OPERATING_DIRECTIVE.md`, `INDEX.md`, `HANDOFF.md`, `CLAUDE.md`.
-
-## how to handle disagreement
-
-between agent and user: the user's explicit written instruction wins. if
-the agent disagrees, it must say so, cite the rule or evidence it
-disagrees on, and stop the action until the user overrides or concurs.
-
-between this directive and the user: the user's explicit written
-instruction wins. the directive can be amended (append to update_history)
-but the amendment is retained.
-
-between this directive and `CLAUDE.md`: `CLAUDE.md` wins on code rules.
-this directive wins on wiki / state rules. when the two collide on
-something that could be either (e.g., "are comments allowed in a wiki
-code block?"), default to the stricter.
-
-between two prior commits: the later commit wins by default. if the
-later commit was itself a mistake (e.g., I3 in the run2 documentation
-cycle was an invented claim), the correction is appended, not the prior
-commit overwritten.
-
-## update history
-
-append-only. every change to this directive gets a new entry with date,
-author, and a one-line description of what changed and why.
+Append every revision with date, author, and a one-line explanation.
 
 - **2026-04-16** — deyan todorov — file created. first draft after the five-paid-runs diagnosis cycle concluded. scope, source-of-truth hierarchy, four-state article lifecycle, banner format, append-only sections, bidirectional cross-reference rule, prosecutor protocol for wiki changes, run-card location rule, file naming, disagreement resolution. supersedes the ad-hoc practice documented in `CLAUDE.md` under "keeping this file current" and the scattered rules across prior mistake docs.
 - **2026-04-16** — deyan todorov — first-round prosecutor fixes. C1: directive's own banner was two sentences; trimmed to the single line the format mandates with explanatory prose moved below. C2: added the "migration policy for pre-existing articles" section defining pre-migration state, migration triggers, scheduled completion order, and post-migration enforcement. C3: narrowed the scope exemption from `neuroloc/model/` and `neuroloc/simulations/` to their `*.py` files only, so run cards or other markdown that happen to live under those directories are in scope. I1: authority-order table was unconditional (CLAUDE.md > directive always) while the conflict-resolution section split by domain; reconciled by rewriting the table to carry the domain split itself. I2: added a concrete format for appended corrections on `historical context only` articles (`## correction (YYYY-MM-DD)` heading, append-only, preserving original text). M1: removed the see-also entry pointing at the planned `INDEX.md` (the directive's own rule forbids see-also entries to non-existent articles).
 - **2026-04-16** — deyan todorov — second-round prosecutor fix. the first-round C1 fix trimmed the banner to one line but left three lines of introductory prose ABOVE the banner at lines 3-5. the directive's own banner-format rule says the banner must be the first non-heading content after the title, with no other opening content permitted. the directive itself was in violation. fix: moved the three lines of intro prose to below the banner, so the file now reads title, blank, banner, blank, intro prose, blank, living-document note. no content removed; only relocated.
+- **2026-07-14** — deyan todorov — replaced the nonexistent `CLAUDE.md` authority with the repository's actual `AGENTS.md` instruction surface in all normative rules while preserving the dated historical entries.
+- **2026-07-14** — deyan todorov — replaced the lowercase-only prose convention with professional sentence case for current documentation while preserving historical records unless they need substantive correction.
+- **2026-07-14** — Deyan Todorov — Consolidated the current normative rules in professional sentence case after prosecutor review while preserving all prior update-history entries verbatim.
 
-## see also
+## See also
 
-- `neuroloc/wiki/PROJECT_PLAN.md` — canonical project state. this directive governs how that file is maintained.
-- `CLAUDE.md` — agent-facing rules for code. this directive covers the wiki/state side.
-- `neuroloc/wiki/INDEX.md` — human-readable navigation map of the wiki.
+- `neuroloc/wiki/PROJECT_PLAN.md` — Canonical project state
+- `AGENTS.md` — Agent-facing code and workflow rules
+- `neuroloc/wiki/INDEX.md` — Wiki navigation map

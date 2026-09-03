@@ -1,0 +1,1 @@
+{"evidence_paths":["run/config_manifest.json"],"inputs":{"expected":true},"name":"actual_staging_readiness","outputs":{"actual":{"final_root_absent":true,"shared_base_paths_built":true},"max_error":null,"pass":true,"tolerance":null},"run_id":"mlx-m5pro-20260726-3","schema_version":"todorov.cpu-witness.1","scope":"lifecycle"}
